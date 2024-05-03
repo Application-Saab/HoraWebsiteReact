@@ -72,16 +72,13 @@ function Header() {
                         <li style={styles.desktopMenuli1}>
                             <Link to="/login" style={styles.linkicon}>
                                 <FontAwesomeIcon icon={faUser} style={styles.icon} />
+                                <span style={{marginLeft:"3px"}}>Login</span>
                             </Link>
                         </li>
                         <li style={styles.desktopMenuli}>
                             <Link to="/cart" style={styles.linkicon1}>
                                 <FontAwesomeIcon icon={faShoppingCart} style={styles.icon} />
-                            </Link>
-                        </li>
-                        <li style={styles.desktopMenuli}>
-                            <Link to="/location" style={styles.linkicon}>
-                                <FontAwesomeIcon icon={faMapMarkerAlt} style={styles.icon} />
+                                <span style={{marginLeft:"3px"}}>Cart</span>
                             </Link>
                         </li>
                     </ul>
@@ -93,7 +90,8 @@ function Header() {
 
 const styles = {
     headerContainer: {
-        background: 'linear-gradient(120deg, rgba(157,74,147,1) 0%, rgba(204,98,119,1) 35%, rgba(234,113,102,1) 100%)',
+        // background: 'linear-gradient(120deg, rgba(157,74,147,1) 0%, rgba(204,98,119,1) 35%, rgba(234,113,102,1) 100%)',
+       backgroundColor:"rgb(157, 74, 147)",
         padding: "0 30px",
         boxShadow:"0px 4px 4px 0px rgba(0,0,0,0.25)",
     },
@@ -138,7 +136,7 @@ const styles = {
         color: "#fff",
         textDecoration: "none",
         fontSize:"16px",
-        fontWeight:"600", 
+        marginLeft: "1px",
     },
     subMenu: {
         position: "absolute",

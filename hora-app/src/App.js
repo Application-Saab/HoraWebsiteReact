@@ -8,8 +8,8 @@ import DecorationCatDetails from './pages/DecorationCatDetails'
 import Checkout from './pages/Checkout';
 import Login from './pages/login';
 import AboutUs from './pages/AboutUs';
-
 import './index.css'; // Import your CSS file here
+import ContactUs from './pages/ContactUs';
 
 function App() {
   return (
@@ -24,6 +24,7 @@ function App() {
           <Route path="/decoration-cat-details/:subCategory/:productName" element={<DecorationCatDetails />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/aboutus" element={<AboutUs />} />
+          <Route path="/contactus" element={<ContactUs />} />
         </Routes>
         </div>
         <Footer />

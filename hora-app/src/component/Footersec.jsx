@@ -13,7 +13,6 @@ function Footer() {
               <h2>About Hora</h2>
               <ul>
                 <li>
-                
                   <Link to="/aboutus" >About Us</Link>
                 </li>
                 <li>
@@ -65,8 +64,8 @@ function Footer() {
               <h2>Contact</h2>
               <ul>
                 <li><a href="#">+918982321487</a></li>
-                <li><a href="ContactUs.html" style={{ textTransform: "lowercase" }}>dev@horaservices.com</a></li>
-                <li><a href="ContactUs.html">Contact Us</a></li>
+                <li><a href="contactUs.html" style={{ textTransform: "lowercase" }}>dev@horaservices.com</a></li>
+                <li> <Link to="/contactus" >Contact Us</Link></li>
               </ul>
             </div>
           </div>

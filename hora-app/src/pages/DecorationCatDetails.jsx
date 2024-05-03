@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-
+import buynowImage from '../assets/experts.png';
+import buynowImage1 from '../assets/secured.png';
+import buynowImage2 from '../assets/service.png';
+import buynowImage3 from '../assets/originalreviews.png';
 
 function DecorationCatDetails() {
   const [selCat, setSelCat] = useState("");
@@ -27,21 +30,25 @@ function DecorationCatDetails() {
     addSpaces(subCategory);
   }, [subCategory]);
 
-
-  const getItemInclusion = (product) => {
-    const inclusion = product.inclusion
+  const getItemInclusion = (inclusion) => {
     const htmlString = inclusion[0];
-    const withoutDivTags = htmlString.replace(/<\/?div>/g, '');
-    const statements = withoutDivTags.split('<div>');
-    const bulletedList = statements
-      .filter(statement => statement.trim() !== '')
-      .map(statement => `- ${statement.trim()}`);
-    const combinedString = bulletedList.join(' ');
-    const finalList = combinedString.split(/--|-/);
-    const filteredList = finalList.filter(item => item.trim() !== '');
-    return filteredList.map((item, index) => `${index + 1}: ${item}`).join('\n');
-
-  }
+    const withoutTags = htmlString.replace(/<[^>]*>/g, ''); // Remove HTML tags
+    const withoutSpecialChars = withoutTags.replace(/&#[^;]*;/g, ' '); // Replace &# sequences with space
+    const statements = withoutSpecialChars.split('<div>');
+    const inclusionItems = statements.flatMap(statement => statement.split("-").filter(item => item.trim() !== ''));
+    const inclusionList = inclusionItems.map((item, index) => (
+        <li key={index} className="inclusionstyle">{index + 1}: {item.trim()}</li>
+    ));
+    return (
+        <div>
+          <div style={{fontSize:"21px" , borderBottom: "1px solid #e7eff9"}}>Inclusions</div>
+          <ul>
+            {inclusionList}
+        </ul>
+        </div>
+       
+    );
+}
   return (
     <div className="App">
       <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
@@ -49,8 +56,11 @@ function DecorationCatDetails() {
         <div style={{ display: "flex", justifyContent: "center", alignItems: "flex-start", marginTop: "50px"  , position:"relative"}}>
 
           <div style={{ width: "50%", textAlign: "center"  }}>
-            <div style={{ width: "74%", boxShadow: "0 1px 8px rgba(0,0,0,.18)", padding: "10px", margin: "0 auto" }}>
+            <div style={{ width: "74%", boxShadow: "0 1px 8px rgba(0,0,0,.18)", padding: "10px", margin: "0 auto" , position:"relative"}}>
               <img src={`https://horaservices.com/api/uploads/${product.featured_image}`} style={{ width: "100%" }} />
+              <div style={{ position: "absolute", bottom: 20, right: 20, borderRadius: "50%", padding: 10 }}>
+          <span style={{ color: "rgba(157, 74, 147, 0.6)", fontWeight: "600" }}>Hora</span>
+          </div>
             </div>
           </div>
           <div style={{ width: "50%" , paddingLeft: "20px", paddingRight: "50px" }}>
@@ -60,34 +70,34 @@ function DecorationCatDetails() {
               <p style={{ fontSize: "16px", color: "rgb(94 93 93)", fontWeight: "600" }}> ₹ {product.price}</p>
             </div>
             <div style={{ boxShadow: "0 1px 8px rgba(0,0,0,.18)", padding: "10px", marginBottom: "12px" }}>
-              <p>{getItemInclusion(product)}</p>
+          {getItemInclusion(product.inclusion)}
               <button style={styles.Buttonstyle} onClick={() => handleCheckout(subCategory, product)}>Continue</button>
             </div>
 
             <div style={{ boxShadow: "0 1px 8px rgba(0,0,0,.18)", padding: "10px", marginBottom: "10px" }}>
-              <p style={{ fontSize: "21px", color: "rgb(34, 34, 34)" }}>Why Hora</p>
+              <p style={{ fontSize: "21px", color: "rgb(34, 34, 34)",  borderBottom: "1px solid #e7eff9" }}>Why Hora</p>
               <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                 <div style={{}}>
-                  <img src={require('../assets/buynow.png').default} />
-                  <p style={{ color: "gray", fontSize: "12px" }}>Buy Now Pay Later</p>
+                <img src={buynowImage} />
+                  <p style={{ color: "gray", fontSize: "12px" }}>Experts Decorations</p>
                 </div>
                 <div>
-                  <img src={require('../assets/secured.png').default} />
+                <img src={buynowImage1} />
                   <p style={{ color: "gray", fontSize: "12px" }}>Secured Transactions</p>
                 </div>
                 <div>
-                  <img src={require('../assets/service.png').default} />
-                  <p style={{ color: "gray", fontSize: "12px" }}>Original Reviews</p>
+                <img src={buynowImage2} />
+                  <p style={{ color: "gray", fontSize: "12px" }}>100% Service Guaranteed</p>
                 </div>
                 <div>
-                  <img src={require('../assets/photos.png').default} />
-                  <p style={{ color: "gray", fontSize: "12px" }}>Original Photos</p>
+                <img src={buynowImage3} />
+                  <p style={{ color: "gray", fontSize: "12px" }}>Original Reviews</p>
                 </div>
               </div>
             </div>
 
             <div style={{ boxShadow: "0 1px 8px rgba(0,0,0,.18)", padding: "10px" }}>
-              <p style={{ fontSize: "21px", color: "rgb(34, 34, 34)" }}>Cancellation and Order Change Policy:</p>
+              <p style={{ fontSize: "21px", color: "rgb(34, 34, 34)", borderBottom: "1px solid #e7eff9" }}>Cancellation and Order Change Policy:</p>
               <p>- Till the order is not assigned to service provider, 100% of the amount will be refunded, otherwise 50% of advance will be deducted as cancellation charges to compensate the service provider.</p>
               <p>- The order cannot be edited after paying advance. Customer can cancel the order and replace the new order with required changes.</p>
             </div>
@@ -110,13 +120,20 @@ function DecorationCatDetails() {
 
 const styles = {
   Buttonstyle: {
-    border: "2px solid #da584a",
-    backgroundColor: "#da584a",
+    border: "2px solid rgb(157, 74, 147)",
+    backgroundColor: "rgb(157, 74, 147)",
     color: "#fff",
     fontSize: "16px",
     padding: "10px",
-    borderRadius: "5px"
-  }
+    borderRadius: "5px",
+    display:"flex",
+    justifyContent:"center",
+    alignItems:"center",
+    margin:"0 auto",
+    width:"93%",
+  },
+  inclusionstyle: {
+  },
 }
 
 export default DecorationCatDetails;

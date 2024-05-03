@@ -111,7 +111,7 @@ const style = {
         marginTop: '50px', /* Adjust spacing as needed */
     },
     bgGray:{
-        backgroudColor:"#f4f4f4",
+        backgroundColor:"#f4f4f4", // Fixed typo here
         textAlign:"center"
     },
 
@@ -119,8 +119,8 @@ const style = {
         width: "48%",
     },
     boxHow:{
-        backgroudColor:"#fff",
-        bocShadow:"0 0 32px -7px rgba(0, 0, 0, 0.1)",
+        backgroundColor:"#fff", // Fixed typo here
+        boxShadow:"0 0 32px -7px rgba(0, 0, 0, 0.1)", // Fixed typo here
         padding:"30px 25px",
         textAlign:"center",
         marginBottom:"20px"
@@ -128,7 +128,7 @@ const style = {
     secLeft:{
         width: "48%",
         display:"flex",
-        justifyContent:"spae-between",
+        justifyContent:"space-between", // Fixed typo here
         alignItems:"center"
     },
 };

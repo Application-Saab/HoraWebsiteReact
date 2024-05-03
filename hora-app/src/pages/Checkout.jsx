@@ -14,7 +14,7 @@ function Checkout() {
   const { subCategory, product } = useLocation().state || {}; // Accessing subCategory and itemName safely
   const [comment, setComment] = useState('');
   const [selectedDate, setSelectedDate] = useState(new Date());
-  const [selectedTime, setSelectedTime] = useState('10:00');
+  const [selectedTimeSlot, setSelectedTimeSlot] = useState("");
   const [address, setAddress] = useState('');
   const [pinCode, setPinCode] = useState('');
   const [city, setCity] = useState('');
@@ -27,9 +27,26 @@ function Checkout() {
     console.log(date); // Print the selected date
   };
 
-  const handleTimeChange = (time) => {
-    setSelectedTime(time);
-    console.log(time); // Print the selected time
+  const handleTimeSlotChange = (event) => {
+    setSelectedTimeSlot(event.target.value);
+  };
+
+  const generateTimeSlots = () => {
+    const startTime = 8; // Starting hour
+    const endTime = 20; // Ending hour
+    const interval = 3; // Interval in hours
+
+    const timeSlots = [];
+    for (let hour = startTime; hour < endTime; hour += interval) {
+      const startTimeFormatted = hour < 10 ? `0${hour}:00` : `${hour}:00`;
+      const endTimeFormatted =
+        hour + interval < 10
+          ? `0${hour + interval}:00`
+          : `${hour + interval}:00`;
+      timeSlots.push(`${startTimeFormatted} - ${endTimeFormatted}`);
+    }
+
+    return timeSlots;
   };
 
   const handleAddressChange = (e) => {
@@ -223,10 +240,23 @@ function Checkout() {
                   showTimeSelect={false} // Remove the clock
                 />
               </div>
-              <div>
-                <h5 style={{ marginBottom: "4px" }}>Select Time</h5>
-                <TimePicker onChange={handleTimeChange} value={selectedTime} />
-              </div>
+            
+                <div>
+      <h5 style={{ marginBottom: "4px" }}>Select Time</h5>
+      <select
+        value={selectedTimeSlot}
+        onChange={handleTimeSlotChange}
+        style={{ padding: "8px", fontSize: "16px" }}
+      >
+        <option value="">Select a time slot</option>
+        {generateTimeSlots().map((timeSlot, index) => (
+          <option key={index} value={timeSlot}>
+            {timeSlot}
+          </option>
+        ))}
+      </select>
+    </div>
+       
             </div>
             <div>
               <h4>Customizable comments</h4>
