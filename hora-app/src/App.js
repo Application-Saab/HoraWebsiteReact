@@ -10,6 +10,8 @@ import Login from './pages/login';
 import AboutUs from './pages/AboutUs';
 import './index.css'; // Import your CSS file here
 import ContactUs from './pages/ContactUs';
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import Citypage from './pages/Citypage';
 
 function App() {
   return (
@@ -25,6 +27,8 @@ function App() {
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/aboutus" element={<AboutUs />} />
           <Route path="/contactus" element={<ContactUs />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/citypage" element={<Citypage />} />
         </Routes>
         </div>
         <Footer />

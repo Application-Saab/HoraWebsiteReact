@@ -16,8 +16,9 @@ function Footer() {
                   <Link to="/aboutus" >About Us</Link>
                 </li>
                 <li>
-                  <a href="privacy-policy.html">Privacy Policy</a>
+                  <Link to="/privacy-policy" >Private Policy</Link>
                 </li>
+
                 <li>
                   <a href="sitemap.xml">Sitemap</a>
                 </li>
@@ -40,24 +41,59 @@ function Footer() {
             <div className="footSec2" style={style.footSec2}>
               <h2>Serving In</h2>
               <ul id="myList">
-                <li className="city-link" data-city="Delhi"><a href="city.html?city=Delhi">Delhi</a></li>
-                <li className="city-link" data-city="Gurugram"><a href="city.html?city=Gurugram">Gurugram</a></li>
-                <li className="city-link" data-city="Ghaziabad"><a href="city.html?city=Ghaziabad">Ghaziabad</a></li>
-                <li className="city-link" data-city="Faridabad"><a href="city.html?city=Faridabad">Faridabad</a></li>
-                <li className="city-link" data-city="Noida"><a href="city.html?city=Noida">Noida</a></li>
-                <li className="city-link" data-city="Bengaluru"><a href="city.html?city=Bengaluru">Bengaluru</a></li>
-                <li className="city-link" data-city="Hyderabad"><a href="city.html?city=Hyderabad">Hyderabad</a></li>
-                <li className="city-link" data-city="Mumbai"><a href="city.html?city=Mumbai">Mumbai</a></li>
-                <li className="city-link" data-city="Indore"><a href="city.html?city=Indore">Indore</a></li>
-                <li className="city-link" data-city="Chennai"><a href="city.html?city=Chennai">Chennai</a></li>
-                <li className="city-link" data-city="Pune"><a href="city.html?city=Pune">Pune</a></li>
-                <li className="city-link" data-city="Surat"><a href="city.html?city=Surat">Surat</a></li>
-                <li className="city-link" data-city="Bhopal"><a href="city.html?city=Bhopal">Bhopal</a></li>
-                <li className="city-link" data-city="kanpur"><a href="city.html?city=kanpur">kanpur</a></li>
-                <li className="city-link" data-city="Lucknow"><a href="city.html?city=Lucknow">Lucknow</a></li>
-                <li className="city-link" data-city="kolkata"><a href="city.html?city=kolkata">kolkata</a></li>
-                <li className="city-link" data-city="Goa"><a href="city.html?city=Goa">Goa</a></li>
+                <li className="city-link" data-city="Delhi">
+                  <Link to="/citypage?city=Delhi">Delhi</Link>
+                </li>
+                <li className="city-link" data-city="Gurugram">
+                  <Link to="/citypage?city=Gurugram">Gurugram</Link>
+                </li>
+                <li className="city-link" data-city="Ghaziabad">
+                  <Link to="/citypage?city=Ghaziabad">Ghaziabad</Link>
+                </li>
+                <li className="city-link" data-city="Faridabad">
+                  <Link to="/citypage?city=Faridabad">Faridabad</Link>
+                </li>
+                <li className="city-link" data-city="Noida">
+                  <Link to="/citypage?city=Noida">Noida</Link>
+                </li>
+                <li className="city-link" data-city="Bengaluru">
+                  <Link to="/citypage?city=Bengaluru">Bengaluru</Link>
+                </li>
+                <li className="city-link" data-city="Hyderabad">
+                  <Link to="/citypage?city=Hyderabad">Hyderabad</Link>
+                </li>
+                <li className="city-link" data-city="Mumbai">
+                  <Link to="/citypage?city=Mumbai">Mumbai</Link>
+                </li>
+                <li className="city-link" data-city="Indore">
+                  <Link to="/citypage?city=Indore">Indore</Link>
+                </li>
+                <li className="city-link" data-city="Chennai">
+                  <Link to="/citypage?city=Chennai">Chennai</Link>
+                </li>
+                <li className="city-link" data-city="Pune">
+                  <Link to="/citypage?city=Pune">Pune</Link>
+                </li>
+                <li className="city-link" data-city="Surat">
+                  <Link to="/citypage?city=Surat">Surat</Link>
+                </li>
+                <li className="city-link" data-city="Bhopal">
+                  <Link to="/citypage?city=Bhopal">Bhopal</Link>
+                </li>
+                <li className="city-link" data-city="kanpur">
+                  <Link to="/citypage?city=kanpur">Kanpur</Link>
+                </li>
+                <li className="city-link" data-city="Lucknow">
+                  <Link to="/citypage?city=Lucknow">Lucknow</Link>
+                </li>
+                <li className="city-link" data-city="kolkata">
+                  <Link to="/citypage?city=Kolkata">Kolkata</Link>
+                </li>
+                <li className="city-link" data-city="Goa">
+                  <Link to="/citypage?city=Goa">Goa</Link>
+                </li>
               </ul>
+
             </div>
 
             <div className="footSec3" style={style.footSec3}>
@@ -131,7 +167,7 @@ const style = {
   footSec3: {
     width: "16.66666667%"
   },
-  
+
 }
 
 export default Footer;
