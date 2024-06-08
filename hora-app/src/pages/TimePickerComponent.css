@@ -1,0 +1,23 @@
+.custom-time-picker {
+    width: 200px; /* Set width */
+    font-size: 16px; /* Set font size */
+    border: 1px solid #ccc; /* Add border */
+    border-radius: 4px; /* Add border radius */
+    padding: 8px; /* Add padding */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add box shadow */
+    background-color: #fff; /* Set background color */
+  }
+  
+  /* Customize input field */
+  .custom-time-picker input {
+    border: none; /* Remove input border */
+    background-color: transparent; /* Set input background color */
+    outline: none; /* Remove input outline */
+    width: calc(100% - 24px); /* Adjust input width */
+    margin-right: 8px; /* Add margin between input and clock icon */
+  }
+  
+  /* Customize clock icon */
+  .custom-time-picker svg {
+    fill: #333; /* Set clock icon color */
+  }
