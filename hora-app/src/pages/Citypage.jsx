@@ -1,37 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React from 'react';
 import { useLocation } from 'react-router-dom';
-import { Link } from 'react-router-dom';
-import { useParams } from "react-router-dom";
-import bannerSvgImage from '../assets/banner-home-bg.svg';
-import bannerDecorationImage from '../assets/decoration-home-banner.png';
-import bannerChefImage from '../assets/chef-home-banner.png';
-import bannerHospitalityImage from '../assets/hospitality.png';
-import bannerReturnGiftImage from '../assets/return-gift-banner-home.png';
-import bannerEntertainmentImage from '../assets/entertainment-banner-home.png';
-import bannerFoodDeliveryImage from '../assets/food-delivery-home-banner.png';
-import Celebrate1Image from '../assets/Birthday&Celebration.png';
-import Celebrate2Image from '../assets/corporate-party.png';
-import Celebrate3Image from '../assets/house-party.png';
-import Celebrate4Image from '../assets/wedding-event.png';
-import Celebrate5Image from '../assets/gathering.png';
-import Celebrate6Image from '../assets/kids-event.png';
 
 function Citypage() {
-    const [showButton, setShowButton] = useState(window.innerWidth > 800);
-    const openLink = () => {
-        window.open("https://play.google.com/store/apps/details?id=com.hora", "_blank");
-    };
-    useEffect(() => {
-        function handleResize() {
-            setShowButton(window.innerWidth > 800);
-        }
-
-        window.addEventListener("resize", handleResize);
-
-        return () => {
-            window.removeEventListener("resize", handleResize);
-        };
-    }, []);
     const cityData = {
         Delhi: {
             bannerImage: "OIP1.jpg",
@@ -117,7 +87,6 @@ function Citypage() {
                     { name: "Geeta Colony" },
                     { name: "Geetanjali Enclave" },
                     { name: "Ghaffar Manzil Colony" }
-
                 ]
         },
         Gurugram: {
@@ -415,7 +384,6 @@ function Citypage() {
                 { "name": "Ram Nagar" }
                 // Add more localities here
             ]
-
         },
         Noida: {
             bannerImage: "OIP1.jpg",
@@ -502,7 +470,6 @@ function Citypage() {
                 { "name": "Sector 164" }
                 // Add more localities here
             ]
-
         },
         Bengaluru: {
             bannerImage: "OIP1.jpg",
@@ -804,7 +771,6 @@ function Citypage() {
                     { "name": "IC Colony" },
                     { "name": "Industrial Area" }
                 ]
-
         },
         Indore: {
             bannerImage: "OIP1.jpg",
