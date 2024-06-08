@@ -108,7 +108,7 @@ function Header() {
                         Gift & Party Supplies
                       </Link>
                     </li>
-                   
+
                     <li>
                       <Link to="/" style={{ ...styles.subMenuLink, ...styles.lastChild }} onClick={() => openCatItems("Anniversary")}>
                         Food Delivery
@@ -152,45 +152,44 @@ function Header() {
             </ul>
           </div>
         </div>
-        <div style={styles.mobileViewHeader} className="mobileViewHeader">
-          <div>
-   {/* Conditional rendering based on pathname */}
-   {location.pathname.includes("/decoration/product") ||
-        location.pathname.includes("/selectDate") ||
-        location.pathname.includes("decoration/occasions") ||
-        location.pathname.includes("selectdate") ||
-        location.pathname.includes("/checkout") ? (
-        <a>
-            <img
-            src={backIcon}
-            alt="Back"
-            style={{
-              width: "35px",
-              height: "auto",
-              cursor: "pointer",
-            }}
-            onClick={handleBack}
-          />
-          </a>
-        
-        ) : (
-          <>
-         
-          <FontAwesomeIcon
-            icon={faBars}
-            className="mobileMenuIcon"
-            style={styles.mobileMenuIcon}
-            onClick={toggleDrawer}
-          />
-          <Link to="/">
-          <img src={require("../assets/logo_white.svg").default} alt="Logo" style={{ width: "85px", height: "auto", marginTop: "-20px", marginLeft: "10px" }} />
-          </Link>
-          </>
-        )}   
-       
-            
+        <div style={styles.mobileViewHeader} className='mobileViewHeader py-2'>
+          <div className="d-flex align-items-center gap-3">
+            {/* Conditional rendering based on pathname */}
+            {location.pathname.includes("/decoration/product") ||
+              location.pathname.includes("/selectDate") ||
+              location.pathname.includes("decoration/occasions") ||
+              location.pathname.includes("selectdate") ||
+              location.pathname.includes("/checkout") ? (
+              <a>
+                <img
+                  src={backIcon}
+                  alt="Back"
+                  style={{
+                    width: "35px",
+                    height: "auto",
+                    cursor: "pointer",
+                  }}
+                  onClick={handleBack}
+                />
+              </a>
+
+            ) : (
+              <>
+                <FontAwesomeIcon
+                  icon={faBars}
+                  className="mobileMenuIcon"
+                  style={styles.mobileMenuIcon}
+                  onClick={toggleDrawer}
+                />
+                <Link to="/">
+                  <img src={require("../assets/logo_white.svg").default} alt="Logo" style={{ width: "85px", height: "auto" }} />
+                </Link>
+              </>
+            )}
+
+
           </div>
-          
+
           <div className="btn mobiledownloadappbutn home-btn" onClick={openLink}>{'Download Our App'}</div>
         </div>
       </div>
@@ -227,23 +226,23 @@ const Drawer = ({ closeDrawer, drawerRef, handleLogout }) => {
   return (
     <div style={style.drawer} ref={drawerRef}>
       <Link to="/">
-        <img src={avtar} alt="Logo" style={{width:"80px"}} />
+        <img src={avtar} alt="Logo" style={{ width: "80px" }} />
       </Link>
-                {localStorage.getItem("isLoggedIn") !== "true" ? (
-                   <Link to="/login" style={style.drawerLink} onClick={closeDrawer}>
-                   Login
-                 </Link>
-                ) : (
-                  <>
-                   <h1 style={{fontSize:"16px" , marginBottom:"12px"}}>Welcome to Hora</h1>
-                   <Link to="/" style={style.drawerLink} onClick={() => { 
-                      handleLogout();
-                      closeDrawer();
-                      }}>
-                  Logout
-                </Link>
-                  </>
-          )}
+      {localStorage.getItem("isLoggedIn") !== "true" ? (
+        <Link to="/login" style={style.drawerLink} onClick={closeDrawer}>
+          Login
+        </Link>
+      ) : (
+        <>
+          <h1 style={{ fontSize: "16px", marginBottom: "12px" }}>Welcome to Hora</h1>
+          <Link to="/" style={style.drawerLink} onClick={() => {
+            handleLogout();
+            closeDrawer();
+          }}>
+            Logout
+          </Link>
+        </>
+      )}
 
 
       <Link to="/decoration" style={style.drawerLink} onClick={closeDrawer}>
@@ -297,7 +296,7 @@ const styles = {
     justifyContent: "center",
     alignItems: "center",
     listStyle: "none",
-    marginBottom:"0",
+    marginBottom: "0",
   },
   desktopMenuli: {
     paddingRight: "16px",
@@ -354,6 +353,10 @@ const styles = {
     marginRight: "5px",
   },
   mobileViewHeader: { display: "none" },
+  mobileMenuIcon:{
+    margin:'0px',
+    height:'18px'
+  }
 };
 
 export default Header;
