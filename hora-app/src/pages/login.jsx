@@ -168,7 +168,7 @@ useEffect(() => {
   return (
     <div className="login-page" style={{ display: "flex", justifyContent: "center", flexDirection: "column", textAlign: "center", margin: "50px 0 0"}}>
       {!loggedIn ? (
-        <form className="loginform" style={{maxWidth:'36rem'}}>
+        <form className="loginform" style={!otpSent?{maxWidth:'36rem'}:{maxWidth:'30rem'}}>
           {!otpSent ? (<>
             <div className="form-group" style={{ display: "flex", justifyContent: "center", flexDirection: "column", textAlign: "center" }}>
               <p className='font-14px '>Login with your mobile number </p>

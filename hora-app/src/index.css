@@ -526,7 +526,6 @@ p.other-cities {
   }
 
   .mobileViewHeader {
-    margin: 1px 0 0px;
     color: #fff;
     display: flex !important;
     justify-content: space-between;
@@ -813,10 +812,10 @@ p.other-cities {
   .filterdropdown {
     background-color: #fff;
     border: 2px solid rgb(157, 74, 147);
-    display: flex;
+    /* display: flex; */
     padding: 6px 6px;
-    justify-content: center;
-    align-items: center;
+    /* justify-content: center;
+    align-items: center; */
 
     select {
       width: 45%;
@@ -938,3 +937,9 @@ p.other-cities {
     margin: 8px 0 0;
 }
 }
+
+@media (max-width: 800px){
+  .filter-price-tag {
+    font-size: 10px !important;
+  }
+  }

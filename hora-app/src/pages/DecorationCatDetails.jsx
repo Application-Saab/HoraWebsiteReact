@@ -5,16 +5,19 @@ import buynowImage from '../assets/experts.png';
 import buynowImage1 from '../assets/secured.png';
 import buynowImage2 from '../assets/service.png';
 import buynowImage3 from '../assets/originalreviews.png';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar } from "@fortawesome/free-solid-svg-icons"
+
 
 function DecorationCatDetails() {
   const [selCat, setSelCat] = useState("");
-  const [orderType , setOrderType] = useState(1);
-  
+  const [orderType, setOrderType] = useState(1);
+
   const navigate = useNavigate();
   const { subCategory, product } = useLocation().state || {}; // Accessing subCategory and itemName safely
 
   const handleCheckout = (subCategory, product) => {
-    navigate(`/checkout`, { state: { subCategory, product , orderType } });
+    navigate(`/checkout`, { state: { subCategory, product, orderType } });
   }
   function addSpaces(subCategory) {
     let result = "";
@@ -38,60 +41,75 @@ function DecorationCatDetails() {
     const statements = withoutSpecialChars.split('<div>');
     const inclusionItems = statements.flatMap(statement => statement.split("-").filter(item => item.trim() !== ''));
     const inclusionList = inclusionItems.map((item, index) => (
-        <li key={index} className="inclusionstyle">{item.trim()}</li>
+      <li key={index} className="inclusionstyle">{item.trim()}</li>
     ));
     return (
-        <div>
-          <div style={{fontSize:"21px" , borderBottom: "1px solid #e7eff9" , marginBottom:"10px"}}>Inclusions</div>
-          <ul>
-            {inclusionList}
+      <div>
+        <div style={{ fontSize: "21px", borderBottom: "1px solid #e7eff9", marginBottom: "10px" }}>Inclusions</div>
+        <ul>
+          {inclusionList}
         </ul>
-        </div>
-       
+      </div>
+
     );
-}
+  }
+
+  // Function to generate a random number between min and max (inclusive)
+  const getRandomNumber = (min, max) => {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  };
+
+  // Function to generate a random rating between 4.1 to 4.8
+  const getRandomRating = () => {
+    return (Math.random() * (4.8 - 4.1) + 4.1).toFixed(1);
+  };
   return (
     <div className="App">
       <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
 
-        <div style={{ display: "flex", justifyContent: "center", alignItems: "flex-start", marginTop: "50px"  , position:"relative"}} className="decDetails">
+        <div style={{ display: "flex", justifyContent: "center", alignItems: "flex-start", marginTop: "50px", position: "relative" }} className="decDetails">
 
-          <div style={{ width: "50%", textAlign: "center"  }} className="decDetailsLeft">
-            <div style={{ width: "80%", boxShadow: "0 1px 8px rgba(0,0,0,.18)", padding: "10px", margin: "0 auto" , position:"relative"}} className="decDetailsImage">
+          <div style={{ width: "50%", textAlign: "center" }} className="decDetailsLeft">
+            <div style={{ width: "80%", boxShadow: "0 1px 8px rgba(0,0,0,.18)", padding: "10px", margin: "0 auto", position: "relative" }} className="decDetailsImage">
               <img src={`https://horaservices.com/api/uploads/${product.featured_image}`} style={{ width: "100%" }} />
               <div style={{ position: "absolute", bottom: 20, right: 20, borderRadius: "50%", padding: 10 }}>
-          <span style={{ color: "rgba(157, 74, 147, 0.6)", fontWeight: "600" }}>Hora</span>
-          </div>
+                <span style={{ color: "rgba(157, 74, 147, 0.6)", fontWeight: "600" }}>Hora</span>
+              </div>
             </div>
           </div>
-          <div style={{ width: "50%" , paddingLeft: "20px", paddingRight: "50px" }} className="decDetailsRight">
+          <div style={{ width: "50%", paddingLeft: "20px", paddingRight: "50px" }} className="decDetailsRight">
             <div style={{ boxShadow: "0 1px 8px rgba(0,0,0,.18)", padding: "10px", marginBottom: "12px" }}>
               <h2 style={{ fontSize: "12px", color: "#9252AA" }}>{'Home'}{' > '}{subCategory}{' > '}{product.name}</h2>
               <h1 style={{ fontSize: "16px", color: "#222", fontSize: "21px", fontWeight: "#222" }}>{product.name}</h1>
-              <p style={{ fontSize: "16px", color: "rgb(94 93 93)", fontWeight: "600" }}> ₹ {product.price}</p>
+              <p className='mb-2' style={{ fontSize: "16px", color: "rgb(94 93 93)", fontWeight: "600" }}> ₹ {product.price}</p>
+              <div className="d-flex align-items-center mt-1">
+              <p className="m-0 p-0 pe-3" style={{ fontWeight: '500', fontSize: 17, margin: "0px", }}>{getRandomRating()}<span className='px-1 m-0 py-0 img-fluid' style={{ color: '#FFBF00' }}><FontAwesomeIcon style={{ margin: 0 }} icon={faStar} /></span></p>
+              <p className="m-0 p-0" style={{ color: '#9252AA', fontWeight: '500', fontSize: 17, margin: "0px", padding: "0 0 0 10px" }}>Users:  {getRandomNumber(20, 500)}</p>
             </div>
+            </div>
+           
             <div style={{ boxShadow: "0 1px 8px rgba(0,0,0,.18)", padding: "10px", marginBottom: "12px" }}>
-          {getItemInclusion(product.inclusion)}
+              {getItemInclusion(product.inclusion)}
               <button style={styles.Buttonstyle} className="continueButton" onClick={() => handleCheckout(subCategory, product)}>Continue</button>
             </div>
 
             <div style={{ boxShadow: "0 1px 8px rgba(0,0,0,.18)", padding: "10px", marginBottom: "10px" }} className="whyHoraSec">
-              <p style={{ fontSize: "21px", color: "rgb(34, 34, 34)",  borderBottom: "1px solid #e7eff9" }} className="whyHoraHeading">Why Hora</p>
+              <p style={{ fontSize: "21px", color: "rgb(34, 34, 34)", borderBottom: "1px solid #e7eff9" }} className="whyHoraHeading">Why Hora</p>
               <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }} className="whyHoraSecInner">
                 <div className="whyHoraSecBox">
-                <img src={buynowImage} />
+                  <img src={buynowImage} />
                   <p style={{ color: "gray", fontSize: "12px" }} className="whyHoraSubheading">Experts Decorations</p>
                 </div>
                 <div className="whyHoraSecBox">
-                <img src={buynowImage1} />
+                  <img src={buynowImage1} />
                   <p style={{ color: "gray", fontSize: "12px" }} className="whyHoraSubheading">Secured Transactions</p>
                 </div>
                 <div className="whyHoraSecBox">
-                <img src={buynowImage2} />
+                  <img src={buynowImage2} />
                   <p style={{ color: "gray", fontSize: "12px" }} className="whyHoraSubheading">100% Service Guaranteed</p>
                 </div>
                 <div className="whyHoraSecBox">
-                <img src={buynowImage3} />
+                  <img src={buynowImage3} />
                   <p style={{ color: "gray", fontSize: "12px" }} className="whyHoraSubheading">Original Reviews</p>
                 </div>
               </div>
@@ -103,13 +121,13 @@ function DecorationCatDetails() {
               <p className="cancelltionPolicySecSubHeading">- The order cannot be edited after paying advance. Customer can cancel the order and replace the new order with required changes.</p>
             </div>
 
-           
+
           </div>
-        
-         
+
+
 
         </div>
-   
+
       </div>
 
     </div>
@@ -127,11 +145,11 @@ const styles = {
     fontSize: "16px",
     padding: "10px",
     borderRadius: "5px",
-    display:"flex",
-    justifyContent:"center",
-    alignItems:"center",
-    margin:"23px auto 14px",
-    width:"93%",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    margin: "23px auto 14px",
+    width: "93%",
   },
 }
 

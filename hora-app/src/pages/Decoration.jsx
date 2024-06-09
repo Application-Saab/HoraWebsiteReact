@@ -67,12 +67,11 @@ function Decoration() {
 
     return (
         <div>
-            <div style={{ display: "flex", justifyContent: "space-between", flexWrap: "wrap", alignItems: "center", margin: "30px auto 0", width: "60%" }} className="decContainerSec decPage">
-            <div style={styles.decContainer} className="decContainer">
+            <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", margin: "30px auto 0", width: "60%" }} className="decContainerSec decPage">
+            <div style={styles.decContainer} className="decContainer gap-4">
                 {decCat.map((item, index) => (
                     <div key={index} style={{...styles.imageContainer, ...(hoveredIndex === index ? styles.zoomedContainer : {})}} className="imageContainer">
                         <img src={item.image} style={styles.decCatimage} alt={item.name}  onClick={() => openCatItems(item)}/>
-                       
                     </div>
                 ))}
 
@@ -87,7 +86,6 @@ function Decoration() {
     const styles = {
         decContainer: {
           flexDirection: 'row',
-          justifyContent: 'space-between',
           alignItems: 'center',
           display: "flex",
           flexWrap: "wrap",
