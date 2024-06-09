@@ -811,9 +811,9 @@ p.other-cities {
 
   .filterdropdown {
     background-color: #fff;
-    border: 2px solid rgb(157, 74, 147);
+    /* border: 2px solid rgb(157, 74, 147); */
     /* display: flex; */
-    padding: 6px 6px;
+    padding: 12px 6px;
     /* justify-content: center;
     align-items: center; */
 

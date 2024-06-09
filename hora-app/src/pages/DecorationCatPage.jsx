@@ -225,38 +225,37 @@ function DecorationCatPage() {
                       </div>
                     </div>
                     {/* End of Watermark */}
+                    <div className='px-2 py-2'>
                     <p
                       style={{
                         marginHorizontal: 3,
                         textAlign: 'left',
-                        fontWeight: '700',
+                        fontWeight: '600',
                         fontSize: "16px",
                         marginTop: "4px",
-                        color: '#9252AA',
-                        // color: "#000",
-                        minHeight: "30px",
+                        // color: '#9252AA',
+                        color: "#222",
+                        lineHeight:"18px",
                         marginBottom: "0px",
                         textAlign: "left",
-                        padding: "0 15px 0 15px",
-                        padding: "0 0 0 10px",
                       }}
                     >
-                      {item.name}
+                    {item.name.length > 20 ? `${item.name.substring(0, 26)}...` : item.name}
                     </p>
                     <div>
-                      <div style={{ flexDirection: 'row', alignItems: 'left', paddingTop: 2, paddingLeft: 4, paddingRight: 10, justifyContent: 'space-between' }}>
+                      <div style={{ flexDirection: 'row', alignItems: 'left' , justifyContent: 'space-between' }}>
                         <p style={{
-                          color: '#9252AA',
+                          color: '#222',
                           fontWeight: '500',
                           fontSize: 17,
                           textAlign: "left",
-                          margin: "0px",
-                          padding: "0 0 0 10px",
+                          margin: "10px 0px 7px",
                         }}> ₹ {item.price}</p>
                       </div>
                       <div className="d-flex align-items-center mt-1">
-                        <p className="m-0 p-0 px-3" style={{ fontWeight: '500', fontSize: 17, margin: "0px", }}>{item.rating}<span className='px-1 m-0 py-0 img-fluid' style={{ color: '#FFBF00' }}><FontAwesomeIcon style={{ margin: 0 }} icon={faStar} /></span></p>
-                        <p className="m-0 p-0" style={{ color: '#9252AA', fontWeight: '500', fontSize: 17, margin: "0px", padding: "0 0 0 10px" }}>Users: {item.userCount}</p>
+                        <p className="m-0 p-0" style={{ fontWeight: '500', fontSize: 17, margin: "0px", }}>{item.rating}<span className='px-1 m-0 py-0 img-fluid' style={{ color: '#FFBF00' }}><FontAwesomeIcon style={{ margin: 0 }} icon={faStar} /></span></p>
+                        <p  style={{ color: '#9252AA', fontWeight: '200', fontSize: 17, margin: "0px", padding: "0 0 0 2px" }}>({item.userCount})</p>
+                      </div>
                       </div>
                     </div>
 
@@ -301,7 +300,7 @@ const styles = {
     borderRadius: "5px",
     overflow: "hidden", // Ensure the image stays within the container
     transition: "transform 0.3s ease-in-out", // Smooth transition effect for zoom
-    margin: "10px 20px 20px",
+    margin: "10px 12px 20px",
     padding: "6px 5px 10px",
   },
   zoomedContainer: {

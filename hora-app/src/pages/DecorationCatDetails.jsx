@@ -84,7 +84,7 @@ function DecorationCatDetails() {
               <p className='mb-2' style={{ fontSize: "16px", color: "rgb(94 93 93)", fontWeight: "600" }}> ₹ {product.price}</p>
               <div className="d-flex align-items-center mt-1">
               <p className="m-0 p-0 pe-3" style={{ fontWeight: '500', fontSize: 17, margin: "0px", }}>{getRandomRating()}<span className='px-1 m-0 py-0 img-fluid' style={{ color: '#FFBF00' }}><FontAwesomeIcon style={{ margin: 0 }} icon={faStar} /></span></p>
-              <p className="m-0 p-0" style={{ color: '#9252AA', fontWeight: '500', fontSize: 17, margin: "0px", padding: "0 0 0 10px" }}>Users:  {getRandomNumber(20, 500)}</p>
+              <p className="m-0 p-0" style={{ color: '#9252AA', fontWeight: '500', fontSize: 17, margin: "0px", padding: "0 0 0 10px" }}>{getRandomNumber(20, 500)}</p>
             </div>
             </div>
            

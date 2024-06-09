@@ -171,31 +171,31 @@ useEffect(() => {
         <form className="loginform" style={!otpSent?{maxWidth:'36rem'}:{maxWidth:'30rem'}}>
           {!otpSent ? (<>
             <div className="form-group" style={{ display: "flex", justifyContent: "center", flexDirection: "column", textAlign: "center" }}>
-              <p className='font-14px '>Login with your mobile number </p>
+              <p className='font-16px' style={{color:"#9252AA" , fontWeight:600}}>Login with your mobile number </p>
               <div className='row gap-1 justify-content-around' >
-                <div className='col-3 p-0 m-0 text-center'>
+                <div className='col-2 p-0 m-0 text-center'>
                   <p className='form-control rounded-2 phone-code font-16px m-0 py-3'>+91</p>
                 </div>
-                <div className='col-8 p-0 m-0'>
+                <div className='col-9 p-0 m-0'>
                   <Form.Control
                     className={`rounded-2 font-20px px-4 py-3 mb-4  ${loginError ? 'otp-failed' : 'input-field'}`}
                     type="tel"
                     name="mobileNumber"
                     onChange={handleMobileNumberChange}
                     value={mobileNumber}
-                    placeholder="Enter 10 digit Mobile Number Eg: 8010679679"
+                    placeholder="Enter your 10 digit mobile number"
                     isInvalid={loginError}
                   />
                 </div>
               </div>
               {phoneNumberError && <span className="error">{phoneNumberError}</span>}
             </div>
-            <button type="button" onClick={handleSendOtp} disabled={!validMobileNumber} className="blue-btn loginbtn">LOGIN VIA OTP</button>
+            <button type="button" onClick={handleSendOtp} disabled={!validMobileNumber} className="blue-btn loginbtn">GET OTP</button>
           </>) : (
             <>
               <p className="font-14px text-center">
-                Check your phone we have sent you an OTP to{' '}
-                <span className="font-14px phone-number-span">(+91){mobileNumber}</span>{' '}
+                Check your phone we have sent you an OTP to {' '}
+                <span className="font-14px phone-number-span">(+91) {mobileNumber}</span>{' '}
               </p>
               <Row className="justify-content-center">
                 {otp.map((digit, index) => (
@@ -221,7 +221,7 @@ useEffect(() => {
           {otpError ? (
           <div className="d-flex justify-content-between mt-4">
             <p className="m-0 p-0 text-danger font-13px">*Wrong OTP</p>
-            <p className="m-0 p-0 font-13px" style={{ color: '#9252AA' }} onClick={fetchOtp}>
+            <p className="m-0 p-0 font-13px" style={{ color: '#9252AA' , cursor:"pointer"}} onClick={fetchOtp}>
               Resend Code
             </p>
           </div>
