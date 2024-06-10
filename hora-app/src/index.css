@@ -430,6 +430,9 @@ p.ordersummeryname {
   font-size: 13px;
   min-height: 63px;
 }
+.footerheading{
+ font-size: 20px;
+}
 /* select date chef flow */
 @media (max-width: 800px) {
   p.ordersummeryname {

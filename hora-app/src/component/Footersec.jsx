@@ -91,7 +91,7 @@ function Footer() {
         <Row className="py-4">
           {footerColumns.map((column, index) => (
             <Col key={index} md={3} sm={6} xs={12} className="mb-3">
-              <h2>{column.title}</h2>
+              <h2 className="footerheading">{column.title}</h2>
               <ul className="list-unstyled">
                 {column.links.map((link, idx) => (
                   <li key={idx}>
