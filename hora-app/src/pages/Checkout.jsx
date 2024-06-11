@@ -9,20 +9,21 @@ import 'react-clock/dist/Clock.css';
 import checkOutImage from '../assets/checkout-problem.png';
 import axios from 'axios';
 import { BASE_URL, GET_ADDRESS_LIST, CONFIRM_ORDER_ENDPOINT } from '../utills/apiconstants';
-import { PAYMENT, PAYMENT_STATUS,API_SUCCESS_CODE } from '../utills/apiconstants';
+import { PAYMENT, PAYMENT_STATUS, API_SUCCESS_CODE } from '../utills/apiconstants';
 
 
 function Checkout() {
-  const { orderType , selectedDishDictionary , selectedDishPrice , selectedDishes } = useLocation().state || {}; // Accessing subCategory and itemName safely
+  const { orderType, selectedDishDictionary, selectedDishPrice, selectedDishes } = useLocation().state || {}; // Accessing subCategory and itemName safely
   const { subCategory, product } = useLocation().state || {}; // Accessing subCategory and itemName safely
   const [comment, setComment] = useState('');
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [selectedTimeSlot, setSelectedTimeSlot] = useState("");
   const [address, setAddress] = useState('');
   const [pinCode, setPinCode] = useState('');
+  const [pinCodeError, setPinCodeError] = useState(false);
   const [city, setCity] = useState('');
   const navigate = useNavigate();
-    /// order.type is 2 for chef
+  /// order.type is 2 for chef
   /// order.type is 1 for decoration
   /// order.type is 3 for waiter
   /// order type 4  bar tender
@@ -61,12 +62,24 @@ function Checkout() {
     return timeSlots;
   };
 
+  const pincodes = ['451606', '421510', '431020', '494823', '451660']
+
   const handleAddressChange = (e) => {
     setAddress(e.target.value);
   };
 
   const handlePinCodeChange = (e) => {
     setPinCode(e.target.value);
+    if (((e.target.value).length) == 6) {
+      const validpin = pincodes.some((validPin) => validPin === e.target.value)
+      if (!validpin) {
+        setPinCodeError(true)
+      } else {
+        setPinCodeError(false)
+      }
+    } else {
+      setPinCodeError(true)
+    }
   };
 
   const handleCityChange = (e) => {
@@ -77,11 +90,11 @@ function Checkout() {
     return Math.random() * (max - min) + min;
   }
 
-  const openWhatsppLink = () =>{
+  const openWhatsppLink = () => {
     window.open("https://wa.me/+918982321487/?text=Hi%2CI%20saw%20your%20website%20and%20want%20to%20know%20more%20about%20payment%20in%20Decoration%20services", "_blank");
   }
 
-  
+
   const onContinueClick = async () => {
 
     if (localStorage.getItem("isLoggedIn") != "true") {
@@ -89,17 +102,17 @@ function Checkout() {
       // Redirect to the login page
       navigate('/login', { state: { from: window.location.pathname, subCategory, product } });
     }
-    else{
+    else {
       const apiUrl = BASE_URL + PAYMENT;
 
       const storedUserID = await localStorage.getItem('userID');
       const phoneNumber = await localStorage.getItem('mobileNumber')
-  
+
       console.log(storedUserID);
       console.log(phoneNumber);
-  
+
       const randomInteger = Math.floor(getRandomNumber(1, 1000000000000)) + Math.floor(getRandomNumber(1, 1000000000000)) + Math.floor(getRandomNumber(1, 1000000000000));
-  
+
       let merchantTransactionId = randomInteger
       const requestData = {
         user_id: storedUserID,
@@ -108,8 +121,8 @@ function Checkout() {
         name: '',
         merchantTransactionId: merchantTransactionId
       };
-  
-  
+
+
       try {
         const response = await axios.post(apiUrl, requestData, {
           headers: {
@@ -117,71 +130,71 @@ function Checkout() {
           },
         });
         console.log(response)
-  
-        
+
+
         window.location.href = response.data
         handleConfirmOrder(merchantTransactionId);
-  
+
       } catch (error) {
         // Handle errors
         console.error('API error:', error);
       }
     }
-    
+
 
   }
 
 
 
   const handleConfirmOrder = async (merchantTransactionId) => {
-		
+
     try {
-        
-        const message = await checkPaymentStatus(merchantTransactionId);
-        const storedUserID = await localStorage.getItem('userID');
-        //const locality = await AsyncStorage.getItem("Locality");
-        
-        if (message === 'PAYMENT_SUCCESS') {
-            const url = BASE_URL + CONFIRM_ORDER_ENDPOINT;
-            const requestData = {
-                "toId": "",
-                "order_time": selectedTimeSlot.toLocaleTimeString(),
-                "no_of_people": 0,
-                "type": 1,
-                "fromId": storedUserID,
-                "is_discount": "0",
-                "addressId": address + pinCode,
-                "order_date": selectedDate.toDateString(),
-                "no_of_burner": 0,
-                "order_locality": city,
-                "total_amount": product.price,
-                "orderApplianceIds": [],
-                "payable_amount": product.price,
-                "is_gst": "0",
-                "order_type": true,
-                "decoration_comments":comment
-            }
-            
-            const token = await localStorage.getItem('token');
 
-            console.log(requestData);
+      const message = await checkPaymentStatus(merchantTransactionId);
+      const storedUserID = await localStorage.getItem('userID');
+      //const locality = await AsyncStorage.getItem("Locality");
 
-            const response = await axios.post(url, requestData, {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'authorization': token
-                },
-            });
-
-            if (response.status === API_SUCCESS_CODE) {
-                alert("Order placed successfully");
-            }
+      if (message === 'PAYMENT_SUCCESS') {
+        const url = BASE_URL + CONFIRM_ORDER_ENDPOINT;
+        const requestData = {
+          "toId": "",
+          "order_time": selectedTimeSlot.toLocaleTimeString(),
+          "no_of_people": 0,
+          "type": 1,
+          "fromId": storedUserID,
+          "is_discount": "0",
+          "addressId": address + pinCode,
+          "order_date": selectedDate.toDateString(),
+          "no_of_burner": 0,
+          "order_locality": city,
+          "total_amount": product.price,
+          "orderApplianceIds": [],
+          "payable_amount": product.price,
+          "is_gst": "0",
+          "order_type": true,
+          "decoration_comments": comment
         }
+
+        const token = await localStorage.getItem('token');
+
+        console.log(requestData);
+
+        const response = await axios.post(url, requestData, {
+          headers: {
+            'Content-Type': 'application/json',
+            'authorization': token
+          },
+        });
+
+        if (response.status === API_SUCCESS_CODE) {
+          alert("Order placed successfully");
+        }
+      }
     } catch (error) {
-        console.log('Error Confirming Order:', error.message);
+      console.log('Error Confirming Order:', error.message);
     }
-    
-};
+
+  };
 
   const checkPaymentStatus = async (merchantTransactionId) => {
     console.log("inside chkecstatus")
@@ -248,12 +261,11 @@ function Checkout() {
       <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", paddingTop: "30px" }} className='checoutSec'>
           <div style={{ width: "60%", boxShadow: "0 1px 8px rgba(0,0,0,.18)", padding: "20px" }} className='leftSeccheckout'>
-            <h2 style={{ fontSize: "22px", fontWeight: "400", color: "#222" , borderBottom:"1px solid #f0f0f0"  , margin:"0 0 8px 0" , lineHeight:"35px"}}>Booking Details</h2>
+            <h2 style={{ fontSize: "22px", fontWeight: "400", color: "#222", borderBottom: "1px solid #f0f0f0", margin: "0 0 8px 0", lineHeight: "35px" }}>Booking Details</h2>
             <div style={{ color: '#000', fontSize: 12, fontWeight: '500', textAlign: 'left', color: "#9252AA" }}>The decorator requires approximately 40-90 minutes to fulfill the service</div>
-
-            <div style={{ display: 'flex' , margin:"8px 0px 10px" }} className='checkoutInputType'>
+            <div style={{ display: 'flex', margin: "8px 0px 10px" }} className='checkoutInputType'>
               <div className='datepickerSec'>
-                <h5 style={{ marginBottom: "4px" , color:"rgb(146, 82, 170)"}}>Select Date</h5>
+                <h5 style={{ marginBottom: "4px", color: "rgb(146, 82, 170)" }}>Select Date</h5>
                 <DatePicker
                   selected={selectedDate}
                   onChange={handleDateChange}
@@ -262,26 +274,26 @@ function Checkout() {
                   showTimeSelect={false} // Remove the clock
                 />
               </div>
-            
-          <div className='timepkerSec'>
-                <h5 style={{ marginBottom: "4px" , color:"rgb(146, 82, 170)"}}>Select Time</h5>
+
+              <div className='timepkerSec'>
+                <h5 style={{ marginBottom: "4px", color: "rgb(146, 82, 170)" }}>Select Time</h5>
                 <select
-                value={selectedTimeSlot}
-                onChange={handleTimeSlotChange}
-                style={{fontSize: "14px" , width:"242px" , padding:"3px 6px 3px 3px"}}
+                  value={selectedTimeSlot}
+                  onChange={handleTimeSlotChange}
+                  style={{ fontSize: "14px", width: "242px", padding: "3px 6px 3px 3px" }}
                 >
-                <option value="">Select a time slot</option>
-                {generateTimeSlots().map((timeSlot, index) => (
-                <option key={index} value={timeSlot}>
-                {timeSlot}
-                </option>
-                ))}
+                  <option value="">Select a time slot</option>
+                  {generateTimeSlots().map((timeSlot, index) => (
+                    <option key={index} value={timeSlot}>
+                      {timeSlot}
+                    </option>
+                  ))}
                 </select>
-          </div>
-       
+              </div>
+
             </div>
-            <div className='checkoutInputType' style={{display:"flex" , justifyContent:"center", flexDirection:"column" }}>
-              <h4 style={{color:"rgb(146, 82, 170)" , fontSize:"14px" , marginBottom: "4px"}}>Customizable comments</h4>
+            <div className='checkoutInputType' style={{ display: "flex", justifyContent: "center", flexDirection: "column" }}>
+              <h4 style={{ color: "rgb(146, 82, 170)", fontSize: "14px", marginBottom: "4px" }}>Customizable comments</h4>
               <textarea
                 value={comment}
                 onChange={handleComment}
@@ -290,26 +302,27 @@ function Checkout() {
               />
             </div>
             <div>
-              <div style={{display:"flex" , justifyContent:"center", flexDirection:"column" }} className='checkoutInputType'>
-                <label style={{color:"rgb(146, 82, 170)" , fontSize:"14px"  , fontWeight:"600"}}>Address:</label>
+              <div style={{ display: "flex", justifyContent: "center", flexDirection: "column" }} className='checkoutInputType'>
+                <label style={{ color: "rgb(146, 82, 170)", fontSize: "14px", fontWeight: "600" }}>Address:</label>
                 <textarea
                   type="text"
                   value={address}
                   onChange={handleAddressChange}
                   rows={4}
-                placeholder="Enter your Address."
+                  placeholder="Enter your Address."
                 />
               </div>
-              <div  style={{display:"flex" , justifyContent:"center", flexDirection:"column" }} className='checkoutInputType'>
-                <label style={{color:"rgb(146, 82, 170)" , fontSize:"14px" , marigin:"16px 0 6px" , fontWeight:600}}>Pin Code:</label>
+              <div style={{ display: "flex", justifyContent: "center", flexDirection: "column" }} className='checkoutInputType'>
+                <label style={{ color: "rgb(146, 82, 170)", fontSize: "14px", marigin: "16px 0 6px", fontWeight: 600 }}>Pin Code:</label>
                 <input
                   type="text"
                   value={pinCode}
                   onChange={handlePinCodeChange}
                 />
+                {pinCode && <p className={`p-0 m-0 ${pinCodeError ? "text-danger" : "text-success"}`}>{`Service ${pinCodeError ? 'not' : ''} available in your area!`}</p>}
               </div>
-              <div  style={{display:"flex" , justifyContent:"center", flexDirection:"column" }} className='checkoutInputType'>
-                <label style={{color:"rgb(146, 82, 170)" , fontSize:"14px" , marigin:"16px 0 6px" , fontWeight:600}}>City:</label>
+              <div style={{ display: "flex", justifyContent: "center", flexDirection: "column" }} className='checkoutInputType'>
+                <label style={{ color: "rgb(146, 82, 170)", fontSize: "14px", marigin: "16px 0 6px", fontWeight: 600 }}>City:</label>
                 <select value={city} onChange={handleCityChange}>
                   <option value="">Select City</option>
                   <option value="Bangalore">Bangalore</option>
@@ -324,58 +337,58 @@ function Checkout() {
           </div>
 
           {orderType == '1' ? (
-            <div className="rightSeccheckout" style={{  boxShadow: "0 1px 8px rgba(0,0,0,.18)", padding: "20px" }}>
-            <h3 style={{ fontSize: "22px", fontWeight: "400", color: "#222" , borderBottom:"1px solid #f0f0f0" , margin:"0 0 11px 0"  , lineHeight:"35px"}}>Order Summary</h3>
-            <div>
-              <img  className='checkoutRightImg' src={`https://horaservices.com/api/uploads/${product.featured_image}`} />
-            </div>
-            <div  style={{display:"flex" , justifyContent:"center", flexDirection:"column" , margin:"20px 0 20px 0"}}>
-              <label style={{color:"rgb(146, 82, 170)" , fontSize:"14px" , marigin:"16px 0 6px" , fontWeight:700}}>Product Name:</label>
-              <p style={{margin:0 , windth:"100%"}}>{product.name}</p>
+            <div className="rightSeccheckout" style={{ boxShadow: "0 1px 8px rgba(0,0,0,.18)", padding: "20px" }}>
+              <h3 style={{ fontSize: "22px", fontWeight: "400", color: "#222", borderBottom: "1px solid #f0f0f0", margin: "0 0 11px 0", lineHeight: "35px" }}>Order Summary</h3>
+              <div>
+                <img className='checkoutRightImg' src={`https://horaservices.com/api/uploads/${product.featured_image}`} />
               </div>
-              <div style={{display:"flex" , justifyContent:"center", flexDirection:"column" , margin:"0 0 20px 0" }}>
-              <label style={{color:"rgb(146, 82, 170)" , fontSize:"14px" , marigin:"16px 0 6px" , fontWeight:700}}>Total Amount:</label>
-              <p style={{margin:0 , windth:"100%"}}>{product.price}</p>
+              <div style={{ display: "flex", justifyContent: "center", flexDirection: "column", margin: "20px 0 20px 0" }}>
+                <label style={{ color: "rgb(146, 82, 170)", fontSize: "14px", marigin: "16px 0 6px", fontWeight: 700 }}>Product Name:</label>
+                <p style={{ margin: 0, windth: "100%" }}>{product.name}</p>
               </div>
-              <div style={{display:"flex" , justifyContent:"center", flexDirection:"column" , margin:"0 0 20px 0" }}>
-              <label style={{color:"rgb(146, 82, 170)" , fontSize:"14px" , marigin:"16px 0 6px" , fontWeight:700}}>Advance Amount:</label>
-              <p style={{margin:0 , windth:"100%"}}>₹ {Math.round(product.price * 0.3)}</p>
+              <div style={{ display: "flex", justifyContent: "center", flexDirection: "column", margin: "0 0 20px 0" }}>
+                <label style={{ color: "rgb(146, 82, 170)", fontSize: "14px", marigin: "16px 0 6px", fontWeight: 700 }}>Total Amount:</label>
+                <p style={{ margin: 0, windth: "100%" }}>{product.price}</p>
               </div>
-        
-          </div>
-         ) : orderType =='2' ? (
-          <div className="rightSeccheckout chef" style={{  boxShadow: "0 1px 8px rgba(0,0,0,.18)", padding: "20px" }}>
-            <h3 style={{ fontSize: "22px", fontWeight: "400", color: "#222" , borderBottom:"1px solid #f0f0f0" , margin:"0 0 11px 0"  , lineHeight:"35px"}}>Order Summary</h3>
-            <div className='righysercchefinner'>
-              {
-                Object.values(selectedDishDictionary).map((item)=>{
-                  return(
-                <div className="ordersummaryproduct">
-                <div>
-                <img  className='checkoutRightImg chef' src={`https://horaservices.com/api/uploads/${item.image}`} />
-                </div>
-                <div style={{ color:"rgb(146, 82, 170)" , fontWeight:"600" }}>
-                <p style={{margin:"0 0 0 0" , padding:"0"}} className="ordersummeryname">{item.name}</p>
-                <p className="ordersummeryprice">{item.price}</p>
-                </div>
-                </div>
-                  )
-                })
-              }
+              <div style={{ display: "flex", justifyContent: "center", flexDirection: "column", margin: "0 0 20px 0" }}>
+                <label style={{ color: "rgb(146, 82, 170)", fontSize: "14px", marigin: "16px 0 6px", fontWeight: 700 }}>Advance Amount:</label>
+                <p style={{ margin: 0, windth: "100%" }}>₹ {Math.round(product.price * 0.3)}</p>
               </div>
-              <div className='chef-divider' style={{marginTop:"20px"}}></div> 
-            <p style={{ color:"rgb(146, 82, 170)" , fontWeight:"600" , fontSize:"20px" , margin:"9px 0 0 0" , padding:"0"}}>Total: {selectedDishPrice}</p>
-            <p style={{ color:"rgb(146, 82, 170)" , fontWeight:"600" , fontSize:"20px" , margin:"0" , padding:"0"}}>Advance payment: ₹ {Math.round(selectedDishPrice / 5)}</p>
 
-          </div>
-         ) : (
-          null
-         )}
-        
+            </div>
+          ) : orderType == '2' ? (
+            <div className="rightSeccheckout chef" style={{ boxShadow: "0 1px 8px rgba(0,0,0,.18)", padding: "20px" }}>
+              <h3 style={{ fontSize: "22px", fontWeight: "400", color: "#222", borderBottom: "1px solid #f0f0f0", margin: "0 0 11px 0", lineHeight: "35px" }}>Order Summary</h3>
+              <div className='righysercchefinner'>
+                {
+                  Object.values(selectedDishDictionary).map((item) => {
+                    return (
+                      <div className="ordersummaryproduct">
+                        <div>
+                          <img className='checkoutRightImg chef' src={`https://horaservices.com/api/uploads/${item.image}`} />
+                        </div>
+                        <div style={{ color: "rgb(146, 82, 170)", fontWeight: "600" }}>
+                          <p style={{ margin: "0 0 0 0", padding: "0" }} className="ordersummeryname">{item.name}</p>
+                          <p className="ordersummeryprice">{item.price}</p>
+                        </div>
+                      </div>
+                    )
+                  })
+                }
+              </div>
+              <div className='chef-divider' style={{ marginTop: "20px" }}></div>
+              <p style={{ color: "rgb(146, 82, 170)", fontWeight: "600", fontSize: "20px", margin: "9px 0 0 0", padding: "0" }}>Total: {selectedDishPrice}</p>
+              <p style={{ color: "rgb(146, 82, 170)", fontWeight: "600", fontSize: "20px", margin: "0", padding: "0" }}>Advance payment: ₹ {Math.round(selectedDishPrice / 5)}</p>
+
+            </div>
+          ) : (
+            null
+          )}
+
         </div>
-       
+
       </div>
-    
+
     </div>
   );
 }
