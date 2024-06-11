@@ -20,6 +20,7 @@ function Login() {
   const location = useLocation();
   const previousPage = location.state && location.state.from;
   const subCategory = location.state && location.state.subCategory;
+  const orderType = location.state && location.state.orderType;
   const product = location.state && location.state.product;
   const [validMobileNumber, setValidMobileNumber] = useState(false); // Add state for valid mobile number
   const navigate = useNavigate();
