@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
-import { Modal, Button, Container, Row, Col, Spinner } from 'react-bootstrap';
+import { Modal, Button, Container, Row, Col, Spinner, Card } from 'react-bootstrap';
 import { BASE_URL, GET_DECORATION_CAT_ID, GET_DECORATION_CAT_ITEM, API_SUCCESS_CODE } from '../utills/apiconstants';
 import axios from 'axios';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons"
 import Slider from "react-slick";
+import { CardSkeleton } from "../component/CardSkeleton";
 
 function DecorationCatPage() {
   const location = useLocation();
@@ -163,47 +164,58 @@ function DecorationCatPage() {
 
   return (
     <div style={{ backgroundColor: "#EDEDED" }} className="decCatPage">
-      {loading && (
-        <div className="d-flex justify-content-center align-items-center">
-          <Spinner animation="border" className="custom-spinner" />
-        </div>
-      )}
-      {!loading && (
-        <>
-          <div style={{ textAlign: "center", justifyContent: "center", alignItems: "center" }}>
-            <div style={{ marginTop: "0px" }}>
-              <h1 style={{ fontSize: "16px", color: "#000", padding: "14px 0 0" }}>{selCat} </h1>
-              <p style={{ padding: "0px 0px 16px", margin: "0px" }}>Balloon Decoration and Room Decoration Services for Anniversary, Birthdays, Kids Parties, Baby Showers and more!</p>
-                <div style={{ marginBottom: "15px" }} className="filterdropdown d-flex flex-column flex-lg-row align-items-center justify-content-center gap-3" >
+      {/* {true && (
+        // <div className="d-flex justify-content-center align-items-center">
+        //   <Spinner animation="border" className="custom-spinner" />
+        // </div>
+        <div style={styles.decContainer} className="decContainer" >
+          {[1, 2, 3, 4, 5, 6, 7, 8].map((item, index) => (
+            <CardSkeleton key={index} />
+          ))}
+          </div>
+      )} */}
+      {/* {!loading && ( */}
+      <>
+        <div style={{ textAlign: "center", justifyContent: "center", alignItems: "center" }}>
+          <div style={{ marginTop: "0px" }}>
+            <h1 style={{ fontSize: "16px", color: "#000", padding: "14px 0 0" }}>{selCat} </h1>
+            <p style={{ padding: "0px 0px 16px", margin: "0px" }}>Balloon Decoration and Room Decoration Services for Anniversary, Birthdays, Kids Parties, Baby Showers and more!</p>
+            <div style={{ marginBottom: "15px" }} className="filterdropdown d-flex flex-column flex-lg-row align-items-center justify-content-center gap-3" >
 
-                    <div className="d-flex gap-lg-4 gap-2">
-                      <div className="px-3 py-1 rounded-5 d-flex justify-content-center align-itmes-center" style={priceFilter === 'all' ? { backgroundColor: '#9252AA', cursor: 'pointer' } : { backgroundColor: '#D9D9D9', cursor: 'pointer' }} onClick={() => setPriceFilter('all')}>
-                        <p className="m-0 p-0 fw-bold filter-price-tag" style={priceFilter === 'all' ? { color: "#fff" } : { color: '#9252AA' }}>All</p>
-                      </div>
-                      <div className="px-3 py-1 rounded-5 d-flex justify-content-center align-itmes-center" style={priceFilter === 'under2000' ? { backgroundColor: '#9252AA', cursor: 'pointer' } : { backgroundColor: '#D9D9D9', cursor: 'pointer' }} onClick={() => setPriceFilter('under2000')}>
-                        <p className="m-0 p-0 fw-bold filter-price-tag" style={priceFilter === 'under2000' ? { color: "#fff" } : { color: '#9252AA' }}>Under ₹ 2000</p>
-                      </div>
-                      <div className="px-3 py-1 rounded-5 d-flex justify-content-center align-itmes-center" style={priceFilter === '2000to5000' ? { backgroundColor: '#9252AA', cursor: 'pointer' } : { backgroundColor: '#D9D9D9', cursor: 'pointer' }} onClick={() => setPriceFilter('2000to5000')}>
-                        <p className="m-0 p-0 fw-bold filter-price-tag" style={priceFilter === '2000to5000' ? { color: "#fff" } : { color: '#9252AA' }}>₹ 2000 - ₹ 5000</p>
-                      </div>
-                      <div className="px-3 py-1 rounded-5 d-flex justify-content-center align-itmes-center" style={priceFilter === 'above5000' ? { backgroundColor: '#9252AA', cursor: 'pointer' } : { backgroundColor: '#D9D9D9', cursor: 'pointer' }} onClick={() => setPriceFilter('above5000')}>
-                        <p className="m-0 p-0 fw-bold filter-price-tag" style={priceFilter === 'above5000' ? { color: "#fff" } : { color: '#9252AA' }}>Above ₹ 5000</p>
-                      </div>
-                    </div>
-
-
-                  {/* Theme filter */}
-                 {selCat==="Kids Birthday" ? <select value={themeFilter} onChange={(e) => setThemeFilter(e.target.value)}
-                    style={{ fontSize: "16px", color: 'rgb(157, 74, 147)', padding: "7px 10px", borderWidth: 1, borderColor: "rgb(157, 74, 147)", borderRadius: "5px", marginLeft: "5px" }}>
-                    {themeFilters.map((filter) => (
-                      <option key={filter.value} value={filter.value}>{filter.label}</option>
-                    ))}
-                  </select>:null}
+              <div className="d-flex gap-lg-4 gap-2">
+                <div className="px-3 py-1 rounded-5 d-flex justify-content-center align-itmes-center" style={priceFilter === 'all' ? { backgroundColor: '#9252AA', cursor: 'pointer' } : { backgroundColor: '#D9D9D9', cursor: 'pointer' }} onClick={() => setPriceFilter('all')}>
+                  <p className="m-0 p-0 fw-bold filter-price-tag" style={priceFilter === 'all' ? { color: "#fff" } : { color: '#9252AA' }}>All</p>
                 </div>
+                <div className="px-3 py-1 rounded-5 d-flex justify-content-center align-itmes-center" style={priceFilter === 'under2000' ? { backgroundColor: '#9252AA', cursor: 'pointer' } : { backgroundColor: '#D9D9D9', cursor: 'pointer' }} onClick={() => setPriceFilter('under2000')}>
+                  <p className="m-0 p-0 fw-bold filter-price-tag" style={priceFilter === 'under2000' ? { color: "#fff" } : { color: '#9252AA' }}>Under ₹ 2000</p>
+                </div>
+                <div className="px-3 py-1 rounded-5 d-flex justify-content-center align-itmes-center" style={priceFilter === '2000to5000' ? { backgroundColor: '#9252AA', cursor: 'pointer' } : { backgroundColor: '#D9D9D9', cursor: 'pointer' }} onClick={() => setPriceFilter('2000to5000')}>
+                  <p className="m-0 p-0 fw-bold filter-price-tag" style={priceFilter === '2000to5000' ? { color: "#fff" } : { color: '#9252AA' }}>₹ 2000 - ₹ 5000</p>
+                </div>
+                <div className="px-3 py-1 rounded-5 d-flex justify-content-center align-itmes-center" style={priceFilter === 'above5000' ? { backgroundColor: '#9252AA', cursor: 'pointer' } : { backgroundColor: '#D9D9D9', cursor: 'pointer' }} onClick={() => setPriceFilter('above5000')}>
+                  <p className="m-0 p-0 fw-bold filter-price-tag" style={priceFilter === 'above5000' ? { color: "#fff" } : { color: '#9252AA' }}>Above ₹ 5000</p>
+                </div>
+              </div>
+
+
+              {/* Theme filter */}
+              {selCat === "Kids Birthday" ? <select value={themeFilter} onChange={(e) => setThemeFilter(e.target.value)}
+                style={{ fontSize: "16px", color: 'rgb(157, 74, 147)', padding: "7px 10px", borderWidth: 1, borderColor: "rgb(157, 74, 147)", borderRadius: "5px", marginLeft: "5px" }}>
+                {themeFilters.map((filter) => (
+                  <option key={filter.value} value={filter.value}>{filter.label}</option>
+                ))}
+              </select> : null}
             </div>
           </div>
-         <div style={styles.decContainer} className="decContainer">
-           {  (filteredData.length > 0 )? (
+        </div>
+        <div style={styles.decContainer} className="decContainer">
+          {loading ? ([1, 2, 3, 4, 5, 6, 7, 8].map((item, index) => (
+            <div className="decimagecontainer" style={styles.imageContainer}>
+              <CardSkeleton key={index} />
+            </div>
+          ))) :
+            (
+              (filteredData.length > 0) ? (
                 filteredData.map((item, index) => (
                   <div
                     key={item._id}
@@ -226,36 +238,36 @@ function DecorationCatPage() {
                     </div>
                     {/* End of Watermark */}
                     <div className='px-2 py-2'>
-                    <p
-                      style={{
-                        marginHorizontal: 3,
-                        textAlign: 'left',
-                        fontWeight: '600',
-                        fontSize: "16px",
-                        marginTop: "4px",
-                        // color: '#9252AA',
-                        color: "#222",
-                        lineHeight:"18px",
-                        marginBottom: "0px",
-                        textAlign: "left",
-                      }}
-                    >
-                    {item.name.length > 20 ? `${item.name.substring(0, 26)}...` : item.name}
-                    </p>
-                    <div>
-                      <div style={{ flexDirection: 'row', alignItems: 'left' , justifyContent: 'space-between' }}>
-                        <p style={{
-                          color: '#222',
-                          fontWeight: '500',
-                          fontSize: 17,
+                      <p
+                        style={{
+                          marginHorizontal: 3,
+                          textAlign: 'left',
+                          fontWeight: '600',
+                          fontSize: "16px",
+                          marginTop: "4px",
+                          // color: '#9252AA',
+                          color: "#222",
+                          lineHeight: "18px",
+                          marginBottom: "0px",
                           textAlign: "left",
-                          margin: "10px 0px 7px",
-                        }}> ₹ {item.price}</p>
-                      </div>
-                      <div className="d-flex align-items-center mt-1">
-                        <p className="m-0 p-0" style={{ fontWeight: '500', fontSize: 17, margin: "0px", }}>{item.rating}<span className='px-1 m-0 py-0 img-fluid' style={{ color: '#FFBF00' }}><FontAwesomeIcon style={{ margin: 0 }} icon={faStar} /></span></p>
-                        <p  style={{ color: '#9252AA', fontWeight: '200', fontSize: 17, margin: "0px", padding: "0 0 0 2px" }}>({item.userCount})</p>
-                      </div>
+                        }}
+                      >
+                        {item.name.length > 20 ? `${item.name.substring(0, 26)}...` : item.name}
+                      </p>
+                      <div>
+                        <div style={{ flexDirection: 'row', alignItems: 'left', justifyContent: 'space-between' }}>
+                          <p style={{
+                            color: '#222',
+                            fontWeight: '500',
+                            fontSize: 17,
+                            textAlign: "left",
+                            margin: "10px 0px 7px",
+                          }}> ₹ {item.price}</p>
+                        </div>
+                        <div className="d-flex align-items-center mt-1">
+                          <p className="m-0 p-0" style={{ fontWeight: '500', fontSize: 17, margin: "0px", }}>{item.rating}<span className='px-1 m-0 py-0 img-fluid' style={{ color: '#FFBF00' }}><FontAwesomeIcon style={{ margin: 0 }} icon={faStar} /></span></p>
+                          <p style={{ color: '#9252AA', fontWeight: '200', fontSize: 17, margin: "0px", padding: "0 0 0 2px" }}>({item.userCount})</p>
+                        </div>
                       </div>
                     </div>
 
@@ -268,11 +280,13 @@ function DecorationCatPage() {
                     <a class="conactus" href="https://wa.me/+918982321487/?text=Hi%2CI%20saw%20your%20website%20and%20want%20to%20know%20more%20about%20the%20services" target="_blank">Click here</a>
                   </span>
                 </div>
-              )}
-            |
-          </div>
-        </>
-      )}
+              )
+            )
+          }
+          |
+        </div>
+      </>
+      {/* // )} */}
     </div>
   );
 }
