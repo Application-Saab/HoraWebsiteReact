@@ -83,13 +83,6 @@ function Checkout() {
 
   
   const onContinueClick = async () => {
-
-    if (localStorage.getItem("isLoggedIn") != "true") {
-      alert("Please login first to book the order")
-      // Redirect to the login page
-      navigate('/login', { state: { from: window.location.pathname, subCategory, product } });
-    }
-    else{
       const apiUrl = BASE_URL + PAYMENT;
 
       const storedUserID = await localStorage.getItem('userID');
@@ -126,7 +119,7 @@ function Checkout() {
         // Handle errors
         console.error('API error:', error);
       }
-    }
+    
     
 
   }

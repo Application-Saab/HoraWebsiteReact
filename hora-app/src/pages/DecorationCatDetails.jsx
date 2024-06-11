@@ -17,7 +17,13 @@ function DecorationCatDetails() {
   const { subCategory, product } = useLocation().state || {}; // Accessing subCategory and itemName safely
 
   const handleCheckout = (subCategory, product) => {
-    navigate(`/checkout`, { state: { subCategory, product, orderType } });
+    if (localStorage.getItem("isLoggedIn") != "true") {
+    navigate('/login', { state: { from: window.location.pathname, subCategory, product, orderType } });
+    }
+    else{
+      navigate(`/checkout`, { state: { subCategory, product , orderType } });
+    }
+   
   }
   function addSpaces(subCategory) {
     let result = "";

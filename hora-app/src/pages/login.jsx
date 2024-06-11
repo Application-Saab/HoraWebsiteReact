@@ -83,7 +83,7 @@ useEffect(() => {
           localStorage.setItem('token', response.data.token);
           localStorage.setItem('userID', response.data.data._id);
           if (previousPage) {
-            navigate(previousPage, { state: { subCategory, product } });
+            navigate('/checkout', { state: { subCategory, product, orderType } });
           } else {
             navigate('/');
           }
