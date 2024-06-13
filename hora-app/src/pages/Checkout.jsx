@@ -1,5 +1,5 @@
 import { useLocation } from 'react-router-dom';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -10,6 +10,8 @@ import checkOutImage from '../assets/checkout-problem.png';
 import axios from 'axios';
 import { BASE_URL, GET_ADDRESS_LIST, CONFIRM_ORDER_ENDPOINT } from '../utills/apiconstants';
 import { PAYMENT, PAYMENT_STATUS, API_SUCCESS_CODE } from '../utills/apiconstants';
+import { Button, Card, Form } from 'react-bootstrap';
+import { Dropdown, DropdownButton } from 'react-bootstrap';
 
 
 function Checkout() {
@@ -17,12 +19,18 @@ function Checkout() {
   const { subCategory, product } = useLocation().state || {}; // Accessing subCategory and itemName safely
   const [comment, setComment] = useState('');
   const [selectedDate, setSelectedDate] = useState(new Date());
+  const [selectedDateError, setSelectedDateError] = useState(false);
   const [selectedTimeSlot, setSelectedTimeSlot] = useState("");
+  const [selectedTimeSlotError, setSelectedTimeSlotError] = useState(false);
   const [address, setAddress] = useState('');
+  const [addressError, setAddressError] = useState(false);
   const [pinCode, setPinCode] = useState('');
   const [pinCodeError, setPinCodeError] = useState(false);
   const [city, setCity] = useState('');
+  const [cityError, setCityError] = useState(false);
   const navigate = useNavigate();
+  const [showDatePicker, setShowDatePicker] = useState(false);
+
   /// order.type is 2 for chef
   /// order.type is 1 for decoration
   /// order.type is 3 for waiter
@@ -37,11 +45,13 @@ function Checkout() {
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
+    setSelectedDateError(false);
     console.log(date); // Print the selected date
   };
 
   const handleTimeSlotChange = (event) => {
     setSelectedTimeSlot(event.target.value);
+    setSelectedDateError(false);
   };
 
   const generateTimeSlots = () => {
@@ -66,6 +76,11 @@ function Checkout() {
 
   const handleAddressChange = (e) => {
     setAddress(e.target.value);
+    if (e.target.value) {
+      setAddressError(false)
+    } else {
+      setAddressError(true)
+    }
   };
 
   const handlePinCodeChange = (e) => {
@@ -84,6 +99,11 @@ function Checkout() {
 
   const handleCityChange = (e) => {
     setCity(e.target.value);
+    if (e.target.value) {
+      setCityError(false)
+    } else {
+      setCityError(true)
+    }
   };
 
   function getRandomNumber(min, max) {
@@ -96,43 +116,59 @@ function Checkout() {
 
 
   const onContinueClick = async () => {
-      const apiUrl = BASE_URL + PAYMENT;
+    const apiUrl = BASE_URL + PAYMENT;
 
-      const storedUserID = await localStorage.getItem('userID');
-      const phoneNumber = await localStorage.getItem('mobileNumber')
+    const storedUserID = await localStorage.getItem('userID');
+    const phoneNumber = await localStorage.getItem('mobileNumber')
 
-      console.log(storedUserID);
-      console.log(phoneNumber);
+    console.log(storedUserID);
+    console.log(phoneNumber);
 
-      const randomInteger = Math.floor(getRandomNumber(1, 1000000000000)) + Math.floor(getRandomNumber(1, 1000000000000)) + Math.floor(getRandomNumber(1, 1000000000000));
+    const randomInteger = Math.floor(getRandomNumber(1, 1000000000000)) + Math.floor(getRandomNumber(1, 1000000000000)) + Math.floor(getRandomNumber(1, 1000000000000));
 
-      let merchantTransactionId = randomInteger
-      const requestData = {
-        user_id: storedUserID,
-        price: Math.round(product.price * 0.3),
-        phone: phoneNumber,
-        name: '',
-        merchantTransactionId: merchantTransactionId
-      };
+    let merchantTransactionId = randomInteger
+    const requestData = {
+      user_id: storedUserID,
+      price: Math.round(product.price * 0.3),
+      phone: phoneNumber,
+      name: '',
+      merchantTransactionId: merchantTransactionId
+    };
 
 
-      try {
+    try {
+      if(city && pinCode && address && selectedTimeSlot && selectedDate){
         const response = await axios.post(apiUrl, requestData, {
           headers: {
             'Content-Type': 'application/json',
           },
         });
         console.log(response)
-
-
         window.location.href = response.data
         handleConfirmOrder(merchantTransactionId);
-
-      } catch (error) {
-        // Handle errors
-        console.error('API error:', error);
+      }else{
+        if(!city){
+          setCityError(true)
+        }
+        if(!pinCode){
+          setPinCodeError(true)
+        }
+        if(!address){
+          setAddressError(true)
+        }
+        if(!selectedTimeSlot){
+          setSelectedTimeSlotError(true)
+        }
+        if(!selectedDate){
+         setSelectedDateError(true)
+        }
       }
-  
+
+    } catch (error) {
+      // Handle errors
+      console.error('API error:', error);
+    }
+
   }
 
 
@@ -250,40 +286,15 @@ function Checkout() {
   return (
     <div className="App">
       <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", paddingTop: "30px" }} className='checoutSec'>
+        <div style={{ display: "flex", alignItems: "center", height: '90vh' }} className='checoutSec my-3 gap-5 overflow-auto'>
           <div style={{ width: "60%", boxShadow: "0 1px 8px rgba(0,0,0,.18)", padding: "20px" }} className='leftSeccheckout'>
             <h2 style={{ fontSize: "22px", fontWeight: "400", color: "#222", borderBottom: "1px solid #f0f0f0", margin: "0 0 8px 0", lineHeight: "35px" }}>Booking Details</h2>
             <div style={{ color: '#000', fontSize: 12, fontWeight: '500', textAlign: 'left', color: "#9252AA" }}>The decorator requires approximately 40-90 minutes to fulfill the service</div>
-            <div style={{ display: 'flex', margin: "8px 0px 10px" }} className='checkoutInputType'>
-              <div className='datepickerSec'>
-                <h5 style={{ marginBottom: "4px", color: "rgb(146, 82, 170)" }}>Select Date</h5>
-                <DatePicker
-                  selected={selectedDate}
-                  onChange={handleDateChange}
-                  minDate={new Date()} // Disable dates before today's date
-                  placeholderText="Select Date"
-                  showTimeSelect={false} // Remove the clock
-                />
-              </div>
-
-              <div className='timepkerSec'>
-                <h5 style={{ marginBottom: "4px", color: "rgb(146, 82, 170)" }}>Select Time</h5>
-                <select
-                  value={selectedTimeSlot}
-                  onChange={handleTimeSlotChange}
-                  style={{ fontSize: "14px", width: "242px", padding: "3px 6px 3px 3px" }}
-                >
-                  <option value="">Select a time slot</option>
-                  {generateTimeSlots().map((timeSlot, index) => (
-                    <option key={index} value={timeSlot}>
-                      {timeSlot}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
+            <div style={{ display: 'flex', margin: "8px 0px 10px" }} className='flex-lg-row flex-column align-items-between justify-content-center  align-items-lg-center justify-content-lg-between'>
+              <CustomDatePicker handleDateChange={handleDateChange} setSelectedDate={setSelectedDate} selectedDate={selectedDate} showDatePicker={showDatePicker} setShowDatePicker={setShowDatePicker} selectedDateError={selectedDateError}/>
+              <CustomTimePicker handleTimeSlotChange={handleTimeSlotChange} generateTimeSlots={generateTimeSlots} selectedTimeSlot={selectedTimeSlot} selectedTimeSlotError={selectedTimeSlotError}/>
             </div>
-            <div className='checkoutInputType' style={{ display: "flex", justifyContent: "center", flexDirection: "column" }}>
+            <div className='checkoutInputType border-2 rounded-4' style={{ display: "flex", justifyContent: "center", flexDirection: "column" }}>
               <h4 style={{ color: "rgb(146, 82, 170)", fontSize: "14px", marginBottom: "4px" }}>Customizable comments</h4>
               <textarea
                 value={comment}
@@ -302,6 +313,7 @@ function Checkout() {
                   rows={4}
                   placeholder="Enter your Address."
                 />
+                {addressError && <p className={`p-0 m-0 ${addressError ? "text-danger" : ""}`}>This field is required!</p>}
               </div>
               <div style={{ display: "flex", justifyContent: "center", flexDirection: "column" }} className='checkoutInputType'>
                 <label style={{ color: "rgb(146, 82, 170)", fontSize: "14px", marigin: "16px 0 6px", fontWeight: 600 }}>Pin Code:</label>
@@ -321,14 +333,14 @@ function Checkout() {
                   <option value="Mumbai">Mumbai</option>
                   {/* Add more cities as needed */}
                 </select>
+                {cityError && <p className={`p-0 m-0 ${cityError ? "text-danger" : ""}`}>This field is required!</p>}
               </div>
             </div>
             <button onClick={onContinueClick} className="blue-btn chkeoutBottun">Confirm Order</button>
-
           </div>
 
           {orderType == '1' ? (
-            <div className="rightSeccheckout" style={{ boxShadow: "0 1px 8px rgba(0,0,0,.18)", padding: "20px" }}>
+            <div className="rightSeccheckout" style={{ boxShadow: "0 1px 8px rgba(0,0,0,.18)", padding: "20px" }} >
               <h3 style={{ fontSize: "22px", fontWeight: "400", color: "#222", borderBottom: "1px solid #f0f0f0", margin: "0 0 11px 0", lineHeight: "35px" }}>Order Summary</h3>
               <div>
                 <img className='checkoutRightImg' src={`https://horaservices.com/api/uploads/${product.featured_image}`} />
@@ -385,3 +397,62 @@ function Checkout() {
 }
 
 export default Checkout;
+
+
+
+
+
+export const CustomDatePicker = ({ handleDateChange, selectedDate, showDatePicker, setShowDatePicker,selectedDateError }) => {
+
+  const toggleDatePicker = () => {
+    setShowDatePicker((prev) => !prev);
+  };
+
+  return (
+    <div style={{ margin: '8px 0px 10px' }} className='checkoutInputType d-flex flex-column border border-2 rounded-4 p-2'>
+      <p style={{ marginBottom: "4px", color: "rgb(146, 82, 170)", fontSize: "12px" }} className='p-0 m-0'>Select Date</p>
+      <Dropdown show={showDatePicker} onToggle={toggleDatePicker} className='border-none p-0'>
+        <Dropdown.Toggle
+          variant="outline-secondary"
+          className={`w-100 d-flex justify-content-between align-items-center ${selectedDateError? 'border-danger' : ''}`}
+          style={{ cursor: 'pointer', padding: 0, background: 'none', border: 'none' }}        >
+          <span className='m-0 p-0 '>{selectedDate ? selectedDate.toLocaleDateString() : 'Select Date'}</span>
+        </Dropdown.Toggle>
+
+        <Dropdown.Menu
+          show={showDatePicker}
+          className="p-2"
+          style={{ minWidth: 'auto' }}
+        >
+          <DatePicker
+            selected={selectedDate}
+            onChange={handleDateChange}
+            minDate={new Date()}
+            inline // Use inline to show the calendar
+          />
+        </Dropdown.Menu>
+      </Dropdown>
+    </div>
+  );
+};
+
+export const CustomTimePicker = ({ selectedTimeSlot, handleTimeSlotChange, generateTimeSlots,selectedTimeSlotError }) => {
+  return (
+    <div style={{ margin: '8px 0px 10px' }} className={`timepkerSec d-flex flex-column border border-2 ${selectedTimeSlotError?'border-danger':""} rounded-4 p-2`}>
+      <p style={{ marginBottom: "4px", color: "rgb(146, 82, 170)", fontSize: "12px" }} className='p-0 m-0'>Select Date</p>
+      <Form.Control
+        as="select"
+        value={selectedTimeSlot}
+        onChange={handleTimeSlotChange}
+        style={{ fontSize: "14px", width: "242px",cursor: 'pointer', padding: 0, background: 'none', border: 'none' }}
+      >
+        <option value="">Select a time slot</option>
+        {generateTimeSlots().map((timeSlot, index) => (
+          <option key={index} value={timeSlot}>
+            {timeSlot}
+          </option>
+        ))}
+      </Form.Control>
+    </div>
+  )
+}

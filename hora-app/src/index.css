@@ -3,6 +3,7 @@ body {
   font-family: 'Poppins', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  box-sizing: border-box;
 }
 
 code {
@@ -175,7 +176,7 @@ button.continuebtnchef.btn.btn-primary {
 }
 
 .datepickerSec {
-  margin: 0 20px 0 0;
+  /* margin: 0 20px 0 0; */
 }
 
 .righysercchefinner {
@@ -192,10 +193,10 @@ button.continuebtnchef.btn.btn-primary {
 }
 
 .rightSeccheckout {
-  padding: 20px 40px 20px 20px !important;
+  /* padding: 20px 40px 20px 20px !important; */
   box-sizing: border-box;
-  width: 37%;
-  height: 86vh;
+  /* width: 37%; */
+  height: 50rem !important;
 }
 
 .checkoutInputType {
@@ -769,14 +770,14 @@ p.other-cities {
     flex-direction: column !important;
   }
 
-  .rightSeccheckout {
+  /* .rightSeccheckout {
     padding: 5px 15px !important;
     box-sizing: border-box;
     width: 96% !important;
     margin: 0 auto 20px !important;
     border-radius: 10px;
     height: auto !important;
-  }
+  } */
 
   .checkoutProblemWhatsappButton {
     border-radius: 10px;
