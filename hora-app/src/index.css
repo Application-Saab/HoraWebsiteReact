@@ -623,21 +623,28 @@ p.other-cities {
     padding: 0 16px !important;
   }
 
-  .decPage .imageContainer {
-    width: 45% !important;
-    margin-left: 8px !important;
-    margin-right: 8px !important;
-    margin-bottom: 16px !important;
+  .decContainer.gap-4 {
+    display: flex;
+    justify-content: space-between !important;
+    gap: 0 !important;
+    align-items: center;
+}
+    .decPage .imageContainer {
+      width: 48% !important;
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+      margin-bottom: 14px !important;
+  
   }
 
   .decPage.decContainerSec {
     width: 100% !important;
-    margin: 11px 0 0px !important;
-    padding: 0 0 1px 12px;
+        margin: 11px 0 0px !important;
+        padding: 0 11px 1px 8px;
   }
 
   .decCatPage .decimagecontainer {
-    width: 47% !important;
+    width: 46% !important;
     margin: 0 6px 16px !important;
 
     img {
@@ -892,9 +899,6 @@ p.other-cities {
 }
 
 @media (max-width: 340px) {
-  .decPage .imageContainer {
-    width: 44% !important;
-  }
   .decCatPage .decimagecontainer {
     img {
       height: 130px !important;
