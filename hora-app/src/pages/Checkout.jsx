@@ -286,17 +286,17 @@ function Checkout() {
   return (
     <div className="App">
       <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-        <div style={{ display: "flex", alignItems: "center", height: '90vh' }} className='checoutSec my-3 gap-5 overflow-auto'>
+        <div style={{ display: "flex", alignItems: "start", height: '90vh' }} className='checoutSec my-3 gap-5 overflow-auto'>
           <div style={{ width: "60%", boxShadow: "0 1px 8px rgba(0,0,0,.18)", padding: "20px" }} className='leftSeccheckout'>
             <h2 style={{ fontSize: "22px", fontWeight: "400", color: "#222", borderBottom: "1px solid #f0f0f0", margin: "0 0 8px 0", lineHeight: "35px" }}>Booking Details</h2>
-            <div style={{ color: '#000', fontSize: 12, fontWeight: '500', textAlign: 'left', color: "#9252AA" }}>The decorator requires approximately 40-90 minutes to fulfill the service</div>
+            <div className='border border-danger p-1 px-3 rounded bg-danger-subtle text-black text-center' style={{ color: '#000', fontSize: 12, fontWeight: '500', textAlign: 'left', color: "#9252AA" }}>The decorator requires approximately 40-90 minutes to fulfill the service</div>
             <div style={{ display: 'flex', margin: "8px 0px 10px" }} className='flex-lg-row flex-column align-items-between justify-content-center  align-items-lg-center justify-content-lg-between'>
-              <CustomDatePicker handleDateChange={handleDateChange} setSelectedDate={setSelectedDate} selectedDate={selectedDate} showDatePicker={showDatePicker} setShowDatePicker={setShowDatePicker} selectedDateError={selectedDateError}/>
-              <CustomTimePicker handleTimeSlotChange={handleTimeSlotChange} generateTimeSlots={generateTimeSlots} selectedTimeSlot={selectedTimeSlot} selectedTimeSlotError={selectedTimeSlotError}/>
+            <div className='col-6'>  <CustomDatePicker handleDateChange={handleDateChange} setSelectedDate={setSelectedDate} selectedDate={selectedDate} showDatePicker={showDatePicker} setShowDatePicker={setShowDatePicker} selectedDateError={selectedDateError}/></div>
+             <div className='col-6 ms-1'> <CustomTimePicker handleTimeSlotChange={handleTimeSlotChange} generateTimeSlots={generateTimeSlots} selectedTimeSlot={selectedTimeSlot} selectedTimeSlotError={selectedTimeSlotError}/></div>
             </div>
-            <div className='checkoutInputType border-2 rounded-4' style={{ display: "flex", justifyContent: "center", flexDirection: "column" }}>
-              <h4 style={{ color: "rgb(146, 82, 170)", fontSize: "14px", marginBottom: "4px" }}>Customizable comments</h4>
-              <textarea
+            <div className='checkoutInputType border-2 rounded-4  ' style={{ display: "flex", justifyContent: "center", flexDirection: "column" }}>
+              <h4 style={{ color: "rgb(146, 82, 170)", fontSize: "14px", marginBottom: "4px" }}>Share your comments (if any)</h4>
+              <textarea className=' rounded border border-2 p-1 '
                 value={comment}
                 onChange={handleComment}
                 rows={4}
@@ -308,6 +308,7 @@ function Checkout() {
                 <label style={{ color: "rgb(146, 82, 170)", fontSize: "14px", fontWeight: "600" }}>Address:</label>
                 <textarea
                   type="text"
+                  className=' rounded border border-2 p-1'
                   value={address}
                   onChange={handleAddressChange}
                   rows={4}
@@ -318,7 +319,7 @@ function Checkout() {
               <div style={{ display: "flex", justifyContent: "center", flexDirection: "column" }} className='checkoutInputType'>
                 <label style={{ color: "rgb(146, 82, 170)", fontSize: "14px", marigin: "16px 0 6px", fontWeight: 600 }}>Pin Code:</label>
                 <input
-                  type="text"
+                  type="text"className=' rounded border border-2 p-1'
                   value={pinCode}
                   onChange={handlePinCodeChange}
                 />
@@ -326,7 +327,7 @@ function Checkout() {
               </div>
               <div style={{ display: "flex", justifyContent: "center", flexDirection: "column" }} className='checkoutInputType'>
                 <label style={{ color: "rgb(146, 82, 170)", fontSize: "14px", marigin: "16px 0 6px", fontWeight: 600 }}>City:</label>
-                <select value={city} onChange={handleCityChange}>
+                <select value={city} className=' rounded border border-2 p-1' onChange={handleCityChange}>
                   <option value="">Select City</option>
                   <option value="Bangalore">Bangalore</option>
                   <option value="Delhi">Delhi</option>
@@ -357,7 +358,18 @@ function Checkout() {
                 <label style={{ color: "rgb(146, 82, 170)", fontSize: "14px", marigin: "16px 0 6px", fontWeight: 700 }}>Advance Amount:</label>
                 <p style={{ margin: 0, windth: "100%" }}>₹ {Math.round(product.price * 0.3)}</p>
               </div>
-
+            <div >
+             <div className='d-flex justify-content-center align-items-center'>
+              <h5 className=''>Need more info?</h5>
+              <button style={{border: "2px solid rgb(157, 74, 147)",color:"rgb(157, 74, 147)"}} className=' rounded-5 ms-1 '>Contact Us</button>
+             </div> 
+             <div className=' px-5 py-2 border rounded my-2' style={{background:"rgb(157, 74,147, 28%)"
+}}>
+              <p style={{fontSize:"13px",color:"rgb(157, 74, 147)"}} className=' text-center m-1'>Cancellation and order change policy</p>
+              <p style={{fontSize:"13px",color:"rgb(157, 74, 147)"}} className='m-1'>Till the order is not assign to the service provider , 100% of the amount will be refunded, othewise 50%of the advance will be deducted as a cancellation charges to componsate the service provider. </p>
+              <p style={{fontSize:"13px",color:"rgb(157, 74, 147)"}} className='m-1'>The order cannot be edited after paying the advance customers can cancel the order and replace it with a new order with the required changes.</p>
+             </div>
+            </div>
             </div>
           ) : orderType == '2' ? (
             <div className="rightSeccheckout chef" style={{ boxShadow: "0 1px 8px rgba(0,0,0,.18)", padding: "20px" }}>
@@ -409,12 +421,12 @@ export const CustomDatePicker = ({ handleDateChange, selectedDate, showDatePicke
   };
 
   return (
-    <div style={{ margin: '8px 0px 10px' }} className='checkoutInputType d-flex flex-column border border-2 rounded-4 p-2'>
+    <div  className='d-flex flex-column border border-2 rounded-4 p-2'>
       <p style={{ marginBottom: "4px", color: "rgb(146, 82, 170)", fontSize: "12px" }} className='p-0 m-0'>Select Date</p>
       <Dropdown show={showDatePicker} onToggle={toggleDatePicker} className='border-none p-0'>
         <Dropdown.Toggle
           variant="outline-secondary"
-          className={`w-100 d-flex justify-content-between align-items-center ${selectedDateError? 'border-danger' : ''}`}
+          className={`w-100 m-0 p-0 d-flex justify-content-between align-items-center ${selectedDateError? 'border-danger' : ''}`}
           style={{ cursor: 'pointer', padding: 0, background: 'none', border: 'none' }}        >
           <span className='m-0 p-0 '>{selectedDate ? selectedDate.toLocaleDateString() : 'Select Date'}</span>
         </Dropdown.Toggle>
@@ -438,8 +450,8 @@ export const CustomDatePicker = ({ handleDateChange, selectedDate, showDatePicke
 
 export const CustomTimePicker = ({ selectedTimeSlot, handleTimeSlotChange, generateTimeSlots,selectedTimeSlotError }) => {
   return (
-    <div style={{ margin: '8px 0px 10px' }} className={`timepkerSec d-flex flex-column border border-2 ${selectedTimeSlotError?'border-danger':""} rounded-4 p-2`}>
-      <p style={{ marginBottom: "4px", color: "rgb(146, 82, 170)", fontSize: "12px" }} className='p-0 m-0'>Select Date</p>
+    <div  className={`timepkerSec d-flex flex-column border border-2 ${selectedTimeSlotError?'border-danger':""} rounded-4 p-2`}>
+      <p style={{ marginBottom: "4px", color: "rgb(146, 82, 170)", fontSize: "12px" }} className='p-0 m-0'>Select Time</p>
       <Form.Control
         as="select"
         value={selectedTimeSlot}
