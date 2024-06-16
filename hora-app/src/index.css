@@ -440,6 +440,9 @@ p.pro_name {
 p.m-0.p-0.fw-bold.filter-price-tag {
   padding: 0 15px !important;
 }
+.prod-details {
+  padding: 0 0 0 19px;
+}
 /* select date chef flow */
 @media (max-width: 800px) {
   p.ordersummeryname {

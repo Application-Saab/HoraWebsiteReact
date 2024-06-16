@@ -343,9 +343,12 @@ function Checkout() {
           {orderType == '1' ? (
             <div className="rightSeccheckout" style={{ boxShadow: "0 1px 8px rgba(0,0,0,.18)", padding: "20px" }} >
               <h3 style={{ fontSize: "22px", fontWeight: "400", color: "#222", borderBottom: "1px solid #f0f0f0", margin: "0 0 11px 0", lineHeight: "35px" }}>Order Summary</h3>
+              <div className='d-flex flex-column flex-lg-row'>
               <div>
                 <img className='checkoutRightImg' src={`https://horaservices.com/api/uploads/${product.featured_image}`} />
               </div>
+              <div className='prod-detailsp'>
+
               <div style={{ display: "flex", justifyContent: "center", flexDirection: "column", margin: "20px 0 20px 0" }}>
                 <label style={{ color: "rgb(146, 82, 170)", fontSize: "14px", marigin: "16px 0 6px", fontWeight: 700 }}>Product Name:</label>
                 <p style={{ margin: 0, windth: "100%" }}>{product.name}</p>
@@ -357,6 +360,8 @@ function Checkout() {
               <div style={{ display: "flex", justifyContent: "center", flexDirection: "column", margin: "0 0 20px 0" }}>
                 <label style={{ color: "rgb(146, 82, 170)", fontSize: "14px", marigin: "16px 0 6px", fontWeight: 700 }}>Advance Amount:</label>
                 <p style={{ margin: 0, windth: "100%" }}>₹ {Math.round(product.price * 0.3)}</p>
+              </div>
+              </div>
               </div>
             <div >
              <div className='d-flex justify-content-center align-items-center'>
