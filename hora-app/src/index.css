@@ -434,6 +434,12 @@ p.ordersummeryname {
 .footerheading{
  font-size: 20px;
 }
+p.pro_name {
+  min-height: 34px;
+}
+p.m-0.p-0.fw-bold.filter-price-tag {
+  padding: 0 15px !important;
+}
 /* select date chef flow */
 @media (max-width: 800px) {
   p.ordersummeryname {
@@ -654,7 +660,9 @@ p.other-cities {
   }
 
   .decCatPage .decimagecontainer p {
-    font-size: 12px !important;
+    margin: 0 !important;
+        padding: 0 !important;
+        font-size: 12px !important;
   }
 
   .imageContainer img {
@@ -845,6 +853,29 @@ p.other-cities {
 }
 
 @media (max-width: 480px) {
+  p.subheading {
+    font-size: 12px;
+    line-height: 16px;
+    padding: 0px 10px 13px !important;
+}
+  .filterdropdown {
+    select {
+        width: 97%;
+        padding: 3px 4px 5px 4px !important;
+        font-size: 13px !important;
+        margin: -7px auto 0;
+        padding: 0;
+    }
+}
+  p.m-0.p-0.fw-bold.filter-price-tag {
+    padding: 0 8px !important;
+    font-size: 63% !important;
+}
+  .pro_price {
+    margin: 8px 0 0px;
+    padding: 0 !important;
+    display: inline-block;
+}
   p.totalcount {
     margin-bottom: 0 !important;
 }

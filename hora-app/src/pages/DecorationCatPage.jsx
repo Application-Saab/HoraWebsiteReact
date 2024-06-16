@@ -26,7 +26,7 @@ function DecorationCatPage() {
   const [themeFilter, setThemeFilter] = useState("all"); // Default: Show all
 
   const themeFilters = [
-    { label: 'All Design', value: 'all' },
+    { label: 'Select Design', value: 'all' },
     { label: 'Astronaut space theme', value: 'Astronaut-space' },
     { label: 'Avengers theme', value: 'Avengers' },
     { label: 'Boss baby theme', value: 'Boss' },
@@ -178,21 +178,21 @@ function DecorationCatPage() {
       <>
         <div style={{ textAlign: "center", justifyContent: "center", alignItems: "center" }}>
           <div style={{ marginTop: "0px" }}>
-            <h1 style={{ fontSize: "16px", color: "#000", padding: "14px 0 0" }}>{selCat} </h1>
-            <p style={{ padding: "0px 0px 16px", margin: "0px" }}>Balloon Decoration and Room Decoration Services for Anniversary, Birthdays, Kids Parties, Baby Showers and more!</p>
+            <h1 style={{ fontSize: "16px", color: "#000", padding: "14px 0 0" , color: '#9252AA'}}>{selCat} </h1>
+            <p style={{ padding: "0px 0px 16px", margin: "0px" }} className="subheading">Balloon Decoration and Room Decoration Services for Anniversary, Birthdays, Kids Parties, Baby Showers and more!</p>
             <div style={{ marginBottom: "15px" }} className="filterdropdown d-flex flex-column flex-lg-row align-items-center justify-content-center gap-3" >
 
               <div className="d-flex gap-lg-4 gap-2">
-                <div className="px-3 py-1 rounded-5 d-flex justify-content-center align-itmes-center" style={priceFilter === 'all' ? { backgroundColor: '#9252AA', cursor: 'pointer' } : { backgroundColor: '#D9D9D9', cursor: 'pointer' }} onClick={() => setPriceFilter('all')}>
+                <div className="py-1 rounded-5 d-flex justify-content-center align-itmes-center filter-tag" style={priceFilter === 'all' ? { backgroundColor: '#9252AA', cursor: 'pointer' } : { backgroundColor: '#D9D9D9', cursor: 'pointer' }} onClick={() => setPriceFilter('all')}>
                   <p className="m-0 p-0 fw-bold filter-price-tag" style={priceFilter === 'all' ? { color: "#fff" } : { color: '#9252AA' }}>All</p>
                 </div>
-                <div className="px-3 py-1 rounded-5 d-flex justify-content-center align-itmes-center" style={priceFilter === 'under2000' ? { backgroundColor: '#9252AA', cursor: 'pointer' } : { backgroundColor: '#D9D9D9', cursor: 'pointer' }} onClick={() => setPriceFilter('under2000')}>
+                <div className="py-1 rounded-5 d-flex justify-content-center align-itmes-center filter-tag" style={priceFilter === 'under2000' ? { backgroundColor: '#9252AA', cursor: 'pointer' } : { backgroundColor: '#D9D9D9', cursor: 'pointer' }} onClick={() => setPriceFilter('under2000')}>
                   <p className="m-0 p-0 fw-bold filter-price-tag" style={priceFilter === 'under2000' ? { color: "#fff" } : { color: '#9252AA' }}>Under ₹ 2000</p>
                 </div>
-                <div className="px-3 py-1 rounded-5 d-flex justify-content-center align-itmes-center" style={priceFilter === '2000to5000' ? { backgroundColor: '#9252AA', cursor: 'pointer' } : { backgroundColor: '#D9D9D9', cursor: 'pointer' }} onClick={() => setPriceFilter('2000to5000')}>
+                <div className="py-1 rounded-5 d-flex justify-content-center align-itmes-center filter-tag" style={priceFilter === '2000to5000' ? { backgroundColor: '#9252AA', cursor: 'pointer' } : { backgroundColor: '#D9D9D9', cursor: 'pointer' }} onClick={() => setPriceFilter('2000to5000')}>
                   <p className="m-0 p-0 fw-bold filter-price-tag" style={priceFilter === '2000to5000' ? { color: "#fff" } : { color: '#9252AA' }}>₹ 2000 - ₹ 5000</p>
                 </div>
-                <div className="px-3 py-1 rounded-5 d-flex justify-content-center align-itmes-center" style={priceFilter === 'above5000' ? { backgroundColor: '#9252AA', cursor: 'pointer' } : { backgroundColor: '#D9D9D9', cursor: 'pointer' }} onClick={() => setPriceFilter('above5000')}>
+                <div className="py-1 rounded-5 d-flex justify-content-center align-itmes-center filter-tags" style={priceFilter === 'above5000' ? { backgroundColor: '#9252AA', cursor: 'pointer' } : { backgroundColor: '#D9D9D9', cursor: 'pointer' }} onClick={() => setPriceFilter('above5000')}>
                   <p className="m-0 p-0 fw-bold filter-price-tag" style={priceFilter === 'above5000' ? { color: "#fff" } : { color: '#9252AA' }}>Above ₹ 5000</p>
                 </div>
               </div>
@@ -251,13 +251,14 @@ function DecorationCatPage() {
                           marginBottom: "0px",
                           textAlign: "left",
                         }}
+                        className="pro_name"
                       >
-                        {item.name.length > 20 ? `${item.name.substring(0, 26)}...` : item.name}
+                         {window.innerWidth < 641 ? item.name.length > 30 ? `${item.name.substring(0, 30)}...` : item.name : item.name}
                       </p>
                       <div>
-                        <div style={{ flexDirection: 'row', alignItems: 'left', justifyContent: 'space-between' }}>
+                        <div style={{ flexDirection: 'row', alignItems: 'left', justifyContent: 'space-between' }} className="pro_price">
                           <p style={{
-                            color: '#222',
+                           color: '#9252AA',
                             fontWeight: '500',
                             fontSize: 17,
                             textAlign: "left",
@@ -266,7 +267,7 @@ function DecorationCatPage() {
                         </div>
                         <div className="d-flex align-items-center mt-1">
                           <p className="m-0 p-0" style={{ fontWeight: '500', fontSize: 17, margin: "0px", }}>{item.rating}<span className='px-1 m-0 py-0 img-fluid' style={{ color: '#FFBF00' }}><FontAwesomeIcon style={{ margin: 0 }} icon={faStar} /></span></p>
-                          <p style={{ color: '#9252AA', fontWeight: '200', fontSize: 17, margin: "0px", padding: "0 0 0 2px" }}>({item.userCount})</p>
+                          <p style={{ color: '#9252AA', fontWeight: '600', fontSize: 17, margin: "0px", padding: "0 0 0 2px" }}>({item.userCount})</p>
                         </div>
                       </div>
                     </div>
@@ -307,7 +308,7 @@ const styles = {
   },
   imageContainer: {
     position: "relative",
-    width: '21.6%',
+    width: '270px',
     backgroundColor: "#fff",
     marginBottom: 40,
     boxShadow: "0 6px 16px 0 rgba(0,0,0,.14)",
