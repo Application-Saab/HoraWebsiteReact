@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate , Link } from 'react-router-dom'; // Import useNavigate
+import { useNavigate, Link } from 'react-router-dom'; // Import useNavigate
 import bannerSvgImage from '../assets/banner-home-bg.svg';
 import bannerDecorationImage from '../assets/decoration-home-banner.png';
 import bannerChefImage from '../assets/chef-home-banner.png';
@@ -22,6 +22,8 @@ import service7Image from '../assets/entertainment-home-banner-sec.png';
 import service6Image from '../assets/return-home-banner-sec.png';
 import downloadAppImage from '../assets/download-app-sec.png';
 import HomeSlider from "../component/HomeSlider";
+import Cards from "../component/Cards";
+import "../component/CardsHome.css"
 
 function Home() {
     const navigate = useNavigate();
@@ -60,13 +62,13 @@ function Home() {
                     </div>
                     <div style={styles.bannerBottomSec} className="bannerBottomSec">
                         <div style={styles.bannerDecorationImage} className="bannerDecorationImage">
-                        <Link to="/decoration">
-                        <img src={bannerDecorationImage} alt="Decoration Near me" />
-                        <h2 style={{ fontSize: "16px", fontWeight: "normal", color: "#fff", textAlign: "center" }}>Decoration</h2>
-                     </Link>
+                            <Link to="/decoration">
+                                <img src={bannerDecorationImage} alt="Decoration Near me" />
+                                <h2 style={{ fontSize: "16px", fontWeight: "normal", color: "#fff", textAlign: "center" }}>Decoration</h2>
+                            </Link>
                         </div>
                         <div style={styles.bannerDecorationImage} className="bannerDecorationImage">
-                        <Link to="/chefOrder">
+                            <Link to="/chefOrder">
                                 <img src={bannerChefImage} alt="Chef Near me" />
                                 <h2 style={{ fontSize: "18px", fontWeight: "normal", color: "#fff", textAlign: "center" }}>Hire Chef</h2>
                             </Link>
@@ -266,12 +268,89 @@ function Home() {
             </div>
             </div>
             </div> */}
-            <div style={{ justifyContent: "center", alignContent: "center", fontSize: "5px", padding: "0 2px" }}>
+            {/* ----------------------------------mywork------------------------------ */}
+            <div className="decoration">
+                Decoration Happy Birthday
+            </div>
+            <div className='carts'>
+                <div className='wrap'>
+                    <Cards
+                        name={"Birthday Special Ballon Decoration"}
+                        ratings={"4.5"}
+                        price={"4000"}
+                        
+                        path={'https://cheetah.cherishx.com/uploads/1717764318_original.jpg?format=avif&width=384'}
+                    />
+
+                    <Cards
+                        name={"Pastel And Rosegold Birthday Decor"}
+                        ratings={"4.5"}
+                        price={"4000"}
+                     
+                        path={'https://cheetah.cherishx.com/uploads/1680590693_original.jpg?format=avif&width=384'}
+                    />
+
+                    <Cards
+                        name={"Metallic Elegance Ring Birthday Decor"}
+                        ratings={"4.5"}
+                        price={"4000"}
+                       
+                        path={'https://cheetah.cherishx.com/uploads/1683640054_original.jpg?format=avif&width=384'}
+                    />
+
+                    <Cards
+                        name={"White And Gold Bliss Floral Birthday Decor"}
+                        ratings={"4.5"}
+                        price={"4000"}
+                       
+                        path={'https://cheetah.cherishx.com/uploads/1687241712_original.jpg?format=avif&width=384'}
+                    />
+
+                </div>
+
+                <div className='wrap'>
+                    <Cards
+                        name={"Glorious Black and Golden Birthday decor"}
+                        ratings={"4.5"}
+                        price={"4000"}
+                        
+                        path={'https://cheetah.cherishx.com/uploads/1604254840_original.jpg?format=avif&width=384'}
+                    />
+
+                    <Cards
+                        name={"Golden Theme Baby Shower Decor"}
+                        ratings={"4.5"}
+                        price={"4000"}
+                       
+                        path={'https://cheetah.cherishx.com/uploads/1681736706_original.jpg?format=avif&width=384'}
+                    />
+
+                    <Cards
+                        name={"Fiery Love Fest Anniversary Decor"}
+                        ratings={"4.5"}
+                        price={"4000"}
+                      
+                        path={'https://cheetah.cherishx.com/uploads/1686748229_original.jpg?format=avif&width=384'}
+                    />
+
+                    <Cards
+                        name={"Candy Land Birthday Decor"}
+                        ratings={"4.5"}
+                        price={"4000"}
+                      
+                        path={'https://cheetah.cherishx.com/uploads/1653391703_original.jpg?format=avif&width=384'}
+                    />
+                </div>
+            </div>
+            {/* ------------------------------------------------------------------- */}
+            <div style={{ justifyContent: "center", marginTop: "60px", alignContent: "center", fontSize: "5px", padding: "0 2px" }}>
                 <p>Online chef for hire in Bangalore, Best caterers for small parties in Bangalore, Best home made cooking service in Bangalore, Mini party caterers in Bangalore, Book a chef in Bangalore, Book a cook in Bangalore, Book a private chef in Bangalore, Book a private cook in Bangalore, Book a trained verified cook near you in Bangalore, Bookacook in Bangalore, Caterers for small parties in Bangalore, Top caterers in Bangalore, Chef for party in Bangalore, Catering services in Bangalore, Chef at home service in Bangalore, Chef for a day in Bangalore, Chef for a night in Bangalore, Chef for hire in Bangalore, Chef cooking at my home in Bangalore, Chef near me in Bangalore, Chef on demand in Bangalore, Chef required at home in Bangalore, Chefs for hire in Bangalore, Chefs for home in Bangalore, Hire a private chef in Bangalore, Chefs on hire in Bangalore, Cook chef near me in Bangalore, Cook at home services in Bangalore, Cook for a day in Bangalore, Cook for a night in Bangalore, Cook for one day in Bangalore, Cook for party in Bangalore, Cook service near me in Bangalore, Cook home services in Bangalore, Cook near me in Bangalore, Cook on demand in Bangalore, Cook on hire near me in Bangalore, Cook required at home in Bangalore, Cooking as a service in Bangalore, Cooking maids near me in Bangalore, Cooking services near me in Bangalore, Cooks for hire in Bangalore, Cooks for home in Bangalore, Cooks near me in Bangalore, Cooks on hire in Bangalore, Domestic cook near me in Bangalore, Find a chef in Bangalore, Find a cook in Bangalore, Hire a chef in Bangalore, Hire a chef for a day in Bangalore, Hire personal chef in Bangalore, Hire a chef for home in Bangalore, Hire a chef near me in Bangalore, Take a Chef in Bangalore, Hire a cook in Bangalore, Hire a cook at home in Bangalore, Hire a cook for home in Bangalore, Hire a cook near me in Bangalore, Hire a personal chef for a night in Bangalore, Hire a personal cook in Bangalore, Hire a professional chef in Bangalore, Hire chef at home in Bangalore, Hire cook near me in Bangalore, Hire cook online in Bangalore, Hire private chef in Bangalore, Hire someone to cook for you in Bangalore, Hiring a personal chef in Bangalore, Home caterers in Bangalore, Home chef near me in Bangalore, Home cook near me in Bangalore, Home cooking service in Bangalore, Home cooking service near me in Bangalore, Home party catering in Bangalore, House chef near me in Bangalore, House cook near me in Bangalore, In home cooking service in Bangalore, In house cooking service in Bangalore, Local chefs for hire in Bangalore, Looking for chef in Bangalore, Looking for cook in Bangalore, Mini cater</p>
                 <p>Online chef for hire in Delhi, Best caterers for small parties in Delhi, Best home made cooking service in Delhi, Mini party caterers in Delhi, Book a chef in Delhi, Book a cook in Delhi, Book a private chef in Delhi, Book a private cook in Delhi, Book a trained verified cook near you in Delhi, Bookacook in Delhi, Caterers for small parties in Delhi, Top caterers in Delhi, Chef for party in Delhi, Catering services in Delhi, Chef at home service in Delhi, Chef for a day in Delhi, Chef for a night in Delhi, Chef for hire in Delhi, Chef cooking at my home in Delhi, Chef near me in Delhi, Chef on demand in Delhi, Chef required at home in Delhi, Chefs for hire in Delhi, Chefs for home in Delhi, Hire a private chef in Delhi, Chefs on hire in Delhi, Cook chef near me in Delhi, Cook at home services in Delhi, Cook for a day in Delhi, Cook for a night in Delhi, Cook for one day in Delhi, Cook for party in Delhi, Cook service near me in Delhi, Cook home services in Delhi, Cook near me in Delhi, Cook on demand in Delhi, Cook on hire near me in Delhi, Cook required at home in Delhi, Cooking as a service in Delhi, Cooking maids near me in Delhi, Cooking services near me in Delhi, Cooks for hire in Delhi, Cooks for home in Delhi, Cooks near me in Delhi, Cooks on hire in Delhi, Domestic cook near me in Delhi, Find a chef in Delhi, Find a cook in Delhi, Hire a chef in Delhi, Hire a chef for a day in Delhi, Hire personal chef in Delhi, Hire a chef for home in Delhi, Hire a chef near me in Delhi, Take a Chef in Delhi, Hire a cook in Delhi, Hire a cook at home in Delhi, Hire a cook for home in Delhi, Hire a cook near me in Delhi, Hire a personal chef for a night in Delhi, Hire a personal cook in Delhi, Hire a professional chef in Delhi, Hire chef at home in Delhi, Hire cook near me in Delhi, Hire cook online in Delhi, Hire private chef in Delhi, Hire someone to cook for you in Delhi, Hiring a personal chef in Delhi, Home caterers in Delhi, Home chef near me in Delhi, Home cook near me in Delhi, Home cooking service in Delhi, Home cooking service near me in Delhi, Home party catering in Delhi, House chef near me in Delhi, House cook near me in Delhi, In home cooking service in Delhi, In house cooking service in Delhi, Local chefs for hire in Delhi, Looking for chef in Delhi, Looking for cook in Delhi, Mini cater</p>
                 <p>Online chef for hire in Mumbai, Best caterers for small parties in Mumbai, Best home made cooking service in Mumbai, Mini party caterers in Mumbai, Book a chef in Mumbai, Book a cook in Mumbai, Book a private chef in Mumbai, Book a private cook in Mumbai, Book a trained verified cook near you in Mumbai, Bookacook in Mumbai, Caterers for small parties in Mumbai, Top caterers in Mumbai, Chef for party in Mumbai, Catering services in Mumbai, Chef at home service in Mumbai, Chef for a day in Mumbai, Chef for a night in Mumbai, Chef for hire in Mumbai, Chef cooking at my home in Mumbai, Chef near me in Mumbai, Chef on demand in Mumbai, Chef required at home in Mumbai, Chefs for hire in Mumbai, Chefs for home in Mumbai, Hire a private chef in Mumbai, Chefs on hire in Mumbai, Cook chef near me in Mumbai, Cook at home services in Mumbai, Cook for a day in Mumbai, Cook for a night in Mumbai, Cook for one day in Mumbai, Cook for party in Mumbai, Cook service near me in Mumbai, Cook home services in Mumbai, Cook near me in Mumbai, Cook on demand in Mumbai, Cook on hire near me in Mumbai, Cook required at home in Mumbai, Cooking as a service in Mumbai, Cooking maids near me in Mumbai, Cooking services near me in Mumbai, Cooks for hire in Mumbai, Cooks for home in Mumbai, Cooks near me in Mumbai, Cooks on hire in Mumbai, Domestic cook near me in Mumbai, Find a chef in Mumbai, Find a cook in Mumbai, Hire a chef in Mumbai, Hire a chef for a day in Mumbai, Hire personal chef in Mumbai, Hire a chef for home in Mumbai, Hire a chef near me in Mumbai, Take a Chef in Mumbai, Hire a cook in Mumbai, Hire a cook at home in Mumbai, Hire a cook for home in Mumbai, Hire a cook near me in Mumbai, Hire a personal chef for a night in Mumbai, Hire a personal cook in Mumbai, Hire a professional chef in Mumbai, Hire chef at home in Mumbai, Hire cook near me in Mumbai, Hire cook online in Mumbai, Hire private chef in Mumbai, Hire someone to cook for you in Mumbai, Hiring a personal chef in Mumbai, Home caterers in Mumbai, Home chef near me in Mumbai, Home cook near me in Mumbai, Home cooking service in Mumbai, Home cooking service near me in Mumbai, Home party catering in Mumbai, House chef near me in Mumbai, House cook near me in Mumbai, In home cooking service in Mumbai, In house cooking service in Mumbai, Local chefs for hire in Mumbai, Looking for chef in Mumbai, Looking for cook in Mumbai, Mini cater</p>
             </div>
+           
         </div>
+
     );
 }
 
