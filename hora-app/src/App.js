@@ -18,6 +18,7 @@ import CreateOrder from './pages/ChefOrder/CreateOrder';
 import whatsppicon from "./assets/whatsapp-icon.png";
 import SelectDate from './pages/ChefOrder/SelectDate';
 import DecorationCitypage from './pages/DecorationCityPage';
+import FoodDeliveryCreateOrder from './pages/Fooddelivery/FoodDeliveryCreateOrder.jsx'
 function App() {
   return (
     <Router>
@@ -42,6 +43,7 @@ function App() {
           <Route path="/chefOrder" element={<CreateOrder/>} /> 
           <Route path="/selectDate" element={<SelectDate/>} />
           <Route path="/decorationcitypage/:city" element={<DecorationCitypage/>}/>
+          <Route path='/fooddeliveryCreateOrder' element={<FoodDeliveryCreateOrder/>}/>
         </Routes>
         </div>
         <div>
