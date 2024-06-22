@@ -35,6 +35,7 @@ const CreateOrder = ({ history }) => {
     const [isWarningVisibleForDishCount, setWarningVisibleForDishCount] = useState(false);
     const [isWarningVisibleForCuisineCount, setWarningVisibleForCuisineCount] = useState(false);
     const [isViewAllExpanded, setIsViewAllExpanded] = useState(false);
+    const [isButtonVisible, setIsButtonVisible] = useState(false);
     const navigate = useNavigate();
       const handleWarningClose = () => {
         setWarningVisibleForDishCount(false);
@@ -102,6 +103,9 @@ const CreateOrder = ({ history }) => {
     };
 
     const handleIncreaseQuantity = (dish, isSelected) => {
+        if(selectedDishes.length >= 0 && !isSelected){
+            setIsButtonVisible(true)
+        }
         if (selectedDishes.length > 11 && !isSelected) {
             setWarningVisibleForDishCount(true);
         } else {
@@ -131,6 +135,11 @@ const CreateOrder = ({ history }) => {
             setIsDishSelected(updatedSelectedDishes.length > 0);
         }
     };
+
+    useEffect(() => {
+        setIsButtonVisible(false);
+    }, []);
+
 
     const handleCuisinePress = cuisineId => {
         if (selectedCuisines.length < 3 || selectedCuisines.includes(cuisineId)) {
@@ -225,7 +234,7 @@ const CreateOrder = ({ history }) => {
                                             ? dish.special_appliance_id[0].name
                                             : dish.name}
                                     </p>
-                                    <div className="d-flex justify-content-between w-100 px-3">
+                                    <div className="d-flex justify-content-between w-100 px-3 dishPrice">
                                         <span className={`dish-price ${selectedDishes.includes(dish._id) ? 'selected' : ''}`}>
                                             ₹ {dish.dish_rate}
                                         </span>
@@ -275,7 +284,7 @@ const CreateOrder = ({ history }) => {
                                                 ? dish.special_appliance_id[0].name
                                                 : dish.name}
                                         </p>
-                                        <div className="d-flex justify-content-between w-100 px-3">
+                                        <div className="d-flex justify-content-between w-100 px-3 dishPrice">
                                             <span className={`dish-price ${selectedDishes.includes(dish._id) ? 'selected' : ''}`}>
                                                 ₹ {dish.dish_rate}
                                             </span>
@@ -453,6 +462,7 @@ const CreateOrder = ({ history }) => {
 
                         <Row>
                 <Col>
+                {isButtonVisible && (
                     <Button
                         onClick={() => addDish(selectedDishPrice)}
                         style={{
@@ -466,7 +476,7 @@ const CreateOrder = ({ history }) => {
                             <div
                                 style={{
                                     className: "continueButtonLeftText",
-                                    color: isDishSelected ? 'white' : '#343333',
+                                    color: isDishSelected ? 'white' : '#fff',
                                 }}
                             >
                                 Continue
@@ -474,12 +484,13 @@ const CreateOrder = ({ history }) => {
                             <div
                                 style={{
                                     className: "continueButtonRightText",
-                                    color: isDishSelected ? 'white' : '#343333',
+                                    color: isDishSelected ? 'white' : '#fff',
                                 }}
                             >
                                 {selectedCount} Items | ₹ {selectedDishPrice}
                         </div>
                     </Button>
+                     )}
                 </Col>
             </Row>
                     </>

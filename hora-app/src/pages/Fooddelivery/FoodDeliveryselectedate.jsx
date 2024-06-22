@@ -1,0 +1,416 @@
+import React, { useState, useEffect, useRef } from 'react';
+import axios from 'axios';
+import { ListGroup, ListGroupItem } from 'react-bootstrap';
+import { Modal, Button, Container, Row, Col, Spinner } from 'react-bootstrap';
+import { useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+
+const FoodDeliveryselectDate = ({ history }) => {
+    const navigate = useNavigate();
+    const { selectedOption, selectedDishDictionary, selectedDishPrice, selectedDishes , isDishSelected , selectedCount , selectedDishQuantities } = useLocation().state || {}; // Accessing subCategory and itemName safely
+    const [selectedDate, setSelectedDate] = useState(new Date());
+    const [selectedTime, setSelectedTime] = useState(new Date());
+    const [showDatePicker, setShowDatePicker] = useState(false);
+    const [showTimePicker, setShowTimePicker] = useState(false);
+    const [peopleCount, setPeopleCount] = useState(10);
+    const [activeTab, setActiveTab] = useState('right');
+    const data = selectedDishDictionary;
+    const [dishPrice, setDishPrice] = useState(selectedDishPrice);
+    const [showAll, setShowAll] = useState(false);
+    const [burnerCount, setBurnerCount] = useState(0)
+    const [isWarningVisible, setWarningVisible] = useState(false);
+    const [isTimeValid, setTimeValid] = useState(null);
+    const [isDateValid, setDateValid] = useState(null);
+    const [errorText, setErrorText] = useState(null)
+    const [isDatePressed, setIsDatePressed] = useState(false)
+    const [isTimePressed, setIsTimePressed] = useState(false)
+    const [showCookingTime, setShowCookingTime] = useState(true);
+    const [isModalVisible, setIsModalVisible] = useState(false);
+    const [selectedTab, setSelectedTab] = useState('Appliances');
+    const increasePeopleCount = () => {
+        setPeopleCount(peopleCount + 1)
+    }
+
+    const decreasePeopleCount = () => {
+        if (peopleCount != 0) {
+            setPeopleCount(peopleCount - 1)
+        }
+    }
+
+    const onContinueClick = () => {
+        const totalOrderAmount = selectedOption === 'liveCatering' ? dishPrice * peopleCount + 6500 : dishPrice * peopleCount;
+        if (totalOrderAmount < 3000) {
+            // setWarningVisible(true);
+            alert("Please select minimum 3000rps")
+        } else {
+            navigate("/foodDeliveryCheckout", {
+                state: {
+                    peopleCount: peopleCount,
+                    selectedDeliveryOption: selectedOption,
+                    selectedDishes: data,
+                    totalOrderAmount:totalOrderAmount,
+                    selectedDishes: data,
+                    selectedDishQuantities: selectedDishQuantities,
+                    selectedOption: selectedOption,
+                }
+            });
+        }
+    }
+
+
+
+
+
+    const LeftTabContent = ({ selectedOption }) => {
+        return (
+            <div style={{ marginTop: 6, paddingTop: 5, paddingBottom: 10, paddingLeft: 10, backgroundColor: '#FFFFFF', marginLeft: 15, marginRight: 15, borderRadius: 10, fontSize: 14 }}>
+                <div>
+                    {selectedOption === "foodDelivery" && (
+                        <>
+                            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', width: '100%' }}>
+                                <img src={require('../../assets/tick.png')} alt="tick" style={{ height: 16, width: 16 }} />
+                                <p style={{ color: '#9252AA', fontWeight: '700', paddingLeft: 6 }}> Food Delivery at Door-step</p>
+                            </div>
+                            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', width: '100%' }}>
+                                <img src={require('../../assets/tick.png')} alt="tick" style={{ height: 16, width: 16 }} />
+                                <p style={{ color: '#9252AA', fontWeight: '700', paddingLeft: 10 }}>Free Delivery</p>
+                            </div>
+                            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', width: '100%' }}>
+                                <img src={require('../../assets/tick.png')} alt="tick" style={{ height: 16, width: 16 }} />
+                                <p style={{ color: '#9252AA', fontWeight: '700', paddingLeft: 10 }}>Hygienically Packed boxes</p>
+                            </div>
+                            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', width: '100%' }}>
+                                <img src={require('../../assets/tick.png')} alt="tick" style={{ height: 16, width: 16 }} />
+                                <p style={{ color: '#9252AA', fontWeight: '700', paddingLeft: 7 }}> Freshly Cooked Food</p>
+                            </div>
+                        </>
+                    )}
+                </div>
+                <div>
+                    {selectedOption === "liveCatering" && (
+                        <>
+                            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', width: '100%' }}>
+                                <img src={require('../../assets/tick.png')} alt="tick" style={{ height: 16, width: 16 }} />
+                                <p style={{ color: '#9252AA', fontWeight: '700', paddingLeft: 1 }}>  Well Groomed Waiters (2 Nos)</p>
+                            </div>
+                            <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', width: '100%' }}>
+                                <img src={require('../../assets/tick.png')} alt="tick" style={{ height: 16, width: 16 }} />
+                                <p style={{ color: '#9252AA', fontWeight: '700', paddingLeft: 4, flex: 1, flexWrap: 'wrap' }}> Bone-china Crockery & Quality disposal for loose items.</p>
+                            </div>
+                            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', width: '100%' }}>
+                                <img src={require('../../assets/tick.png')} alt="tick" style={{ height: 16, width: 16 }} />
+                                <p style={{ color: '#9252AA', fontWeight: '700', paddingLeft: 6 }}>Transport (to & fro)</p>
+                            </div>
+                            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', width: '100%' }}>
+                                <img src={require('../../assets/tick.png')} alt="tick" style={{ height: 16, width: 16 }} />
+                                <p style={{ color: '#9252AA', fontWeight: '700', paddingLeft: 8 }}>Dustbin with Garbage bag</p>
+                            </div>
+                            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', width: '100%' }}>
+                                <img src={require('../../assets/tick.png')} alt="tick" style={{ height: 16, width: 16 }} />
+                                <p style={{ color: '#9252AA', fontWeight: '700', paddingLeft: 4 }}> Head Mask for waiters & chefs</p>
+                            </div>
+                            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', width: '100%' }}>
+                                <img src={require('../../assets/tick.png')} alt="tick" style={{ height: 16, width: 16 }} />
+                                <p style={{ color: '#9252AA', fontWeight: '700', paddingLeft: 7 }}>Tandoor/Other cooking Utensils</p>
+                            </div>
+                            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', width: '100%' }}>
+                                <img src={require('../../assets/tick.png')} alt="tick" style={{ height: 16, width: 16 }} />
+                                <p style={{ color: '#9252AA', fontWeight: '700', paddingLeft: 8 }}>Chafing Dish</p>
+                            </div>
+                            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', width: '100%' }}>
+                                <img src={require('../../assets/tick.png')} alt="tick" style={{ height: 16, width: 16 }} />
+                                <p style={{ color: '#9252AA', fontWeight: '700', paddingLeft: 8 }}>Cocktail Napkins</p>
+                            </div>
+                            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', width: '100%' }}>
+                                <img src={require('../../assets/tick.png')} alt="tick" style={{ height: 16, width: 16 }} />
+                                <p style={{ color: '#9252AA', fontWeight: '700', paddingLeft: 8 }}>2 Chefs</p>
+                            </div>
+                            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', width: '100%' }}>
+                                <img src={require('../../assets/tick.png')} alt="tick" style={{ height: 16, width: 16 }} />
+                                <p style={{ color: '#9252AA', fontWeight: '700', paddingLeft: 9 }}>Water Can (Bisleri)(20 litres)</p>
+                            </div>
+                            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', width: '100%' }}>
+                                <img src={require('../../assets/tick.png')} alt="tick" style={{ height: 16, width: 16 }} />
+                                <p style={{ color: '#9252AA', fontWeight: '700', paddingLeft: 9 }}>Hand gloves</p>
+                            </div>
+                            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', width: '90%' }}>
+                                <img src={require('../../assets/tick.png')} alt="exclusion" style={{ height: 16, width: 16 }} />
+                                <p style={{ color: '#9252AA', fontWeight: '700', paddingLeft: 7, flex: 1, flexWrap: 'wrap' }}>Exclusion: Buffet table/kitchen table is in client scope (can be provided at additional cost)</p>
+                            </div>
+                        </>
+                    )}
+                </div>
+            </div>
+        );
+    };
+
+    const RenderDishQuantity = ({ item }) => {
+        const itemCount = Object.values(data).filter(x => 
+            x.mealId[0] === "63f1b6b7ed240f7a09f7e2de" || 
+            x.mealId[0] === "63f1b39a4082ee76673a0a9f" || 
+            x.mealId[0] === "63edc4757e1b370928b149b3"
+        ).length;
+    
+        const mainCourseItemCount = Object.values(data).filter(x => x.mealId[0] === "63f1b6b7ed240f7a09f7e2de").length;
+        const appetizerItemCount = Object.values(data).filter(x => x.mealId[0] === "63f1b39a4082ee76673a0a9f").length;
+        const breadItemCount = Object.values(data).filter(x => x.mealId[0] === "63edc4757e1b370928b149b3").length;
+    
+        let quantity = item.quantity * peopleCount;
+    
+        if (
+            (item.id[0] === "63f1b6b7ed240f7a09f7e2de" && mainCourseItemCount > 1) || 
+            (item.id[0] === "63f1b39a4082ee76673a0a9f" && appetizerItemCount > 1) || 
+            (item.id[0] === "63edc4757e1b370928b149b3" && breadItemCount > 1)
+        ) {
+            if (itemCount <= 5) {
+                quantity = quantity;
+            } else if (itemCount === 6 || itemCount === 7) {
+                quantity = quantity * (1 - 0.15);
+            } else if (itemCount === 8) {
+                quantity = quantity * (1 - 0.25);
+            } else if (itemCount === 9 || itemCount === 10) {
+                quantity = quantity * (1 - 0.35);
+            } else if (itemCount === 11) {
+                quantity = quantity * (1 - 0.40);
+            } else if (itemCount === 12) {
+                quantity = quantity * (1 - 0.50);
+            } else if (itemCount === 13) {
+                quantity = quantity * (1 - 0.53);
+            } else if (itemCount === 15) {
+                quantity = quantity * (1 - 0.55);
+            }
+        }
+    
+        quantity = Math.round(quantity);
+        let unit = item.unit;
+    
+        if (quantity >= 1000) {
+            quantity = quantity / 1000;
+            if (unit === 'Gram') {
+                unit = 'KG';
+            } else if (unit === 'ml') {
+                unit = 'L';
+            }
+        }
+    
+        return (
+<div style={{ width:"23%", alignItems: 'center', borderRadius: 5, border: "1px solid #DADADA",  flexDirection: 'row', padding:"10px" , display:"flex" , marginBottom:"20px"}} className='ingredientsec'>
+<div style={{ marginLeft: 5, width: "45%", height: "auto", backgroundColor: '#F0F0F0', borderRadius: "10px", alignItems: 'center', padding:"5%" , justifyContent: 'center', marginRight: 15 }} className='ingredientleftsec'>
+<img src={`https://horaservices.com/api/uploads/${item.image}`} alt={item.name} style={styles.image} />
+</div>
+<div style={{ flexDirection: 'column', marginLeft: 1, width: 80 }} className='ingredientrightsec'>
+    <div style={{ fontSize: "80%", fontWeight: '500', color: '#414141' }} className='ingredientrightsecheading'>{item.name}</div>
+    <div style={{ fontSize: "140%", fontWeight: '700', color: '#9252AA' , textTransform:"uppercase"}} className='ingredientrightsecsibheading'>{quantity + ' ' + unit}</div>
+</div>
+</div>
+        );
+    };
+    
+
+    const RightTabContent = ({ selectedDishQuantities }) => {
+        return (
+            <div style={{
+                marginTop: 8,
+                paddingTop: 8,
+                paddingBottom: 9,
+                paddingLeft: 16,
+                backgroundColor: '#FFFFFF',
+                marginLeft: 15,
+                marginRight: 16,
+                borderRadius: 10,
+                boxShadow: '0 2px 5px rgba(0,0,0,0.1)',
+            }}>
+                <div style={{ flex: 1, overflowY: 'auto' }}>
+                    <div style={{
+                        display: 'flex',
+                        flexWrap: 'wrap',
+                        paddingBottom: 2,
+                    }}>
+                        {selectedDishQuantities.map((item, index) => (
+                            <RenderDishQuantity key={item.name} item={item} />
+                        ))}
+                    </div>
+                </div>
+    
+                <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    flexDirection: 'row',
+                    paddingVertical: 5,
+                    borderRadius: 10,
+                    marginRight: 12,
+                    paddingLeft: 9,
+                    marginTop: 15,
+                    borderRadius: 10,
+                    backgroundColor: '#F9E9FF',
+                }}>
+                    <img src={require('../../assets/info.png')} alt="Info" style={{ height: 13, width: 13 }} />
+                    <p style={{
+                        color: '#9252AA',
+                        fontWeight: '700',
+                        marginLeft: 5,
+                        fontSize: 11,
+                    }}>Complementary: Green Salad, Mint Chutney, and Achar</p>
+                </div>
+            </div>
+        );
+    };
+    
+   
+    
+
+
+
+const renderTabContent = (selectedDishQuantities) => {
+    if (activeTab === 'left') {
+
+        return <LeftTabContent  selectedOption={selectedOption} />;
+    } else if (activeTab === 'right') {
+
+        return <RightTabContent selectedDishQuantities={selectedDishQuantities} />;
+    }
+};
+
+
+    
+
+    return (
+        <div style={{width:"90%" , margin:"0 auto" , backgroundColor:"#EDEDED"}} className='selectdatesecouter'>
+            <div style={{ flexDirection: 'row', backgroundColor: '#EFF0F3' , boxShadow:"0px 0px 6px 0px rgba(0, 0, 0, 0.23)" , display:"flex" ,justifyContent:"center" , alignItems:"center" , padding:"10px 0"}}>
+                <img style={{width:"20px" , marginRight:"10px"}} src={require('../../assets/info.png')} />
+                <p style={{ color: '#676767', fontSize: "94%", fontWeight: '400', margin:"0" }} className='billheading'>Bill value depends upon Dish selected + Number of people</p>
+            </div>
+          
+            <div style={{width:"90%" , margin:"0 auto" , backgroudColor:"rgb(237, 237, 237)" , display:"flex"   , flexDirection:"column"}} className='selectdateContainersec'>
+                <div style={{backgroundColor:"#fff"  , width:"98%" , margin:"10px" , padding:"10px 30px"}} className='selectdateContainer'>
+                <div style={{ width:"80%"}} className='peoplecontsec'>
+                <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginTop: 13, alignItems: 'center' }}>
+                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'row' }}>
+                    <img src={require('../../assets/people.png')} style={{ height: 25, width: 25 }} alt="people icon" />
+                    <p style={{ margin: "0 0 0 10px", fontSize: "100%", padding:"0", color: '#3C3C3E', fontWeight: '500' }} className='selectdateContainerheadig'>How many people you are hosting?</p>
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-end', marginRight: 9 }}>
+                    <button onClick={decreasePeopleCount} style={{ backgroundColor: 'transparent', border: 'none' }}>
+                        <img src={require('../../assets/ic_minus.png')} style={{ height: 25, width: 25, marginLeft: 5 }} alt="minus icon" />
+                    </button>
+                    <p style={{ marginLeft: 5, lineHeight: '23px', fontSize: 18, marginTop: 2, width: 22, textAlign: 'center', color: 'black' , marginBottom:"10px" }} className='totalcount'>{peopleCount}</p>
+                    <button onClick={increasePeopleCount} style={{ backgroundColor: 'transparent', border: 'none' }}>
+                        <img src={require('../../assets/plus.png')} style={{ height: 25, width: 25, marginLeft: 5 }} alt="plus icon" />
+                    </button>
+                </div>
+
+                </div>
+
+                <div style={{ alignItems: 'center', flexDirection: 'row', marginTop:"10px", borderRadius: 10, backgroundColor: '#F9E9FF' , padding:"10px" , display:"flex"}} className='personsectionprice'>
+                <img src={require('../../assets/info.png')} style={{ height: 16, width: 16 }} alt="info icon" />
+                <p style={{ color: '#9252AA', fontWeight: '700', marginLeft: 5, fontSize: "90%" , marginBottom:"0"}}>₹ 49/person would be added to bill value in addition to dish price</p>
+                </div>
+                <div className='chef-divider' style={{marginTop:"20px"}}></div> 
+                <div>
+                <div style={{
+                    flex: 1, marginTop: 16,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                }}>
+                    <p style={{ flexDirection: 'row', alignItems: 'center' , marginBottom:"2px"}}>
+                        <span style={{ color: '#000', fontSize: "100%", fontWeight: '800'  }}>All Food</span>
+                        <span style={{ color: '#9252AA', fontSize: "100%", fontWeight: '800' }}>  Details</span>
+    
+                    </p>
+                </div>
+
+            
+                </div>
+
+                </div>
+                <div style={{ flexDirection: 'row', marginTop: 20, marginHorizontal: 16 }}>
+                <button
+                style={{
+                backgroundColor: activeTab === 'left' ? "#D9D9D9" : 'white',
+                borderTopRightRadius: 10,
+                borderTopLeftRadius: 15,
+                padding: "5px 60px",
+                borderRight: "1px solid #ccc"
+                }}
+                onClick={() => setActiveTab('left')}
+                className='tabButton'
+                >
+                <p style={activeTab === 'left' ? styles.activeTab : styles.inactiveTab}>Inclusion</p>
+                </button>
+                <button
+                style={{
+                backgroundColor: activeTab === 'right' ? "#D9D9D9" : 'white',
+                borderTopRightRadius: 10,
+                borderTopLeftRadius: 15,
+                padding: "5px 60px",
+                    
+                }}
+                onClick={() => setActiveTab('right')}
+                className='tabButton'
+                >
+                <p style={activeTab === 'right' ? styles.activeTab : styles.inactiveTab}>Dish Selected</p>
+                </button>
+                {renderTabContent(selectedDishQuantities)}
+                </div>
+
+               
+                </div>
+                </div>
+
+                <Row>
+                <Col>
+                    <Button
+                         onClick={onContinueClick}
+                        style={{
+                            width: "50%",
+                            backgroundColor: isDishSelected ? '#9252AA' : '#F9E9FF',
+                            borderColor: isDishSelected ? '#9252AA' : '#F9E9FF',
+                        }}
+                        disabled={!isDishSelected}
+                        className='continuebtnchef'
+                    >
+                            <div
+                                style={{
+                                    className: "continueButtonLeftText",
+                                    color: isDishSelected ? 'white' : '#343333',
+                                }}
+                            >
+                                Continue
+                            </div>
+                            <div
+                                style={{
+                                    className: "continueButtonRightText",
+                                    color: isDishSelected ? 'white' : '#343333',
+                                }}
+                            >
+                                {selectedCount} Items | ₹ {dishPrice*peopleCount}
+                        </div>
+                    </Button>
+                </Col>
+            </Row>
+        </div>
+    )
+}
+
+const styles = {
+    activeTab: {
+        fontWeight: '500',
+        color: '#823D9D', 
+        fontSize:13,
+        padding:"0px",
+        margin:"0px",
+      },
+      inactiveTab: {
+        color: '#969696', 
+        fontSize:13,
+        fontWeight:'500',
+        padding:"0px",
+        margin:"0px",
+      },
+      burner:{
+        width:"56px",
+        margin:"10px 0 0"
+      }
+    }
+
+export default FoodDeliveryselectDate;

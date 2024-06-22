@@ -3,15 +3,19 @@ import axios from 'axios' ;
 import { ListGroup, ListGroupItem } from 'react-bootstrap';
 import { Modal, Button, Container, Row, Col, Spinner } from 'react-bootstrap';
 import { BASE_URL, GET_CUISINE_ENDPOINT, API_SUCCESS_CODE, GET_MEAL_DISH_ENDPOINT } from '../../utills/apiconstants';
-import { useNavigate } from 'react-router-dom';
+import { json, useNavigate } from 'react-router-dom';
 import RectanglePurple from '../../assets/Rectanglepurple.png';
 import RectangleWhite from '../../assets/rectanglewhite.png';
 import MinusIcon from '../../assets/minus.png';
 import PlusIcon from '../../assets/plus.png';
+import { useParams } from "react-router-dom";
 
-const CreateOrder = ({ history }) => {
+
+const FoodDeliveryCreateOrder = () => {
     const viewBottomSheetRef = useRef(null);
     const bottomSheetRef = useRef(null);
+    let { selectedfoodCategory } = useParams();
+    const [selectedOption, setSelectedOption] = useState(selectedfoodCategory);
     const [orderType, setOrderType] = useState(2);
     const [isDishSelected, setIsDishSelected] = useState(false);
     const [selected, setSelected] = useState('veg');
@@ -35,6 +39,7 @@ const CreateOrder = ({ history }) => {
     const [isWarningVisibleForDishCount, setWarningVisibleForDishCount] = useState(false);
     const [isWarningVisibleForCuisineCount, setWarningVisibleForCuisineCount] = useState(false);
     const [isViewAllExpanded, setIsViewAllExpanded] = useState(false);
+    const [isButtonVisible, setIsButtonVisible] = useState(false);
     const navigate = useNavigate();
       const handleWarningClose = () => {
         setWarningVisibleForDishCount(false);
@@ -42,35 +47,41 @@ const CreateOrder = ({ history }) => {
         setWarningVisibleForTotalAmount(false);
       };
 
-    // get category of cuisines
-    useEffect(() => {
-        const fetchCuisineData = async () => {
-            try {
-                const url = BASE_URL + GET_CUISINE_ENDPOINT;
-                const requestData = {
-                    type: 'cuisine',
-                };
-                const response = await axios.post(url, requestData, {
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                });
-                if (response.status === API_SUCCESS_CODE) {
-                    const names = response.data.data.configuration.map(({ _id, name }) => [_id, name]);
-                    setCuisines(names);
-                }
-            } catch (error) {
-                console.log('Error Fetching Data:', error.message);
-            }
-        };
-        fetchCuisineData();
-    }, []);
+   
+  // get category of cuisines
 
-    useEffect(() => {
-        if (cuisines.length > 0 && selectedCuisines.length === 0) {
-            handleCuisinePress(cuisines[0][0]);
+  useEffect(() => {
+    
+    const fetchCuisineData = async () => {
+      try {
+        const url = BASE_URL + GET_CUISINE_ENDPOINT;
+        const requestData = {
+          type: 'cuisine',
+        };
+        const response = await axios.post(url, requestData, {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+        if (response.status == API_SUCCESS_CODE) {
+          const names = response.data.data.configuration.map(({_id, name}) => [
+            _id,
+            name,
+          ]);
+          setCuisines(names);
         }
-    }, [cuisines, selectedCuisines]);
+      } catch (error) {
+        console.log('Error Fetching Data:', error.message);
+      }
+    };
+    fetchCuisineData();
+  }, []);
+
+  useEffect(() => {
+    if (cuisines.length > 0 && selectedCuisines.length === 0) {
+      handleCuisinePress(cuisines[0][0]);
+    }
+  }, [cuisines, selectedCuisines]);
 
     const renderItem = ({ item }) => {
         const isSelected = selectedCuisines.includes(item[0]);
@@ -102,86 +113,108 @@ const CreateOrder = ({ history }) => {
     };
 
     const handleIncreaseQuantity = (dish, isSelected) => {
-        if (selectedDishes.length > 11 && !isSelected) {
-            setWarningVisibleForDishCount(true);
+        if(selectedDishes.length >= 0 && !isSelected){
+            setIsButtonVisible(true)
+        }
+        if (selectedDishes.length >= 15 && !isSelected) {
+          setWarningVisibleForDishCount(true);
         } else {
-            const updatedSelectedDishes = [...selectedDishes];
-            const updatedSelectedDishDictionary = { ...selectedDishDictionary };
+          const updatedSelectedDishes = [...selectedDishes];
+          const updatedSelectedDishDictionary = {...selectedDishDictionary};
+          const dishPriceValue = parseInt(dish.cuisineArray[0], 10);
+          console.log("dishPriceValue" + dishPriceValue)
+          if (!isNaN(dishPriceValue)) { // Check if the parsed value is not NaN
             if (updatedSelectedDishes.includes(dish._id)) {
-                const index = updatedSelectedDishes.indexOf(dish._id);
-                updatedSelectedDishes.splice(index, 1);
+              const index = updatedSelectedDishes.indexOf(dish._id);
+              updatedSelectedDishes.splice(index, 1);
+              const updatedPrice = selectedDishPrice - dishPriceValue;
+              setSelectedDishPrice(updatedPrice);
             } else {
-                updatedSelectedDishes.push(dish._id);
+              updatedSelectedDishes.push(dish._id);
+              const updatedPrice = selectedDishPrice + dishPriceValue;
+              setSelectedDishPrice(updatedPrice);
             }
-            setSelectedDishes(updatedSelectedDishes);
-            setSelectedCount(updatedSelectedDishes.length);
-            if (isSelected) {
-                const updatedPrice = selectedDishPrice - parseInt(dish.dish_rate, 10);
-                setSelectedDishPrice(updatedPrice);
-            } else {
-                const updatedPrice = selectedDishPrice + parseInt(dish.dish_rate, 10);
-                setSelectedDishPrice(updatedPrice);
-            }
-            if (updatedSelectedDishDictionary[dish._id]) {
-                delete updatedSelectedDishDictionary[dish._id];
-            } else {
-                updatedSelectedDishDictionary[dish._id] = dish;
-            }
-            setSelectedDishDictionary(updatedSelectedDishDictionary);
-            setIsDishSelected(updatedSelectedDishes.length > 0);
+          }
+          
+          setSelectedDishes(updatedSelectedDishes);
+          setSelectedCount(updatedSelectedDishes.length);
+          
+          if (updatedSelectedDishDictionary[dish._id]) {
+            delete updatedSelectedDishDictionary[dish._id];
+          } else {
+            updatedSelectedDishDictionary[dish._id] = dish;
+          }
+          
+          setSelectedDishDictionary(updatedSelectedDishDictionary);
+          setIsDishSelected(updatedSelectedDishes.length > 0);
         }
     };
+    
 
-    const handleCuisinePress = cuisineId => {
-        if (selectedCuisines.length < 3 || selectedCuisines.includes(cuisineId)) {
-            setSelectedCuisines(prevSelected => {
-                if (prevSelected.includes(cuisineId)) {
-                    return prevSelected.filter(item => item !== cuisineId);
-                } else {
-                    return [...prevSelected, cuisineId];
-                }
-            });
+    //handleCuisinePress is used to handle cuisine clicks and called from above function
+  const handleCuisinePress = cuisineId => {
+    if (selectedCuisines.length < 3 || selectedCuisines.includes(cuisineId)) {
+      setSelectedCuisines(prevSelected => {
+        if (prevSelected.includes(cuisineId)) {
+          return prevSelected.filter(item => item !== cuisineId);
         } else {
-            setWarningVisibleForCuisineCount(true);
+          return [...prevSelected, cuisineId];
         }
-    };
+      });
+    } else {
+      // Display a popup or handle the case where the user tries to select more than 3 cuisines
+      setWarningVisibleForCuisineCount(true);
+    }
+  };
 
-    const fetchMealBasedOnCuisine = async () => {
-        try {
-            setLoading(true);
-            const url = BASE_URL + GET_MEAL_DISH_ENDPOINT;
-            const is_dish = isNonVegSelected ? 0 : 1;
-            const requestData = {
-                cuisineId: selectedCuisines,
-                is_dish: is_dish,
-            };
-            const response = await axios.post(url, requestData, {
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
-            if (response.status === API_SUCCESS_CODE) {
-                setMealList(response.data.data);
-            }
-        } catch (error) {
-            console.log('Error Fetching Data:', error.message);
-        } finally {
-            setLoading(false);
-        }
-    };
+  const fetchMealBasedOnCuisine = async () => {
+    try {
+      setLoading(true);
+      const url = BASE_URL + GET_MEAL_DISH_ENDPOINT;
+      const is_dish = isNonVegSelected ? 0 : 1;
+      console.log(selectedCuisines);
+      const requestData = {
+        cuisineId: ["65f1b256aaba27208a89865f"],
+        is_dish: is_dish,
+      };
+      const response = await axios.post(url, requestData, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      if (response.status == API_SUCCESS_CODE) {
+       // Assuming response is your API response
+        const filteredMealList = response.data.data.map(item => ({
+          ...item,
+          dish: item.dish 
+        }));
+
+        setMealList(filteredMealList);
+
+      }
+    } catch (error) {
+      console.log('Error Fetching Data:', error.message);
+    } finally {
+      setLoading(false); // Set loading to false when the API request is completed
+    }
+  };
+    useEffect(() => {
+        setIsButtonVisible(false);
+    }, []);
 
     useEffect(() => {
         if (selectedCuisines.length > 0 && selectedCuisines.length <= 3) {
-            fetchMealBasedOnCuisine();
+          fetchMealBasedOnCuisine();
         } else {
-            setMealList([]);
-            setSelectedDishDictionary({});
-            setIsDishSelected(false);
-            setSelectedDishes([]);
-            setSelectedCount(0);
-            setSelectedDishPrice(0);
+          setMealList([]);
+          setSelectedDishDictionary({});
+          setIsDishSelected(false);
+          setSelectedDishes([]);
+          setSelectedCount(0);
+          setSelectedDishPrice(0);
         }
-    }, [selectedCuisines, isNonVegSelected]);
+      }, [selectedCuisines, isNonVegSelected]);
+    
 
     const renderDishItem = ({ item }) => (
         <div>
@@ -227,7 +260,7 @@ const CreateOrder = ({ history }) => {
                                     </p>
                                     <div className="d-flex justify-content-between w-100 px-3">
                                         <span className={`dish-price ${selectedDishes.includes(dish._id) ? 'selected' : ''}`}>
-                                            ₹ {dish.dish_rate}
+                                        ₹ {dish.cuisineArray[0]}
                                         </span>
                                         <Button className="pluBtn" onClick={() => handleIncreaseQuantity(dish, selectedDishes.includes(dish._id))}>
                                             <img
@@ -277,7 +310,7 @@ const CreateOrder = ({ history }) => {
                                         </p>
                                         <div className="d-flex justify-content-between w-100 px-3">
                                             <span className={`dish-price ${selectedDishes.includes(dish._id) ? 'selected' : ''}`}>
-                                                ₹ {dish.dish_rate}
+                                            ₹ {dish.cuisineArray[0]}
                                             </span>
                                             <Button className="pluBtn" onClick={() => handleIncreaseQuantity(dish, selectedDishes.includes(dish._id))}>
                                                 <img
@@ -303,12 +336,17 @@ const CreateOrder = ({ history }) => {
     );
 
     const addDish = selectedDishPrice => {
-        if(selectedDishPrice < 500){
-            setWarningVisibleForTotalAmount(true)
-        }
-        else{
-            navigate(`/selectdate`, { state: { selectedDishDictionary, selectedDishPrice, selectedDishes, orderType , isDishSelected , selectedCount} });
-        }
+        const selectedDishQuantities = Object.values(selectedDishDictionary).map(item => {
+            return {
+              name: item.name,
+              image: item.image,
+              price: item.cuisineArray[0] ,
+              quantity: item.cuisineArray[1],
+              unit: item.cuisineArray[2],
+              id:item.mealId
+            };
+          });
+            navigate(`/fooddeliveryselectdate`, { state: { selectedDishDictionary, selectedDishPrice, selectedDishes, orderType , isDishSelected , selectedCount , selectedDishQuantities  , selectedOption} });
     };
 
 
@@ -441,36 +479,39 @@ const CreateOrder = ({ history }) => {
                         </Row>
 
                         <Row>
-                <Col>
-                    <Button
-                        onClick={() => addDish(selectedDishPrice)}
-                        style={{
-                            width: "50%",
-                            backgroundColor: isDishSelected ? '#9252AA' : '#F9E9FF',
-                            borderColor: isDishSelected ? '#9252AA' : '#F9E9FF',
-                        }}
-                        disabled={!isDishSelected}
-                        className='continuebtnchef'
-                    >
-                            <div
-                                style={{
-                                    className: "continueButtonLeftText",
-                                    color: isDishSelected ? 'white' : '#343333',
-                                }}
-                            >
-                                Continue
-                            </div>
-                            <div
-                                style={{
-                                    className: "continueButtonRightText",
-                                    color: isDishSelected ? 'white' : '#343333',
-                                }}
-                            >
-                                {selectedCount} Items 
-                        </div>
-                    </Button>
-                </Col>
-            </Row>
+    <Col>
+        {isButtonVisible && (
+            <Button
+                onClick={() => addDish(selectedDishPrice)}
+                style={{
+                    width: "50%",
+                    backgroundColor: isDishSelected ? '#9252AA' : '#F9E9FF',
+                    borderColor: isDishSelected ? '#9252AA' : '#F9E9FF',
+                }}
+                disabled={!isDishSelected}
+                className='continuebtnchef'
+            >
+                <div
+                    style={{
+                        className: "continueButtonLeftText",
+                        color: isDishSelected ? 'white' : '#fff',
+                    }}
+                >
+                    Continue
+                </div>
+                <div
+                    style={{
+                        className: "continueButtonRightText",
+                        color: isDishSelected ? 'white' : '#fff',
+                    }}
+                >
+                    {selectedCount} Items
+                </div>
+            </Button>
+        )}
+    </Col>
+</Row>
+
                     </>
                 )}
             </div>
@@ -490,9 +531,7 @@ const CreateOrder = ({ history }) => {
           <Modal.Title>Warning</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {isWarningVisibleForDishCount && <p>You cannot select more than 12 dishes!</p>}
-          {isWarningVisibleForCuisineCount && <p>You cannot select more than 3 cuisines!</p>}
-          {isWarningVisibleForTotalAmount && <p>Total Price should be grether than 500!</p>}
+          {isWarningVisibleForDishCount && <p>You cannot select more than 15 dishes!</p>}
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleWarningClose}>
@@ -504,4 +543,4 @@ const CreateOrder = ({ history }) => {
     );
 };
 
-export default CreateOrder;
+export default FoodDeliveryCreateOrder;

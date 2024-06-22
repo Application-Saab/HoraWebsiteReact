@@ -84,7 +84,6 @@ const getTotalSpecialAppliances = () => {
 };
 
 const getTotalIngredients = () => {
-console.log("dhsi........." + JSON.stringify(data))
     const totalIngredients = {};
     for (const dishId in data) {
         console.log('dishId2' + dishId)
@@ -342,7 +341,7 @@ const RightTabContent = ({ ingredientList, preparationTextList, toggleShowAll, s
                     justifyContent: 'center',
                     alignItems: 'center',
                 }}>
-                    <p style={{ flexDirection: 'row', alignItems: 'center' , marginBottom:"2px"}}>
+                    <p style={{ flexDirection: 'row', alignItems: 'center' , marginBottom:"2px"}} className='req-sec'>
                         <span style={{ color: '#000', fontSize: "100%", fontWeight: '800'  }}>Required </span>
                         <span style={{ color: '#9252AA', fontSize: "100%", fontWeight: '800' }}>Procurement </span>
                         <span style={{ color: '#000', fontSize: "100%", fontWeight: '800' }}>?</span>
@@ -350,7 +349,7 @@ const RightTabContent = ({ ingredientList, preparationTextList, toggleShowAll, s
                 </div>
 
                 <div style={{ flexDirection: 'row', marginTop: 4, marginHorizontal: 9, justifyContent: 'center' }}>
-                    <p style={{ color: '#707070', fontSize: "100%", fontWeight: '400' }}>Keep these Appliances and Ingredients ready before chef Arrival</p>
+                    <p style={{ color: '#707070', fontSize: "100%", fontWeight: '400' }} className='req-des'>Keep these Appliances and Ingredients ready before chef Arrival</p>
                 </div>
                 </div>
 
