@@ -46,7 +46,6 @@ function Checkout() {
   const handleDateChange = (date) => {
     setSelectedDate(date);
     setSelectedDateError(false);
-    console.log(date); // Print the selected date
   };
 
   const handleTimeSlotChange = (event) => {
@@ -168,8 +167,7 @@ function Checkout() {
     const storedUserID = await localStorage.getItem('userID');
     const phoneNumber = await localStorage.getItem('mobileNumber')
 
-    console.log(storedUserID);
-    console.log(phoneNumber);
+    
 
     const randomInteger = Math.floor(getRandomNumber(1, 1000000000000)) + Math.floor(getRandomNumber(1, 1000000000000)) + Math.floor(getRandomNumber(1, 1000000000000));
 
@@ -183,7 +181,6 @@ function Checkout() {
     };
 
 
-    console.log(requestData)
 
     try {
       if(city && pinCode && address && selectedTimeSlot && selectedDate){
@@ -192,7 +189,7 @@ function Checkout() {
             'Content-Type': 'application/json',
           },
         });
-        console.log(response)
+        
         window.location.href = response.data
         handleConfirmOrder(merchantTransactionId);
       }else{
@@ -260,7 +257,7 @@ function Checkout() {
 
         const token = await localStorage.getItem('token');
 
-        console.log(requestData);
+        
 
         const response = await axios.post(url, requestData, {
           headers: {
@@ -280,7 +277,7 @@ function Checkout() {
   };
 
   const checkPaymentStatus = async (merchantTransactionId) => {
-    console.log("inside chkecstatus")
+    
     try {
       const storedUserID = await localStorage.getItem('userID');
       const apiUrl = BASE_URL + PAYMENT_STATUS + '/' + merchantTransactionId;
@@ -304,7 +301,7 @@ function Checkout() {
 
             if (response.data && response.data.message) {
               const message = response.data.message;
-              console.log('API response message:', message);
+              
 
               if (message === 'PAYMENT_PENDING') {
                 console.log('Payment is still pending. Polling again...');

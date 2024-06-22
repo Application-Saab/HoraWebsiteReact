@@ -42,14 +42,9 @@ function Decoration() {
 
     const getCatData = async (subCategory) => {
         try {
-            console.log("Inside getCatData");
-            
             const response = await axios.get(BASE_URL + GET_DECORATION_CAT_ID + subCategory);
-            
             const categoryId = response.data.data._id;
-            
             const result = await axios.get(BASE_URL + GET_DECORATION_CAT_ITEM + categoryId);
-            //console.log(result.data.data);
             setCatalogueData(result.data.data);
         } catch (error) {
             console.log("Error:", error.message);
