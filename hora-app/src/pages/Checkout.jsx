@@ -8,7 +8,7 @@ import 'react-time-picker/dist/TimePicker.css';
 import 'react-clock/dist/Clock.css';
 import checkOutImage from '../assets/checkout-problem.png';
 import axios from 'axios';
-import { BASE_URL, GET_ADDRESS_LIST, CONFIRM_ORDER_ENDPOINT } from '../utills/apiconstants';
+import { BASE_URL, GET_ADDRESS_LIST, CONFIRM_ORDER_ENDPOINT, SAVE_LOCATION_ENDPOINT } from '../utills/apiconstants';
 import { PAYMENT, PAYMENT_STATUS, API_SUCCESS_CODE } from '../utills/apiconstants';
 import { Button, Card, Form } from 'react-bootstrap';
 import { Dropdown, DropdownButton } from 'react-bootstrap';
@@ -49,8 +49,6 @@ const [combinedDateTimeError, setCombinedDateTimeError] = useState(false);
   const handleDateChange = (date) => {
     setSelectedDate(date);
     setSelectedDateError(false);
-    combineDateTime(date, selectedTimeSlot);
-    console.log(date); // Print the selected date
   };
 
   const handleTimeSlotChange = (event) => {
@@ -152,15 +150,61 @@ const [combinedDateTimeError, setCombinedDateTimeError] = useState(false);
     window.open("https://wa.me/+918982321487/?text=Hi%2CI%20saw%20your%20website%20and%20want%20to%20know%20more%20about%20payment%20in%20Decoration%20services", "_blank");
   }
 
+  const saveAddress = async () => {
+    try {
+      console.log("Inside saveAddress");
+
+      const url = BASE_URL + SAVE_LOCATION_ENDPOINT;
+  
+      // Retrieve userID from localStorage
+      let userId = localStorage.getItem("userID");
+  
+      if (!userId) {
+        console.error('Error retrieving userID');
+        return;
+      }
+  
+      const address2 = address + pinCode;
+  
+  
+      const requestData = {
+        address1: address2,
+        address2: address2,
+        locality: city,
+        city: city,
+        userId: userId
+      };
+  
+      const token = localStorage.getItem('token');
+  
+      const response = await axios.post(url, requestData, {
+        headers: {
+          'Content-Type': 'application/json',
+          'authorization': token
+        },
+      });
+  
+      if (response.status === API_SUCCESS_CODE) {
+        // Handle navigation in React (e.g., using React Router)
+        console.log("Address saved successfully");
+        return response.data.data._id
+      }
+    } catch (error) {
+      console.log('Error  Data:', error.message);
+    }
+  };
 
   const onContinueClick = async () => {
+
+
+    
+  
     const apiUrl = BASE_URL + PAYMENT;
 
     const storedUserID = await localStorage.getItem('userID');
     const phoneNumber = await localStorage.getItem('mobileNumber')
 
-    console.log(storedUserID);
-    console.log(phoneNumber);
+    
 
     const randomInteger = Math.floor(getRandomNumber(1, 1000000000000)) + Math.floor(getRandomNumber(1, 1000000000000)) + Math.floor(getRandomNumber(1, 1000000000000));
 
@@ -174,6 +218,7 @@ const [combinedDateTimeError, setCombinedDateTimeError] = useState(false);
     };
 
 
+
     try {
       if(city && pinCode && address && selectedTimeSlot && selectedDate){
         if (combinedDateTimeError) {
@@ -185,7 +230,7 @@ const [combinedDateTimeError, setCombinedDateTimeError] = useState(false);
             'Content-Type': 'application/json',
           },
         });
-        console.log(response)
+        
         window.location.href = response.data
         handleConfirmOrder(merchantTransactionId);
         
@@ -220,20 +265,26 @@ const [combinedDateTimeError, setCombinedDateTimeError] = useState(false);
 
     try {
 
+      const addressID = await saveAddress();
+
       const message = await checkPaymentStatus(merchantTransactionId);
+     
       const storedUserID = await localStorage.getItem('userID');
+
+      
+      
       //const locality = await AsyncStorage.getItem("Locality");
 
       if (message === 'PAYMENT_SUCCESS') {
         const url = BASE_URL + CONFIRM_ORDER_ENDPOINT;
         const requestData = {
           "toId": "",
-          "order_time": selectedTimeSlot.toLocaleTimeString(),
+          "order_time": selectedTimeSlot,
           "no_of_people": 0,
           "type": 1,
           "fromId": storedUserID,
           "is_discount": "0",
-          "addressId": address + pinCode,
+          "addressId": addressID,
           "order_date": selectedDate.toDateString(),
           "no_of_burner": 0,
           "order_locality": city,
@@ -242,12 +293,13 @@ const [combinedDateTimeError, setCombinedDateTimeError] = useState(false);
           "payable_amount": product.price,
           "is_gst": "0",
           "order_type": true,
+          "items" : [product._id],
           "decoration_comments": comment
         }
 
         const token = await localStorage.getItem('token');
 
-        console.log(requestData);
+        
 
         const response = await axios.post(url, requestData, {
           headers: {
@@ -267,7 +319,7 @@ const [combinedDateTimeError, setCombinedDateTimeError] = useState(false);
   };
 
   const checkPaymentStatus = async (merchantTransactionId) => {
-    console.log("inside chkecstatus")
+    
     try {
       const storedUserID = await localStorage.getItem('userID');
       const apiUrl = BASE_URL + PAYMENT_STATUS + '/' + merchantTransactionId;
@@ -291,7 +343,7 @@ const [combinedDateTimeError, setCombinedDateTimeError] = useState(false);
 
             if (response.data && response.data.message) {
               const message = response.data.message;
-              console.log('API response message:', message);
+              
 
               if (message === 'PAYMENT_PENDING') {
                 console.log('Payment is still pending. Polling again...');

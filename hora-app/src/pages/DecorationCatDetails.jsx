@@ -21,6 +21,7 @@ function DecorationCatDetails() {
     navigate('/login', { state: { from: window.location.pathname, subCategory, product, orderType } });
     }
     else{
+      
       navigate(`/checkout`, { state: { subCategory, product , orderType } });
     }
    

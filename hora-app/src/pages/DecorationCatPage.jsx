@@ -137,6 +137,7 @@ function DecorationCatPage() {
           rating: getRandomRating(),
           userCount: getRandomNumber(20, 500)
         }));
+        
         setCatalogueData(decoratedData);
       }
     } catch (error) {
