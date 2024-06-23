@@ -15,6 +15,7 @@ import Citypage from './pages/Citypage';
 import Orderlist from './pages/Orderlist'; 
 import MyAccount from './pages/MyAccount';
 import CreateOrder from './pages/ChefOrder/CreateOrder';
+import ChefCheckout from './pages/ChefOrder/ChefCheckout.jsx';
 import whatsppicon from "./assets/whatsapp-icon.png";
 import SelectDate from './pages/ChefOrder/SelectDate';
 import DecorationCitypage from './pages/DecorationCityPage';
@@ -34,6 +35,7 @@ function App() {
           <Route path="/citypage/:city/decoration/occasions/:catValue" element={<DecorationCatPage />} />
           <Route path="/citypage/:city/decoration/product/:catValue/:productName" element={<DecorationCatDetails />}/>
           <Route path="/checkout" element={<Checkout />} />
+          <Route path="/chefcheckout" element={<ChefCheckout />} />
           <Route path="/aboutus" element={<AboutUs />} />
           <Route path="/contactus" element={<ContactUs />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />

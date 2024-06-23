@@ -46,7 +46,7 @@ const SelectDate = ({ history }) => {
                 setWarningVisible(true);
             }
             else {
-                navigate(`/checkout`, { state: { selectedDishDictionary, selectedDishPrice, selectedDishes, orderType , isDishSelected , selectedCount} });
+                navigate(`/chefcheckout`, { state: { peopleCount, selectedDishDictionary, selectedDishPrice, selectedDishes, orderType , isDishSelected , selectedCount} });
             }
         }
 

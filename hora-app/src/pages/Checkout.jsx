@@ -157,11 +157,11 @@ function Checkout() {
     }
   };
 
-  const onContinueClick = async () => {
+  const onContinueClick = async (e) => {
 
 
     
-  
+    e.preventDefault();
     const apiUrl = BASE_URL + PAYMENT;
 
     const storedUserID = await localStorage.getItem('userID');
