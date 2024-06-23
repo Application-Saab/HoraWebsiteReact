@@ -20,6 +20,9 @@ import whatsppicon from "./assets/whatsapp-icon.png";
 import SelectDate from './pages/ChefOrder/SelectDate';
 import DecorationCitypage from './pages/DecorationCityPage';
 import FoodDeliveryCreateOrder from './pages/Fooddelivery/FoodDeliveryCreateOrder.jsx'
+import FoodDeliveryselectDate from './pages/Fooddelivery/FoodDeliveryselectedate.jsx';
+import FoodDeliveryCheckout from './pages/Fooddelivery/FoodDeliverCheckout.jsx';
+
 function App() {
   return (
     <Router>
@@ -45,7 +48,9 @@ function App() {
           <Route path="/chefOrder" element={<CreateOrder/>} /> 
           <Route path="/selectDate" element={<SelectDate/>} />
           <Route path="/decorationcitypage/:city" element={<DecorationCitypage/>}/>
-          <Route path='/fooddeliveryCreateOrder' element={<FoodDeliveryCreateOrder/>}/>
+          <Route path='/fooddeliveryCreateOrder/:selectedfoodCategory' element={<FoodDeliveryCreateOrder/>}/>
+          <Route path='/fooddeliveryselectdate' element={<FoodDeliveryselectDate/>}/>
+          <Route path='/foodDeliveryCheckout' element={<FoodDeliveryCheckout/>}/>
         </Routes>
         </div>
         <div>

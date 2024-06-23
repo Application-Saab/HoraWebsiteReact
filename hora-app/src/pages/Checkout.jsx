@@ -31,6 +31,9 @@ function Checkout() {
   const navigate = useNavigate();
   const [showDatePicker, setShowDatePicker] = useState(false);
 
+  const [combinedDateTime, setCombinedDateTime] = useState(null);
+const [combinedDateTimeError, setCombinedDateTimeError] = useState(false);
+
   /// order.type is 2 for chef
   /// order.type is 1 for decoration
   /// order.type is 3 for waiter
@@ -49,13 +52,39 @@ function Checkout() {
   };
 
   const handleTimeSlotChange = (event) => {
+    const timeSlot = event.target.value;
     setSelectedTimeSlot(event.target.value);
     setSelectedDateError(false);
+    combineDateTime(selectedDate, timeSlot);
   };
+  const combineDateTime = (date, timeSlot) => {
+    if (date && timeSlot) {
+      const [startHour] = timeSlot.split('-')[0].trim().split(':');
+      const combinedDate = new Date(date);
+      combinedDate.setHours(startHour);
+      combinedDate.setMinutes(0);
+      combinedDate.setSeconds(0);
+      combinedDate.setMilliseconds(0);
+      setCombinedDateTime(combinedDate);
+      validateDateTime(combinedDate);
+    }
+  };
+  const validateDateTime = (combinedDate) => {
+    const now = new Date();
+    const timeDifference = combinedDate - now;
+  
+    // Check if the combined date and time are at least 24 hours in the future
+    if (timeDifference < 24 * 60 * 60 * 1000) { // 24 hours in milliseconds
+      setCombinedDateTimeError(true);
+    } else {
+      setCombinedDateTimeError(false);
+    }
+  };
+  
 
   const generateTimeSlots = () => {
-    const startTime = 8; // Starting hour
-    const endTime = 20; // Ending hour
+    const startTime = 7; // Starting hour
+    const endTime = 22; // Ending hour
     const interval = 3; // Interval in hours
 
     const timeSlots = [];
@@ -71,7 +100,15 @@ function Checkout() {
     return timeSlots;
   };
 
-  const pincodes = ['451606', '421510', '431020', '494823', '451660']
+  const pincodes = ['560063', '560030', '560034', '560007', '560092' , '560024' , '560045' , '560003' , '560050' , '562107' , '560064' , '560047'
+    ,'560026' , '560086' , '560002' , '560070' , '560073' , '560053' , '560085' , '560043' , '560017' , '560001' , '560009', '560025' , 
+    '560083' , '560076' , '560004' , '560079' , '560103' , '560046' , '562157' , '560010' , '560049' , '560056' , '560068' , '560093',
+    '560018' , '560040' , '560097' , '560061' , '562130' , '560067' , '560036' , '560029' , '560062' , '560037',
+    '560071', '562125' , '560016' , '560100' ,'560005' , '560065' , '560019' , '560021' , '560022' , '560013' , '560087' , '560008' , '560051' , '560102' , '560104',
+    '560048' , '560094' , '560066' , '560038' , '560078' , '560006' , '560014' , '560015' , '560041' , '560069' , '560011' , '560020' , '560084' , '560096' , '560098',
+    '560095' , '560077' , '560074' , '560054' , '560023' , '560033' , '560055' , '560099' , '560072' , '560039' , '560075' , '560032' , '560058' , '560059' , '560080' , 
+    '560027' , '560012' , '560042' , '560028' , '560052' , '560091'
+  ]
 
   const handleAddressChange = (e) => {
     setAddress(e.target.value);
@@ -184,6 +221,10 @@ function Checkout() {
 
     try {
       if(city && pinCode && address && selectedTimeSlot && selectedDate){
+        if (combinedDateTimeError) {
+          alert("The selected date and time must be at least 24 hours from now.");
+          return;
+        }
         const response = await axios.post(apiUrl, requestData, {
           headers: {
             'Content-Type': 'application/json',
@@ -192,6 +233,7 @@ function Checkout() {
         
         window.location.href = response.data
         handleConfirmOrder(merchantTransactionId);
+        
       }else{
         if(!city){
           setCityError(true)
@@ -339,14 +381,16 @@ function Checkout() {
   return (
     <div className="App">
       <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-        <div style={{ display: "flex", alignItems: "start", height: '90vh' }} className='checoutSec my-3 gap-5 overflow-auto'>
+        <div style={{ display: "flex", alignItems: "start", height: '90vh' }} className='checoutSec my-3 gap-5 overflow-x-hidden overflow-y-auto'>
           <div style={{ width: "60%", boxShadow: "0 1px 8px rgba(0,0,0,.18)", padding: "20px" }} className='leftSeccheckout'>
             <h2 style={{ fontSize: "22px", fontWeight: "400", color: "#222", borderBottom: "1px solid #f0f0f0", margin: "0 0 8px 0", lineHeight: "35px" }}>Booking Details</h2>
             <div className='border border-danger p-1 px-3 rounded bg-danger-subtle text-black text-center' style={{ color: '#000', fontSize: 12, fontWeight: '500', textAlign: 'left', color: "#9252AA" }}>The decorator requires approximately 40-90 minutes to fulfill the service</div>
-            <div style={{ display: 'flex', margin: "8px 0px 10px" }} className='flex-lg-row flex-column align-items-between justify-content-center  align-items-lg-center justify-content-lg-between'>
-            <div className='col-6'>  <CustomDatePicker handleDateChange={handleDateChange} setSelectedDate={setSelectedDate} selectedDate={selectedDate} showDatePicker={showDatePicker} setShowDatePicker={setShowDatePicker} selectedDateError={selectedDateError}/></div>
-             <div className='col-6 ms-1'> <CustomTimePicker handleTimeSlotChange={handleTimeSlotChange} generateTimeSlots={generateTimeSlots} selectedTimeSlot={selectedTimeSlot} selectedTimeSlotError={selectedTimeSlotError}/></div>
+            <div style={{ display: 'flex', margin: "8px 0px 10px" }} className='row align-items-between justify-content-center  align-items-lg-center justify-content-lg-between'>
+            <div className='col-6'>  <CustomDatePicker  handleDateChange={handleDateChange} setSelectedDate={setSelectedDate} selectedDate={selectedDate} showDatePicker={showDatePicker} setShowDatePicker={setShowDatePicker} combinedDateTimeError={combinedDateTimeError} selectedDateError={selectedDateError}/></div>
+             <div className='col-6'> <CustomTimePicker handleTimeSlotChange={handleTimeSlotChange} generateTimeSlots={generateTimeSlots} selectedTimeSlot={selectedTimeSlot}combinedDateTimeError={combinedDateTimeError} selectedTimeSlotError={selectedTimeSlotError}/></div>
             </div>
+            {combinedDateTimeError && <p className="text-danger" style={{fontSize:'12px'}}>The selected date and time must be at least 24 hours from now.</p>}
+
             <div className='checkoutInputType border-2 rounded-4  ' style={{ display: "flex", justifyContent: "center", flexDirection: "column" }}>
               <h4 style={{ color: "rgb(146, 82, 170)", fontSize: "14px", marginBottom: "4px" }}>Share your comments (if any)</h4>
               <textarea className=' rounded border border-2 p-1 '
@@ -472,21 +516,21 @@ export default Checkout;
 
 
 
-export const CustomDatePicker = ({ handleDateChange, selectedDate, showDatePicker, setShowDatePicker,selectedDateError }) => {
+export const CustomDatePicker = ({ handleDateChange, selectedDate, showDatePicker, setShowDatePicker,selectedDateError,combinedDateTimeError }) => {
 
   const toggleDatePicker = () => {
     setShowDatePicker((prev) => !prev);
   };
 
   return (
-    <div  className='d-flex flex-column border border-2 rounded-4 p-2'>
+    <div  className={`d-flex flex-column border border-2 rounded-4 p-2  ${combinedDateTimeError? 'border-danger' : ''} `}>
       <p style={{ marginBottom: "4px", color: "rgb(146, 82, 170)", fontSize: "12px" }} className='p-0 m-0'>Select Date</p>
       <Dropdown show={showDatePicker} onToggle={toggleDatePicker} className='border-none p-0'>
         <Dropdown.Toggle
           variant="outline-secondary"
-          className={`w-100 m-0 p-0 d-flex justify-content-between align-items-center ${selectedDateError? 'border-danger' : ''}`}
+          className={`w-100 m-0 p-0 d-flex justify-content-between align-items-center text-black ${selectedDateError? 'border-danger' : ''}`}
           style={{ cursor: 'pointer', padding: 0, background: 'none', border: 'none' }}        >
-          <span className='m-0 p-0 '>{selectedDate ? selectedDate.toLocaleDateString() : 'Select Date'}</span>
+          <span style={{fontSize:'12px'}} className='m-0 p-0 '>{selectedDate ? selectedDate.toLocaleDateString() : 'Select Date'}</span>
         </Dropdown.Toggle>
 
         <Dropdown.Menu
@@ -506,9 +550,9 @@ export const CustomDatePicker = ({ handleDateChange, selectedDate, showDatePicke
   );
 };
 
-export const CustomTimePicker = ({ selectedTimeSlot, handleTimeSlotChange, generateTimeSlots,selectedTimeSlotError }) => {
+export const CustomTimePicker = ({ selectedTimeSlot, handleTimeSlotChange, generateTimeSlots,selectedTimeSlotError,combinedDateTimeError }) => {
   return (
-    <div  className={`timepkerSec d-flex flex-column border border-2 ${selectedTimeSlotError?'border-danger':""} rounded-4 p-2`}>
+    <div  className={`timepkerSec d-flex flex-column border border-2 ${combinedDateTimeError? 'border-danger' : ''}  ${selectedTimeSlotError?'border-danger':""} rounded-4 p-2`}>
       <p style={{ marginBottom: "4px", color: "rgb(146, 82, 170)", fontSize: "12px" }} className='p-0 m-0'>Select Time</p>
       <Form.Control
         as="select"

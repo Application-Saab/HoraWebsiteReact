@@ -42,6 +42,10 @@ function Header() {
     navigate(`/decoration-cat-page/${subCategory}`);
   };
 
+  const openfoodCat = (subCategory) =>{
+    navigate(`/fooddeliveryCreateOrder/${subCategory}`);
+  }
+
   const openLink = () => {
     window.open("https://play.google.com/store/apps/details?id=com.hora", "_blank");
   };
@@ -89,29 +93,30 @@ function Header() {
                 {showDecorationSubMenu && (
                   <ul style={styles.subMenu}>
                     <li>
-                      <Link to="/decoration" style={styles.subMenuLink} onClick={() => openCatItems("KidsBirthday")}>
+                      <Link to="/decoration" style={styles.subMenuLink}>
                         Decoration
                       </Link>
                     </li>
                     <li>
-                      <Link to="/chefOrder" style={styles.subMenuLink} onClick={() => openCatItems("BabyShower")}>
+                      <Link to="/chefOrder" style={styles.subMenuLink}>
                         Hire a Chef
                       </Link>
                     </li>
+                  
                     <li>
-                      <Link to="/" style={styles.subMenuLink} onClick={() => openCatItems("FirstNight")}>
-                        Entertainment
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/" style={styles.subMenuLink} onClick={() => openCatItems("Birthday")}>
-                        Gift & Party Supplies
+                      <Link to="/fooddeliveryCreateOrder/foodDelivery" style={styles.subMenuLink}>
+                        Food Delivery
                       </Link>
                     </li>
 
                     <li>
-                      <Link to="/fooddeliveryCreateOrder" style={{ ...styles.subMenuLink, ...styles.lastChild }} onClick={() => openCatItems("Anniversary")}>
-                        Food Delivery
+                      <Link to="/fooddeliveryCreateOrder/liveCatering"  style={styles.subMenuLink}>
+                      Live Catering 
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/"  style={{ ...styles.subMenuLink, ...styles.lastChild }} onClick={() => openCatItems("FirstNight")}>
+                      Entertainment
                       </Link>
                     </li>
                   </ul>
