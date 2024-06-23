@@ -195,7 +195,6 @@ function Header() {
 
           </div>
 
-          <div className="btn mobiledownloadappbutn home-btn" onClick={openLink}>{'Download Our App'}</div>
         </div>
       </div>
       {showDrawer && <Drawer closeDrawer={toggleDrawer} drawerRef={drawerRef} handleLogout={handleLogout} />}
@@ -256,7 +255,7 @@ const Drawer = ({ closeDrawer, drawerRef, handleLogout }) => {
       <Link to="/chefOrder" style={style.drawerLink} onClick={closeDrawer}>
         Hire a Chef
       </Link>
-      <Link to="/" style={style.drawerLink} onClick={closeDrawer}>
+      <Link to="/fooddeliveryCreateOrder/foodDelivery" style={style.drawerLink} onClick={closeDrawer}>
         Food Delivery
       </Link>
       <Link to="/" style={style.drawerLink} onClick={closeDrawer}>

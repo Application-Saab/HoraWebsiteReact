@@ -709,188 +709,365 @@ const calculateFinalTotal = () => {
 
   return (
     <div className="App">
-      <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-        <div style={{ display: "flex", alignItems: "start", height: '90vh' }} className='checoutSec my-3 gap-5 overflow-x-hidden overflow-y-auto'>
-          <div style={{ width: "60%", boxShadow: "0 1px 8px rgba(0,0,0,.18)", padding: "20px" }} className='leftSeccheckout'>
-            <h2 style={{ fontSize: "22px", fontWeight: "400", color: "#222", borderBottom: "1px solid #f0f0f0", margin: "0 0 8px 0", lineHeight: "35px" }}>Booking Details</h2>
-            <div className='border border-danger p-1 px-3 rounded bg-danger-subtle text-black text-center' style={{ color: '#000', fontSize: 12, fontWeight: '500', textAlign: 'left', color: "#9252AA" }}>The decorator requires approximately 40-90 minutes to fulfill the service</div>
-            <div style={{ display: 'flex', margin: "8px 0px 10px" }} className='row align-items-between justify-content-center  align-items-lg-center justify-content-lg-between'>
-            <div className='col-6'>  <CustomDatePicker  handleDateChange={handleDateChange} setSelectedDate={setSelectedDate} selectedDate={selectedDate} showDatePicker={showDatePicker} setShowDatePicker={setShowDatePicker} combinedDateTimeError={combinedDateTimeError} selectedDateError={selectedDateError}/></div>
-             <div className='col-6'> <CustomTimePicker handleTimeSlotChange={handleTimeSlotChange} generateTimeSlots={generateTimeSlots} selectedTimeSlot={selectedTimeSlot}combinedDateTimeError={combinedDateTimeError} selectedTimeSlotError={selectedTimeSlotError}/></div>
-            </div>
-            {combinedDateTimeError && <p className="text-danger" style={{fontSize:'12px'}}>The selected date and time must be at least 24 hours from now.</p>}
-
-            <div className='checkoutInputType border-2 rounded-4  ' style={{ display: "flex", justifyContent: "center", flexDirection: "column" }}>
-              <h4 style={{ color: "rgb(146, 82, 170)", fontSize: "14px", marginBottom: "4px" }}>Share your comments (if any)</h4>
-              <textarea className=' rounded border border-2 p-1 '
-                value={comment}
-                onChange={handleComment}
-                rows={4}
-                placeholder="Enter your comment."
-              />
-            </div>
-            <div>
-              <div style={{ display: "flex", justifyContent: "center", flexDirection: "column" }} className='checkoutInputType'>
-                <label style={{ color: "rgb(146, 82, 170)", fontSize: "14px", fontWeight: "600" }}>Address:</label>
-                <textarea
-                  type="text"
-                  className=' rounded border border-2 p-1'
-                  value={address}
-                  onChange={handleAddressChange}
+        { window.innerWidth > 800 ?
+          <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+          <div style={{ display: "flex", alignItems: "start", height: '90vh' }} className='checoutSec my-3 gap-5 overflow-x-hidden overflow-y-auto'>
+            <div style={{ width: "60%", boxShadow: "0 1px 8px rgba(0,0,0,.18)", padding: "20px" }} className='leftSeccheckout'>
+              <h2 style={{ fontSize: "22px", fontWeight: "400", color: "#222", borderBottom: "1px solid #f0f0f0", margin: "0 0 8px 0", lineHeight: "35px" }}>Booking Details</h2>
+              <div className='border border-danger p-1 px-3 rounded bg-danger-subtle text-black text-center' style={{ color: '#000', fontSize: 12, fontWeight: '500', textAlign: 'left', color: "#9252AA" }}>The decorator requires approximately 40-90 minutes to fulfill the service</div>
+              <div style={{ display: 'flex', margin: "8px 0px 10px" }} className='row align-items-between justify-content-center  align-items-lg-center justify-content-lg-between'>
+              <div className='col-6'>  <CustomDatePicker  handleDateChange={handleDateChange} setSelectedDate={setSelectedDate} selectedDate={selectedDate} showDatePicker={showDatePicker} setShowDatePicker={setShowDatePicker} combinedDateTimeError={combinedDateTimeError} selectedDateError={selectedDateError}/></div>
+               <div className='col-6'> <CustomTimePicker handleTimeSlotChange={handleTimeSlotChange} generateTimeSlots={generateTimeSlots} selectedTimeSlot={selectedTimeSlot}combinedDateTimeError={combinedDateTimeError} selectedTimeSlotError={selectedTimeSlotError}/></div>
+              </div>
+              {combinedDateTimeError && <p className="text-danger" style={{fontSize:'12px'}}>The selected date and time must be at least 24 hours from now.</p>}
+  
+              <div className='checkoutInputType border-2 rounded-4  ' style={{ display: "flex", justifyContent: "center", flexDirection: "column" }}>
+                <h4 style={{ color: "rgb(146, 82, 170)", fontSize: "14px", marginBottom: "4px" }}>Share your comments (if any)</h4>
+                <textarea className=' rounded border border-2 p-1 '
+                  value={comment}
+                  onChange={handleComment}
                   rows={4}
-                  placeholder="Enter your Address."
+                  placeholder="Enter your comment."
                 />
-                {addressError && <p className={`p-0 m-0 ${addressError ? "text-danger" : ""}`}>This field is required!</p>}
               </div>
-              <div style={{ display: "flex", justifyContent: "center", flexDirection: "column" }} className='checkoutInputType'>
-                <label style={{ color: "rgb(146, 82, 170)", fontSize: "14px", marigin: "16px 0 6px", fontWeight: 600 }}>Pin Code:</label>
-                <input
-                  type="text"className=' rounded border border-2 p-1'
-                  value={pinCode}
-                  onChange={handlePinCodeChange}
-                />
-                {pinCode && <p className={`p-0 m-0 ${pinCodeError ? "text-danger" : "text-success"}`}>{`Service ${pinCodeError ? 'not' : ''} available in your area!`}</p>}
+              <div>
+                <div style={{ display: "flex", justifyContent: "center", flexDirection: "column" }} className='checkoutInputType'>
+                  <label style={{ color: "rgb(146, 82, 170)", fontSize: "14px", fontWeight: "600" }}>Address:</label>
+                  <textarea
+                    type="text"
+                    className=' rounded border border-2 p-1'
+                    value={address}
+                    onChange={handleAddressChange}
+                    rows={4}
+                    placeholder="Enter your Address."
+                  />
+                  {addressError && <p className={`p-0 m-0 ${addressError ? "text-danger" : ""}`}>This field is required!</p>}
+                </div>
+                <div style={{ display: "flex", justifyContent: "center", flexDirection: "column" }} className='checkoutInputType'>
+                  <label style={{ color: "rgb(146, 82, 170)", fontSize: "14px", marigin: "16px 0 6px", fontWeight: 600 }}>Pin Code:</label>
+                  <input
+                    type="text"className=' rounded border border-2 p-1'
+                    value={pinCode}
+                    onChange={handlePinCodeChange}
+                  />
+                  {pinCode && <p className={`p-0 m-0 ${pinCodeError ? "text-danger" : "text-success"}`}>{`Service ${pinCodeError ? 'not' : ''} available in your area!`}</p>}
+                </div>
+                <div style={{ display: "flex", justifyContent: "center", flexDirection: "column" }} className='checkoutInputType'>
+                  <label style={{ color: "rgb(146, 82, 170)", fontSize: "14px", marigin: "16px 0 6px", fontWeight: 600 }}>City:</label>
+                  <select value={city} className=' rounded border border-2 p-1' onChange={handleCityChange}>
+                    <option value="">Select City</option>
+                    <option value="Bangalore">Bangalore</option>
+                    <option value="Delhi">Delhi</option>
+                    <option value="Mumbai">Mumbai</option>
+                    {/* Add more cities as needed */}
+                  </select>
+                  {cityError && <p className={`p-0 m-0 ${cityError ? "text-danger" : ""}`}>This field is required!</p>}
+                </div>
               </div>
-              <div style={{ display: "flex", justifyContent: "center", flexDirection: "column" }} className='checkoutInputType'>
-                <label style={{ color: "rgb(146, 82, 170)", fontSize: "14px", marigin: "16px 0 6px", fontWeight: 600 }}>City:</label>
-                <select value={city} className=' rounded border border-2 p-1' onChange={handleCityChange}>
-                  <option value="">Select City</option>
-                  <option value="Bangalore">Bangalore</option>
-                  <option value="Delhi">Delhi</option>
-                  <option value="Mumbai">Mumbai</option>
-                  {/* Add more cities as needed */}
-                </select>
-                {cityError && <p className={`p-0 m-0 ${cityError ? "text-danger" : ""}`}>This field is required!</p>}
-              </div>
+              <button onClick={onContinueClick} className="blue-btn chkeoutBottun">Confirm Order</button>
             </div>
-            <button onClick={onContinueClick} className="blue-btn chkeoutBottun">Confirm Order</button>
+            <div className="rightSecfooddelivery" style={{ boxShadow: "0 1px 8px rgba(0,0,0,.18)", padding: "20px" }}>
+                <h3 style={{ fontSize: "22px", fontWeight: "400", color: "#222", borderBottom: "1px solid #f0f0f0", margin: "0 0 11px 0", lineHeight: "35px" }}>Order Summary</h3>
+                <div className='righysercchefinner'>
+                <div style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+                              <div style={{ marginHorizontal: 16, flexDirection: 'column', width: 120, borderRadius: 6, borderColor: '#E6E6E6', borderWidth: 1, marginTop: 6 }}>
+                                  <p style={{ color: '#A3A3A3', fontSize: 9, fontWeight: '400' }}>Total Dishes</p>
+                                  <p style={{ color: '#9252AA', fontSize: 13, fontWeight: '600' }}>{Object.keys(selectedDishData).length}</p>
+                              </div>
+                              <div style={{ marginHorizontal: 16, flexDirection: 'column', width: 120, borderRadius: 6, borderColor: '#E6E6E6', borderWidth: 1, marginTop: 6 }}>
+                                  <p style={{ color: '#A3A3A3', fontSize: 9, fontWeight: '400' }}>No. of People</p>
+                                  <p style={{ color: '#9252AA', fontSize: 13, fontWeight: '600' }}>{peopleCount}</p>
+                              </div>
+                </div>
+  
+                <div style={{ paddingHorizontal: 5}}>
+              <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginTop: 3 }}>
+                  <p style={{ color: "#9252AA", fontWeight: '600', fontSize: 14, lineHeight: '20px' }}>Item Total</p>
+                  <p style={{ color: "#9252AA", fontWeight: '600', fontSize: 14, lineHeight: '20px' }}>₹ {totalPrice}</p>
+              </div>
+              {/* <img style={{ width: 290, height: 1, marginTop: 5, marginBottom: 5 }} src="../../assets/Rectangleline.png" alt="line" /> */}
+              {discountedPrice > 0 && (
+                  <div>
+                      <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginTop: 3, alignItems: "center" }}>
+                          <div style={{ display: 'flex', justifyContent: 'flex-start', alignItems: "center", flexDirection: 'row' }}>
+                              <p style={{ color: "#9252AA", fontWeight: '600', fontSize: 14, lineHeight: '20px' }}>Item Discount:</p>
+                          </div>
+                          <p style={{ color: "#008631", fontWeight: '600', fontSize: 14, lineHeight: '20px' }}>
+                              {'-'} ₹ {discountedPrice}
+                          </p>
+                      </div>
+                      {/* <img style={{ width: 290, height: 1, marginTop: 5, marginBottom: 5 }} src="../../assets/Rectangleline.png" alt="line" /> */}
+                  </div>
+              )}
+               {selectedDeliveryOption === 'foodDelivery' && (
+                  <div>
+                      <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center", backgroundColor: includeDisposable ? '#efefef' : '#fff', paddingHorizontal: 5, paddingVertical: 4, marginTop: 4 }}>
+                          <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
+                              <button onClick={() => setIncludeDisposable(!includeDisposable)} style={{ background: 'none', border: 'none', padding: 0 }}>
+                                  <div style={{ width: 19, height: 19, borderWidth: 1, borderColor: includeDisposable ? '#008631' : '#008631', borderRadius: 3, alignItems: 'center', justifyContent: 'center', marginRight: 4, display: 'flex' }}>
+                                      {includeDisposable && <img src="../../assets/check.png" style={{ width: 13, height: 13 }} alt="check" />}
+                                  </div>
+                              </button>
+                              <div>
+                                  <p style={{ color: '#9252AA', fontWeight: '600', fontSize: 13, lineHeight: '20px' }}>Disposable plates + water bottle:</p>
+                                  <p style={{ color: '#9252AA', fontWeight: '600', fontSize: 13, lineHeight: '20px' }}> ₹ 20/Person</p>
+                              </div>
+                          </div>
+  
+                          <div>
+                              <p style={{ color: '#9252AA', fontWeight: '600', fontSize: 14 }}>₹ {includeDisposable ? 20 * peopleCount : 0}</p>
+                          </div>
+                      </div>
+                      {/* <img style={{ width: 290, height: 1, marginTop: 10, marginBottom: 5 }} src="../../assets/Rectangleline.png" alt="line" /> */}
+                      <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginTop: 3 }}>
+                          <p style={{ color: "#9252AA", fontWeight: '600', fontSize: 14, lineHeight: '20px' }}>Packing Cost</p>
+                          <div style={{ display: 'flex', color: "#9252AA", fontWeight: '600', fontSize: 14, lineHeight: '20px' }}>
+                              <p style={{ color: "#9252AA", fontWeight: '600' }}> ₹ {packingCost}</p>
+                          </div>
+                      </div>
+                  </div>
+              )}
+  
+              {selectedDeliveryOption === 'liveCatering' && (
+                  <div>
+                      <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center", backgroundColor: includeTables ? '#efefef' : '#fff', paddingHorizontal: 5, paddingVertical: 4, marginTop: 4 }}>
+                          <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
+                              <button onClick={() => setIncludeTables(!includeTables)} style={{ background: 'none', border: 'none', padding: 0 }}>
+                                  <div style={{ width: 19, height: 19, borderWidth: 1, borderColor: includeTables ? '#008631' : '#008631', borderRadius: 3, alignItems: 'center', justifyContent: 'center', marginRight: 4, display: 'flex' }}>
+                                      {includeTables && <img src="../../assets/check.png" style={{ width: 13, height: 13 }} alt="check" />}
+                                  </div>
+                              </button>
+                              <div>
+                                  <p style={{ color: '#9252AA', fontWeight: '600', fontSize: 13, lineHeight: '20px' }}>3-4 Serving Tables with Cloth:</p>
+                              </div>
+                          </div>
+  
+                          <div>
+                              <p style={{ color: '#9252AA', fontWeight: '600', fontSize: 14 }}>₹ {includeTables ? 1200 : 0}</p>
+                          </div>
+                      </div>
+                      {/* <img style={{ width: 290, height: 1, marginTop: 10, marginBottom: 5 }} src="../../assets/Rectangleline.png" alt="line" /> */}
+                  </div>
+              )}
+  
+              {/* Calculation for final total amount */}
+              <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginTop: 3 }}>
+              <p style={{ color: "#9252AA", fontWeight: '600', fontSize: 14, lineHeight: '20px' }}>Final Amount</p>
+              <p style={{ color: "#9252AA", fontWeight: '600', fontSize: 14, lineHeight: '20px' }}>₹ {calculateFinalTotal()}</p>
+              </div>
+  
+              {/* Calculation for advance payment */}
+              <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginTop: 3 }}>
+              <p style={{ color: "#9252AA", fontWeight: '600', fontSize: 14, lineHeight: '20px' }}>Advance Payment</p>
+              <p style={{ color: "#9252AA", fontWeight: '600', fontSize: 14, lineHeight: '20px' }}>₹ {calculateAdvancePayment()}</p>
+              </div>
+  
+          
+              </div>
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', marginTop: 7, backgroundColor: '#E8E8E8', borderColor: '#D8D8D8', borderWidth: 1 }}>
+              <div style={{ marginHorizontal: 16, display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginTop: 5 }}>
+                  <p style={{ padding: 4, color: '#000', fontSize: 13, fontWeight: '600' }}>Dishes selected</p>
+              </div>
+  
+              <div style={{ marginTop: 10, marginHorizontal: 15, display: 'flex', flexDirection: 'row', flex: 1 }}>
+                  <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', width: '100%' }}>
+                      {selectedDishQuantities.map((item, index) => (
+                          <RenderDishQuantity key={index} item={item} />
+                      ))}
+                  </div>
+              </div>
+  
+             
           </div>
-          <div className="rightSecfooddelivery" style={{ boxShadow: "0 1px 8px rgba(0,0,0,.18)", padding: "20px" }}>
-              <h3 style={{ fontSize: "22px", fontWeight: "400", color: "#222", borderBottom: "1px solid #f0f0f0", margin: "0 0 11px 0", lineHeight: "35px" }}>Order Summary</h3>
-              <div className='righysercchefinner'>
-              <div style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-                            <div style={{ marginHorizontal: 16, flexDirection: 'column', width: 120, borderRadius: 6, borderColor: '#E6E6E6', borderWidth: 1, marginTop: 6 }}>
-                                <p style={{ color: '#A3A3A3', fontSize: 9, fontWeight: '400' }}>Total Dishes</p>
-                                <p style={{ color: '#9252AA', fontSize: 13, fontWeight: '600' }}>{Object.keys(selectedDishData).length}</p>
-                            </div>
-                            <div style={{ marginHorizontal: 16, flexDirection: 'column', width: 120, borderRadius: 6, borderColor: '#E6E6E6', borderWidth: 1, marginTop: 6 }}>
-                                <p style={{ color: '#A3A3A3', fontSize: 9, fontWeight: '400' }}>No. of People</p>
-                                <p style={{ color: '#9252AA', fontSize: 13, fontWeight: '600' }}>{peopleCount}</p>
-                            </div>
+          <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', paddingTop: 12 }}>
+                  <p style={{ fontSize: 14, fontWeight: 500, color: '#333' }}>Need more info?</p>
+                  <button onClick={contactUsRedirection} style={{ marginLeft: 5, backgroundColor: '#E8E8E8', borderRadius: 18, borderWidth: 1, borderColor: '#9252AA', display: 'flex', justifyContent: 'center', alignItems: 'center', width: 96, height: 28, cursor: 'pointer' }}>
+                      <p style={{ color: '#9252AA', fontSize: 13, fontWeight: '500' }}>Contact Us</p>
+                  </button>
               </div>
+              </div>
+  
+          </div>
+  
+        </div>
+  
+        : 
+         <div style={{ padding: "1% 2%", backgroundColor: "#edededc9" }} className='checkoutmobileview'>
+            <div className='checoutSec my-3 gap-3'>
+                    <div style={{ display: 'flex', overflow: "hidden", margin: "8px 0px 10px", flexDirection: "row" }} className='row align-items-between justify-content-center  align-items-lg-center justify-content-lg-between'>
+                    <CustomDatePicker handleDateChange={handleDateChange} setSelectedDate={setSelectedDate} selectedDate={selectedDate} showDatePicker={showDatePicker} setShowDatePicker={setShowDatePicker} combinedDateTimeError={combinedDateTimeError} selectedDateError={selectedDateError} />
+                    <CustomTimePicker handleTimeSlotChange={handleTimeSlotChange} generateTimeSlots={generateTimeSlots} selectedTimeSlot={selectedTimeSlot} combinedDateTimeError={combinedDateTimeError} selectedTimeSlotError={selectedTimeSlotError} />
+                    {combinedDateTimeError && <p className="text-danger" style={{ fontSize: '12px' }}>The selected date and time must be at least 24 hours from now.</p>}
+                    </div>
+                    <div>
+                    <div className="rightSeccheckout chef" style={{ boxShadow: "0 1px 8px rgba(0,0,0,.18)", padding: "20px", backgroundColor: "#fff", borderRadius: "20px", width: "59%" }}>
+                    <div className='rightcheckoutsec' style={{padding:"6px  0 0 "}}>
 
-              <div style={{ paddingHorizontal: 5}}>
-            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginTop: 3 }}>
-                <p style={{ color: "#9252AA", fontWeight: '600', fontSize: 14, lineHeight: '20px' }}>Item Total</p>
-                <p style={{ color: "#9252AA", fontWeight: '600', fontSize: 14, lineHeight: '20px' }}>₹ {totalPrice}</p>
-            </div>
-            {/* <img style={{ width: 290, height: 1, marginTop: 5, marginBottom: 5 }} src="../../assets/Rectangleline.png" alt="line" /> */}
-            {discountedPrice > 0 && (
-                <div>
-                    <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginTop: 3, alignItems: "center" }}>
-                        <div style={{ display: 'flex', justifyContent: 'flex-start', alignItems: "center", flexDirection: 'row' }}>
-                            <p style={{ color: "#9252AA", fontWeight: '600', fontSize: 14, lineHeight: '20px' }}>Item Discount:</p>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexDirection: "row" }}>
+                    <div style={{ display: "flex", justifyContent: "space-between", flexDirection: "column" }}>
+                        <label style={{ color: "rgb(146, 82, 170)", fontSize: "12px", marigin: "16px 0 6px", fontWeight: 500 }}>Total Dishes</label>
+                        <p style={{ margin: 0, windth: "100%", color: "rgb(146, 82, 170)", fontSize: "12px", fontWeight: 200 }}> {Object.keys(selectedDishData).length}</p>
+                    </div>
+                    {
+                        peopleCount > 0 ?
+                        <div style={{ display: "flex", justifyContent: "space-between", flexDirection: "column" }}>
+                            <label style={{ color: "rgb(146, 82, 170)", fontSize: "12px", marigin: "16px 0 6px", fontWeight: 500 }}>Number of people</label>
+                            <p style={{ margin: 0, windth: "100%", color: "rgb(146, 82, 170)", fontSize: "12px", fontWeight: 200 }}>{peopleCount}</p>
                         </div>
-                        <p style={{ color: "#008631", fontWeight: '600', fontSize: 14, lineHeight: '20px' }}>
-                            {'-'} ₹ {discountedPrice}
-                        </p>
+                        :
+                        null
+                    }
+                    </div>
+                    <div style={{ paddingHorizontal: 5}}>
+                    <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginTop: 3 }}>
+                    <p style={{ color: "#9252AA", fontWeight: '600', fontSize: 14, lineHeight: '20px' }}>Item Total</p>
+                    <p style={{ color: "#9252AA", fontWeight: '600', fontSize: 14, lineHeight: '20px' }}>₹ {totalPrice}</p>
+                    </div>
+
+                    {discountedPrice > 0 && (
+                    <div>
+                    <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginTop: 3, alignItems: "center" }}>
+                    <div style={{ display: 'flex', justifyContent: 'flex-start', alignItems: "center", flexDirection: 'row' }}>
+                        <p style={{ color: "#9252AA", fontWeight: '600', fontSize: 14, lineHeight: '20px' }}>Item Discount:</p>
+                    </div>
+                    <p style={{ color: "#008631", fontWeight: '600', fontSize: 14, lineHeight: '20px' }}>
+                        {'-'} ₹ {discountedPrice}
+                    </p>
                     </div>
                     {/* <img style={{ width: 290, height: 1, marginTop: 5, marginBottom: 5 }} src="../../assets/Rectangleline.png" alt="line" /> */}
-                </div>
-            )}
-             {selectedDeliveryOption === 'foodDelivery' && (
-                <div>
+                    </div>
+                    )}
+                    {selectedDeliveryOption === 'foodDelivery' && (
+                    <div>
                     <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center", backgroundColor: includeDisposable ? '#efefef' : '#fff', paddingHorizontal: 5, paddingVertical: 4, marginTop: 4 }}>
-                        <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
-                            <button onClick={() => setIncludeDisposable(!includeDisposable)} style={{ background: 'none', border: 'none', padding: 0 }}>
-                                <div style={{ width: 19, height: 19, borderWidth: 1, borderColor: includeDisposable ? '#008631' : '#008631', borderRadius: 3, alignItems: 'center', justifyContent: 'center', marginRight: 4, display: 'flex' }}>
-                                    {includeDisposable && <img src="../../assets/check.png" style={{ width: 13, height: 13 }} alt="check" />}
-                                </div>
-                            </button>
-                            <div>
-                                <p style={{ color: '#9252AA', fontWeight: '600', fontSize: 13, lineHeight: '20px' }}>Disposable plates + water bottle:</p>
-                                <p style={{ color: '#9252AA', fontWeight: '600', fontSize: 13, lineHeight: '20px' }}> ₹ 20/Person</p>
+                    <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
+                        <button onClick={() => setIncludeDisposable(!includeDisposable)} style={{ background: 'none', border: 'none', padding: 0 }}>
+                            <div style={{ width: 19, height: 19, borderWidth: 1, borderColor: includeDisposable ? '#008631' : '#008631', borderRadius: 3, alignItems: 'center', justifyContent: 'center', marginRight: 4, display: 'flex' }}>
+                                {includeDisposable && <img src="../../assets/check.png" style={{ width: 13, height: 13 }} alt="check" />}
                             </div>
-                        </div>
-
+                        </button>
                         <div>
-                            <p style={{ color: '#9252AA', fontWeight: '600', fontSize: 14 }}>₹ {includeDisposable ? 20 * peopleCount : 0}</p>
+                            <p style={{ color: '#9252AA', fontWeight: '600', fontSize: 13, lineHeight: '20px' }}>Disposable plates + water bottle:</p>
+                            <p style={{ color: '#9252AA', fontWeight: '600', fontSize: 13, lineHeight: '20px' }}> ₹ 20/Person</p>
                         </div>
+                    </div>
+
+                    <div>
+                        <p style={{ color: '#9252AA', fontWeight: '600', fontSize: 14 }}>₹ {includeDisposable ? 20 * peopleCount : 0}</p>
+                    </div>
                     </div>
                     {/* <img style={{ width: 290, height: 1, marginTop: 10, marginBottom: 5 }} src="../../assets/Rectangleline.png" alt="line" /> */}
                     <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginTop: 3 }}>
-                        <p style={{ color: "#9252AA", fontWeight: '600', fontSize: 14, lineHeight: '20px' }}>Packing Cost</p>
-                        <div style={{ display: 'flex', color: "#9252AA", fontWeight: '600', fontSize: 14, lineHeight: '20px' }}>
-                            <p style={{ color: "#9252AA", fontWeight: '600' }}> ₹ {packingCost}</p>
+                    <p style={{ color: "#9252AA", fontWeight: '600', fontSize: 14, lineHeight: '20px' }}>Packing Cost</p>
+                    <div style={{ display: 'flex', color: "#9252AA", fontWeight: '600', fontSize: 14, lineHeight: '20px' }}>
+                        <p style={{ color: "#9252AA", fontWeight: '600' }}> ₹ {packingCost}</p>
+                    </div>
+                    </div>
+                    </div>
+                    )}
+
+                    {selectedDeliveryOption === 'liveCatering' && (
+                    <div>
+                    <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center", backgroundColor: includeTables ? '#efefef' : '#fff', paddingHorizontal: 5, paddingVertical: 4, marginTop: 4 }}>
+                    <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
+                        <button onClick={() => setIncludeTables(!includeTables)} style={{ background: 'none', border: 'none', padding: 0 }}>
+                            <div style={{ width: 19, height: 19, borderWidth: 1, borderColor: includeTables ? '#008631' : '#008631', borderRadius: 3, alignItems: 'center', justifyContent: 'center', marginRight: 4, display: 'flex' }}>
+                                {includeTables && <img src="../../assets/check.png" style={{ width: 13, height: 13 }} alt="check" />}
+                            </div>
+                        </button>
+                        <div>
+                            <p style={{ color: '#9252AA', fontWeight: '600', fontSize: 13, lineHeight: '20px' }}>3-4 Serving Tables with Cloth:</p>
                         </div>
                     </div>
-                </div>
-            )}
 
-            {selectedDeliveryOption === 'liveCatering' && (
-                <div>
-                    <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center", backgroundColor: includeTables ? '#efefef' : '#fff', paddingHorizontal: 5, paddingVertical: 4, marginTop: 4 }}>
-                        <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
-                            <button onClick={() => setIncludeTables(!includeTables)} style={{ background: 'none', border: 'none', padding: 0 }}>
-                                <div style={{ width: 19, height: 19, borderWidth: 1, borderColor: includeTables ? '#008631' : '#008631', borderRadius: 3, alignItems: 'center', justifyContent: 'center', marginRight: 4, display: 'flex' }}>
-                                    {includeTables && <img src="../../assets/check.png" style={{ width: 13, height: 13 }} alt="check" />}
-                                </div>
-                            </button>
-                            <div>
-                                <p style={{ color: '#9252AA', fontWeight: '600', fontSize: 13, lineHeight: '20px' }}>3-4 Serving Tables with Cloth:</p>
-                            </div>
-                        </div>
-
-                        <div>
-                            <p style={{ color: '#9252AA', fontWeight: '600', fontSize: 14 }}>₹ {includeTables ? 1200 : 0}</p>
-                        </div>
+                    <div>
+                        <p style={{ color: '#9252AA', fontWeight: '600', fontSize: 14 }}>₹ {includeTables ? 1200 : 0}</p>
+                    </div>
                     </div>
                     {/* <img style={{ width: 290, height: 1, marginTop: 10, marginBottom: 5 }} src="../../assets/Rectangleline.png" alt="line" /> */}
-                </div>
-            )}
+                    </div>
+                    )}
 
-            {/* Calculation for final total amount */}
-            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginTop: 3 }}>
-            <p style={{ color: "#9252AA", fontWeight: '600', fontSize: 14, lineHeight: '20px' }}>Final Amount</p>
-            <p style={{ color: "#9252AA", fontWeight: '600', fontSize: 14, lineHeight: '20px' }}>₹ {calculateFinalTotal()}</p>
-            </div>
-
-            {/* Calculation for advance payment */}
-            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginTop: 3 }}>
-            <p style={{ color: "#9252AA", fontWeight: '600', fontSize: 14, lineHeight: '20px' }}>Advance Payment</p>
-            <p style={{ color: "#9252AA", fontWeight: '600', fontSize: 14, lineHeight: '20px' }}>₹ {calculateAdvancePayment()}</p>
-            </div>
-
-        
-            </div>
-            </div>
-            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', marginTop: 7, backgroundColor: '#E8E8E8', borderColor: '#D8D8D8', borderWidth: 1 }}>
-            <div style={{ marginHorizontal: 16, display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginTop: 5 }}>
-                <p style={{ padding: 4, color: '#000', fontSize: 13, fontWeight: '600' }}>Dishes selected</p>
-            </div>
-
-            <div style={{ marginTop: 10, marginHorizontal: 15, display: 'flex', flexDirection: 'row', flex: 1 }}>
-                <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', width: '100%' }}>
+                    <div className='checkoutInputType border-1 rounded-4  my-3' style={{ display: "flex", justifyContent: "center", flexDirection: "column" }}>
+                    <h4 style={{ color: "rgb(146, 82, 170)", fontSize: "14px", marginBottom: "4px" }}>Share your comments (if any)</h4>
+                    <textarea className=' rounded border border-1 p-1 decor-commemnts'
+                        value={comment}
+                        onChange={handleComment}
+                        rows={4}
+                        placeholder="No Extra charges for customizing ballon color or replacing tags(Happy Birthday / Anniversary). Chages wil be applied for additional items"
+                    />
+                    </div>
+                    <div style={{ display: "flex", justifyContent: "center", flexDirection: "column" }} className='checkoutInputType'>
+                    <label style={{ color: "rgb(146, 82, 170)", fontSize: "14px", fontWeight: "600" }}>Address:</label>
+                    <textarea
+                        type="text"
+                        className=' rounded border border-1 p-1'
+                        value={address}
+                        onChange={handleAddressChange}
+                        rows={4}
+                        placeholder="Enter your Address."
+                    />
+                    {addressError && <p className={`p-0 m-0 ${addressError ? "text-danger" : ""}`}>This field is required!</p>}
+                    </div>
+                    <div style={{ display: "flex", justifyContent: "center", flexDirection: "column" }} className='checkoutInputType'>
+                    <label style={{ color: "rgb(146, 82, 170)", fontSize: "14px", marigin: "16px 0 6px", fontWeight: 600 }}>Pin Code:</label>
+                    <input
+                        type="text" className=' rounded border border-1 p-1'
+                        value={pinCode}
+                        onChange={handlePinCodeChange}
+                    />
+                    {pinCode && <p className={`p-0 m-0 ${pinCodeError ? "text-danger" : "text-success"}`}>{`Service ${pinCodeError ? 'not' : ''} available in your area!`}</p>}
+                    </div>
+                    <div style={{ display: "flex", justifyContent: "center", flexDirection: "column" }} className='checkoutInputType'>
+                    <label style={{ color: "rgb(146, 82, 170)", fontSize: "14px", marigin: "16px 0 6px", fontWeight: 600 }}>City:</label>
+                    <select value={city} className=' rounded border border-1 p-1' onChange={handleCityChange}>
+                        <option value="">Select City</option>
+                        <option value="Bangalore">Bangalore</option>
+                        <option value="Delhi">Delhi</option>
+                        <option value="Mumbai">Mumbai</option>
+                        {/* Add more cities as needed */}
+                    </select>
+                    {cityError && <p className={`p-0 m-0 ${cityError ? "text-danger" : ""}`}>This field is required!</p>}
+                    </div>
+                    <div>
+                    <h1 style={{padding: 4, color: '#000', fontSize: 13, fontWeight: '600' , margin:0 , padding:"10px 0"}}>
+                        Dishes Selected
+                    </h1>
+                    <div style={{ display:"flex" , flexDirection:"row" , justifyContent:"space-between" , flexFlow: "wrap"}}>
                     {selectedDishQuantities.map((item, index) => (
-                        <RenderDishQuantity key={index} item={item} />
+                    <RenderDishQuantity key={index} item={item} />
                     ))}
-                </div>
+                    </div>
+                    </div>
+
+                    </div>
+
+                    </div>
+                    <div className='d-flex justify-content-center align-items-center mt-3 mb-0'>
+                    <h5 className=''>Need more info?</h5>
+                    <button style={{ border: "2px solid rgb(157, 74, 147)", color: "rgb(157, 74, 147)" }} className=' rounded-5 ms-1 '>Contact Us</button>
+                    </div>
+
+                    <div className='px-1 py-3 border rounded my-2 cancellatiop-policy' style={{
+                    background: "rgb(157, 74,147, 28%)"
+                    }}>
+                    <p style={{ fontSize: "13px", color: "rgb(157, 74, 147)" }} className=' text-center m-1'>Cancellation and order change policy</p>
+                    <p style={{ fontSize: "13px", color: "rgb(157, 74, 147)" }} className='m-1'>Till the order is not assign to the service provider , 100% of the amount will be refunded, othewise 50%of the advance will be deducted as a cancellation charges to componsate the service provider. </p>
+                    <p style={{ fontSize: "13px", color: "rgb(157, 74, 147)" }} className='m-1'>The order cannot be edited after paying the advance customers can cancel the order and replace it with a new order with the required changes.</p>
+                    </div>
+                    </div>
+
+                    <div>
+              <button onClick={onContinueClick} className="blue-btn chkeoutBottun">Confirm Order</button>
+
             </div>
 
-           
+            </div>
         </div>
-        <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', paddingTop: 12 }}>
-                <p style={{ fontSize: 14, fontWeight: 500, color: '#333' }}>Need more info?</p>
-                <button onClick={contactUsRedirection} style={{ marginLeft: 5, backgroundColor: '#E8E8E8', borderRadius: 18, borderWidth: 1, borderColor: '#9252AA', display: 'flex', justifyContent: 'center', alignItems: 'center', width: 96, height: 28, cursor: 'pointer' }}>
-                    <p style={{ color: '#9252AA', fontSize: 13, fontWeight: '500' }}>Contact Us</p>
-                </button>
-            </div>
-            </div>
-
-        </div>
-
-      </div>
-
+    </div>
+    }
+    
     </div>
   );
 }
@@ -908,7 +1085,7 @@ export const CustomDatePicker = ({ handleDateChange, selectedDate, showDatePicke
   };
 
   return (
-    <div  className={`d-flex flex-column border border-2 rounded-4 p-2  ${combinedDateTimeError? 'border-danger' : ''} `}>
+    <div  className={`timepkerSec  d-flex flex-column border border-2 rounded-4 p-2  ${combinedDateTimeError? 'border-danger' : ''} `}>
       <p style={{ marginBottom: "4px", color: "rgb(146, 82, 170)", fontSize: "12px" }} className='p-0 m-0'>Select Date</p>
       <Dropdown show={showDatePicker} onToggle={toggleDatePicker} className='border-none p-0'>
         <Dropdown.Toggle
