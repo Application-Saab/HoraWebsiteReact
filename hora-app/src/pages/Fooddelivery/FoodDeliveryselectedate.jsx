@@ -41,7 +41,7 @@ const FoodDeliveryselectDate = ({ history }) => {
         const totalOrderAmount = selectedOption === 'liveCatering' ? dishPrice * peopleCount + 6500 : dishPrice * peopleCount;
         if (totalOrderAmount < 3000) {
             // setWarningVisible(true);
-            alert("Please select minimum 3000rps")
+            alert("Please select minimum mininum order amount: 3000rps")
         } else {
             navigate("/foodDeliveryCheckout", {
                 state: {

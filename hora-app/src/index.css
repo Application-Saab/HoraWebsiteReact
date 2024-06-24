@@ -468,6 +468,9 @@ p.m-0.p-0.fw-bold.filter-price-tag {
 .prod-detailsp {
   padding-left: 22px;
 }
+.bannerDecorationImage a {
+  text-decoration: none;
+}
 
 /* select date chef flow */
 @media (max-width: 800px) {

@@ -258,8 +258,8 @@ const Drawer = ({ closeDrawer, drawerRef, handleLogout }) => {
       <Link to="/fooddeliveryCreateOrder/foodDelivery" style={style.drawerLink} onClick={closeDrawer}>
         Food Delivery
       </Link>
-      <Link to="/" style={style.drawerLink} onClick={closeDrawer}>
-        Gift & Party Supplies
+      <Link to="/fooddeliveryCreateOrder/liveCatering" style={style.drawerLink} onClick={closeDrawer}>
+       Live Catering
       </Link>
       <Link to="/" style={style.drawerLink} onClick={closeDrawer}>
         Entertainment

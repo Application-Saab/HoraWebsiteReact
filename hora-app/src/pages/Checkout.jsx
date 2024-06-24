@@ -535,7 +535,7 @@ function Checkout() {
                     Chef details will be shared 5 hours before the order time.
                   </div>
                 ) : null}
-                <div style={{ display: 'flex', overflow: "hidden", margin: "8px 0px 10px", flexDirection: "row" }} className='row align-items-between justify-content-center  align-items-lg-center justify-content-lg-between'>
+                <div style={{ display: 'flex', margin: "8px 0px 10px", flexDirection: "row" }} className='row align-items-between justify-content-center  align-items-lg-center justify-content-lg-between'>
                   <CustomDatePicker handleDateChange={handleDateChange} setSelectedDate={setSelectedDate} selectedDate={selectedDate} showDatePicker={showDatePicker} setShowDatePicker={setShowDatePicker} combinedDateTimeError={combinedDateTimeError} selectedDateError={selectedDateError} />
                   <CustomTimePicker handleTimeSlotChange={handleTimeSlotChange} generateTimeSlots={generateTimeSlots} selectedTimeSlot={selectedTimeSlot} combinedDateTimeError={combinedDateTimeError} selectedTimeSlotError={selectedTimeSlotError} />
                   {combinedDateTimeError && <p className="text-danger" style={{ fontSize: '12px' }}>The selected date and time must be at least 24 hours from now.</p>}
