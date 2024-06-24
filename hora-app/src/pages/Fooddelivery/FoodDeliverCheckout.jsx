@@ -11,7 +11,7 @@ import { BASE_URL, GET_ADDRESS_LIST, CONFIRM_ORDER_ENDPOINT } from '../../utills
 import { PAYMENT, PAYMENT_STATUS, API_SUCCESS_CODE } from '../../utills/apiconstants';
 import { Button, Card, Form } from 'react-bootstrap';
 import { Dropdown, DropdownButton } from 'react-bootstrap';
-
+import checkImage from '../../assets/check.png';
 
 function FoodDeliveryCheckout() {
   const { selectedDishes , selectedOption ,orderType, selectedDishDictionary, selectedDishPrice, totalOrderAmount , selectedDishQuantities , peopleCount} = useLocation().state || {}; // Accessing subCategory and itemName safely
@@ -412,18 +412,16 @@ const calculateFinalTotal = () => {
                 unit = 'L'
         }
         return (
-            <div style={{ width: "46%", paddingEnd: 2, alignItems: 'center', borderRadius: 5, borderColor: '#DADADA', borderWidth: 0.5, flexDirection: 'row', marginRight: 15, marginBottom: 8 }}>
-                <div style={{ marginLeft: 5, width: 40, height: 40, backgroundColor: '#F0F0F0', borderRadius: 3, alignItems: 'center', justifyContent: 'center', marginRight: 5 }}>
+            <div style={{ display:"flex" , width: "46%", padding: "4px", alignItems: 'center', borderRadius: 5, border: '1px solid #DADADA',  flexDirection: 'row',  marginBottom: 8 }}>
+                <div style={{  display:"flex" , justifyContent:"center" , padding:"5px" , width: 60, backgroundColor: '#F0F0F0', borderRadius: 3, alignItems: 'center', justifyContent: 'center', marginRight: 7 }}>
                     <img
             src={`https://horaservices.com/api/uploads/${item.image}`}
             alt={item.name}
-            style={{ width: 50, height: 24 }}
           />
                 </div>
 
                 <div style={{ flexDirection: 'column', marginLeft: 1, width: 80 }}>
-                    <p style={{ fontSize: 10, fontWeight: '500', color: '#414141' }}>{item.name}</p>
-                    <p style={{ fontSize: 14, fontWeight: '700', color: '#9252AA', display: selectedDeliveryOption === 'liveCatering' ? 'none' : 'inline' }}>{quantity + ' ' + unit}</p>
+                    <p style={{ fontSize: 10, fontWeight: '500', color: '#414141' , margin:"0 0 0 0"}}>{item.name}</p>
                 </div>
             </div>
         );
@@ -472,22 +470,34 @@ const calculateFinalTotal = () => {
   const generateTimeSlots = () => {
     const startTime = 7; // Starting hour
     const endTime = 22; // Ending hour
-    const interval = 3; // Interval in hours
+    const interval = 1; // Interval in hours
 
     const timeSlots = [];
+
+    const formatTime = (hour) => {
+        const period = hour >= 12 ? 'PM' : 'AM';
+        const formattedHour = hour % 12 === 0 ? 12 : hour % 12;
+        return `${formattedHour}:00 ${period}`;
+    };
+
     for (let hour = startTime; hour < endTime; hour += interval) {
-      const startTimeFormatted = hour < 10 ? `0${hour}:00` : `${hour}:00`;
-      const endTimeFormatted =
-        hour + interval < 10
-          ? `0${hour + interval}:00`
-          : `${hour + interval}:00`;
-      timeSlots.push(`${startTimeFormatted} - ${endTimeFormatted}`);
+        const startTimeFormatted = formatTime(hour);
+        const endTimeFormatted = formatTime(hour + interval);
+        timeSlots.push(`${startTimeFormatted} - ${endTimeFormatted}`);
     }
 
     return timeSlots;
-  };
+};
 
-  const pincodes = ['451606', '421510', '431020', '494823', '451660']
+  const pincodes = ['560063', '560030', '560034', '560007', '560092', '560024', '560045', '560003', '560050', '562107', '560064', '560047'
+    , '560026', '560086', '560002', '560070', '560073', '560053', '560085', '560043', '560017', '560001', '560009', '560025',
+    '560083', '560076', '560004', '560079', '560103', '560046', '562157', '560010', '560049', '560056', '560068', '560093',
+    '560018', '560040', '560097', '560061', '562130', '560067', '560036', '560029', '560062', '560037',
+    '560071', '562125', '560016', '560100', '560005', '560065', '560019', '560021', '560022', '560013', '560087', '560008', '560051', '560102', '560104',
+    '560048', '560094', '560066', '560038', '560078', '560006', '560014', '560015', '560041', '560069', '560011', '560020', '560084', '560096', '560098',
+    '560095', '560077', '560074', '560054', '560023', '560033', '560055', '560099', '560072', '560039', '560075', '560032', '560058', '560059', '560080',
+    '560027', '560012', '560042', '560028', '560052', '560091'
+  ]
 
   const handleAddressChange = (e) => {
     setAddress(e.target.value);
@@ -721,9 +731,9 @@ const calculateFinalTotal = () => {
               </div>
               {combinedDateTimeError && <p className="text-danger" style={{fontSize:'12px'}}>The selected date and time must be at least 24 hours from now.</p>}
   
-              <div className='checkoutInputType border-2 rounded-4  ' style={{ display: "flex", justifyContent: "center", flexDirection: "column" }}>
+              <div className='checkoutInputType border-1 rounded-4  ' style={{ display: "flex", justifyContent: "center", flexDirection: "column" }}>
                 <h4 style={{ color: "rgb(146, 82, 170)", fontSize: "14px", marginBottom: "4px" }}>Share your comments (if any)</h4>
-                <textarea className=' rounded border border-2 p-1 '
+                <textarea className=' rounded border border-1 p-1 '
                   value={comment}
                   onChange={handleComment}
                   rows={4}
@@ -735,7 +745,7 @@ const calculateFinalTotal = () => {
                   <label style={{ color: "rgb(146, 82, 170)", fontSize: "14px", fontWeight: "600" }}>Address:</label>
                   <textarea
                     type="text"
-                    className=' rounded border border-2 p-1'
+                    className=' rounded border border-1 p-1'
                     value={address}
                     onChange={handleAddressChange}
                     rows={4}
@@ -746,7 +756,7 @@ const calculateFinalTotal = () => {
                 <div style={{ display: "flex", justifyContent: "center", flexDirection: "column" }} className='checkoutInputType'>
                   <label style={{ color: "rgb(146, 82, 170)", fontSize: "14px", marigin: "16px 0 6px", fontWeight: 600 }}>Pin Code:</label>
                   <input
-                    type="text"className=' rounded border border-2 p-1'
+                    type="text"className=' rounded border border-1 p-1'
                     value={pinCode}
                     onChange={handlePinCodeChange}
                   />
@@ -754,7 +764,7 @@ const calculateFinalTotal = () => {
                 </div>
                 <div style={{ display: "flex", justifyContent: "center", flexDirection: "column" }} className='checkoutInputType'>
                   <label style={{ color: "rgb(146, 82, 170)", fontSize: "14px", marigin: "16px 0 6px", fontWeight: 600 }}>City:</label>
-                  <select value={city} className=' rounded border border-2 p-1' onChange={handleCityChange}>
+                  <select value={city} className=' rounded border border-1 p-1' onChange={handleCityChange}>
                     <option value="">Select City</option>
                     <option value="Bangalore">Bangalore</option>
                     <option value="Delhi">Delhi</option>
@@ -805,7 +815,7 @@ const calculateFinalTotal = () => {
                           <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
                               <button onClick={() => setIncludeDisposable(!includeDisposable)} style={{ background: 'none', border: 'none', padding: 0 }}>
                                   <div style={{ width: 19, height: 19, borderWidth: 1, borderColor: includeDisposable ? '#008631' : '#008631', borderRadius: 3, alignItems: 'center', justifyContent: 'center', marginRight: 4, display: 'flex' }}>
-                                      {includeDisposable && <img src="../../assets/check.png" style={{ width: 13, height: 13 }} alt="check" />}
+                                  {includeDisposable && <img src={checkImage} alt="Info" style={{ height: 13, width: 13 }} />}
                                   </div>
                               </button>
                               <div>
@@ -825,6 +835,25 @@ const calculateFinalTotal = () => {
                               <p style={{ color: "#9252AA", fontWeight: '600' }}> ₹ {packingCost}</p>
                           </div>
                       </div>
+
+                      <div>
+            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginTop: 3 }}>
+                <p style={{ color: "#9252AA", fontWeight: '600', fontSize: 14, lineHeight: '20px' }}>Delivery Charges</p>
+                <div style={{ color: "#9252AA", fontWeight: '600', fontSize: 14, lineHeight: '20px', display: 'flex', flexDirection: "row" }}>
+                    <p style={{ color: "#008631", fontWeight: '600', marginRight: 5 }}>FREE</p>
+                    <p style={{ textDecoration: "line-through", color: "#9252AA", fontWeight: '600' }}> ₹ {deliveryCharges}</p>
+                </div>
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginTop: 3 }}>
+                <p style={{ color: "#9252AA", fontWeight: '600', fontSize: 14, lineHeight: '20px' }}>Final Amount</p>
+                <p style={{ color: "#9252AA", fontWeight: '600', fontSize: 14, lineHeight: '20px' }}>₹ {calculateFinalTotal()}</p>
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginTop: 3 }}>
+                <p style={{ color: "#9252AA", fontWeight: '600', fontSize: 14, lineHeight: '20px' }}>Advance Payment</p>
+                <p style={{ color: "#9252AA", fontWeight: '600', fontSize: 14, lineHeight: '20px' }}>₹ {calculateAdvancePayment()}</p>
+            </div>
+        </div>
+
                   </div>
               )}
   
@@ -834,7 +863,7 @@ const calculateFinalTotal = () => {
                           <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
                               <button onClick={() => setIncludeTables(!includeTables)} style={{ background: 'none', border: 'none', padding: 0 }}>
                                   <div style={{ width: 19, height: 19, borderWidth: 1, borderColor: includeTables ? '#008631' : '#008631', borderRadius: 3, alignItems: 'center', justifyContent: 'center', marginRight: 4, display: 'flex' }}>
-                                      {includeTables && <img src="../../assets/check.png" style={{ width: 13, height: 13 }} alt="check" />}
+                                  {includeDisposable && <img src={checkImage} alt="Info" style={{ height: 13, width: 13 }} />}
                                   </div>
                               </button>
                               <div>
@@ -895,6 +924,9 @@ const calculateFinalTotal = () => {
         : 
          <div style={{ padding: "1% 2%", backgroundColor: "#edededc9" }} className='checkoutmobileview'>
             <div className='checoutSec my-3 gap-3'>
+            <div className='border border-danger p-1 px-1 rounded bg-danger-subtle text-black text-center' style={{ color: '#000', fontSize: 12, fontWeight: '500', textAlign: 'left', color: "#9252AA" }}>
+            Bill value depends upon Dish selected + Number of people
+                  </div>
                     <div style={{ display: 'flex', margin: "8px 0px 10px", flexDirection: "row" }} className='row align-items-between justify-content-center  align-items-lg-center justify-content-lg-between'>
                     <CustomDatePicker handleDateChange={handleDateChange} setSelectedDate={setSelectedDate} selectedDate={selectedDate} showDatePicker={showDatePicker} setShowDatePicker={setShowDatePicker} combinedDateTimeError={combinedDateTimeError} selectedDateError={selectedDateError} />
                     <CustomTimePicker handleTimeSlotChange={handleTimeSlotChange} generateTimeSlots={generateTimeSlots} selectedTimeSlot={selectedTimeSlot} combinedDateTimeError={combinedDateTimeError} selectedTimeSlotError={selectedTimeSlotError} />
@@ -943,8 +975,8 @@ const calculateFinalTotal = () => {
                     <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center", backgroundColor: includeDisposable ? '#efefef' : '#fff', paddingHorizontal: 5, paddingVertical: 4, marginTop: 4 }}>
                     <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
                         <button onClick={() => setIncludeDisposable(!includeDisposable)} style={{ background: 'none', border: 'none', padding: 0 }}>
-                            <div style={{ width: 19, height: 19, borderWidth: 1, borderColor: includeDisposable ? '#008631' : '#008631', borderRadius: 3, alignItems: 'center', justifyContent: 'center', marginRight: 4, display: 'flex' }}>
-                                {includeDisposable && <img src="../../assets/check.png" style={{ width: 13, height: 13 }} alt="check" />}
+                            <div style={{ width: 19, height: 19,  border: includeDisposable ? '1px solid #008631' : '1px solid #008631', borderRadius: 3, alignItems: 'center', justifyContent: 'center', marginRight: 4, display: 'flex' }}>
+                            {includeDisposable && <img src={checkImage} alt="Info" style={{ height: 13, width: 13 }} />}
                             </div>
                         </button>
                         <div>
@@ -964,6 +996,25 @@ const calculateFinalTotal = () => {
                         <p style={{ color: "#9252AA", fontWeight: '600' }}> ₹ {packingCost}</p>
                     </div>
                     </div>
+
+                    <div>
+            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginTop: 3 }}>
+                <p style={{ color: "#9252AA", fontWeight: '600', fontSize: 14, lineHeight: '20px' }}>Delivery Charges</p>
+                <div style={{ color: "#9252AA", fontWeight: '600', fontSize: 14, lineHeight: '20px', display: 'flex', flexDirection: "row" }}>
+                    <p style={{ color: "#008631", fontWeight: '600', marginRight: 5 }}>FREE</p>
+                    <p style={{ textDecoration: "line-through", color: "#9252AA", fontWeight: '600' }}> ₹ {deliveryCharges}</p>
+                </div>
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginTop: 3 }}>
+                <p style={{ color: "#9252AA", fontWeight: '600', fontSize: 14, lineHeight: '20px' }}>Final Amount</p>
+                <p style={{ color: "#9252AA", fontWeight: '600', fontSize: 14, lineHeight: '20px' }}>₹ {calculateFinalTotal()}</p>
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginTop: 3 }}>
+                <p style={{ color: "#9252AA", fontWeight: '600', fontSize: 14, lineHeight: '20px' }}>Advance Payment</p>
+                <p style={{ color: "#9252AA", fontWeight: '600', fontSize: 14, lineHeight: '20px' }}>₹ {calculateAdvancePayment()}</p>
+            </div>
+        </div>
+
                     </div>
                     )}
 
@@ -973,7 +1024,7 @@ const calculateFinalTotal = () => {
                     <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
                         <button onClick={() => setIncludeTables(!includeTables)} style={{ background: 'none', border: 'none', padding: 0 }}>
                             <div style={{ width: 19, height: 19, borderWidth: 1, borderColor: includeTables ? '#008631' : '#008631', borderRadius: 3, alignItems: 'center', justifyContent: 'center', marginRight: 4, display: 'flex' }}>
-                                {includeTables && <img src="../../assets/check.png" style={{ width: 13, height: 13 }} alt="check" />}
+                            {includeDisposable && <img src={checkImage} alt="Info" style={{ height: 13, width: 13 }} />}
                             </div>
                         </button>
                         <div>
@@ -1085,7 +1136,7 @@ export const CustomDatePicker = ({ handleDateChange, selectedDate, showDatePicke
   };
 
   return (
-    <div  className={`timepkerSec  d-flex flex-column border border-2 rounded-4 p-2  ${combinedDateTimeError? 'border-danger' : ''} `}>
+    <div  className={`timepkerSec  d-flex flex-column border border-1 rounded-4 p-2  ${combinedDateTimeError? 'border-danger' : ''} `}>
       <p style={{ marginBottom: "4px", color: "rgb(146, 82, 170)", fontSize: "12px" }} className='p-0 m-0'>Select Date</p>
       <Dropdown show={showDatePicker} onToggle={toggleDatePicker} className='border-none p-0'>
         <Dropdown.Toggle
@@ -1114,7 +1165,7 @@ export const CustomDatePicker = ({ handleDateChange, selectedDate, showDatePicke
 
 export const CustomTimePicker = ({ selectedTimeSlot, handleTimeSlotChange, generateTimeSlots,selectedTimeSlotError,combinedDateTimeError }) => {
   return (
-    <div  className={`timepkerSec d-flex flex-column border border-2 ${combinedDateTimeError? 'border-danger' : ''}  ${selectedTimeSlotError?'border-danger':""} rounded-4 p-2`}>
+    <div  className={`timepkerSec d-flex flex-column border border-1 ${combinedDateTimeError? 'border-danger' : ''}  ${selectedTimeSlotError?'border-danger':""} rounded-4 p-2`}>
       <p style={{ marginBottom: "4px", color: "rgb(146, 82, 170)", fontSize: "12px" }} className='p-0 m-0'>Select Time</p>
       <Form.Control
         as="select"

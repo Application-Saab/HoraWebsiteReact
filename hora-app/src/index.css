@@ -593,7 +593,7 @@ p.other-cities {
   }
 
   .textContainerhome {
-    margin: 0px 0px 41px !important;
+    margin: 0px 0px 15px !important;
   }
 
   .textContainerhome h1 {
@@ -606,7 +606,7 @@ p.other-cities {
     font-weight: 900 !important;
     margin: 12px 0px 10px !important;
     line-height: 32px !important;
-    padding: 4px 8% 5px !important;
+    padding: 4px 14% 5px !important;
   }
 
   .btn.mobiledownloadappbutn.home-btn {
@@ -918,7 +918,14 @@ p.other-cities {
   }
 }
 
+@media (max-width: 400px) {
+  .textContainerhome h2 {
+    padding: 4px 8% 5px !important;
+  }
+}
+
 @media (max-width: 480px) {
+
   .personsectionprice p {
     font-size: 65% !important;
 } 
@@ -1067,6 +1074,10 @@ p.req-des {
 }
 
 @media (max-width: 340px) {
+  .textContainerhome h1 {
+    font-size: 93% !important;
+    padding: 0 20px !important;
+}
   .decCatPage .decimagecontainer {
     img {
       height: 130px !important;

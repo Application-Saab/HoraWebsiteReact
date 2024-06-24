@@ -85,7 +85,7 @@ function Checkout() {
   const generateTimeSlots = () => {
     const startTime = 7; // Starting hour
     const endTime = 22; // Ending hour
-    const interval = 3; // Interval in hours
+    const interval = orderType === 2 ? 1 : 3;
 
     const timeSlots = [];
     for (let hour = startTime; hour < endTime; hour += interval) {

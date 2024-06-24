@@ -37,6 +37,10 @@ const FoodDeliveryselectDate = ({ history }) => {
         }
     }
 
+    const contactUsRedirection = () => {
+        window.open('whatsapp://send?phone=+917338584828&text=Hello%20I%20have%20some%20queries%20for%20food%20delivey%20and%20live%20Catering%20service');
+    }
+
     const onContinueClick = () => {
         const totalOrderAmount = selectedOption === 'liveCatering' ? dishPrice * peopleCount + 6500 : dishPrice * peopleCount;
         if (totalOrderAmount < 3000) {
@@ -197,7 +201,7 @@ const FoodDeliveryselectDate = ({ history }) => {
 </div>
 <div style={{ flexDirection: 'column', marginLeft: 1, width: 80 }} className='ingredientrightsec'>
     <div style={{ fontSize: "80%", fontWeight: '500', color: '#414141' }} className='ingredientrightsecheading'>{item.name}</div>
-    <div style={{ fontSize: "140%", fontWeight: '700', color: '#9252AA' , textTransform:"uppercase"}} className='ingredientrightsecsibheading'>{quantity + ' ' + unit}</div>
+    {/* <div style={{ fontSize: "140%", fontWeight: '700', color: '#9252AA' , textTransform:"uppercase"}} className='ingredientrightsecsibheading'>{quantity + ' ' + unit}</div> */}
 </div>
 </div>
         );
@@ -346,8 +350,30 @@ const renderTabContent = (selectedDishQuantities) => {
                 {renderTabContent(selectedDishQuantities)}
                 </div>
 
+                <div className='d-flex flex-column flex-lg-row align-items-between justify-content-center  align-items-lg-center justify-content-lg-between'>
+                <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', paddingTop: 12 }}>
+                  <p style={{ fontSize: 14, fontWeight: 500, color: '#333' }}>Need more info?</p>
+                  <button onClick={contactUsRedirection} style={{ marginLeft: 5, backgroundColor: '#E8E8E8', borderRadius: 18, borderWidth: 1, borderColor: '#9252AA', display: 'flex', justifyContent: 'center', alignItems: 'center', width: 96,  cursor: 'pointer' }}>
+                      <div style={{ color: '#9252AA', fontSize: 13, fontWeight: '500' }}>Contact Us</div>
+                  </button>
+              </div>
+
+
+              <div>
+                    <div style={{ padding: 7, flexDirection: 'column', justifyContent: "space-between", alignItems: "center", borderRadius: 10, paddingRight: 11, marginTop: 15, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(211, 75, 233, 0.10)', borderColor: '#E6E6E6', borderWidth: 1, }}>
+                        <div>
+                        </div>
+                        <div>
+                            <div style={{ fontSize: 11, color: '#9252AA', fontWeight: '400', marginLeft: 4 }}>
+                                Dish quantities vary based on guest count and selections. Over 5 dishes: 550-700g per person. Under 5 dishes: 100g per person per dish
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
                
                 </div>
+               
                 </div>
 
                 <Row>

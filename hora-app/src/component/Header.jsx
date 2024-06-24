@@ -99,7 +99,7 @@ function Header() {
                     </li>
                     <li>
                       <Link to="/chefOrder" style={styles.subMenuLink}>
-                        Hire a Chef
+                        Chef for Party
                       </Link>
                     </li>
                   
@@ -253,7 +253,7 @@ const Drawer = ({ closeDrawer, drawerRef, handleLogout }) => {
         Decoration
       </Link>
       <Link to="/chefOrder" style={style.drawerLink} onClick={closeDrawer}>
-        Hire a Chef
+        Chef for Party
       </Link>
       <Link to="/fooddeliveryCreateOrder/foodDelivery" style={style.drawerLink} onClick={closeDrawer}>
         Food Delivery
