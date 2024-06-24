@@ -376,7 +376,9 @@ function Checkout() {
 
 
 
-
+  const contactUsRedirection = () => {
+    window.open('https://wa.me/917338584828?text=Hello%20I%20have%20some%20queries%20for%20food%20delivery%20and%20live%20Catering%20service', '_blank');
+  };
 
   return (
     <div className="App">
@@ -395,7 +397,7 @@ function Checkout() {
                     Chef details will be shared 5 hours before the order time.
                   </div>
                 ) : null}
-                <div style={{ display: 'flex', margin: "8px 0px 10px", flexDirection: "row" }} className='row align-items-between justify-content-center  align-items-lg-center justify-content-lg-between'>
+                <div style={{ display: 'flex', margin: "8px 0px 10px", flexDirection: "row" }} className='row align-items-between justify-content-between   align-items-lg-center justify-content-lg-between'>
                   <CustomDatePicker handleDateChange={handleDateChange} setSelectedDate={setSelectedDate} selectedDate={selectedDate} showDatePicker={showDatePicker} setShowDatePicker={setShowDatePicker} combinedDateTimeError={combinedDateTimeError} selectedDateError={selectedDateError} />
                   <CustomTimePicker handleTimeSlotChange={handleTimeSlotChange} generateTimeSlots={generateTimeSlots} selectedTimeSlot={selectedTimeSlot} combinedDateTimeError={combinedDateTimeError} selectedTimeSlotError={selectedTimeSlotError} />
                 </div>
@@ -473,9 +475,9 @@ function Checkout() {
                     </div>
                     <div >
 
-                      <div className='d-flex justify-content-center align-items-center mt-3 mb-0'>
+                      <div className='d-flex justify-content-between align-items-center mt-3 mb-0'>
                         <h5 className=''>Need more info?</h5>
-                        <button style={{ border: "2px solid rgb(157, 74, 147)", color: "rgb(157, 74, 147)" }} className=' rounded-5 ms-1 '>Contact Us</button>
+                        <button onClick={contactUsRedirection}  style={{ border: "2px solid rgb(157, 74, 147)", color: "rgb(157, 74, 147)" }} className=' rounded-5 ms-1 '>Contact Us</button>
                       </div>
 
                       <div className='px-1 py-3 border rounded my-2 cancellatiop-policy' style={{
@@ -522,7 +524,7 @@ function Checkout() {
 
           </div>
           :
-          <div style={{ padding: "1% 2%", backgroundColor: "#edededc9" }} className='checkoutmobileview'>
+          <div style={{ padding: "1% 2%", backgroundColor: "#edededc9" , position: "relative"  }} className='checkoutmobileview'>
             <div className='checoutSec my-3 gap-3'>
               <div>
                 {/* <h2 style={{ fontSize: "22px", fontWeight: "400", color: "#222", borderBottom: "1px solid #f0f0f0", margin: "0 0 8px 0", lineHeight: "35px" }}>Booking Details</h2> */}
@@ -535,7 +537,7 @@ function Checkout() {
                     Chef details will be shared 5 hours before the order time.
                   </div>
                 ) : null}
-                <div style={{ display: 'flex', margin: "8px 0px 10px", flexDirection: "row" }} className='row align-items-between justify-content-center  align-items-lg-center justify-content-lg-between'>
+                <div style={{ display: 'flex', margin: "8px 0px 10px", flexDirection: "row" }} className='row align-items-between justify-content-between  align-items-lg-center justify-content-lg-between'>
                   <CustomDatePicker handleDateChange={handleDateChange} setSelectedDate={setSelectedDate} selectedDate={selectedDate} showDatePicker={showDatePicker} setShowDatePicker={setShowDatePicker} combinedDateTimeError={combinedDateTimeError} selectedDateError={selectedDateError} />
                   <CustomTimePicker handleTimeSlotChange={handleTimeSlotChange} generateTimeSlots={generateTimeSlots} selectedTimeSlot={selectedTimeSlot} combinedDateTimeError={combinedDateTimeError} selectedTimeSlotError={selectedTimeSlotError} />
                   {combinedDateTimeError && <p className="text-danger" style={{ fontSize: '12px' }}>The selected date and time must be at least 24 hours from now.</p>}
@@ -748,10 +750,24 @@ function Checkout() {
 
 
             </div>
-            <div>
-              <button onClick={onContinueClick} className="blue-btn chkeoutBottun">Confirm Order</button>
+          
+            { window.innerWidth < 800 ? 
+                 <div style={{
+                  position:"fixed" , 
+                  bottom:0 , 
+                  left:0,
+                  width:"100%",
+                  backgroundColor:"#fff",
+                  borderTop:"1px solid #efefef",
+                  backgroundColor:"#EDEDED"
+                }}
+               >
 
-            </div>
+                <button className="blue-btn chkeoutBottun" onClick={onContinueClick}>Confirm Order</button>
+                </div>
+                : 
+                null
+                }
 
           </div>
 
@@ -811,7 +827,7 @@ export const CustomTimePicker = ({ selectedTimeSlot, handleTimeSlotChange, gener
           as="select"
           value={selectedTimeSlot}
           onChange={handleTimeSlotChange}
-          style={{ fontSize: "14px", width: "242px", cursor: 'pointer', padding: 0, background: 'none', border: 'none' }}
+          style={{ fontSize: "14px",  cursor: 'pointer', padding: 0, background: 'none', border: 'none' }}
         >
           <option value="">Select a time slot</option>
           {generateTimeSlots().map((timeSlot, index) => (
