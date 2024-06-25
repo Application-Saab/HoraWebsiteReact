@@ -194,19 +194,57 @@ function Checkout() {
 
   const onContinueClick = async () => {
 
-
-
-
     const apiUrl = BASE_URL + PAYMENT;
 
     const storedUserID = await localStorage.getItem('userID');
     const phoneNumber = await localStorage.getItem('mobileNumber')
 
+    let merchantTransactionId;
+
+    try {
+
+      const addressID = await saveAddress();     
+      const storedUserID = await localStorage.getItem('userID');
+
+        const url = BASE_URL + CONFIRM_ORDER_ENDPOINT;
+        const requestData = {
+          "toId": "",
+          "order_time": selectedTimeSlot,
+          "no_of_people": 0,
+          "type": 1,
+          "fromId": storedUserID,
+          "is_discount": "0",
+          "addressId": addressID,
+          "order_date": selectedDate.toDateString(),
+          "no_of_burner": 0,
+          "order_locality": city,
+          "total_amount": product.price,
+          "orderApplianceIds": [],
+          "payable_amount": product.price,
+          "is_gst": "0",
+          "order_type": true,
+          "items": [product._id],
+          "decoration_comments": comment,
+          "status": 0
+        }
+
+        const token = await localStorage.getItem('token');
+
+        const response = await axios.post(url, requestData, {
+          headers: {
+            'Content-Type': 'application/json',
+            'authorization': token
+          },
+        });
+
+        merchantTransactionId = response.data.data._id
+      //}
+    } catch (error) {
+      console.log('Error Confirming Order:', error.message);
+    }
 
 
-    const randomInteger = Math.floor(getRandomNumber(1, 1000000000000)) + Math.floor(getRandomNumber(1, 1000000000000)) + Math.floor(getRandomNumber(1, 1000000000000));
 
-    let merchantTransactionId = randomInteger
     const requestData = {
       user_id: storedUserID,
       price: Math.round(product.price * 0.3),
@@ -229,8 +267,8 @@ function Checkout() {
           },
         });
 
+        
         window.location.href = response.data
-        checkPaymentStatus(merchantTransactionId);
 
       }else{
         if(!city){
@@ -256,123 +294,6 @@ function Checkout() {
     }
 
   }
-
-
-
-  const handleConfirmOrder = async () => {
-
-    try {
-
-      console.log("11111111111111111")
-      const addressID = await saveAddress();
-
-      //const message = await checkPaymentStatus(merchantTransactionId);
-     
-      const storedUserID = await localStorage.getItem('userID');
-
-
-
-      //const locality = await AsyncStorage.getItem("Locality");
-
-      //if (message === 'PAYMENT_SUCCESS') {
-        const url = BASE_URL + CONFIRM_ORDER_ENDPOINT;
-        const requestData = {
-          "toId": "",
-          "order_time": selectedTimeSlot,
-          "no_of_people": 0,
-          "type": 1,
-          "fromId": storedUserID,
-          "is_discount": "0",
-          "addressId": addressID,
-          "order_date": selectedDate.toDateString(),
-          "no_of_burner": 0,
-          "order_locality": city,
-          "total_amount": product.price,
-          "orderApplianceIds": [],
-          "payable_amount": product.price,
-          "is_gst": "0",
-          "order_type": true,
-          "items": [product._id],
-          "decoration_comments": comment
-        }
-
-        const token = await localStorage.getItem('token');
-
-
-
-        const response = await axios.post(url, requestData, {
-          headers: {
-            'Content-Type': 'application/json',
-            'authorization': token
-          },
-        });
-
-        if (response.status === API_SUCCESS_CODE) {
-          alert("Order placed successfully");
-        }
-      //}
-    } catch (error) {
-      console.log('Error Confirming Order:', error.message);
-    }
-
-  };
-
-  const checkPaymentStatus = async (merchantTransactionId) => {
-
-    try {
-      const storedUserID = await localStorage.getItem('userID');
-      const apiUrl = BASE_URL + PAYMENT_STATUS + '/' + merchantTransactionId;
-
-
-      const pollInterval = 5000; // 5 seconds (adjust as needed)
-      const pollingDuration = 300000; // 5 minutes
-
-      const pollPaymentStatus = async () => {
-        const startTime = Date.now();
-
-        while (Date.now() - startTime < pollingDuration) {
-          try {
-            const response = await axios.post(apiUrl, {}, {
-              headers: {
-                'Content-Type': 'application/json',
-              },
-            });
-
-
-
-            if (response.data && response.data.message) {
-              const message = response.data.message;
-
-
-              if (message === 'PAYMENT_PENDING') {
-                console.log('Payment is still pending. Polling again...');
-                await new Promise(resolve => setTimeout(resolve, pollInterval));
-              } else {
-                console.log('Payment status:', message);
-                handleConfirmOrder();
-                //return message;
-              }
-            } else {
-              console.log('API response does not contain a message field');
-            }
-
-          } catch (error) {
-            console.error('API error:', error);
-          }
-        }
-
-        // Stop polling after the specified duration
-        console.log('Polling completed. Returning final result.');
-        return 'PAYMENT_POLLING_TIMEOUT';
-      };
-
-      // Start polling and return the final result after polling completes
-      return await pollPaymentStatus();
-    } catch (error) {
-      console.error('Error checking payment status:', error);
-      throw error; // Rethrow the error for the caller to handle
-    }
-  };
 
 
 

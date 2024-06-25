@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate , Link } from 'react-router-dom'; // Import useNavigate
+import { BASE_URL, PAYMENT, PAYMENT_STATUS, API_SUCCESS_CODE,UPDATE_ORDER_STATUS } from '../utills/apiconstants';
+import axios from 'axios';
+import Success from './Success';
+import Failure from './Failure';
+import { useNavigate , Link, useLocation } from 'react-router-dom'; // Import useNavigate
 import bannerSvgImage from '../assets/banner-home-bg.svg';
 import bannerDecorationImage from '../assets/decoration-home-banner.png';
 import bannerChefImage from '../assets/chef-home-banner.png';
@@ -41,6 +45,66 @@ function Home() {
             window.removeEventListener("resize", handleResize);
         };
     }, []);
+
+    const location = useLocation();
+
+    useEffect(() => {
+        const checkPaymentStatus = async (transactionId) => {
+            try {
+                const storedUserID = await localStorage.getItem('userID');
+                const apiUrl = BASE_URL + PAYMENT_STATUS + '/' + transactionId;
+
+                const response = await axios.post(apiUrl, {}, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
+
+                if (response.data && response.data.message) {
+                    const message = response.data.message;
+
+                    if (message === 'PAYMENT_SUCCESS') 
+                    {
+                        const url = BASE_URL + UPDATE_ORDER_STATUS;
+
+                        const token = await localStorage.getItem('token');
+
+                        const requestData = {
+                            
+                            "status": 1,
+                            "_id":transactionId
+
+                          }
+                        
+                        const response = await axios.post(url, requestData, {
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'authorization': token
+                        },
+                        });
+
+                        navigate('success')
+                    }
+                    else{
+                        navigate('failure')
+                    }
+                } else {
+                    console.log('API response does not contain a message field');
+                }
+            } catch (error) {
+                console.error('Error checking payment status:', error);
+                throw error; // Rethrow the error for the caller to handle
+            }
+        };
+
+        const queryParams = new URLSearchParams(location.search);
+        const transactionId = queryParams.get('transactions');
+
+        if (transactionId) {
+            checkPaymentStatus(transactionId);
+        }
+    }, [location.search]);
+
     return (
         <div>
             <div style={styles.homebanner} className="homebanner">

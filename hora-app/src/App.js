@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import Decoration from './pages/Decoration';
 import DecorationCatPage from './pages/DecorationCatPage';
 import DecorationCatDetails from './pages/DecorationCatDetails'
+import DecorationCityPage from './pages/DecorationCityPage';
 import Checkout from './pages/Checkout';
 import Login from './pages/login';
 import AboutUs from './pages/AboutUs';
@@ -18,7 +19,8 @@ import CreateOrder from './pages/ChefOrder/CreateOrder';
 import ChefCheckout from './pages/ChefOrder/ChefCheckout.jsx';
 import whatsppicon from "./assets/whatsapp-icon.png";
 import SelectDate from './pages/ChefOrder/SelectDate';
-import DecorationCitypage from './pages/DecorationCityPage';
+import Failure from './pages/Failure.jsx';
+import Success from './pages/Success.jsx'
 import FoodDeliveryCreateOrder from './pages/Fooddelivery/FoodDeliveryCreateOrder.jsx'
 import FoodDeliveryselectDate from './pages/Fooddelivery/FoodDeliveryselectedate.jsx';
 import FoodDeliveryCheckout from './pages/Fooddelivery/FoodDeliverCheckout.jsx';
@@ -31,6 +33,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/success" element={<Success />} />
+          <Route path="/failure" element={<Failure />} />
           <Route path="/decoration" element={<Decoration />} />
           <Route path="/decoration/occasions/:catValue" element={<DecorationCatPage />} />
           <Route path="/decoration/product/:catValue/:productName" element={<DecorationCatDetails />} />
@@ -47,7 +51,7 @@ function App() {
           <Route path="/myaccount" element={<MyAccount/>} /> 
           <Route path="/chefOrder" element={<CreateOrder/>} /> 
           <Route path="/selectDate" element={<SelectDate/>} />
-          <Route path="/decorationcitypage/:city" element={<DecorationCitypage/>}/>
+          <Route path="/decorationcitypage/:city" element={<DecorationCityPage/>}/>
           <Route path='/fooddeliveryCreateOrder/:selectedfoodCategory' element={<FoodDeliveryCreateOrder/>}/>
           <Route path='/fooddeliveryselectdate' element={<FoodDeliveryselectDate/>}/>
           <Route path='/foodDeliveryCheckout' element={<FoodDeliveryCheckout/>}/>
