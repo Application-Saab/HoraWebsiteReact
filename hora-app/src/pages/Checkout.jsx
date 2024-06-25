@@ -25,6 +25,7 @@ function Checkout() {
   const [address, setAddress] = useState('');
   const [addressError, setAddressError] = useState(false);
   const [pinCode, setPinCode] = useState('');
+  const [picodeReqError , setPicodeReqError] = useState(false);
   const [pinCodeError, setPinCodeError] = useState(false);
   const [city, setCity] = useState('');
   const [cityError, setCityError] = useState(false);
@@ -47,58 +48,73 @@ function Checkout() {
   };
 
   const handleDateChange = (date) => {
+    console.log(`Date selected: ${date}`);
     setSelectedDate(date);
     setSelectedDateError(false);
-  };
+    combineDateTime(date, selectedTimeSlot); // Pass the current selected time slot
+};
 
-  const handleTimeSlotChange = (event) => {
+const handleTimeSlotChange = (event) => {
     const timeSlot = event.target.value;
-    setSelectedTimeSlot(event.target.value);
+    console.log(`Time slot selected: ${timeSlot}`);
+    setSelectedTimeSlot(timeSlot);
     setSelectedDateError(false);
-    combineDateTime(selectedDate, timeSlot);
-  };
-  const combineDateTime = (date, timeSlot) => {
-    if (date && timeSlot) {
-      const [startHour] = timeSlot.split('-')[0].trim().split(':');
-      const combinedDate = new Date(date);
-      combinedDate.setHours(startHour);
-      combinedDate.setMinutes(0);
-      combinedDate.setSeconds(0);
-      combinedDate.setMilliseconds(0);
-      setCombinedDateTime(combinedDate);
-      validateDateTime(combinedDate);
-    }
-  };
-  const validateDateTime = (combinedDate) => {
-    const now = new Date();
-    const timeDifference = combinedDate - now;
+    combineDateTime(selectedDate, timeSlot); // Pass the current selected date
+};
 
+const combineDateTime = (date, timeSlot) => {
+    console.log(`Combining Date: ${date} with Time Slot: ${timeSlot}`);
+    if (date && timeSlot) {
+        const [startHour, period] = timeSlot.split('-')[0].trim().split(' ');
+        let hour = parseInt(startHour.split(':')[0], 10);
+        if (period === 'PM' && hour !== 12) {
+            hour += 12;
+        } else if (period === 'AM' && hour === 12) {
+            hour = 0;
+        }
+
+        const combinedDate = new Date(date);
+        console.log(`Initial Combined Date: ${combinedDate}`);
+        combinedDate.setHours(hour);
+        combinedDate.setMinutes(0);
+        combinedDate.setSeconds(0);
+        combinedDate.setMilliseconds(0);
+        console.log(`Final Combined Date: ${combinedDate}`);
+        setCombinedDateTime(combinedDate);
+        validateDateTime(combinedDate);
+    }
+};
+
+const validateDateTime = (combinedDate) => {
+    const now = new Date();
+    console.log(`Combined Date for Validation: ${combinedDate}`);
+    const timeDifference = combinedDate - now;
+    console.log(`Time Difference: ${timeDifference} ms`);
     // Check if the combined date and time are at least 24 hours in the future
     if (timeDifference < 24 * 60 * 60 * 1000) { // 24 hours in milliseconds
-      setCombinedDateTimeError(true);
+        console.log("The selected date and time are less than 24 hours from now.");
+        setCombinedDateTimeError(true);
     } else {
-      setCombinedDateTimeError(false);
+        console.log("The selected date and time are valid.");
+        setCombinedDateTimeError(false);
     }
-  };
+};
 
-
-  const generateTimeSlots = () => {
+const generateTimeSlots = () => {
     const startTime = 7; // Starting hour
     const endTime = 22; // Ending hour
-    const interval = orderType === 2 ? 1 : 3;
+    const interval = orderType === 2 ? 1 : 3; // Interval in hours
 
     const timeSlots = [];
     for (let hour = startTime; hour < endTime; hour += interval) {
-      const startTimeFormatted = hour < 10 ? `0${hour}:00` : `${hour}:00`;
-      const endTimeFormatted =
-        hour + interval < 10
-          ? `0${hour + interval}:00`
-          : `${hour + interval}:00`;
-      timeSlots.push(`${startTimeFormatted} - ${endTimeFormatted}`);
+        const startTimeFormatted = hour < 10 ? `0${hour}:00 AM` : `${hour % 12 || 12}:00 ${hour < 12 ? 'AM' : 'PM'}`;
+        const endTimeFormatted = hour + interval < 10 ? `0${hour + interval}:00 AM` : `${(hour + interval) % 12 || 12}:00 ${hour + interval < 12 ? 'AM' : 'PM'}`;
+        timeSlots.push(`${startTimeFormatted} - ${endTimeFormatted}`);
     }
 
     return timeSlots;
-  };
+};
+
 
   const pincodes = ['560063', '560030', '560034', '560007', '560092', '560024', '560045', '560003', '560050', '562107', '560064', '560047'
     , '560026', '560086', '560002', '560070', '560073', '560053', '560085', '560043', '560017', '560001', '560009', '560025',
@@ -120,6 +136,11 @@ function Checkout() {
   };
 
   const handlePinCodeChange = (e) => {
+    if (e.target.value) {
+      setPicodeReqError(false)
+    } else {
+      setPicodeReqError(true)
+    }
     setPinCode(e.target.value);
     if (((e.target.value).length) == 6) {
       const validpin = pincodes.some((validPin) => validPin === e.target.value)
@@ -216,9 +237,6 @@ function Checkout() {
       name: '',
       merchantTransactionId: merchantTransactionId
     };
-
-
-
     try {
       if (city && pinCode && address && selectedTimeSlot && selectedDate) {
         if (combinedDateTimeError) {
@@ -233,12 +251,12 @@ function Checkout() {
 
         window.location.href = response.data
         handleConfirmOrder(merchantTransactionId);
-
       } else {
         if (!city) {
           setCityError(true)
         }
         if (!pinCode) {
+          setPicodeReqError(true)
           setPinCodeError(true)
         }
         if (!address) {
@@ -433,6 +451,7 @@ function Checkout() {
                       onChange={handlePinCodeChange}
                     />
                     {pinCode && <p className={`p-0 m-0 ${pinCodeError ? "text-danger" : "text-success"}`}>{`Service ${pinCodeError ? 'not' : ''} available in your area!`}</p>}
+                    {picodeReqError && <p className={`p-0 m-0 ${picodeReqError ? "text-danger" : ""}`}>This field is required!</p>}   
                   </div>
                   <div style={{ display: "flex", justifyContent: "center", flexDirection: "column" }} className='checkoutInputType'>
                     <label style={{ color: "rgb(146, 82, 170)", fontSize: "14px", marigin: "16px 0 6px", fontWeight: 600 }}>City:</label>
@@ -475,9 +494,9 @@ function Checkout() {
                     </div>
                     <div >
 
-                      <div className='d-flex justify-content-between align-items-center mt-3 mb-0'>
+                      <div className='d-flex justify-content-center align-items-center mt-3 mb-0'>
                         <h5 className=''>Need more info?</h5>
-                        <button onClick={contactUsRedirection}  style={{ border: "2px solid rgb(157, 74, 147)", color: "rgb(157, 74, 147)" }} className=' rounded-5 ms-1 '>Contact Us</button>
+                        <button onClick={contactUsRedirection}  style={{ border: "2px solid rgb(157, 74, 147)", color: "rgb(157, 74, 147)" }} className=' rounded-5 ms-1 contactus-redirection'>Contact Us</button>
                       </div>
 
                       <div className='px-1 py-3 border rounded my-2 cancellatiop-policy' style={{
@@ -734,7 +753,7 @@ function Checkout() {
 
                 <div className='d-flex justify-content-center align-items-center mt-3 mb-0'>
                   <h5 className=''>Need more info?</h5>
-                  <button style={{ border: "2px solid rgb(157, 74, 147)", color: "rgb(157, 74, 147)" }} className=' rounded-5 ms-1 '>Contact Us</button>
+                  <button onClick={contactUsRedirection}  style={{ border: "2px solid rgb(157, 74, 147)", color: "rgb(157, 74, 147)" }} className=' rounded-5 ms-1 contactus-redirection'>Contact Us</button>
                 </div>
 
                 <div className='px-1 py-3 border rounded my-2 cancellatiop-policy' style={{
