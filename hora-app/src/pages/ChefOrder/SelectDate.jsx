@@ -46,7 +46,11 @@ const SelectDate = ({ history }) => {
                 setWarningVisible(true);
             }
             else {
+<<<<<<< HEAD
                 navigate(`/chefcheckout`, { state: { peopleCount, selectedDishDictionary, selectedDishPrice, selectedDishes, orderType , isDishSelected , selectedCount} });
+=======
+                navigate(`/checkout`, { state: { selectedDishDictionary, selectedDishPrice, selectedDishes, orderType , isDishSelected , selectedCount , peopleCount  } });
+>>>>>>> ce1e249dc713fda976459a2a724193f6555dbff6
             }
         }
 
@@ -183,7 +187,7 @@ const RenderIngredients = ({ item }) => {
                 </div>
                 <div style={{ flexDirection: 'column', marginLeft: 1, width: 80 }} className='ingredientrightsec'>
                     <div style={{ fontSize: "80%", fontWeight: '500', color: '#414141' }} className='ingredientrightsecheading'>{item.name}</div>
-                    <div style={{ fontSize: "140%", fontWeight: '700', color: '#9252AA' , textTransform:"uppercase"}} className='ingredientrightsecsibheading'>{quantity + ' ' + unit}</div>
+                    <div style={{ fontSize: "140%", fontWeight: '700', color: '#9252AA' , textTransform:"lowerCase"}} className='ingredientrightsecsibheading'>{quantity + ' ' + unit}</div>
                 </div>
             </div>
         );
@@ -193,10 +197,10 @@ const LeftTabContent = ({ burnerCount, ApplianceList }) => {
     return(
         <>
        <div style={{padding:"10px 20px 20px 20px" ,  flexDirection: 'column', borderWidth: 1, elevation: 1, backgroundColor: 'white', borderBottomRightRadius: 15, borderBottomLeftRadius: 15, borderColor: 'white'  , border: "1px solid #efefef"}}>
-    <div style={{ flexDirection: 'column' }}>
-        <span style={{ color: '#000000', fontSize: "100%", fontWeight: '600', marginTop: 20 }}>Required Burners</span>
-        <span style={{ color: '#969696', fontSize: "100%", fontWeight: '500', marginTop: 6 , marginLeft:"10px"}}>Number of burners depend upon the number of dishes chosen</span>
-        <span style={{ color: '#969696', fontSize: "100%", fontWeight: '500', marginTop: 6 }}>(Burners would be used at your location)</span>
+    <div style={{ flexDirection: 'column' }} class="req-applicance-details">
+        <p style={{ color: '#000000', fontSize: "100%", fontWeight: '400' }} >Required Burners</p>
+        <p style={{ color: '#969696', fontSize: "100%", fontWeight: '400'  }}>Number of burners depend upon the number of dishes chosen</p>
+        <p style={{ color: '#969696', fontSize: "100%", fontWeight: '400'}}>(Burners would be used at your location)</p>
     </div>
 
     <div style={{ width: 90, height: 54, flexDirection: 'column', borderColor: "#DADADA", borderWidth: 0.5, borderRadius: 5  }}>
@@ -250,7 +254,7 @@ const LeftTabContent = ({ burnerCount, ApplianceList }) => {
 
 const RightTabContent = ({ ingredientList, preparationTextList, toggleShowAll, showAll, renderPreparationText }) => {
     return (
-        <div style={{ overflowY: 'auto', height: '100%' }}>
+        <div style={{ overflowY: 'auto', height: '100%' , borderRadius:"4px 13px 13px 13px" ,   border: "1px solid #efefef" }}>
             <div style={{ padding:"0px 20px 20px 20px" ,  flexDirection: 'column', boxShadow: '0px 1px 3px rgba(0, 0, 0, 0.1)', backgroundColor: 'white', borderBottomRightRadius: '15px', borderBottomLeftRadius: '15px',  display: 'flex' , border: "1px solid #efefef"}}>
                 <div style={{ flexDirection: 'column', display: 'flex' }}>
                     <span style={{ color: '#000000', fontSize: '13px', fontWeight: '600', marginTop: '20px' }}>Required Ingredient</span>
@@ -258,7 +262,7 @@ const RightTabContent = ({ ingredientList, preparationTextList, toggleShowAll, s
                 </div>
 
                 <div style={{ flexDirection: 'row', marginTop: '15px', display: 'flex' }}>
-                    <ListGroup style={{ display: 'flex', flexWrap: 'wrap', flexDirection: 'row'  , justifyContent:"space-between" , alignItems:"center"}}>
+                    <ListGroup style={{ display: 'flex', flexWrap: 'wrap', flexDirection: 'row'  , justifyContent:"flex-start" , alignItems:"center"}}>
                         {ingredientList.map(item => (
                             <RenderIngredients key={item.id} item={item} />
                         ))}
@@ -310,9 +314,9 @@ const RightTabContent = ({ ingredientList, preparationTextList, toggleShowAll, s
                 <p style={{ color: '#676767', fontSize: "94%", fontWeight: '400', margin:"0" }} className='billheading'>Bill value depends upon Dish selected + Number of people</p>
             </div>
           
-            <div style={{width:"90%" , margin:"0 auto" , backgroudColor:"rgb(237, 237, 237)" , display:"flex"   , flexDirection:"column"}} className='selectdateContainersec'>
-                <div style={{backgroundColor:"#fff"  , width:"98%" , margin:"10px" , padding:"10px 30px"}} className='selectdateContainer'>
-                <div style={{ width:"80%"}} className='peoplecontsec'>
+            <div style={{width:"90%" , margin:"0 auto" , backgroudColor:"rgb(237, 237, 237)" , display:"flex"   , flexDirection:"column" ,  backgroundColor:"#edededc9"}} className='selectdateContainersec'>
+                <div style={{  width:"98%" , margin:"10px" , padding:"10px 30px"}} className='selectdateContainer'>
+                <div style={{  backgroundColor:"#fff"  , borderRadius:"10px" , padding:"10px"}} className='peoplecontsec'>
                 <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginTop: 13, alignItems: 'center' }}>
                 <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'row' }}>
                     <img src={require('../../assets/people.png')} style={{ height: 25, width: 25 }} alt="people icon" />
@@ -383,8 +387,6 @@ const RightTabContent = ({ ingredientList, preparationTextList, toggleShowAll, s
                 </button>
                 {renderTabContent()}
                 </div>
-
-               
                 </div>
                 </div>
 

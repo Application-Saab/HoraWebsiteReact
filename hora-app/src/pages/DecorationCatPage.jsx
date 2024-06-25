@@ -163,24 +163,20 @@ function DecorationCatPage() {
     }
   }, [catId]);
 
+  function trimText(text) {
+    if (text.length > 60) {
+      return text.slice(0, 60) + '...';
+    }
+    return text;
+  }
+
   return (
     <div style={{ backgroundColor: "#EDEDED" }} className="decCatPage">
-      {/* {true && (
-        // <div className="d-flex justify-content-center align-items-center">
-        //   <Spinner animation="border" className="custom-spinner" />
-        // </div>
-        <div style={styles.decContainer} className="decContainer" >
-          {[1, 2, 3, 4, 5, 6, 7, 8].map((item, index) => (
-            <CardSkeleton key={index} />
-          ))}
-          </div>
-      )} */}
-      {/* {!loading && ( */}
       <>
         <div style={{ textAlign: "center", justifyContent: "center", alignItems: "center" }}>
           <div style={{ marginTop: "0px" }}>
-            <h1 style={{ fontSize: "16px", color: "#000", padding: "14px 0 0" , color: '#9252AA'}}>{selCat} </h1>
-            <p style={{ padding: "0px 0px 16px", margin: "0px" }} className="subheading">Balloon Decoration and Room Decoration Services for Anniversary, Birthdays, Kids Parties, Baby Showers and more!</p>
+            <h1 style={{ fontSize: "16px", color: "#000", padding: "14px 0 0" , color: '#9252AA'}}>{selCat} {'Balloon Decoration'} </h1>
+            <p style={{ padding: "0px 0px 16px", margin: "0px" }} className="subheading">{trimText('Balloon Decoration and Room Decoration Services for Anniversary, Birthdays, Kids Parties, Baby Showers and more!')}</p>
             <div style={{ marginBottom: "15px" }} className="filterdropdown d-flex flex-column flex-lg-row align-items-center justify-content-center gap-3" >
 
               <div className="d-flex gap-lg-4 gap-2">
@@ -246,28 +242,30 @@ function DecorationCatPage() {
                           fontWeight: '600',
                           fontSize: "16px",
                           marginTop: "4px",
-                          // color: '#9252AA',
-                          color: "#222",
+                          color: '#9252AA',
+            
                           lineHeight: "18px",
                           marginBottom: "0px",
                           textAlign: "left",
                         }}
                         className="pro_name"
                       >
-                         {window.innerWidth < 641 ? item.name.length > 30 ? `${item.name.substring(0, 30)}...` : item.name : item.name}
+                         {item.name}
                       </p>
-                      <div>
+                      <div style={{ display:"flex" , flexDirection:"row" , justifyContent:"space-between" , alignItems:"top"}} className="pri_details">
                         <div style={{ flexDirection: 'row', alignItems: 'left', justifyContent: 'space-between' }} className="pro_price">
                           <p style={{
                            color: '#9252AA',
-                            fontWeight: '500',
+                            fontWeight: '700',
                             fontSize: 17,
                             textAlign: "left",
                             margin: "10px 0px 7px",
-                          }}> ₹ {item.price}</p>
+                          }}
+                          class="pro_price"
+                          > ₹ {item.price}</p>
                         </div>
-                        <div className="d-flex align-items-center mt-1">
-                          <p className="m-0 p-0" style={{ fontWeight: '500', fontSize: 17, margin: "0px", }}>{item.rating}<span className='px-1 m-0 py-0 img-fluid' style={{ color: '#FFBF00' }}><FontAwesomeIcon style={{ margin: 0 }} icon={faStar} /></span></p>
+                        <div className="d-flex align-items-center rating-sec">
+                          <p className="m-0 p-0" style={{ fontWeight: '500', fontSize: 17, margin: "0px", color: '#9252AA'}}>{item.rating}<span className='px-1 m-0 py-0 img-fluid' style={{ color: '#ffc107' }}><FontAwesomeIcon style={{ margin: 0 , height:"14px" }} icon={faStar} /></span></p>
                           <p style={{ color: '#9252AA', fontWeight: '600', fontSize: 17, margin: "0px", padding: "0 0 0 2px" }}>({item.userCount})</p>
                         </div>
                       </div>

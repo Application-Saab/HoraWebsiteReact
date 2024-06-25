@@ -47,46 +47,46 @@ function Home() {
                 <div style={styles.bgImg} className="bgImg">
                     <div style={styles.pageWidth}>
                         <div style={styles.textContainer} className="textContainerhome">
-                            <h1 style={{ fontSize: "40px", fontWeight: "500", margin: "0" }}>{"“HORA” Simplifying and Enhancing celebrations."}</h1>
-                            <h2 style={{ fontSize: "72px", fontWeight: "900", margin: "0 0 10px", lineHeight: "77px", margin: "0px 0 10px", padding: "3px 14% 5px 14%" }}>{"ALL PARTY SERVICE, ONE PLATFORM"}</h2>
-                            {showButton && (
+                            <h1 style={{ fontSize: "40px", fontWeight: "500", margin: "0" }}>{"Simplifying and Enhancing celebrations."}</h1>
+                            <h2 style={{ fontSize: "72px", fontWeight: "900", margin: "0 0 10px", lineHeight: "77px", margin: "0px 0 10px", padding: "3px 14% 5px 14%" }}>{"ALL PARTY SERVICE ONE PLATFORM"}</h2>
+                            {/* {showButton && (
                                 <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
                                     <div className="home-btn" onClick={openLink}>
                                         Download Our App
                                     </div>
                                 </div>
-                            )}
+                            )} */}
                         </div>
                     </div>
                     <div style={styles.bannerBottomSec} className="bannerBottomSec">
                         <div style={styles.bannerDecorationImage} className="bannerDecorationImage">
                         <Link to="/decoration">
                         <img src={bannerDecorationImage} alt="Decoration Near me" />
-                        <h2 style={{ fontSize: "16px", fontWeight: "normal", color: "#fff", textAlign: "center" }}>Decoration</h2>
+                        <h2 style={{ fontSize: "16px", fontWeight: "600", color: "#fff", textAlign: "center" , margin:"10px 0 0 0" }}>Decoration</h2>
                      </Link>
                         </div>
                         <div style={styles.bannerDecorationImage} className="bannerDecorationImage">
                         <Link to="/chefOrder">
                                 <img src={bannerChefImage} alt="Chef Near me" />
-                                <h2 style={{ fontSize: "18px", fontWeight: "normal", color: "#fff", textAlign: "center" }}>Hire Chef</h2>
+                                <h2 style={{ fontSize: "16px", fontWeight: "600", color: "#fff", textAlign: "center" , margin:"10px 0 0 0"  }}>Chef for Party</h2>
+                            </Link>
+                        </div>
+                        <div style={styles.bannerDecorationImage} className="bannerDecorationImage">
+                        <Link to="/fooddeliveryCreateOrder/foodDelivery">
+                                <img src={bannerFoodDeliveryImage} alt="Food Delivery Near me" />
+                                <h2 style={{ fontSize: "16px", fontWeight: "600", color: "#fff", textAlign: "center" , margin:"10px 0 0 0"  }}>Food Delivery</h2>
+                            </Link>
+                        </div>
+                        <div style={styles.bannerDecorationImage} className="bannerDecorationImage">
+                        <Link to="/fooddeliveryCreateOrder/liveCatering">
+                                <img src={service4Image} alt="Return Gift Near me" />
+                                <h2 style={{ fontSize: "16px", fontWeight: "600", color: "#fff", textAlign: "center" , margin:"10px 0 0 0"  }}>Live Catering</h2>
                             </Link>
                         </div>
                         <div style={styles.bannerDecorationImage} className="bannerDecorationImage">
                             <a href="/" style={{ textDecoration: "none" }}>
-                                <img src={bannerFoodDeliveryImage} alt="Food Delivery Near me" />
-                                <h2 style={{ fontSize: "18px", fontWeight: "normal", color: "#fff", textAlign: "center" }}>Food Delivery</h2>
-                            </a>
-                        </div>
-                        <div style={styles.bannerDecorationImage} className="bannerDecorationImage">
-                            <a href="/" style={{ textDecoration: "none" }}>
-                                <img src={bannerReturnGiftImage} alt="Return Gift Near me" />
-                                <h2 style={{ fontSize: "18px", fontWeight: "normal", color: "#fff", textAlign: "center" }}>Gift & Party Supplies</h2>
-                            </a>
-                        </div>
-                        <div style={styles.bannerDecorationImage} className="bannerDecorationImage">
-                            <a href="/" style={{ textDecoration: "none" }}>
                                 <img src={bannerEntertainmentImage} alt="Entertainment Near me" />
-                                <h2 style={{ fontSize: "18px", fontWeight: "normal", color: "#fff", textAlign: "center" }}>Entertainment</h2>
+                                <h2 style={{ fontSize: "16px", fontWeight: "600", color: "#fff", textAlign: "center" , margin:"10px 0 0 0"  }}>Entertainment</h2>
                             </a>
                         </div>
 

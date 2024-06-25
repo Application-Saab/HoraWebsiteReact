@@ -53,12 +53,12 @@ function App() {
           <Route path='/foodDeliveryCheckout' element={<FoodDeliveryCheckout/>}/>
         </Routes>
         </div>
-        <div>
-            <a  class="whatappicon" href="https://wa.me/+918982321487/?text=Hi%2CI%20saw%20your%20website%20and%20want%20to%20know%20more%20about%20the%20services" target="_blank">
+<div>
+<a  class="whatappicon" href="https://wa.me/+917338584828/?text=Hi%2CI%20saw%20your%20website%20and%20want%20to%20know%20more%20about%20the%20services" target="_blank">
 
-            <img src={whatsppicon} alt="WhatsApp Icon"/>
-        </a>    
-          </div>
+<img src={whatsppicon} alt="WhatsApp Icon"/>
+</a>    
+</div>
         <Footer />
      
     </Router>

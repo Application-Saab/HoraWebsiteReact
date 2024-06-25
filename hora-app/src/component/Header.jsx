@@ -18,6 +18,7 @@ function Header() {
   const [showDecorationSubMenu, setShowDecorationSubMenu] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const navigate = useNavigate();
+  const isHomePage = location.pathname === '/';
   const toggleDrawer = () => {
     setShowDrawer(!showDrawer);
   };
@@ -99,7 +100,7 @@ function Header() {
                     </li>
                     <li>
                       <Link to="/chefOrder" style={styles.subMenuLink}>
-                        Hire a Chef
+                        Chef for Party
                       </Link>
                     </li>
                   
@@ -158,44 +159,42 @@ function Header() {
           </div>
         </div>
         <div style={styles.mobileViewHeader} className='mobileViewHeader py-2'>
-          <div className="d-flex align-items-center gap-3">
+          <div className="d-flex align-items-center gap-3" style={{ width:"100%"}}>
             {/* Conditional rendering based on pathname */}
-            {location.pathname.includes("/decoration/product") ||
-              location.pathname.includes("/selectDate") ||
-              location.pathname.includes("decoration/occasions") ||
-              location.pathname.includes("selectdate") ||
-              location.pathname.includes("/checkout") ? (
-              <a>
-                <img
-                  src={backIcon}
-                  alt="Back"
-                  style={{
-                    width: "35px",
-                    height: "auto",
-                    cursor: "pointer",
-                  }}
-                  onClick={handleBack}
-                />
-              </a>
-
+              <>
+            {isHomePage ? (
+              <>
+               <FontAwesomeIcon
+               icon={faBars}
+               className="mobileMenuIcon"
+               style={styles.mobileMenuIcon}
+               onClick={toggleDrawer}
+             />
+            <Link to="/" style={{ display:"flex" , width:"80%" , textAlign:"center"}}>
+            <img src={require("../assets/logo_white.svg").default} alt="Logo" style={{ width: "85px", height: "auto"  , margin:"0 auto"}} />
+            </Link>
+            </>
             ) : (
               <>
-                <FontAwesomeIcon
-                  icon={faBars}
-                  className="mobileMenuIcon"
-                  style={styles.mobileMenuIcon}
-                  onClick={toggleDrawer}
-                />
-                <Link to="/">
-                  <img src={require("../assets/logo_white.svg").default} alt="Logo" style={{ width: "85px", height: "auto" }} />
-                </Link>
+               <img
+              src={backIcon}
+              alt="Back"
+              style={{
+                width: "35px",
+                height: "auto",
+                cursor: "pointer",
+              }}
+              onClick={handleBack}
+            />
+               <h1 style={{ margin: 0 , fontSize:"16px" }}>{'Hora Decorations'}</h1>
               </>
-            )}
-
+             
+            )}  
+              </>
+           
 
           </div>
 
-          <div className="btn mobiledownloadappbutn home-btn" onClick={openLink}>{'Download Our App'}</div>
         </div>
       </div>
       {showDrawer && <Drawer closeDrawer={toggleDrawer} drawerRef={drawerRef} handleLogout={handleLogout} />}
@@ -254,13 +253,13 @@ const Drawer = ({ closeDrawer, drawerRef, handleLogout }) => {
         Decoration
       </Link>
       <Link to="/chefOrder" style={style.drawerLink} onClick={closeDrawer}>
-        Hire a Chef
+        Chef for Party
       </Link>
-      <Link to="/" style={style.drawerLink} onClick={closeDrawer}>
+      <Link to="/fooddeliveryCreateOrder/foodDelivery" style={style.drawerLink} onClick={closeDrawer}>
         Food Delivery
       </Link>
-      <Link to="/" style={style.drawerLink} onClick={closeDrawer}>
-        Gift & Party Supplies
+      <Link to="/fooddeliveryCreateOrder/liveCatering" style={style.drawerLink} onClick={closeDrawer}>
+       Live Catering
       </Link>
       <Link to="/" style={style.drawerLink} onClick={closeDrawer}>
         Entertainment

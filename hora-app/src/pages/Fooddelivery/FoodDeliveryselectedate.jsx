@@ -37,11 +37,15 @@ const FoodDeliveryselectDate = ({ history }) => {
         }
     }
 
+    const contactUsRedirection = () => {
+        window.open('whatsapp://send?phone=+917338584828&text=Hello%20I%20have%20some%20queries%20for%20food%20delivey%20and%20live%20Catering%20service');
+    }
+
     const onContinueClick = () => {
         const totalOrderAmount = selectedOption === 'liveCatering' ? dishPrice * peopleCount + 6500 : dishPrice * peopleCount;
         if (totalOrderAmount < 3000) {
             // setWarningVisible(true);
-            alert("Please select minimum 3000rps")
+            alert("Please select minimum mininum order amount: 3000rps")
         } else {
             navigate("/foodDeliveryCheckout", {
                 state: {
@@ -63,14 +67,11 @@ const FoodDeliveryselectDate = ({ history }) => {
 
     const LeftTabContent = ({ selectedOption }) => {
         return (
-            <div style={{ marginTop: 6, paddingTop: 5, paddingBottom: 10, paddingLeft: 10, backgroundColor: '#FFFFFF', marginLeft: 15, marginRight: 15, borderRadius: 10, fontSize: 14 }}>
+            <div style={{  paddingTop: 5, backgroundColor: '#FFFFFF', paddingLeft:10, borderRadius: 10, fontSize: 14 }}>
                 <div>
                     {selectedOption === "foodDelivery" && (
                         <>
-                            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', width: '100%' }}>
-                                <img src={require('../../assets/tick.png')} alt="tick" style={{ height: 16, width: 16 }} />
-                                <p style={{ color: '#9252AA', fontWeight: '700', paddingLeft: 6 }}> Food Delivery at Door-step</p>
-                            </div>
+                           
                             <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', width: '100%' }}>
                                 <img src={require('../../assets/tick.png')} alt="tick" style={{ height: 16, width: 16 }} />
                                 <p style={{ color: '#9252AA', fontWeight: '700', paddingLeft: 10 }}>Free Delivery</p>
@@ -200,7 +201,7 @@ const FoodDeliveryselectDate = ({ history }) => {
 </div>
 <div style={{ flexDirection: 'column', marginLeft: 1, width: 80 }} className='ingredientrightsec'>
     <div style={{ fontSize: "80%", fontWeight: '500', color: '#414141' }} className='ingredientrightsecheading'>{item.name}</div>
-    <div style={{ fontSize: "140%", fontWeight: '700', color: '#9252AA' , textTransform:"uppercase"}} className='ingredientrightsecsibheading'>{quantity + ' ' + unit}</div>
+    {/* <div style={{ fontSize: "140%", fontWeight: '700', color: '#9252AA' , textTransform:"uppercase"}} className='ingredientrightsecsibheading'>{quantity + ' ' + unit}</div> */}
 </div>
 </div>
         );
@@ -210,21 +211,22 @@ const FoodDeliveryselectDate = ({ history }) => {
     const RightTabContent = ({ selectedDishQuantities }) => {
         return (
             <div style={{
-                marginTop: 8,
-                paddingTop: 8,
-                paddingBottom: 9,
-                paddingLeft: 16,
+                paddingTop: 14,
+                paddingBottom: 11,
+                paddingLeft: 8,
                 backgroundColor: '#FFFFFF',
-                marginLeft: 15,
-                marginRight: 16,
-                borderRadius: 10,
+                marginLeft: 0,
+                marginRight: 0,
+                borderRadius: "0px 10px 10px 10px",
                 boxShadow: '0 2px 5px rgba(0,0,0,0.1)',
             }}>
-                <div style={{ flex: 1, overflowY: 'auto' }}>
+                <div style={{ flex: 1, overflowY: 'auto'  , borderRadius:"4px 13px 13px 13px" }}>
                     <div style={{
                         display: 'flex',
                         flexWrap: 'wrap',
                         paddingBottom: 2,
+                        justifyContent:"flex-start",
+                        alignItems:"center",
                     }}>
                         {selectedDishQuantities.map((item, index) => (
                             <RenderDishQuantity key={item.name} item={item} />
@@ -234,15 +236,14 @@ const FoodDeliveryselectDate = ({ history }) => {
     
                 <div style={{
                     display: 'flex',
-                    alignItems: 'center',
+                    alignItems: 'start',
                     flexDirection: 'row',
-                    paddingVertical: 5,
                     borderRadius: 10,
                     marginRight: 12,
-                    paddingLeft: 9,
-                    marginTop: 15,
+                    marginTop: 0,
                     borderRadius: 10,
                     backgroundColor: '#F9E9FF',
+                    padding:"10px 13px",
                 }}>
                     <img src={require('../../assets/info.png')} alt="Info" style={{ height: 13, width: 13 }} />
                     <p style={{
@@ -250,6 +251,7 @@ const FoodDeliveryselectDate = ({ history }) => {
                         fontWeight: '700',
                         marginLeft: 5,
                         fontSize: 11,
+                        marginBottom:0,
                     }}>Complementary: Green Salad, Mint Chutney, and Achar</p>
                 </div>
             </div>
@@ -281,9 +283,9 @@ const renderTabContent = (selectedDishQuantities) => {
                 <p style={{ color: '#676767', fontSize: "94%", fontWeight: '400', margin:"0" }} className='billheading'>Bill value depends upon Dish selected + Number of people</p>
             </div>
           
-            <div style={{width:"90%" , margin:"0 auto" , backgroudColor:"rgb(237, 237, 237)" , display:"flex"   , flexDirection:"column"}} className='selectdateContainersec'>
-                <div style={{backgroundColor:"#fff"  , width:"98%" , margin:"10px" , padding:"10px 30px"}} className='selectdateContainer'>
-                <div style={{ width:"80%"}} className='peoplecontsec'>
+            <div style={{width:"90%" , margin:"0 auto" , backgroudColor:"rgb(237, 237, 237)" , display:"flex"   , flexDirection:"column" , backgroundColor:"#edededc9"}} className='selectdateContainersec'>
+                <div style={{width:"98%" , margin:"10px" , padding:"10px 30px"}} className='selectdateContainer'>
+                <div style={{  backgroundColor:"#fff", borderRadius:"10px"  , padding:"10px" }} className='peoplecontsec'>
                 <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginTop: 13, alignItems: 'center' }}>
                 <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'row' }}>
                     <img src={require('../../assets/people.png')} style={{ height: 25, width: 25 }} alt="people icon" />
@@ -312,11 +314,6 @@ const renderTabContent = (selectedDishQuantities) => {
                     justifyContent: 'center',
                     alignItems: 'center',
                 }}>
-                    <p style={{ flexDirection: 'row', alignItems: 'center' , marginBottom:"2px"}}>
-                        <span style={{ color: '#000', fontSize: "100%", fontWeight: '800'  }}>All Food</span>
-                        <span style={{ color: '#9252AA', fontSize: "100%", fontWeight: '800' }}>  Details</span>
-    
-                    </p>
                 </div>
 
             
@@ -353,8 +350,30 @@ const renderTabContent = (selectedDishQuantities) => {
                 {renderTabContent(selectedDishQuantities)}
                 </div>
 
+                <div className='d-flex flex-column flex-lg-row align-items-between justify-content-center  align-items-lg-center justify-content-lg-between'>
+                <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', paddingTop: 12 }}>
+                  <p style={{ fontSize: 14, fontWeight: 500, color: '#333' }}>Need more info?</p>
+                  <button onClick={contactUsRedirection} style={{ marginLeft: 5, backgroundColor: '#E8E8E8', borderRadius: 18, borderWidth: 1, borderColor: '#9252AA', display: 'flex', justifyContent: 'center', alignItems: 'center', width: 96,  cursor: 'pointer' }}>
+                      <div style={{ color: '#9252AA', fontSize: 13, fontWeight: '500' }}>Contact Us</div>
+                  </button>
+              </div>
+
+
+              <div>
+                    <div style={{ padding: 7, flexDirection: 'column', justifyContent: "space-between", alignItems: "center", borderRadius: 10, paddingRight: 11, marginTop: 15, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(211, 75, 233, 0.10)', borderColor: '#E6E6E6', borderWidth: 1, }}>
+                        <div>
+                        </div>
+                        <div>
+                            <div style={{ fontSize: 11, color: '#9252AA', fontWeight: '400', marginLeft: 4 }}>
+                                Dish quantities vary based on guest count and selections. Over 5 dishes: 550-700g per person. Under 5 dishes: 100g per person per dish
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
                
                 </div>
+               
                 </div>
 
                 <Row>
