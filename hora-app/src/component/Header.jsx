@@ -1,18 +1,16 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faUser,
-  faBars,
-  faCaretDown,
-  faCaretUp,
-} from "@fortawesome/free-solid-svg-icons";
+import { faUser, faBars, faCaretDown, faCaretUp } from "@fortawesome/free-solid-svg-icons";
 import avtar from '../assets/avtar.jpg';
 import backIcon from '../assets/back_arrow1.png';
 import { useNavigate } from 'react-router-dom';
 import { useLocation } from "react-router-dom";
+import useScrollToTop from './useScrollToTop'; // Import the custom hook
 
 function Header() {
+  useScrollToTop(); // Use the custom hook
+
   const location = useLocation();
   const [showDrawer, setShowDrawer] = useState(false);
   const [showDecorationSubMenu, setShowDecorationSubMenu] = useState(false);
@@ -103,21 +101,19 @@ function Header() {
                         Chef for Party
                       </Link>
                     </li>
-                  
                     <li>
                       <Link to="/fooddeliveryCreateOrder/foodDelivery" style={styles.subMenuLink}>
                         Food Delivery
                       </Link>
                     </li>
-
                     <li>
-                      <Link to="/fooddeliveryCreateOrder/liveCatering"  style={styles.subMenuLink}>
-                      Live Catering 
+                      <Link to="/fooddeliveryCreateOrder/liveCatering" style={styles.subMenuLink}>
+                        Live Catering
                       </Link>
                     </li>
                     <li>
-                      <Link to="/"  style={{ ...styles.subMenuLink, ...styles.lastChild }} onClick={() => openCatItems("FirstNight")}>
-                      Entertainment
+                      <Link to="/" style={{ ...styles.subMenuLink, ...styles.lastChild }} onClick={() => openCatItems("FirstNight")}>
+                        Entertainment
                       </Link>
                     </li>
                   </ul>
@@ -160,41 +156,34 @@ function Header() {
         </div>
         <div style={styles.mobileViewHeader} className='mobileViewHeader py-2'>
           <div className="d-flex align-items-center gap-3" style={{ width:"100%"}}>
-            {/* Conditional rendering based on pathname */}
-              <>
             {isHomePage ? (
               <>
-               <FontAwesomeIcon
-               icon={faBars}
-               className="mobileMenuIcon"
-               style={styles.mobileMenuIcon}
-               onClick={toggleDrawer}
-             />
-            <Link to="/" style={{ display:"flex" , width:"80%" , textAlign:"center"}}>
-            <img src={require("../assets/logo_white.svg").default} alt="Logo" style={{ width: "85px", height: "auto"  , margin:"0 auto"}} />
-            </Link>
-            </>
+                <FontAwesomeIcon
+                  icon={faBars}
+                  className="mobileMenuIcon"
+                  style={styles.mobileMenuIcon}
+                  onClick={toggleDrawer}
+                />
+                <Link to="/" style={{ display:"flex" , width:"80%" , textAlign:"center"}}>
+                  <img src={require("../assets/logo_white.svg").default} alt="Logo" style={{ width: "85px", height: "auto", margin:"0 auto"}} />
+                </Link>
+              </>
             ) : (
               <>
-               <img
-              src={backIcon}
-              alt="Back"
-              style={{
-                width: "35px",
-                height: "auto",
-                cursor: "pointer",
-              }}
-              onClick={handleBack}
-            />
-               <h1 style={{ margin: 0 , fontSize:"16px" }}>{''}</h1>
+                <img
+                  src={backIcon}
+                  alt="Back"
+                  style={{
+                    width: "35px",
+                    height: "auto",
+                    cursor: "pointer",
+                  }}
+                  onClick={handleBack}
+                />
+                <h1 style={{ margin: 0 , fontSize:"16px" }}>{''}</h1>
               </>
-             
             )}  
-              </>
-           
-
           </div>
-
         </div>
       </div>
       {showDrawer && <Drawer closeDrawer={toggleDrawer} drawerRef={drawerRef} handleLogout={handleLogout} />}
@@ -247,8 +236,6 @@ const Drawer = ({ closeDrawer, drawerRef, handleLogout }) => {
           </Link>
         </>
       )}
-
-
       <Link to="/decoration" style={style.drawerLink} onClick={closeDrawer}>
         Decoration
       </Link>
@@ -259,7 +246,7 @@ const Drawer = ({ closeDrawer, drawerRef, handleLogout }) => {
         Food Delivery
       </Link>
       <Link to="/fooddeliveryCreateOrder/liveCatering" style={style.drawerLink} onClick={closeDrawer}>
-       Live Catering
+        Live Catering
       </Link>
       <Link to="/" style={style.drawerLink} onClick={closeDrawer}>
         Entertainment
