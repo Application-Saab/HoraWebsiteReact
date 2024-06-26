@@ -456,16 +456,17 @@ const CreateOrder = ({ history }) => {
                             </Col>
                         </Row>
 
-                        <Row>
-                <Col>
+                        
                 {isButtonVisible && (
-    window.innerWidth < 800 ? (
+   
         <div style={{
             position: "fixed",
             bottom: 0,
             width: "100%",
             backgroundColor: "#EDEDED",
-            borderTop: "1px solid #efefef"
+            borderTop: "1px solid #efefef",
+            padding:"15px 0",
+            left:"0",
         }}>
             <Button
                 onClick={() => addDish(selectedDishPrice)}
@@ -495,39 +496,9 @@ const CreateOrder = ({ history }) => {
                 </div>
             </Button>
         </div>
-    ) : (
-        <Button
-            onClick={() => addDish(selectedDishPrice)}
-            style={{
-                width: "50%",
-                backgroundColor: isDishSelected ? '#9252AA' : '#F9E9FF',
-                borderColor: isDishSelected ? '#9252AA' : '#F9E9FF',
-            }}
-            disabled={!isDishSelected}
-            className='continuebtnchef'
-        >
-            <div
-                className="continueButtonLeftText"
-                style={{
-                    color: isDishSelected ? 'white' : '#fff',
-                }}
-            >
-                Continue
-            </div>
-            <div
-                className="continueButtonRightText"
-                style={{
-                    color: isDishSelected ? 'white' : '#fff',
-                }}
-            >
-                {selectedCount} Items | ₹ {selectedDishPrice}
-            </div>
-        </Button>
-    )
+    
 )}
 
-                </Col>
-            </Row>
                     </>
                 )}
             </div>

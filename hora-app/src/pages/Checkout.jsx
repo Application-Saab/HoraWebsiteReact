@@ -25,13 +25,12 @@ function Checkout() {
   const [address, setAddress] = useState('');
   const [addressError, setAddressError] = useState(false);
   const [pinCode, setPinCode] = useState('');
-  const [picodeReqError , setPicodeReqError] = useState(false);
+  const [pincodeReqError , setPincodeReqError] = useState(false);
   const [pinCodeError, setPinCodeError] = useState(false);
   const [city, setCity] = useState('');
   const [cityError, setCityError] = useState(false);
   const navigate = useNavigate();
   const [showDatePicker, setShowDatePicker] = useState(false);
-
   const [combinedDateTime, setCombinedDateTime] = useState(null);
   const [combinedDateTimeError, setCombinedDateTimeError] = useState(false);
 
@@ -137,9 +136,9 @@ const generateTimeSlots = () => {
 
   const handlePinCodeChange = (e) => {
     if (e.target.value) {
-      setPicodeReqError(false)
+      setPincodeReqError(false)
     } else {
-      setPicodeReqError(true)
+      setPincodeReqError(true)
     }
     setPinCode(e.target.value);
     if (((e.target.value).length) == 6) {
@@ -295,7 +294,7 @@ const generateTimeSlots = () => {
           setCityError(true)
         }
         if (!pinCode) {
-          setPicodeReqError(true)
+          setPincodeReqError(true)
           setPinCodeError(true)
         }
         if (!address) {
@@ -330,15 +329,11 @@ const generateTimeSlots = () => {
             <div style={{ display: "flex", alignItems: "start", margin: "0 !important", padding: "10px 0" }} className='checoutSec my-3 gap-3'>
               <div style={{ width: "40%", boxShadow: "0 1px 8px rgba(0,0,0,.18)", padding: "20px", backgroundColor: "#fff", borderRadius: "20px" }} className='leftSeccheckout'>
                 <h2 style={{ fontSize: "22px", fontWeight: "400", color: "#222", borderBottom: "1px solid #f0f0f0", margin: "0 0 8px 0", lineHeight: "35px" }}>Booking Details</h2>
-                {orderType == '1' ? (
+               
                   <div className='border border-danger p-1 px-3 rounded bg-danger-subtle text-black text-center' style={{ color: '#000', fontSize: 12, fontWeight: '500', textAlign: 'left', color: "#9252AA" }}>
                     The decorator requires approximately 40-90 minutes to fulfill the service.
                   </div>
-                ) : orderType == '2' ? (
-                  <div className='border border-danger p-1 px-3 rounded bg-danger-subtle text-black text-center' style={{ color: '#000', fontSize: 12, fontWeight: '500', textAlign: 'left', color: "#9252AA" }}>
-                    Chef details will be shared 5 hours before the order time.
-                  </div>
-                ) : null}
+                
                 <div style={{ display: 'flex', margin: "8px 0px 10px", flexDirection: "row" }} className='row align-items-between justify-content-between   align-items-lg-center justify-content-lg-between'>
                   <CustomDatePicker handleDateChange={handleDateChange} setSelectedDate={setSelectedDate} selectedDate={selectedDate} showDatePicker={showDatePicker} setShowDatePicker={setShowDatePicker} combinedDateTimeError={combinedDateTimeError} selectedDateError={selectedDateError} />
                   <CustomTimePicker handleTimeSlotChange={handleTimeSlotChange} generateTimeSlots={generateTimeSlots} selectedTimeSlot={selectedTimeSlot} combinedDateTimeError={combinedDateTimeError} selectedTimeSlotError={selectedTimeSlotError} />
@@ -375,7 +370,7 @@ const generateTimeSlots = () => {
                       onChange={handlePinCodeChange}
                     />
                     {pinCode && <p className={`p-0 m-0 ${pinCodeError ? "text-danger" : "text-success"}`}>{`Service ${pinCodeError ? 'not' : ''} available in your area!`}</p>}
-                    {picodeReqError && <p className={`p-0 m-0 ${picodeReqError ? "text-danger" : ""}`}>This field is required!</p>}   
+                    {pincodeReqError && <p className={`p-0 m-0 ${pincodeReqError ? "text-danger" : ""}`}>This field is required!</p>}   
                   </div>
                   <div style={{ display: "flex", justifyContent: "center", flexDirection: "column" }} className='checkoutInputType'>
                     <label style={{ color: "rgb(146, 82, 170)", fontSize: "14px", marigin: "16px 0 6px", fontWeight: 600 }}>City:</label>
@@ -392,7 +387,7 @@ const generateTimeSlots = () => {
                 <button onClick={onContinueClick} className="blue-btn chkeoutBottun">Confirm Order</button>
               </div>
 
-              {orderType == '1' ? (
+             
                 <div className="rightSeccheckout" style={{ boxShadow: "0 1px 8px rgba(0,0,0,.18) ", padding: "20px", backgroundColor: "#fff", borderRadius: "20px", width: "59%" }} >
                   <div className='righysercchefinner'>
                     <h3 style={{ fontSize: "22px", fontWeight: "400", color: "#222", borderBottom: "1px solid #f0f0f0", margin: "0 0 11px 0", lineHeight: "35px" }}>Order Summary</h3>
@@ -435,34 +430,8 @@ const generateTimeSlots = () => {
                     </div>
                   </div>
                 </div>
-              ) : orderType == '2' ? (
-                <div className="rightSeccheckout chef" style={{ boxShadow: "0 1px 8px rgba(0,0,0,.18)", padding: "20px", backgroundColor: "#fff", borderRadius: "20px", width: "59%" }}>
-                  <h3 style={{ fontSize: "22px", fontWeight: "400", color: "#222", borderBottom: "1px solid #f0f0f0", margin: "0 0 11px 0", lineHeight: "35px" }}>Order Summary</h3>
-                  <div className='righysercchefinner'>
-                    {
-                      Object.values(selectedDishDictionary).map((item) => {
-                        return (
-                          <div className="ordersummaryproduct">
-                            <div>
-                              <img className='checkoutRightImg chef' src={`https://horaservices.com/api/uploads/${item.image}`} />
-                            </div>
-                            <div style={{ color: "rgb(146, 82, 170)", fontWeight: "600" }}>
-                              <p style={{ margin: "0 0 0 0", padding: "0" }} className="ordersummeryname">{item.name}</p>
-                              <p className="ordersummeryprice">{item.price}</p>
-                            </div>
-                          </div>
-                        )
-                      })
-                    }
-                  </div>
-                  <p style={{ color: "rgb(146, 82, 170)", fontWeight: "600", fontSize: "20px", margin: "9px 0 0 0", padding: "0" }}>Total: {selectedDishPrice}</p>
-                  <p style={{ color: "rgb(146, 82, 170)", fontWeight: "600", fontSize: "20px", margin: "0", padding: "0" }}>Advance payment: ₹ {Math.round(selectedDishPrice / 5)}</p>
-
-                </div>
-              ) : (
-                null
-              )}
-
+            
+              
             </div>
 
           </div>
@@ -471,21 +440,17 @@ const generateTimeSlots = () => {
             <div className='checoutSec my-3 gap-3'>
               <div>
                 {/* <h2 style={{ fontSize: "22px", fontWeight: "400", color: "#222", borderBottom: "1px solid #f0f0f0", margin: "0 0 8px 0", lineHeight: "35px" }}>Booking Details</h2> */}
-                {orderType == '1' ? (
+              
                   <div className='border border-danger p-1 px-3 rounded bg-danger-subtle text-black text-center decoratore-note' style={{ color: '#000', fontSize: 12, fontWeight: '500', textAlign: 'left', color: "#9252AA" }}>
                     The decorator requires approximately 40-90 minutes to fulfill the service.
                   </div>
-                ) : orderType == '2' ? (
-                  <div className='border border-danger p-1 px-3 rounded bg-danger-subtle text-black text-center' style={{ color: '#000', fontSize: 12, fontWeight: '500', textAlign: 'left', color: "#9252AA" }}>
-                    Chef details will be shared 5 hours before the order time.
-                  </div>
-                ) : null}
+                
                 <div style={{ display: 'flex', margin: "8px 0px 10px", flexDirection: "row" }} className='row align-items-between justify-content-between  align-items-lg-center justify-content-lg-between'>
                   <CustomDatePicker handleDateChange={handleDateChange} setSelectedDate={setSelectedDate} selectedDate={selectedDate} showDatePicker={showDatePicker} setShowDatePicker={setShowDatePicker} combinedDateTimeError={combinedDateTimeError} selectedDateError={selectedDateError} />
                   <CustomTimePicker handleTimeSlotChange={handleTimeSlotChange} generateTimeSlots={generateTimeSlots} selectedTimeSlot={selectedTimeSlot} combinedDateTimeError={combinedDateTimeError} selectedTimeSlotError={selectedTimeSlotError} />
                   {combinedDateTimeError && <p className="text-danger" style={{ fontSize: '12px' }}>The selected date and time must be at least 24 hours from now.</p>}
                 </div>
-                {orderType == '1' ? (
+             
                   <div className="rightSeccheckout" style={{ boxShadow: "0 1px 8px rgba(0,0,0,.18) ", padding: "20px", backgroundColor: "#fff", borderRadius: "20px" }} >
                     <div className='rightcheckoutsec'>
                       <div style={{ display: "flex", justifyContent: "space-between", flexDirection: "row", margin: "0 0 5px 0" }}>
@@ -525,6 +490,7 @@ const generateTimeSlots = () => {
                           onChange={handlePinCodeChange}
                         />
                         {pinCode && <p className={`p-0 m-0 ${pinCodeError ? "text-danger" : "text-success"}`}>{`Service ${pinCodeError ? 'not' : ''} available in your area!`}</p>}
+                        {pincodeReqError && <p className={`p-0 m-0 ${pincodeReqError ? "text-danger" : ""}`}>This field is required!</p>}   
                       </div>
                       <div style={{ display: "flex", justifyContent: "center", flexDirection: "column" }} className='checkoutInputType'>
                         <label style={{ color: "rgb(146, 82, 170)", fontSize: "14px", marigin: "16px 0 6px", fontWeight: 600 }}>City:</label>
@@ -563,117 +529,6 @@ const generateTimeSlots = () => {
                     </div>
 
                   </div>
-
-
-                ) : orderType == '2' ? (
-                  <div className="rightSeccheckout chef" style={{ boxShadow: "0 1px 8px rgba(0,0,0,.18)", padding: "20px", backgroundColor: "#fff", borderRadius: "20px", width: "59%" }}>
-                    <div className='rightcheckoutsec' style={{padding:"6px  0 0 "}}>
-                      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexDirection: "row" }}>
-                        <div style={{ display: "flex", justifyContent: "space-between", flexDirection: "column" }}>
-                          <label style={{ color: "rgb(146, 82, 170)", fontSize: "12px", marigin: "16px 0 6px", fontWeight: 500 }}>Total Dishes</label>
-                          <p style={{ margin: 0, windth: "100%", color: "rgb(146, 82, 170)", fontSize: "12px", fontWeight: 200 }}> {selectedCount}</p>
-                        </div>
-                        {
-                          peopleCount > 0 ?
-                            <div style={{ display: "flex", justifyContent: "space-between", flexDirection: "column" }}>
-                              <label style={{ color: "rgb(146, 82, 170)", fontSize: "12px", marigin: "16px 0 6px", fontWeight: 500 }}>Number of people</label>
-                              <p style={{ margin: 0, windth: "100%", color: "rgb(146, 82, 170)", fontSize: "12px", fontWeight: 200 }}>{peopleCount}</p>
-                            </div>
-                            :
-                            null
-                        }
-                      </div>
-
-                      <div style={{ display: "flex", padding: 7, flexDirection: 'row', borderRadius: 5, marginTop: 5, marginBottom: 10, backgroundColor: 'rgba(211, 75, 233, 0.10)', justifyContent: 'flex-start', alignItems: 'top' }}>
-                        <div style={{ color: "#9252AA", fontWeight: '500', fontSize: 10}}>Note: Additional charge of 700 applies for more than 7 dishes</div>
-                      </div>
-                      <div style={{ display: "flex", justifyContent: "space-between", flexDirection: "row", margin: "0 0 5px 0" }}>
-                        <label style={{ color: "rgb(146, 82, 170)", fontSize: "16px", marigin: "16px 0 6px", fontWeight: 700 }}>Total Amount:</label>
-                        <p style={{ margin: 0, windth: "100%", color: "rgb(146, 82, 170)", fontSize: "16px", fontWeight: 700 }}>₹  {selectedDishPrice}</p>
-                      </div>
-                      <div style={{ display: "flex", justifyContent: "space-between", flexDirection: "row", margin: "0 0 5px 0" }}>
-                        <label style={{ color: "rgb(146, 82, 170)", fontSize: "16px", marigin: "16px 0 6px", fontWeight: 700 }}>Advance Amount:</label>
-                        <p style={{ margin: 0, windth: "100%", color: "rgb(146, 82, 170)", fontSize: "16px", fontWeight: 700 }}>₹ {Math.round(selectedDishPrice / 5)}</p>
-                      </div>
-
-
-                      <div style={{ display: "flex", padding: 7, flexDirection: 'row', borderRadius: 5, marginTop: 5, marginBottom: 10, backgroundColor: 'rgba(211, 75, 233, 0.10)', justifyContent: 'flex-start', alignItems: 'top' }}>
-                        <div>
-                          <img style={{ width: "20px", marginRight: "10px" }} src={require('../assets/info.png')} />
-                        </div>
-                        <div  style={{ color: "#9252AA", fontWeight: '500', fontSize: 10}}>
-                          Balance payment is to be paid to chef after order completion.
-                        </div>
-                      </div>
-                      <div style={{ display: "flex", justifyContent: "center", flexDirection: "column" }} className='checkoutInputType'>
-                        <label style={{ color: "rgb(146, 82, 170)", fontSize: "14px", fontWeight: "600" }}>Address:</label>
-                        <textarea
-                          type="text"
-                          className=' rounded border border-1 p-1'
-                          value={address}
-                          onChange={handleAddressChange}
-                          rows={4}
-                          placeholder="Enter your Address."
-                        />
-                        {addressError && <p className={`p-0 m-0 ${addressError ? "text-danger" : ""}`}>This field is required!</p>}
-                      </div>
-                      <div style={{ display: "flex", justifyContent: "center", flexDirection: "column" }} className='checkoutInputType'>
-                        <label style={{ color: "rgb(146, 82, 170)", fontSize: "14px", marigin: "16px 0 6px", fontWeight: 600 }}>Pin Code:</label>
-                        <input
-                          type="text" className=' rounded border border-1 p-1'
-                          value={pinCode}
-                          onChange={handlePinCodeChange}
-                        />
-                        {pinCode && <p className={`p-0 m-0 ${pinCodeError ? "text-danger" : "text-success"}`}>{`Service ${pinCodeError ? 'not' : ''} available in your area!`}</p>}
-                      </div>
-                      <div style={{ display: "flex", justifyContent: "center", flexDirection: "column" }} className='checkoutInputType'>
-                        <label style={{ color: "rgb(146, 82, 170)", fontSize: "14px", marigin: "16px 0 6px", fontWeight: 600 }}>City:</label>
-                        <select value={city} className=' rounded border border-1 p-1' onChange={handleCityChange}>
-                          <option value="">Select City</option>
-                          <option value="Bangalore">Bangalore</option>
-                          <option value="Delhi">Delhi</option>
-                          <option value="Mumbai">Mumbai</option>
-                          {/* Add more cities as needed */}
-                        </select>
-                        {cityError && <p className={`p-0 m-0 ${cityError ? "text-danger" : ""}`}>This field is required!</p>}
-                      </div>
-                      <div>
-                        <h1 style={{padding: 4, color: '#000', fontSize: 13, fontWeight: '600' , margin:0 , padding:"10px 0"}}>
-                          Dishes Selected
-                        </h1>
-                        <div style={{ display:"flex" , flexDirection:"row" , justifyContent:"space-between" , flexFlow: "wrap"}}>
-                        {
-                        Object.values(selectedDishDictionary).map((item) => {
-                          return (
-                            <div style={{ width:"48%" , border:"1px solid rgb(149 142 142 / 73%)" , flexDirection:"row" , display:"flex" , borderRadius:"10px" , padding:"6px 10px" , boxSizing:"border-box"}}>
-                              <div style={{ marginRight:2 , width:"90%"}}>
-                                <img className='checkoutRightImg chef' src={`https://horaservices.com/api/uploads/${item.image}`} />
-                              </div>
-                              <div style={{ color: "rgb(146, 82, 170)", fontWeight: "500" ,  fontSize:"12px"}}>
-                                <p style={{ margin: "0 0 0 0", padding: "0" }}>{item.name}</p>
-                                <p style={{ margin: "0 0 0 0", padding: "0" }}>{item.price}</p>
-                              </div>
-                            </div>
-                          )
-                        })
-                      }
-                      </div>
-                        </div>
-                        <div className='checkoutInputType border-1 rounded-4  my-3' style={{ display: "flex", justifyContent: "center", flexDirection: "column" }}>
-                        <h4 style={{ color: "rgb(146, 82, 170)", fontSize: "14px", marginBottom: "4px" }}>Share your comments (if any)</h4>
-                        <textarea className=' rounded border border-1 p-1 decor-commemnts'
-                          value={comment}
-                          onChange={handleComment}
-                          rows={4}
-                          placeholder="No Extra charges for customizing ballon color or replacing tags(Happy Birthday / Anniversary). Chages wil be applied for additional items"
-                        />
-                      </div>
-                    </div>
-
-                  </div>
-                ) : (
-                  null
-                )}
 
                 <div className='d-flex justify-content-center align-items-center mt-3 mb-0'>
                   <h5 className=''>Need more info?</h5>

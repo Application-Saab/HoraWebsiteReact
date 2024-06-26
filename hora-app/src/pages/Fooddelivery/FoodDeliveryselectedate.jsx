@@ -4,6 +4,7 @@ import { ListGroup, ListGroupItem } from 'react-bootstrap';
 import { Modal, Button, Container, Row, Col, Spinner } from 'react-bootstrap';
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import checkImage from '../../assets/tick.jpeg.jpeg';
 
 const FoodDeliveryselectDate = ({ history }) => {
     const navigate = useNavigate();
@@ -67,22 +68,22 @@ const FoodDeliveryselectDate = ({ history }) => {
 
     const LeftTabContent = ({ selectedOption }) => {
         return (
-            <div style={{  paddingTop: 5, backgroundColor: '#FFFFFF', paddingLeft:10, borderRadius: 10, fontSize: 14 }}>
+            <div style={{  paddingTop: 10, backgroundColor: '#FFFFFF', paddingLeft:10, borderRadius: 10, fontSize: 14 , paddingBottom:10}}>
                 <div>
                     {selectedOption === "foodDelivery" && (
                         <>
                            
                             <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', width: '100%' }}>
-                                <img src={require('../../assets/tick.png')} alt="tick" style={{ height: 16, width: 16 }} />
-                                <p style={{ color: '#9252AA', fontWeight: '700', paddingLeft: 10 }}>Free Delivery</p>
+                            <img src={checkImage} alt="Info" style={{ height: 13, width: 13 , marginRight:10}} />
+                            <p style={{ color: '#9252AA', fontWeight: '700', paddingLeft: 7  , marginBottom:"2px"}}>Free Delivery</p>
                             </div>
                             <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', width: '100%' }}>
-                                <img src={require('../../assets/tick.png')} alt="tick" style={{ height: 16, width: 16 }} />
-                                <p style={{ color: '#9252AA', fontWeight: '700', paddingLeft: 10 }}>Hygienically Packed boxes</p>
+                            <img src={checkImage} alt="Info" style={{ height: 13, width: 13 , marginRight:10}} />
+                            <p style={{ color: '#9252AA', fontWeight: '700', paddingLeft: 7 , marginBottom:"2px"}}>Hygienically Packed boxes</p>
                             </div>
                             <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', width: '100%' }}>
-                                <img src={require('../../assets/tick.png')} alt="tick" style={{ height: 16, width: 16 }} />
-                                <p style={{ color: '#9252AA', fontWeight: '700', paddingLeft: 7 }}> Freshly Cooked Food</p>
+                            <img src={checkImage} alt="Info" style={{ height: 13, width: 13 , marginRight:10}} />
+                            <p style={{ color: '#9252AA', fontWeight: '700', paddingLeft: 7 , marginBottom:"2px"}}> Freshly Cooked Food</p>
                             </div>
                         </>
                     )}
@@ -266,6 +267,7 @@ const FoodDeliveryselectDate = ({ history }) => {
 const renderTabContent = (selectedDishQuantities) => {
     if (activeTab === 'left') {
 
+
         return <LeftTabContent  selectedOption={selectedOption} />;
     } else if (activeTab === 'right') {
 
@@ -307,7 +309,7 @@ const renderTabContent = (selectedDishQuantities) => {
                 <img src={require('../../assets/info.png')} style={{ height: 16, width: 16 }} alt="info icon" />
                 <p style={{ color: '#9252AA', fontWeight: '700', marginLeft: 5, fontSize: "90%" , marginBottom:"0"}}>₹ 49/person would be added to bill value in addition to dish price</p>
                 </div>
-                <div className='chef-divider' style={{marginTop:"20px"}}></div> 
+
                 <div>
                 <div style={{
                     flex: 1, marginTop: 16,
@@ -378,6 +380,16 @@ const renderTabContent = (selectedDishQuantities) => {
 
                 <Row>
                 <Col>
+            
+   <div style={{
+       position: "fixed",
+       bottom: 0,
+       width: "100%",
+       backgroundColor: "#EDEDED",
+       borderTop: "1px solid #efefef",
+       padding:"15px 0",
+       left:"0",
+   }}>
                     <Button
                          onClick={onContinueClick}
                         style={{
@@ -405,6 +417,8 @@ const renderTabContent = (selectedDishQuantities) => {
                                 {selectedCount} Items | ₹ {dishPrice*peopleCount}
                         </div>
                     </Button>
+                    </div>
+
                 </Col>
             </Row>
         </div>

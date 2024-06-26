@@ -426,7 +426,7 @@ const FoodDeliveryCreateOrder = () => {
       };
 
     return (
-        <Container>
+        <>
             <div className="order-container">
                 {loading && (
                     <div className="d-flex justify-content-center align-items-center">
@@ -481,6 +481,18 @@ const FoodDeliveryCreateOrder = () => {
                         <Row>
     <Col>
         {isButtonVisible && (
+              
+   
+                  <div style={{
+                      position: "fixed",
+                      bottom: 0,
+                      width: "100%",
+                      backgroundColor: "#EDEDED",
+                      borderTop: "1px solid #efefef",
+                      padding:"15px 0",
+                      left:"0",
+                  }}>
+            
             <Button
                 onClick={() => addDish(selectedDishPrice)}
                 style={{
@@ -508,6 +520,7 @@ const FoodDeliveryCreateOrder = () => {
                     {selectedCount} Items
                 </div>
             </Button>
+            </div>
         )}
     </Col>
 </Row>
@@ -539,7 +552,7 @@ const FoodDeliveryCreateOrder = () => {
           </Button>
         </Modal.Footer>
       </Modal>
-        </Container>
+        </>
     );
 };
 

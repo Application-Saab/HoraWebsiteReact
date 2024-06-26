@@ -186,7 +186,7 @@ function Header() {
               }}
               onClick={handleBack}
             />
-               <h1 style={{ margin: 0 , fontSize:"16px" }}>{'Create Order'}</h1>
+               <h1 style={{ margin: 0 , fontSize:"16px" }}>{''}</h1>
               </>
              
             )}  

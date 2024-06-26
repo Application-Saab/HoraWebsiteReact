@@ -343,17 +343,6 @@ const calculateFinalTotal = () => {
     //     Object.values(selectedDishData).map((item) => cat.push(item.cuisineId[0]));
     // }, []);
 
-
-    // useEffect(() => {
-    //     if (selectedDeliveryOption === "foodDelivery") {
-    //         setType(6)
-    //     }
-    //     else if (selectedDeliveryOption === "liveCatering") {
-    //         setType(7)
-    //     }
-    //     console.log("Type " + type);
-    // })
-
       const RenderDishQuantity = ({ item }) => {
         const itemCount = selectedDishQuantities.filter(meal => meal.id[0] === "63f1b6b7ed240f7a09f7e2de" || meal.id[0] === "63f1b39a4082ee76673a0a9f" || meal.id[0] === "63edc4757e1b370928b149b3").length
 
@@ -430,65 +419,74 @@ const calculateFinalTotal = () => {
 
 
 
-  const handleDateChange = (date) => {
-    setSelectedDate(date);
-    setSelectedDateError(false);
-    combineDateTime(date, selectedTimeSlot);
-    console.log(date); // Print the selected date
-  };
-
-  const handleTimeSlotChange = (event) => {
-    const timeSlot = event.target.value;
-    setSelectedTimeSlot(event.target.value);
-    setSelectedDateError(false);
-    combineDateTime(selectedDate, timeSlot);
-  };
-  const combineDateTime = (date, timeSlot) => {
-    if (date && timeSlot) {
-      const [startHour] = timeSlot.split('-')[0].trim().split(':');
-      const combinedDate = new Date(date);
-      combinedDate.setHours(startHour);
-      combinedDate.setMinutes(0);
-      combinedDate.setSeconds(0);
-      combinedDate.setMilliseconds(0);
-      setCombinedDateTime(combinedDate);
-      validateDateTime(combinedDate);
-    }
-  };
-  const validateDateTime = (combinedDate) => {
-    const now = new Date();
-    const timeDifference = combinedDate - now;
-  
-    // Check if the combined date and time are at least 24 hours in the future
-    if (timeDifference < 24 * 60 * 60 * 1000) { // 24 hours in milliseconds
-      setCombinedDateTimeError(true);
-    } else {
-      setCombinedDateTimeError(false);
-    }
-  };
-  
-
-  const generateTimeSlots = () => {
-    const startTime = 7; // Starting hour
-    const endTime = 22; // Ending hour
-    const interval = 1; // Interval in hours
-
-    const timeSlots = [];
-
-    const formatTime = (hour) => {
-        const period = hour >= 12 ? 'PM' : 'AM';
-        const formattedHour = hour % 12 === 0 ? 12 : hour % 12;
-        return `${formattedHour}:00 ${period}`;
+    const handleDateChange = (date) => {
+        console.log(`Date selected: ${date}`);
+        setSelectedDate(date);
+        setSelectedDateError(false);
+        combineDateTime(date, selectedTimeSlot); // Pass the current selected time slot
     };
-
-    for (let hour = startTime; hour < endTime; hour += interval) {
-        const startTimeFormatted = formatTime(hour);
-        const endTimeFormatted = formatTime(hour + interval);
-        timeSlots.push(`${startTimeFormatted} - ${endTimeFormatted}`);
-    }
-
-    return timeSlots;
-};
+    
+    const handleTimeSlotChange = (event) => {
+        const timeSlot = event.target.value;
+        console.log(`Time slot selected: ${timeSlot}`);
+        setSelectedTimeSlot(timeSlot);
+        setSelectedDateError(false);
+        combineDateTime(selectedDate, timeSlot); // Pass the current selected date
+    };
+    
+    const combineDateTime = (date, timeSlot) => {
+        console.log(`Combining Date: ${date} with Time Slot: ${timeSlot}`);
+        if (date && timeSlot) {
+            const [startHour, period] = timeSlot.split('-')[0].trim().split(' ');
+            let hour = parseInt(startHour.split(':')[0], 10);
+            if (period === 'PM' && hour !== 12) {
+                hour += 12;
+            } else if (period === 'AM' && hour === 12) {
+                hour = 0;
+            }
+    
+            const combinedDate = new Date(date);
+            console.log(`Initial Combined Date: ${combinedDate}`);
+            combinedDate.setHours(hour);
+            combinedDate.setMinutes(0);
+            combinedDate.setSeconds(0);
+            combinedDate.setMilliseconds(0);
+            console.log(`Final Combined Date: ${combinedDate}`);
+            setCombinedDateTime(combinedDate);
+            validateDateTime(combinedDate);
+        }
+    };
+    
+    const validateDateTime = (combinedDate) => {
+        const now = new Date();
+        console.log(`Combined Date for Validation: ${combinedDate}`);
+        const timeDifference = combinedDate - now;
+        console.log(`Time Difference: ${timeDifference} ms`);
+        // Check if the combined date and time are at least 24 hours in the future
+        if (timeDifference < 24 * 60 * 60 * 1000) { // 24 hours in milliseconds
+            console.log("The selected date and time are less than 24 hours from now.");
+            setCombinedDateTimeError(true);
+        } else {
+            console.log("The selected date and time are valid.");
+            setCombinedDateTimeError(false);
+        }
+    };
+    
+    const generateTimeSlots = () => {
+        const startTime = 7; // Starting hour
+        const endTime = 22; // Ending hour
+        const interval = orderType === 2 ? 1 : 3; // Interval in hours
+    
+        const timeSlots = [];
+        for (let hour = startTime; hour < endTime; hour += interval) {
+            const startTimeFormatted = hour < 10 ? `0${hour}:00 AM` : `${hour % 12 || 12}:00 ${hour < 12 ? 'AM' : 'PM'}`;
+            const endTimeFormatted = hour + interval < 10 ? `0${hour + interval}:00 AM` : `${(hour + interval) % 12 || 12}:00 ${hour + interval < 12 ? 'AM' : 'PM'}`;
+            timeSlots.push(`${startTimeFormatted} - ${endTimeFormatted}`);
+        }
+    
+        return timeSlots;
+    };
+    
 
   const pincodes = ['560063', '560030', '560034', '560007', '560092', '560024', '560045', '560003', '560050', '562107', '560064', '560047'
     , '560026', '560086', '560002', '560070', '560073', '560053', '560085', '560043', '560017', '560001', '560009', '560025',
@@ -704,12 +702,12 @@ const onContinueClick = async () => {
             <div style={{ width: "60%", boxShadow: "0 1px 8px rgba(0,0,0,.18)", padding: "20px" }} className='leftSeccheckout'>
               <h2 style={{ fontSize: "22px", fontWeight: "400", color: "#222", borderBottom: "1px solid #f0f0f0", margin: "0 0 8px 0", lineHeight: "35px" }}>Booking Details</h2>
               <div className='border border-danger p-1 px-3 rounded bg-danger-subtle text-black text-center' style={{ color: '#000', fontSize: 12, fontWeight: '500', textAlign: 'left', color: "#9252AA" }}>The decorator requires approximately 40-90 minutes to fulfill the service</div>
-              <div style={{ display: 'flex', margin: "8px 0px 10px" }} className='row align-items-between justify-content-center  align-items-lg-center justify-content-lg-between'>
-              <div className='col-6'>  <CustomDatePicker  handleDateChange={handleDateChange} setSelectedDate={setSelectedDate} selectedDate={selectedDate} showDatePicker={showDatePicker} setShowDatePicker={setShowDatePicker} combinedDateTimeError={combinedDateTimeError} selectedDateError={selectedDateError}/></div>
-               <div className='col-6'> <CustomTimePicker handleTimeSlotChange={handleTimeSlotChange} generateTimeSlots={generateTimeSlots} selectedTimeSlot={selectedTimeSlot}combinedDateTimeError={combinedDateTimeError} selectedTimeSlotError={selectedTimeSlotError}/></div>
-              </div>
-              {combinedDateTimeError && <p className="text-danger" style={{fontSize:'12px'}}>The selected date and time must be at least 24 hours from now.</p>}
-  
+              <div style={{ display: 'flex', margin: "8px 0px 10px", flexDirection: "row" }} className='row align-items-between justify-content-between   align-items-lg-center justify-content-lg-between'>
+                  <CustomDatePicker handleDateChange={handleDateChange} setSelectedDate={setSelectedDate} selectedDate={selectedDate} showDatePicker={showDatePicker} setShowDatePicker={setShowDatePicker} combinedDateTimeError={combinedDateTimeError} selectedDateError={selectedDateError} />
+                  <CustomTimePicker handleTimeSlotChange={handleTimeSlotChange} generateTimeSlots={generateTimeSlots} selectedTimeSlot={selectedTimeSlot} combinedDateTimeError={combinedDateTimeError} selectedTimeSlotError={selectedTimeSlotError} />
+                </div>
+                {combinedDateTimeError && <p className="text-danger" style={{ fontSize: '12px', margin: "5px 0 0 0" }}>The selected date and time must be at least 24 hours from now.</p>}
+
               <div className='checkoutInputType border-1 rounded-4  ' style={{ display: "flex", justifyContent: "center", flexDirection: "column" }}>
                 <h4 style={{ color: "rgb(146, 82, 170)", fontSize: "14px", marginBottom: "4px" }}>Share your comments (if any)</h4>
                 <textarea className=' rounded border border-1 p-1 '
@@ -857,7 +855,8 @@ const onContinueClick = async () => {
                       {/* <img style={{ width: 290, height: 1, marginTop: 10, marginBottom: 5 }} src="../../assets/Rectangleline.png" alt="line" /> */}
                   </div>
               )}
-  
+
+           
               {/* Calculation for final total amount */}
               <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginTop: 3 }}>
               <p style={{ color: "#9252AA", fontWeight: '600', fontSize: 14, lineHeight: '20px' }}>Final Amount</p>
@@ -906,11 +905,12 @@ const onContinueClick = async () => {
             <div className='border border-danger p-1 px-1 rounded bg-danger-subtle text-black text-center' style={{ color: '#000', fontSize: 12, fontWeight: '500', textAlign: 'left', color: "#9252AA" }}>
             Bill value depends upon Dish selected + Number of people
                   </div>
-                    <div style={{ display: 'flex', margin: "8px 0px 10px", flexDirection: "row" }} className='row align-items-between justify-content-center  align-items-lg-center justify-content-lg-between'>
-                    <CustomDatePicker handleDateChange={handleDateChange} setSelectedDate={setSelectedDate} selectedDate={selectedDate} showDatePicker={showDatePicker} setShowDatePicker={setShowDatePicker} combinedDateTimeError={combinedDateTimeError} selectedDateError={selectedDateError} />
-                    <CustomTimePicker handleTimeSlotChange={handleTimeSlotChange} generateTimeSlots={generateTimeSlots} selectedTimeSlot={selectedTimeSlot} combinedDateTimeError={combinedDateTimeError} selectedTimeSlotError={selectedTimeSlotError} />
-                    {combinedDateTimeError && <p className="text-danger" style={{ fontSize: '12px' }}>The selected date and time must be at least 24 hours from now.</p>}
-                    </div>
+                  <div style={{ display: 'flex', margin: "8px 0px 10px", flexDirection: "row" }} className='row align-items-between justify-content-between   align-items-lg-center justify-content-lg-between'>
+                  <CustomDatePicker handleDateChange={handleDateChange} setSelectedDate={setSelectedDate} selectedDate={selectedDate} showDatePicker={showDatePicker} setShowDatePicker={setShowDatePicker} combinedDateTimeError={combinedDateTimeError} selectedDateError={selectedDateError} />
+                  <CustomTimePicker handleTimeSlotChange={handleTimeSlotChange} generateTimeSlots={generateTimeSlots} selectedTimeSlot={selectedTimeSlot} combinedDateTimeError={combinedDateTimeError} selectedTimeSlotError={selectedTimeSlotError} />
+                </div>
+                {combinedDateTimeError && <p className="text-danger" style={{ fontSize: '12px', margin: "5px 0 0 0" }}>The selected date and time must be at least 24 hours from now.</p>}
+
                     <div>
                     <div className="rightSeccheckout chef" style={{ boxShadow: "0 1px 8px rgba(0,0,0,.18)", padding: "20px", backgroundColor: "#fff", borderRadius: "20px", width: "59%" }}>
                     <div className='rightcheckoutsec' style={{padding:"6px  0 0 "}}>
@@ -930,12 +930,13 @@ const onContinueClick = async () => {
                         null
                     }
                     </div>
+                    <div className='chef-divider' style={{ marginTop:"10px" , marginBottom:"10px"}}></div>
                     <div style={{ paddingHorizontal: 5}}>
                     <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginTop: 3 }}>
                     <p style={{ color: "#9252AA", fontWeight: '600', fontSize: 14, lineHeight: '20px' }}>Item Total</p>
                     <p style={{ color: "#9252AA", fontWeight: '600', fontSize: 14, lineHeight: '20px' }}>₹ {totalPrice}</p>
                     </div>
-
+                  
                     {discountedPrice > 0 && (
                     <div>
                     <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginTop: 3, alignItems: "center" }}>
@@ -949,9 +950,10 @@ const onContinueClick = async () => {
                     {/* <img style={{ width: 290, height: 1, marginTop: 5, marginBottom: 5 }} src="../../assets/Rectangleline.png" alt="line" /> */}
                     </div>
                     )}
+                    
                     {selectedDeliveryOption === 'foodDelivery' && (
                     <div>
-                    <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center", backgroundColor: includeDisposable ? '#efefef' : '#fff', paddingHorizontal: 5, paddingVertical: 4, marginTop: 4 }}>
+                    <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center", backgroundColor: includeDisposable ? '#efefef' : '#fff', padding:"7px 4px", marginTop: 4 }}>
                     <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
                         <button onClick={() => setIncludeDisposable(!includeDisposable)} style={{ background: 'none', border: 'none', padding: 0 }}>
                             <div style={{ width: 19, height: 19,  border: includeDisposable ? '1px solid #008631' : '1px solid #008631', borderRadius: 3, alignItems: 'center', justifyContent: 'center', marginRight: 4, display: 'flex' }}>
@@ -959,8 +961,8 @@ const onContinueClick = async () => {
                             </div>
                         </button>
                         <div>
-                            <p style={{ color: '#9252AA', fontWeight: '600', fontSize: 13, lineHeight: '20px' }}>Disposable plates + water bottle:</p>
-                            <p style={{ color: '#9252AA', fontWeight: '600', fontSize: 13, lineHeight: '20px' }}> ₹ 20/Person</p>
+                            <p style={{ color: '#9252AA', fontWeight: '600', fontSize: 13, lineHeight: '20px' , marginBottom:0}}>Disposable plates + water bottle:</p>
+                            <p style={{ color: '#9252AA', fontWeight: '600', fontSize: 13, lineHeight: '20px' , marginBottom:0}}> ₹ 20/Person</p>
                         </div>
                     </div>
 
@@ -984,6 +986,36 @@ const onContinueClick = async () => {
                     <p style={{ textDecoration: "line-through", color: "#9252AA", fontWeight: '600' }}> ₹ {deliveryCharges}</p>
                 </div>
             </div>
+
+           
+        </div>
+
+                    </div>
+                    )}
+
+                    {selectedDeliveryOption === 'liveCatering' && (
+                    <div>
+                    <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center", backgroundColor: includeTables ? '#efefef' : '#fff', padding:"10px 4px", marginTop: 0 , marginBottom:8 }}>
+                    <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
+                        <button onClick={() => setIncludeTables(!includeTables)} style={{ background: 'none', border: 'none', padding: 0 }}>
+                            <div style={{ width: 19, height: 19, borderWidth: 1, border: includeTables ? '1px solid #008631' : '1px solid #008631', borderRadius: 3, alignItems: 'center', justifyContent: 'center', marginRight: 4, display: 'flex' }}>
+                            {includeTables && <img src={checkImage} alt="Info" style={{ height: 13, width: 13 }} />}
+                            </div>
+                        </button>
+                        <div>
+                            <p style={{ color: '#9252AA', fontWeight: '600', fontSize: 13, marginBottom:0}}>3-4 Serving Tables with Cloth:</p>
+                        </div>
+                    </div>
+
+                    <div>
+                        <p style={{ color: '#9252AA', fontWeight: '600', fontSize: 14 , marginBottom:0}}>₹ {includeTables ? 1200 : 0}</p>
+                    </div>
+                    </div>
+                    {/* <img style={{ width: 290, height: 1, marginTop: 10, marginBottom: 5 }} src="../../assets/Rectangleline.png" alt="line" /> */}
+                    </div>
+                    )}
+
+               <div className='chef-divider'></div>
             <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginTop: 3 }}>
                 <p style={{ color: "#9252AA", fontWeight: '600', fontSize: 14, lineHeight: '20px' }}>Final Amount</p>
                 <p style={{ color: "#9252AA", fontWeight: '600', fontSize: 14, lineHeight: '20px' }}>₹ {calculateFinalTotal()}</p>
@@ -992,32 +1024,7 @@ const onContinueClick = async () => {
                 <p style={{ color: "#9252AA", fontWeight: '600', fontSize: 14, lineHeight: '20px' }}>Advance Payment</p>
                 <p style={{ color: "#9252AA", fontWeight: '600', fontSize: 14, lineHeight: '20px' }}>₹ {calculateAdvancePayment()}</p>
             </div>
-        </div>
-
-                    </div>
-                    )}
-
-                    {selectedDeliveryOption === 'liveCatering' && (
-                    <div>
-                    <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center", backgroundColor: includeTables ? '#efefef' : '#fff', paddingHorizontal: 5, paddingVertical: 4, marginTop: 4 }}>
-                    <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
-                        <button onClick={() => setIncludeTables(!includeTables)} style={{ background: 'none', border: 'none', padding: 0 }}>
-                            <div style={{ width: 19, height: 19, borderWidth: 1, borderColor: includeTables ? '#008631' : '#008631', borderRadius: 3, alignItems: 'center', justifyContent: 'center', marginRight: 4, display: 'flex' }}>
-                            {includeDisposable && <img src={checkImage} alt="Info" style={{ height: 13, width: 13 }} />}
-                            </div>
-                        </button>
-                        <div>
-                            <p style={{ color: '#9252AA', fontWeight: '600', fontSize: 13, lineHeight: '20px' }}>3-4 Serving Tables with Cloth:</p>
-                        </div>
-                    </div>
-
-                    <div>
-                        <p style={{ color: '#9252AA', fontWeight: '600', fontSize: 14 }}>₹ {includeTables ? 1200 : 0}</p>
-                    </div>
-                    </div>
-                    {/* <img style={{ width: 290, height: 1, marginTop: 10, marginBottom: 5 }} src="../../assets/Rectangleline.png" alt="line" /> */}
-                    </div>
-                    )}
+            <div className='chef-divider'></div>
 
                     <div className='checkoutInputType border-1 rounded-4  my-3' style={{ display: "flex", justifyContent: "center", flexDirection: "column" }}>
                     <h4 style={{ color: "rgb(146, 82, 170)", fontSize: "14px", marginBottom: "4px" }}>Share your comments (if any)</h4>
@@ -1089,7 +1096,19 @@ const onContinueClick = async () => {
                     </div>
 
                     <div>
+                    <div style={{
+                  position:"fixed" , 
+                  bottom:0 , 
+                  left:0,
+                  width:"90%",
+                  backgroundColor:"#fff",
+                  borderTop:"1px solid #efefef",
+                  backgroundColor:"#EDEDED"
+                }}
+               >
+
               <button onClick={onContinueClick} className="blue-btn chkeoutBottun">Confirm Order</button>
+              </div>
 
             </div>
 

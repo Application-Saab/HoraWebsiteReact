@@ -312,7 +312,7 @@ const RightTabContent = ({ ingredientList, preparationTextList, toggleShowAll, s
           
             <div style={{width:"90%" , margin:"0 auto" , backgroudColor:"rgb(237, 237, 237)" , display:"flex"   , flexDirection:"column" ,  backgroundColor:"#edededc9"}} className='selectdateContainersec'>
                 <div style={{  width:"98%" , margin:"10px" , padding:"10px 30px"}} className='selectdateContainer'>
-                <div style={{  backgroundColor:"#fff"  , borderRadius:"10px" , padding:"10px"}} className='peoplecontsec'>
+                <div style={{  backgroundColor:"#fff"  , borderRadius:"10px" , padding:"10px 10px 20px 15px"}} className='peoplecontsec'>
                 <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginTop: 13, alignItems: 'center' }}>
                 <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'row' }}>
                     <img src={require('../../assets/people.png')} style={{ height: 25, width: 25 }} alt="people icon" />
@@ -334,12 +334,16 @@ const RightTabContent = ({ ingredientList, preparationTextList, toggleShowAll, s
                 <img src={require('../../assets/info.png')} style={{ height: 16, width: 16 }} alt="info icon" />
                 <p style={{ color: '#9252AA', fontWeight: '700', marginLeft: 5, fontSize: "90%" , marginBottom:"0"}}>₹ 49/person would be added to bill value in addition to dish price</p>
                 </div>
-                <div className='chef-divider' style={{marginTop:"20px"}}></div> 
+               
+
+                </div>
+
                 <div>
                 <div style={{
                     flex: 1, marginTop: 16,
                     justifyContent: 'center',
                     alignItems: 'center',
+                    padding:"0 10px",
                 }}>
                     <p style={{ flexDirection: 'row', alignItems: 'center' , marginBottom:"2px"}} className='req-sec'>
                         <span style={{ color: '#000', fontSize: "100%", fontWeight: '800'  }}>Required </span>
@@ -348,12 +352,12 @@ const RightTabContent = ({ ingredientList, preparationTextList, toggleShowAll, s
                     </p>
                 </div>
 
-                <div style={{ flexDirection: 'row', marginTop: 4, marginHorizontal: 9, justifyContent: 'center' }}>
+                <div style={{ flexDirection: 'row', marginTop: 4, padding:"0 10px" , justifyContent: 'center' }}>
                     <p style={{ color: '#707070', fontSize: "100%", fontWeight: '400' }} className='req-des'>Keep these Appliances and Ingredients ready before chef Arrival</p>
                 </div>
                 </div>
 
-                </div>
+
                 <div style={{ flexDirection: 'row', marginTop: 20, marginHorizontal: 16 }}>
                 <button
                 style={{
@@ -388,6 +392,15 @@ const RightTabContent = ({ ingredientList, preparationTextList, toggleShowAll, s
 
                 <Row>
                 <Col>
+                <div style={{
+            position: "fixed",
+            bottom: 0,
+            width: "100%",
+            backgroundColor: "#EDEDED",
+            borderTop: "1px solid #efefef",
+            padding:"15px 0",
+            left:"0",
+        }}>
                     <Button
                          onClick={onContinueClick}
                         style={{
@@ -415,6 +428,7 @@ const RightTabContent = ({ ingredientList, preparationTextList, toggleShowAll, s
                                 {selectedCount} Items | ₹ {dishPrice}
                         </div>
                     </Button>
+                    </div>
                 </Col>
             </Row>
         </div>
