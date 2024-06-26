@@ -197,7 +197,7 @@ const CreateOrder = ({ history }) => {
             {item.dish.length > 0 ?
             <div>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "top", margin: "9px 19px 0px 6px" }}>
-                <h1 style={{ color: "#000", fontSize: "110%", marginBottom: "13px" }}>{item.mealObject.name}{"  "}{"(" + item.dish.length + ")"}</h1>
+                <h1 style={{ color: "#000", fontSize: "16px", marginBottom: "0px" }}>{item.mealObject.name}{"  "}{"(" + item.dish.length + ")"}</h1>
                 <Button onClick={() => handleViewAll(item.mealObject._id)} style={{ color: expandedCategories.includes(item.mealObject._id) ? '#000' : '#fff', fontWeight: '400', textDecorationLine: 'none', fontSize: 12 }} className='viewbtn'>View All</Button>
             </div>
             <div className="dish-item">
@@ -312,12 +312,9 @@ const CreateOrder = ({ history }) => {
     );
 
     const addDish = selectedDishPrice => {
-        if(selectedDishPrice < 500){
-            setWarningVisibleForTotalAmount(true)
-        }
-        else{
+       
             navigate(`/selectdate`, { state: { selectedDishDictionary, selectedDishPrice, selectedDishes, orderType , isDishSelected , selectedCount} });
-        }
+    
     };
 
 
@@ -397,7 +394,7 @@ const CreateOrder = ({ history }) => {
       };
 
     return (
-        <Container>
+        <>
             <div className="order-container">
                 {loading && (
                     <div className="d-flex justify-content-center align-items-center">
@@ -406,7 +403,6 @@ const CreateOrder = ({ history }) => {
                 )}
                 {!loading && (
                     <>
-                        <h1 style={{fontSize: "16px" , color:"#000" , marginTop:"20px" , marginBottom: "0",}}>Select Your Menu Here</h1>
                         <Row className="d-flex justify-content-start">
                             <div style={{display:"flex", margin:"10px 0 0" }}>
                             <div style={{marginRight:"10px"}}>
@@ -430,7 +426,7 @@ const CreateOrder = ({ history }) => {
                             </div>
                             <div className='chef-divider' style={{marginTop:"20px"}}></div> 
                             <div style={{margin:"10px 0 0 0"}}>
-                            <h1 style={{fontSize: "16px" , color:"#000" , marginTop:"10px" , marginBottom: "0",}}>Select Cusinies</h1>
+                            <h1 style={{fontSize: "14px" , color:"#000" , marginTop:"0px" , marginBottom: "0",}}>Select Cusinies</h1>
                             <ListGroup className="cuisine-list d-flex flex-row flex-wrap justify-content-start">
                                 {cuisines.map((cuisine, index) => (
                                     <ListGroupItem key={index} className="cuisine-item">
@@ -463,42 +459,78 @@ const CreateOrder = ({ history }) => {
                         <Row>
                 <Col>
                 {isButtonVisible && (
-                    <Button
-                        onClick={() => addDish(selectedDishPrice)}
-                        style={{
-                            width: "50%",
-                            backgroundColor: isDishSelected ? '#9252AA' : '#F9E9FF',
-                            borderColor: isDishSelected ? '#9252AA' : '#F9E9FF',
-                        }}
-                        disabled={!isDishSelected}
-                        className='continuebtnchef'
-                    >
-                            <div
-                                style={{
-                                    className: "continueButtonLeftText",
-                                    color: isDishSelected ? 'white' : '#fff',
-                                }}
-                            >
-                                Continue
-                            </div>
-                            <div
-                                style={{
-                                    className: "continueButtonRightText",
-                                    color: isDishSelected ? 'white' : '#fff',
-                                }}
-                            >
-                                {selectedCount} Items | ₹ {selectedDishPrice}
-                        </div>
-                    </Button>
-                     )}
+    window.innerWidth < 800 ? (
+        <div style={{
+            position: "fixed",
+            bottom: 0,
+            width: "100%",
+            backgroundColor: "#EDEDED",
+            borderTop: "1px solid #efefef"
+        }}>
+            <Button
+                onClick={() => addDish(selectedDishPrice)}
+                style={{
+                    width: "50%",
+                    backgroundColor: isDishSelected ? '#9252AA' : '#F9E9FF',
+                    borderColor: isDishSelected ? '#9252AA' : '#F9E9FF',
+                }}
+                disabled={!isDishSelected}
+                className='continuebtnchef'
+            >
+                <div
+                    className="continueButtonLeftText"
+                    style={{
+                        color: isDishSelected ? 'white' : '#fff',
+                    }}
+                >
+                    Continue
+                </div>
+                <div
+                    className="continueButtonRightText"
+                    style={{
+                        color: isDishSelected ? 'white' : '#fff',
+                    }}
+                >
+                    {selectedCount} Items | ₹ {selectedDishPrice}
+                </div>
+            </Button>
+        </div>
+    ) : (
+        <Button
+            onClick={() => addDish(selectedDishPrice)}
+            style={{
+                width: "50%",
+                backgroundColor: isDishSelected ? '#9252AA' : '#F9E9FF',
+                borderColor: isDishSelected ? '#9252AA' : '#F9E9FF',
+            }}
+            disabled={!isDishSelected}
+            className='continuebtnchef'
+        >
+            <div
+                className="continueButtonLeftText"
+                style={{
+                    color: isDishSelected ? 'white' : '#fff',
+                }}
+            >
+                Continue
+            </div>
+            <div
+                className="continueButtonRightText"
+                style={{
+                    color: isDishSelected ? 'white' : '#fff',
+                }}
+            >
+                {selectedCount} Items | ₹ {selectedDishPrice}
+            </div>
+        </Button>
+    )
+)}
+
                 </Col>
             </Row>
                     </>
                 )}
             </div>
-
-          
-
             <Modal show={isViewAllSheetOpen} onHide={closeViewAllSheet}>
         <Modal.Header closeButton>
           <Modal.Title>View All</Modal.Title>
@@ -522,7 +554,7 @@ const CreateOrder = ({ history }) => {
           </Button>
         </Modal.Footer>
       </Modal>
-        </Container>
+        </>
     );
 };
 

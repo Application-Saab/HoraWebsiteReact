@@ -98,7 +98,7 @@ function Home() {
         };
 
         const queryParams = new URLSearchParams(location.search);
-        const transactionId = queryParams.get('transactions');
+        const transactionId = queryParams.get('transaction');
 
         if (transactionId) {
             checkPaymentStatus(transactionId);

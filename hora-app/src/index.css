@@ -83,9 +83,13 @@ code {
 }
 
 .chkeoutBottun {
-  margin: 23px 0 14px;
-  width: 100%;
-  border-radius: 24px !important;
+  margin: 16px auto 12px;
+  width: 306px;
+  border-radius: 18px !important;
+  width: 306px !important;
+  font-size: 17px !important;
+  font-weight: 600;
+  letter-spacing: .5px;
 }
 
 img {
@@ -377,7 +381,7 @@ img.dish-image.selected {
   font-size: 109%;
   text-align: left;
   padding: 0px 0 0px;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .selected {
@@ -473,7 +477,7 @@ p.m-0.p-0.fw-bold.filter-price-tag {
 }
 button.dec-continueButton {
   border-radius: 18px !important;
-  width: 100% !important;
+  width: 306px !important;
   font-size: 17px !important;
   font-weight: 600;
   letter-spacing: .5px;
@@ -481,8 +485,13 @@ button.dec-continueButton {
 button.dec-continueButton {
   margin: 16px auto 12px !important;
 }
+
 /* select date chef flow */
 @media (max-width: 800px) {
+  .contactus-redirection{
+    font-size: 12px;
+    font-weight: 600;
+  }
   .pri_details {
     margin: 15px 0 0;
 }
@@ -519,7 +528,7 @@ p.other-cities {
   font-size: 20px !important;
 }
   button.continuebtnchef.btn.btn-primary {
-    width: 94% !important;
+    width: 84% !important;
   }
 
   .selectdateContainer {
@@ -980,9 +989,9 @@ button.pluBtn.btn.btn-primary img {
   height: 19px !important;
 }
 .order-container .dish-name {
-  font-size: 69%;
+  font-size: 62%;
   min-height: 45px;
-  padding: 6px 11px 0;
+  padding: 13px 11px 7px;
 }
   p.subheading {
     font-size: 12px;
