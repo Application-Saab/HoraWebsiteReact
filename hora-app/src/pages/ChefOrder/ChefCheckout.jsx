@@ -16,6 +16,7 @@ import { Dropdown, DropdownButton } from 'react-bootstrap';
 
 function ChefCheckout() {
   let { peopleCount, orderType, selectedDishDictionary, selectedDishPrice, selectedDishes } = useLocation().state || {}; // Accessing subCategory and itemName safely
+  const { subCategory, product } = useLocation().state || {}; // Accessing subCategory and itemName safely
   const [comment, setComment] = useState('');
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [selectedDateError, setSelectedDateError] = useState(false);
@@ -24,11 +25,15 @@ function ChefCheckout() {
   const [address, setAddress] = useState('');
   const [addressError, setAddressError] = useState(false);
   const [pinCode, setPinCode] = useState('');
+  const [picodeReqError , setPicodeReqError] = useState(false);
   const [pinCodeError, setPinCodeError] = useState(false);
   const [city, setCity] = useState('');
   const [cityError, setCityError] = useState(false);
   const navigate = useNavigate();
   const [showDatePicker, setShowDatePicker] = useState(false);
+
+  const [combinedDateTime, setCombinedDateTime] = useState(null);
+  const [combinedDateTimeError, setCombinedDateTimeError] = useState(false);
 
   if (selectedDishes.length > 7){
     selectedDishPrice += 700
@@ -47,34 +52,83 @@ function ChefCheckout() {
   };
 
   const handleDateChange = (date) => {
+    console.log(`Date selected: ${date}`);
     setSelectedDate(date);
     setSelectedDateError(false);
-  };
+    combineDateTime(date, selectedTimeSlot); // Pass the current selected time slot
+};
 
-  const handleTimeSlotChange = (event) => {
-    setSelectedTimeSlot(event.target.value);
+const handleTimeSlotChange = (event) => {
+    const timeSlot = event.target.value;
+    console.log(`Time slot selected: ${timeSlot}`);
+    setSelectedTimeSlot(timeSlot);
     setSelectedDateError(false);
-  };
+    combineDateTime(selectedDate, timeSlot); // Pass the current selected date
+};
 
-  const generateTimeSlots = () => {
-    const startTime = 8; // Starting hour
-    const endTime = 20; // Ending hour
-    const interval = 3; // Interval in hours
+const combineDateTime = (date, timeSlot) => {
+    console.log(`Combining Date: ${date} with Time Slot: ${timeSlot}`);
+    if (date && timeSlot) {
+        const [startHour, period] = timeSlot.split('-')[0].trim().split(' ');
+        let hour = parseInt(startHour.split(':')[0], 10);
+        if (period === 'PM' && hour !== 12) {
+            hour += 12;
+        } else if (period === 'AM' && hour === 12) {
+            hour = 0;
+        }
+
+        const combinedDate = new Date(date);
+        console.log(`Initial Combined Date: ${combinedDate}`);
+        combinedDate.setHours(hour);
+        combinedDate.setMinutes(0);
+        combinedDate.setSeconds(0);
+        combinedDate.setMilliseconds(0);
+        console.log(`Final Combined Date: ${combinedDate}`);
+        setCombinedDateTime(combinedDate);
+        validateDateTime(combinedDate);
+    }
+};
+
+const validateDateTime = (combinedDate) => {
+    const now = new Date();
+    console.log(`Combined Date for Validation: ${combinedDate}`);
+    const timeDifference = combinedDate - now;
+    console.log(`Time Difference: ${timeDifference} ms`);
+    // Check if the combined date and time are at least 24 hours in the future
+    if (timeDifference < 24 * 60 * 60 * 1000) { // 24 hours in milliseconds
+        console.log("The selected date and time are less than 24 hours from now.");
+        setCombinedDateTimeError(true);
+    } else {
+        console.log("The selected date and time are valid.");
+        setCombinedDateTimeError(false);
+    }
+};
+
+const generateTimeSlots = () => {
+    const startTime = 7; // Starting hour
+    const endTime = 22; // Ending hour
+    const interval = orderType === 2 ? 1 : 3; // Interval in hours
 
     const timeSlots = [];
     for (let hour = startTime; hour < endTime; hour += interval) {
-      const startTimeFormatted = hour < 10 ? `0${hour}:00` : `${hour}:00`;
-      const endTimeFormatted =
-        hour + interval < 10
-          ? `0${hour + interval}:00`
-          : `${hour + interval}:00`;
-      timeSlots.push(`${startTimeFormatted} - ${endTimeFormatted}`);
+        const startTimeFormatted = hour < 10 ? `0${hour}:00 AM` : `${hour % 12 || 12}:00 ${hour < 12 ? 'AM' : 'PM'}`;
+        const endTimeFormatted = hour + interval < 10 ? `0${hour + interval}:00 AM` : `${(hour + interval) % 12 || 12}:00 ${hour + interval < 12 ? 'AM' : 'PM'}`;
+        timeSlots.push(`${startTimeFormatted} - ${endTimeFormatted}`);
     }
 
     return timeSlots;
-  };
+};
 
-  const pincodes = ['451606', '421510', '431020', '494823', '451660']
+
+  const pincodes = ['560063', '560030', '560034', '560007', '560092', '560024', '560045', '560003', '560050', '562107', '560064', '560047'
+    , '560026', '560086', '560002', '560070', '560073', '560053', '560085', '560043', '560017', '560001', '560009', '560025',
+    '560083', '560076', '560004', '560079', '560103', '560046', '562157', '560010', '560049', '560056', '560068', '560093',
+    '560018', '560040', '560097', '560061', '562130', '560067', '560036', '560029', '560062', '560037',
+    '560071', '562125', '560016', '560100', '560005', '560065', '560019', '560021', '560022', '560013', '560087', '560008', '560051', '560102', '560104',
+    '560048', '560094', '560066', '560038', '560078', '560006', '560014', '560015', '560041', '560069', '560011', '560020', '560084', '560096', '560098',
+    '560095', '560077', '560074', '560054', '560023', '560033', '560055', '560099', '560072', '560039', '560075', '560032', '560058', '560059', '560080',
+    '560027', '560012', '560042', '560028', '560052', '560091'
+  ]
 
   const handleAddressChange = (e) => {
     setAddress(e.target.value);
@@ -86,6 +140,11 @@ function ChefCheckout() {
   };
 
   const handlePinCodeChange = (e) => {
+    if (e.target.value) {
+      setPicodeReqError(false)
+    } else {
+      setPicodeReqError(true)
+    }
     setPinCode(e.target.value);
     if (((e.target.value).length) == 6) {
       const validpin = pincodes.some((validPin) => validPin === e.target.value)
@@ -115,6 +174,7 @@ function ChefCheckout() {
   const openWhatsppLink = () => {
     window.open("https://wa.me/+918982321487/?text=Hi%2CI%20saw%20your%20website%20and%20want%20to%20know%20more%20about%20payment%20in%20Decoration%20services", "_blank");
   }
+
 
   const saveAddress = async () => {
     try {
@@ -161,52 +221,94 @@ function ChefCheckout() {
 
   const onContinueClick = async () => {
 
-  
     const apiUrl = BASE_URL + PAYMENT;
 
     const storedUserID = await localStorage.getItem('userID');
     const phoneNumber = await localStorage.getItem('mobileNumber')
 
-    
+    let merchantTransactionId;
 
-    const randomInteger = Math.floor(getRandomNumber(1, 1000000000000)) + Math.floor(getRandomNumber(1, 1000000000000)) + Math.floor(getRandomNumber(1, 1000000000000));
+    try {
 
-    let merchantTransactionId = randomInteger
-    const requestData = {
+      const addressID = await saveAddress();     
+      const storedUserID = await localStorage.getItem('userID');
+
+      const url = BASE_URL + CONFIRM_ORDER_ENDPOINT;
+      const requestData = {
+        "toId": "",
+        "order_time": selectedTimeSlot,
+        "no_of_people": peopleCount,
+        "type": 2,
+        "fromId": storedUserID,
+        "is_discount": "0",
+        "addressId": addressID,
+        "order_date": selectedDate.toDateString(),
+        "no_of_burner": 0,
+        "order_locality": city,
+        "total_amount": selectedDishPrice,
+        "orderApplianceIds": [],
+        "payable_amount": selectedDishPrice,
+        "is_gst": "0",
+        "order_type": true,
+        "items" : selectedDishes,
+        "status": 0
+      }
+
+        const token = await localStorage.getItem('token');
+
+        const response = await axios.post(url, requestData, {
+          headers: {
+            'Content-Type': 'application/json',
+            'authorization': token
+          },
+        });
+
+        merchantTransactionId = response.data.data._id
+      //}
+    } catch (error) {
+      console.log('Error Confirming Order:', error.message);
+    }
+
+
+
+    const requestData2 = {
       user_id: storedUserID,
       price: Math.round(selectedDishPrice * 0.2),
       phone: phoneNumber,
       name: '',
       merchantTransactionId: merchantTransactionId
     };
-
-
-
     try {
-      if(city && pinCode && address && selectedTimeSlot && selectedDate){
-        const response = await axios.post(apiUrl, requestData, {
+      if (city && pinCode && address && selectedTimeSlot && selectedDate) {
+        if (combinedDateTimeError) {
+          alert("The selected date and time must be at least 24 hours from now.");
+          return;
+        }
+        const response2 = await axios.post(apiUrl, requestData2, {
           headers: {
             'Content-Type': 'application/json',
           },
         });
+
         
-        window.location.href = response.data
-        handleConfirmOrder(merchantTransactionId);
+        window.location.href = response2.data
+
       }else{
         if(!city){
           setCityError(true)
         }
-        if(!pinCode){
+        if (!pinCode) {
+          setPicodeReqError(true)
           setPinCodeError(true)
         }
-        if(!address){
+        if (!address) {
           setAddressError(true)
         }
-        if(!selectedTimeSlot){
+        if (!selectedTimeSlot) {
           setSelectedTimeSlotError(true)
         }
-        if(!selectedDate){
-         setSelectedDateError(true)
+        if (!selectedDate) {
+          setSelectedDateError(true)
         }
       }
 
@@ -216,122 +318,6 @@ function ChefCheckout() {
     }
 
   }
-
-
-
-  const handleConfirmOrder = async (merchantTransactionId) => {
-
-    try {
-
-      const addressID = await saveAddress();
-
-      const message = await checkPaymentStatus(merchantTransactionId);
-      //const message = "PAYMENT_SUCCESS"
-     
-      const storedUserID = await localStorage.getItem('userID');
-
-      
-      
-      //const locality = await AsyncStorage.getItem("Locality");
-
-      if (message === 'PAYMENT_SUCCESS') {
-        const url = BASE_URL + CONFIRM_ORDER_ENDPOINT;
-        const requestData = {
-          "toId": "",
-          "order_time": selectedTimeSlot,
-          "no_of_people": peopleCount,
-          "type": 2,
-          "fromId": storedUserID,
-          "is_discount": "0",
-          "addressId": addressID,
-          "order_date": selectedDate.toDateString(),
-          "no_of_burner": 0,
-          "order_locality": city,
-          "total_amount": selectedDishPrice,
-          "orderApplianceIds": [],
-          "payable_amount": selectedDishPrice,
-          "is_gst": "0",
-          "order_type": true,
-          "items" : selectedDishes
-        }
-
-        const token = await localStorage.getItem('token');
-
-        
-
-        const response = await axios.post(url, requestData, {
-          headers: {
-            'Content-Type': 'application/json',
-            'authorization': token
-          },
-        });
-
-        if (response.status === API_SUCCESS_CODE) {
-          alert("Order placed successfully");
-        }
-      }
-    } catch (error) {
-      console.log('Error Confirming Order:', error.message);
-    }
-
-  };
-
-  const checkPaymentStatus = async (merchantTransactionId) => {
-    
-    try {
-      const storedUserID = await localStorage.getItem('userID');
-      const apiUrl = BASE_URL + PAYMENT_STATUS + '/' + merchantTransactionId;
-
-
-      const pollInterval = 5000; // 5 seconds (adjust as needed)
-      const pollingDuration = 300000; // 5 minutes
-
-      const pollPaymentStatus = async () => {
-        const startTime = Date.now();
-
-        while (Date.now() - startTime < pollingDuration) {
-          try {
-            const response = await axios.post(apiUrl, {}, {
-              headers: {
-                'Content-Type': 'application/json',
-              },
-            });
-
-
-
-            if (response.data && response.data.message) {
-              const message = response.data.message;
-              
-
-              if (message === 'PAYMENT_PENDING') {
-                console.log('Payment is still pending. Polling again...');
-                await new Promise(resolve => setTimeout(resolve, pollInterval));
-              } else {
-                console.log('Payment status:', message);
-                return message;
-              }
-            } else {
-              console.log('API response does not contain a message field');
-            }
-
-          } catch (error) {
-            console.error('API error:', error);
-          }
-        }
-
-        // Stop polling after the specified duration
-        console.log('Polling completed. Returning final result.');
-        return 'PAYMENT_POLLING_TIMEOUT';
-      };
-
-      // Start polling and return the final result after polling completes
-      return await pollPaymentStatus();
-    } catch (error) {
-      console.error('Error checking payment status:', error);
-      throw error; // Rethrow the error for the caller to handle
-    }
-  };
-
 
 
 
