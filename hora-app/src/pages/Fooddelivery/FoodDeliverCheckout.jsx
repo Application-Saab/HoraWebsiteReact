@@ -1100,7 +1100,7 @@ const onContinueClick = async () => {
                   position:"fixed" , 
                   bottom:0 , 
                   left:0,
-                  width:"90%",
+                  width:"100%",
                   backgroundColor:"#fff",
                   borderTop:"1px solid #efefef",
                   backgroundColor:"#EDEDED"
@@ -1169,7 +1169,7 @@ export const CustomTimePicker = ({ selectedTimeSlot, handleTimeSlotChange, gener
         as="select"
         value={selectedTimeSlot}
         onChange={handleTimeSlotChange}
-        style={{ fontSize: "14px", width: "242px",cursor: 'pointer', padding: 0, background: 'none', border: 'none' }}
+        style={{ fontSize: "14px", width: "auto",cursor: 'pointer', padding: 0, background: 'none', border: 'none' }}
       >
         <option value="">Select a time slot</option>
         {generateTimeSlots().map((timeSlot, index) => (
