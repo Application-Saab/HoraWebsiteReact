@@ -7,7 +7,7 @@ import TimePicker from 'react-time-picker';
 import 'react-time-picker/dist/TimePicker.css';
 import 'react-clock/dist/Clock.css';
 import axios from 'axios';
-import { BASE_URL, GET_ADDRESS_LIST, CONFIRM_ORDER_ENDPOINT } from '../../utills/apiconstants';
+import { BASE_URL, GET_ADDRESS_LIST, CONFIRM_ORDER_ENDPOINT,SAVE_LOCATION_ENDPOINT } from '../../utills/apiconstants';
 import { PAYMENT, PAYMENT_STATUS, API_SUCCESS_CODE } from '../../utills/apiconstants';
 import { Button, Card, Form } from 'react-bootstrap';
 import { Dropdown, DropdownButton } from 'react-bootstrap';
@@ -24,6 +24,7 @@ function FoodDeliveryCheckout() {
   const [addressError, setAddressError] = useState(false);
   const [pinCode, setPinCode] = useState('');
   const [pinCodeError, setPinCodeError] = useState(false);
+  const [picodeReqError , setPicodeReqError] = useState(false);
   const [city, setCity] = useState('');
   const [cityError, setCityError] = useState(false);
   const navigate = useNavigate();
@@ -509,6 +510,11 @@ const calculateFinalTotal = () => {
   };
 
   const handlePinCodeChange = (e) => {
+    if (e.target.value) {
+      setPicodeReqError(false)
+    } else {
+      setPicodeReqError(true)
+    }
     setPinCode(e.target.value);
     if (((e.target.value).length) == 6) {
       const validpin = pincodes.some((validPin) => validPin === e.target.value)
@@ -540,178 +546,151 @@ const calculateFinalTotal = () => {
 };
 
 
+const saveAddress = async () => {
+    try {
 
-  const onContinueClick = async () =>{
-    alert("confime order clicked")
-  }
-  // const onContinueClick = async () => {
-  //   const apiUrl = BASE_URL + PAYMENT;
+      const url = BASE_URL + SAVE_LOCATION_ENDPOINT;
+  
+      // Retrieve userID from localStorage
+      let userId = localStorage.getItem("userID");
+  
+      if (!userId) {
+        console.error('Error retrieving userID');
+        return;
+      }
+  
+      const address2 = address + pinCode;
+  
+  
+      const requestData = {
+        address1: address2,
+        address2: address2,
+        locality: city,
+        city: city,
+        userId: userId
+      };
+  
+      const token = localStorage.getItem('token');
+  
+      const response = await axios.post(url, requestData, {
+        headers: {
+          'Content-Type': 'application/json',
+          'authorization': token
+        },
+      });
+  
+      if (response.status === API_SUCCESS_CODE) {
+        // Handle navigation in React (e.g., using React Router)
+        console.log("Address saved successfully");
+        return response.data.data._id
+      }
+    } catch (error) {
+      console.log('Error  Data:', error.message);
+    }
+  };
 
-  //   const storedUserID = await localStorage.getItem('userID');
-  //   const phoneNumber = await localStorage.getItem('mobileNumber')
 
-  //   console.log(storedUserID);
-  //   console.log(phoneNumber);
+const onContinueClick = async () => {
 
-  //   const randomInteger = Math.floor(getRandomNumber(1, 1000000000000)) + Math.floor(getRandomNumber(1, 1000000000000)) + Math.floor(getRandomNumber(1, 1000000000000));
+    const apiUrl = BASE_URL + PAYMENT;
 
-  //   let merchantTransactionId = randomInteger
-  //   const requestData = {
-  //     user_id: storedUserID,
-  //     price: Math.round(product.price * 0.3),
-  //     phone: phoneNumber,
-  //     name: '',
-  //     merchantTransactionId: merchantTransactionId
-  //   };
+    const storedUserID = await localStorage.getItem('userID');
+    const phoneNumber = await localStorage.getItem('mobileNumber')
+
+    let merchantTransactionId;
+
+    const advance = calculateAdvancePayment();
+
+    try {
+
+      const addressID = await saveAddress();     
+      const storedUserID = await localStorage.getItem('userID');
+
+      const url = BASE_URL + CONFIRM_ORDER_ENDPOINT;
+      const requestData = {
+        "toId": "",
+        "order_time": selectedTimeSlot,
+        "no_of_people": peopleCount,
+        "type": 6,
+        "fromId": storedUserID,
+        "is_discount": "0",
+        "addressId": addressID,
+        "order_date": selectedDate.toDateString(),
+        "no_of_burner": includeDisposable,
+        "order_locality": city,
+        "total_amount": totalPrice,
+        "orderApplianceIds": [],
+        "payable_amount": totalPrice,
+        "is_gst": "0",
+        "order_type": true,
+        "items" : selectedDishes,
+        "status": 0
+      }
+
+        const token = await localStorage.getItem('token');
+
+        const response = await axios.post(url, requestData, {
+          headers: {
+            'Content-Type': 'application/json',
+            'authorization': token
+          },
+        });
+
+        merchantTransactionId = response.data.data._id
+      //}
+    } catch (error) {
+      console.log('Error Confirming Order:', error.message);
+    }
 
 
-  //   try {
-  //     if(city && pinCode && address && selectedTimeSlot && selectedDate){
-  //       if (combinedDateTimeError) {
-  //         alert("The selected date and time must be at least 24 hours from now.");
-  //         return;
-  //       }
-  //       const response = await axios.post(apiUrl, requestData, {
-  //         headers: {
-  //           'Content-Type': 'application/json',
-  //         },
-  //       });
-  //       console.log(response)
-  //       window.location.href = response.data
-  //       handleConfirmOrder(merchantTransactionId);
+
+    const requestData2 = {
+      user_id: storedUserID,
+      price: advance,
+      phone: phoneNumber,
+      name: '',
+      merchantTransactionId: merchantTransactionId
+    };
+    try {
+      if (city && pinCode && address && selectedTimeSlot && selectedDate) {
+        if (combinedDateTimeError) {
+          alert("The selected date and time must be at least 24 hours from now.");
+          return;
+        }
+        const response2 = await axios.post(apiUrl, requestData2, {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+
         
-  //     }else{
-  //       if(!city){
-  //         setCityError(true)
-  //       }
-  //       if(!pinCode){
-  //         setPinCodeError(true)
-  //       }
-  //       if(!address){
-  //         setAddressError(true)
-  //       }
-  //       if(!selectedTimeSlot){
-  //         setSelectedTimeSlotError(true)
-  //       }
-  //       if(!selectedDate){
-  //        setSelectedDateError(true)
-  //       }
-  //     }
+        window.location.href = response2.data
 
-  //   } catch (error) {
-  //     // Handle errors
-  //     console.error('API error:', error);
-  //   }
+      }else{
+        if(!city){
+          setCityError(true)
+        }
+        if (!pinCode) {
+          setPicodeReqError(true)
+          setPinCodeError(true)
+        }
+        if (!address) {
+          setAddressError(true)
+        }
+        if (!selectedTimeSlot) {
+          setSelectedTimeSlotError(true)
+        }
+        if (!selectedDate) {
+          setSelectedDateError(true)
+        }
+      }
 
-  // }
+    } catch (error) {
+      // Handle errors
+      console.error('API error:', error);
+    }
 
-
-
-  // const handleConfirmOrder = async (merchantTransactionId) => {
-
-  //   try {
-
-  //     const message = await checkPaymentStatus(merchantTransactionId);
-  //     const storedUserID = await localStorage.getItem('userID');
-  //     //const locality = await AsyncStorage.getItem("Locality");
-
-  //     if (message === 'PAYMENT_SUCCESS') {
-  //       const url = BASE_URL + CONFIRM_ORDER_ENDPOINT;
-  //       const requestData = {
-  //         "toId": "",
-  //         "order_time": selectedTimeSlot.toLocaleTimeString(),
-  //         "no_of_people": 0,
-  //         "type": 1,
-  //         "fromId": storedUserID,
-  //         "is_discount": "0",
-  //         "addressId": address + pinCode,
-  //         "order_date": selectedDate.toDateString(),
-  //         "no_of_burner": 0,
-  //         "order_locality": city,
-  //         "total_amount": product.price,
-  //         "orderApplianceIds": [],
-  //         "payable_amount": product.price,
-  //         "is_gst": "0",
-  //         "order_type": true,
-  //         "decoration_comments": comment
-  //       }
-
-  //       const token = await localStorage.getItem('token');
-
-  //       console.log(requestData);
-
-  //       const response = await axios.post(url, requestData, {
-  //         headers: {
-  //           'Content-Type': 'application/json',
-  //           'authorization': token
-  //         },
-  //       });
-
-  //       if (response.status === API_SUCCESS_CODE) {
-  //         alert("Order placed successfully");
-  //       }
-  //     }
-  //   } catch (error) {
-  //     console.log('Error Confirming Order:', error.message);
-  //   }
-
-  // };
-
-  // const checkPaymentStatus = async (merchantTransactionId) => {
-  //   console.log("inside chkecstatus")
-  //   try {
-  //     const storedUserID = await localStorage.getItem('userID');
-  //     const apiUrl = BASE_URL + PAYMENT_STATUS + '/' + merchantTransactionId;
-
-
-  //     const pollInterval = 5000; // 5 seconds (adjust as needed)
-  //     const pollingDuration = 300000; // 5 minutes
-
-  //     const pollPaymentStatus = async () => {
-  //       const startTime = Date.now();
-
-  //       while (Date.now() - startTime < pollingDuration) {
-  //         try {
-  //           const response = await axios.post(apiUrl, {}, {
-  //             headers: {
-  //               'Content-Type': 'application/json',
-  //             },
-  //           });
-
-
-
-  //           if (response.data && response.data.message) {
-  //             const message = response.data.message;
-  //             console.log('API response message:', message);
-
-  //             if (message === 'PAYMENT_PENDING') {
-  //               console.log('Payment is still pending. Polling again...');
-  //               await new Promise(resolve => setTimeout(resolve, pollInterval));
-  //             } else {
-  //               console.log('Payment status:', message);
-  //               return message;
-  //             }
-  //           } else {
-  //             console.log('API response does not contain a message field');
-  //           }
-
-  //         } catch (error) {
-  //           console.error('API error:', error);
-  //         }
-  //       }
-
-  //       // Stop polling after the specified duration
-  //       console.log('Polling completed. Returning final result.');
-  //       return 'PAYMENT_POLLING_TIMEOUT';
-  //     };
-
-  //     // Start polling and return the final result after polling completes
-  //     return await pollPaymentStatus();
-  //   } catch (error) {
-  //     console.error('Error checking payment status:', error);
-  //     throw error; // Rethrow the error for the caller to handle
-  //   }
-  // };
+  }
 
 
 
