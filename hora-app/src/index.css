@@ -487,6 +487,12 @@ button.dec-continueButton {
 
 /* select date chef flow */
 @media (max-width: 800px) {
+  div#faqQ {
+    padding: 0 20px;
+}
+p#city-description {
+  padding: 0 20px;
+}
   .contactus-redirection{
     font-size: 12px;
     font-weight: 600;

@@ -847,19 +847,12 @@ function Citypage() {
     const { city } = useParams();
     return (
         <div>
-            <div style={styles.homebanner} className="homebanner">
+            <div style={styles.homebanner} className="homebanner citypage">
                 <div style={styles.bgImg} className="bgImg">
                     <div style={styles.pageWidth}>
                         <div style={styles.textContainer} className="textContainerhome">
-                            <h1 style={{ fontSize: "40px", fontWeight: "500", margin: "0" }}>{"“HORA” Simplifying and Enhancing celebrations."}</h1>
+                            <h1 style={{ fontSize: "40px", fontWeight: "500", margin: "0" }}>{"Simplifying and Enhancing celebrations."}</h1>
                             <h2 style={{ fontSize: "72px", fontWeight: "900", margin: "0 0 10px", lineHeight: "77px", margin: "0px 0 10px", padding: "3px 14% 5px 14%" , textTransform:"uppercase" }}>{"ALL PARTY SERVICES IN YOUR "}{city}</h2>
-                            {showButton && (
-                                <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-                                    <div className="home-btn" onClick={openLink}>
-                                        Download Our App
-                                    </div>
-                                </div>
-                            )}
                         </div>
                     </div>
                     <div style={styles.bannerBottomSec} className="bannerBottomSec">
@@ -1053,7 +1046,7 @@ function Citypage() {
             <div style={styles.pageWidth}>
                 <p style={{fontSize:"70px" , textTransform:"uppercase",fontWeight:"bold" , color:"#E6756B" , margin:"35px 0 2px" , textAlign:"center"}} className="other-cities">Other Cities</p>
                 <div class="tab-inner">
-                <ul  style={{ listStyle:"none" , padding:"20px 0"}}>
+                <ul  style={{ listStyle:"none" , padding:"20px 20px"}}>
                 <li className="city-link" data-city="Delhi" style={{padding:"0 10px" , display:"inline-block"}} >
                   <Link to="#">Delhi</Link>
                 </li>

@@ -5,7 +5,7 @@ import Home from './pages/Home';
 import Decoration from './pages/Decoration';
 import DecorationCatPage from './pages/DecorationCatPage';
 import DecorationCatDetails from './pages/DecorationCatDetails'
-import DecorationCityPage from './pages/DecorationCityPage';
+import DecorationCity from './pages/DecorationCity';
 import Checkout from './pages/Checkout';
 import Login from './pages/login';
 import AboutUs from './pages/AboutUs';
@@ -51,7 +51,7 @@ function App() {
           <Route path="/myaccount" element={<MyAccount/>} /> 
           <Route path="/chefOrder" element={<CreateOrder/>} /> 
           <Route path="/selectDate" element={<SelectDate/>} />
-          <Route path="/decorationcitypage/:city" element={<DecorationCityPage/>}/>
+          <Route path="/decorationcitypage/:city" element={<DecorationCity/>}/>
           <Route path='/fooddeliveryCreateOrder/:selectedfoodCategory' element={<FoodDeliveryCreateOrder/>}/>
           <Route path='/fooddeliveryselectdate' element={<FoodDeliveryselectDate/>}/>
           <Route path='/foodDeliveryCheckout' element={<FoodDeliveryCheckout/>}/>

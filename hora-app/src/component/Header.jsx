@@ -7,6 +7,7 @@ import backIcon from '../assets/back_arrow1.png';
 import { useNavigate } from 'react-router-dom';
 import { useLocation } from "react-router-dom";
 import useScrollToTop from './useScrollToTop'; // Import the custom hook
+import Citypage from "../pages/Citypage";
 
 function Header() {
   useScrollToTop(); // Use the custom hook
@@ -156,7 +157,8 @@ function Header() {
         </div>
         <div style={styles.mobileViewHeader} className='mobileViewHeader py-2'>
           <div className="d-flex align-items-center gap-3" style={{ width:"100%"}}>
-            {isHomePage ? (
+            {
+            isHomePage && Citypage ? (
               <>
                 <FontAwesomeIcon
                   icon={faBars}
@@ -180,7 +182,7 @@ function Header() {
                   }}
                   onClick={handleBack}
                 />
-                <h1 style={{ margin: 0 , fontSize:"16px" }}>{'Create Order'}</h1>
+                <h1 style={{ margin: 0 , fontSize:"16px" }}>{''}</h1>
               </>
             )}  
           </div>
@@ -195,8 +197,8 @@ const Drawer = ({ closeDrawer, drawerRef, handleLogout }) => {
   const style = {
     drawer: {
       width: "70%",
-      backgroundColor: "rgb(237, 237, 237)",
-      padding: "20px",
+      backgroundColor: "#fff",
+      padding: "0px",
       boxShadow: "0px 8px 16px 0px rgba(0, 0, 0, 0.2)",
       position: "fixed",
       top: "0%",
@@ -204,38 +206,37 @@ const Drawer = ({ closeDrawer, drawerRef, handleLogout }) => {
       zIndex: 999,
       height: "100vh",
       transition: "left 0.3s ease-in-out",
-      padding: "20px 0 0 20px",
     },
     drawerLink: {
+      borderBottom: "1px solid #efefef",
       color: "#000",
       textDecoration: "none",
       fontSize: "16px",
       fontWeight: "500",
       margin: "10px 0",
       display: "block",
+      cursor:"pointer",
+      padding:"0 0 6px 0",
     },
+    drawerLinklogin: {
+      color: "#fff",
+      cursor:"pointer",
+      textDecoration: "none",
+      fontSize: "16px",
+      fontWeight: "500",
+      margin: "10px 0",
+      display: "block",
+    }
   };
 
   return (
     <div style={style.drawer} ref={drawerRef}>
-      <Link to="/">
-        <img src={avtar} alt="Logo" style={{ width: "80px" }} />
+      <div style={{ backgroundColor:"rgb(157, 74, 147)" , padding:"30px 10px 20px 20px"}}>
+      <Link to="/" style={{ textDecoration:"none"}}>
+        <span style={{ color:"#fff" , textDecoration:"none" , fontWeight:"bold"}}>Welcome to Hora</span>
       </Link>
-      {localStorage.getItem("isLoggedIn") !== "true" ? (
-        <Link to="/login" style={style.drawerLink} onClick={closeDrawer}>
-          Login
-        </Link>
-      ) : (
-        <>
-          <h1 style={{ fontSize: "16px", marginBottom: "12px" }}>Welcome to Hora</h1>
-          <Link to="/" style={style.drawerLink} onClick={() => {
-            handleLogout();
-            closeDrawer();
-          }}>
-            Logout
-          </Link>
-        </>
-      )}
+      </div>
+      <div style={{ padding:"0px 10px 20px 20px"}}>
       <Link to="/decoration" style={style.drawerLink} onClick={closeDrawer}>
         Decoration
       </Link>
@@ -260,6 +261,39 @@ const Drawer = ({ closeDrawer, drawerRef, handleLogout }) => {
       <Link to="https://horaservices.com/ContactUs.html" style={style.drawerLink} onClick={closeDrawer}>
         Contact Us
       </Link>
+      {localStorage.getItem("isLoggedIn") !== "true" ? (
+        <Link to="/login" style={style.drawerLink} onClick={closeDrawer} >
+          Login
+        </Link>
+      ) : (
+        <>
+          <h1 style={{ fontSize: "16px", marginBottom: "12px" }}>Welcome to Hora</h1>
+          <Link to="/" style={style.drawerLink} onClick={() => {
+            handleLogout();
+            closeDrawer();
+          }}>
+            Logout
+          </Link>
+        </>
+      )}
+      </div>
+      {/* <div style={{ position:"fixed" , bottom:"0" , padding:"6px 10px 6px 16px" , backgroundColor:"rgb(157, 74, 147)" , width:"70%" , color:"#fff"}}>
+      {localStorage.getItem("isLoggedIn") !== "true" ? (
+        <Link to="/login" style={style.drawerLinklogin} onClick={closeDrawer} >
+          Login
+        </Link>
+      ) : (
+        <>
+          <h1 style={{ fontSize: "16px", marginBottom: "12px" }}>Welcome to Hora</h1>
+          <Link to="/" style={style.drawerLink} onClick={() => {
+            handleLogout();
+            closeDrawer();
+          }}>
+            Logout
+          </Link>
+        </>
+      )}
+      </div> */}
     </div>
   );
 };
