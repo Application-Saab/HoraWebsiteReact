@@ -12,7 +12,7 @@ import AboutUs from './pages/AboutUs';
 import './index.css'; // Import your CSS file here
 import ContactUs from './pages/ContactUs';
 import PrivacyPolicy from './pages/PrivacyPolicy';
-import Citypage from './pages/Citypage';
+import ChefCitypage from './pages/ChefCitypage.jsx';
 import Orderlist from './pages/Orderlist'; 
 import MyAccount from './pages/MyAccount';
 import CreateOrder from './pages/ChefOrder/CreateOrder';
@@ -35,26 +35,32 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/success" element={<Success />} />
           <Route path="/failure" element={<Failure />} />
-          <Route path="/decoration" element={<Decoration />} />
-          <Route path="/decoration/occasions/:catValue" element={<DecorationCatPage />} />
-          <Route path="/decoration/product/:catValue/:productName" element={<DecorationCatDetails />} />
-          <Route path="/citypage/:city/decoration" element={<Decoration />} />
-          <Route path="/citypage/:city/decoration/occasions/:catValue" element={<DecorationCatPage />} />
-          <Route path="/citypage/:city/decoration/product/:catValue/:productName" element={<DecorationCatDetails />}/>
+          {/* decoration pages */}
+          <Route path="/balloon-decoration" element={<Decoration />} />
+          <Route path="/balloon-decoration/:catValue" element={<DecorationCatPage />} />
+          <Route path="/balloon-decoration/:catValue/product/:productName" element={<DecorationCatDetails />} />
+           {/* decoration city page */}
+           <Route path="/:city" element={<DecorationCity/>}/>
+          <Route path="/:city/balloon-decoration" element={<Decoration />} />
+          <Route path="/:city/balloon-decoration/:catValue" element={<DecorationCatPage />} />
+          <Route path="/:city/balloon-decoration/:catValue/product/:productName" element={<DecorationCatDetails />}/>
           <Route path="/checkout" element={<Checkout />} />
-          <Route path="/chefcheckout" element={<ChefCheckout />} />
+            {/* chef pages */}
+          <Route path="/book-chef-checkout" element={<ChefCheckout />} />
+          <Route path="/book-chef-cook-for-party" element={<CreateOrder/>} /> 
+          <Route path="/:city/book-chef-cook-for-party" element={<CreateOrder/>} /> 
+          <Route path="/book-chef-cook-for-party/order-details" element={<SelectDate/>} />
+          <Route path="/:city/chef-near-you" element={<ChefCitypage />} />
+          {/* other pages */}
           <Route path="/aboutus" element={<AboutUs />} />
           <Route path="/contactus" element={<ContactUs />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-          <Route path="/citypage/:city" element={<Citypage />} />
           <Route path="/orderlist" element={<Orderlist />} />
           <Route path="/myaccount" element={<MyAccount/>} /> 
-          <Route path="/chefOrder" element={<CreateOrder/>} /> 
-          <Route path="/selectDate" element={<SelectDate/>} />
-          <Route path="/decorationcitypage/:city" element={<DecorationCity/>}/>
-          <Route path='/fooddeliveryCreateOrder/:selectedfoodCategory' element={<FoodDeliveryCreateOrder/>}/>
-          <Route path='/fooddeliveryselectdate' element={<FoodDeliveryselectDate/>}/>
-          <Route path='/foodDeliveryCheckout' element={<FoodDeliveryCheckout/>}/>
+         {/* food delivery pages */}
+          <Route path="/party-food-delivery-live-catering-buffet/:selectedfoodCategory" element={<FoodDeliveryCreateOrder/>}/>
+          <Route path="/party-food-delivery-live-catering-buffet-select-date/:selectedfoodCategory" element={<FoodDeliveryselectDate/>}/>
+          <Route path="/party-food-delivery-live-catering-buffet-checkout" element={<FoodDeliveryCheckout/>}/>
         </Routes>
         </div>
 <div>

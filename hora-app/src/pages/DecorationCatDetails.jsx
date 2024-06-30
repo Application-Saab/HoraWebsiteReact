@@ -18,15 +18,18 @@ function DecorationCatDetails() {
   const { subCategory, product } = useLocation().state || {}; // Accessing subCategory and itemName safely
 
   const handleCheckout = (subCategory, product) => {
-    if (localStorage.getItem("isLoggedIn") != "true") {
-    navigate('/login', { state: { from: window.location.pathname, subCategory, product, orderType } });
+    const stateData = { from: window.location.pathname, subCategory, product, orderType };
+
+    if (localStorage.getItem("isLoggedIn") !== "true") {
+        navigate('/login', { state: stateData });
+    } else {
+        navigate('/checkout', { state: { subCategory, product, orderType } });
     }
-    else{
-      
-      navigate(`/checkout`, { state: { subCategory, product , orderType } });
-    }
-   
-  }
+};
+
+
+
+
   function addSpaces(subCategory) {
     let result = "";
     for (let i = 0; i < subCategory.length; i++) {

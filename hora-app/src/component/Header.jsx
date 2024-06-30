@@ -7,7 +7,7 @@ import backIcon from '../assets/back_arrow1.png';
 import { useNavigate } from 'react-router-dom';
 import { useLocation } from "react-router-dom";
 import useScrollToTop from './useScrollToTop'; // Import the custom hook
-import Citypage from "../pages/Citypage";
+import ChefCitypage from "../pages/ChefCitypage";
 
 function Header() {
   useScrollToTop(); // Use the custom hook
@@ -42,9 +42,6 @@ function Header() {
     navigate(`/decoration-cat-page/${subCategory}`);
   };
 
-  const openfoodCat = (subCategory) =>{
-    navigate(`/fooddeliveryCreateOrder/${subCategory}`);
-  }
 
   const openLink = () => {
     window.open("https://play.google.com/store/apps/details?id=com.hora", "_blank");
@@ -93,22 +90,22 @@ function Header() {
                 {showDecorationSubMenu && (
                   <ul style={styles.subMenu}>
                     <li>
-                      <Link to="/decoration" style={styles.subMenuLink}>
+                      <Link to="/balloon-decoration" style={styles.subMenuLink}>
                         Decoration
                       </Link>
                     </li>
                     <li>
-                      <Link to="/chefOrder" style={styles.subMenuLink}>
+                      <Link to="/book-chef-cook-for-party" style={styles.subMenuLink}>
                         Chef for Party
                       </Link>
                     </li>
                     <li>
-                      <Link to="/fooddeliveryCreateOrder/foodDelivery" style={styles.subMenuLink}>
+                      <Link to="/party-food-delivery-live-catering-buffet/party-food-delivery" style={styles.subMenuLink}>
                         Food Delivery
                       </Link>
                     </li>
                     <li>
-                      <Link to="/fooddeliveryCreateOrder/liveCatering" style={styles.subMenuLink}>
+                      <Link to="/party-food-delivery-live-catering-buffet/party-live-buffet-catering" style={styles.subMenuLink}>
                         Live Catering
                       </Link>
                     </li>
@@ -158,7 +155,7 @@ function Header() {
         <div style={styles.mobileViewHeader} className='mobileViewHeader py-2'>
           <div className="d-flex align-items-center gap-3" style={{ width:"100%"}}>
             {
-            isHomePage && Citypage ? (
+            isHomePage && ChefCitypage ? (
               <>
                 <FontAwesomeIcon
                   icon={faBars}
@@ -237,16 +234,16 @@ const Drawer = ({ closeDrawer, drawerRef, handleLogout }) => {
       </Link>
       </div>
       <div style={{ padding:"0px 10px 20px 20px"}}>
-      <Link to="/decoration" style={style.drawerLink} onClick={closeDrawer}>
+      <Link to="/balloon-decoration" style={style.drawerLink} onClick={closeDrawer}>
         Decoration
       </Link>
-      <Link to="/chefOrder" style={style.drawerLink} onClick={closeDrawer}>
+      <Link to="/book-chef-cook-for-party" style={style.drawerLink} onClick={closeDrawer}>
         Chef for Party
       </Link>
-      <Link to="/fooddeliveryCreateOrder/foodDelivery" style={style.drawerLink} onClick={closeDrawer}>
+      <Link to="/party-food-delivery-live-catering-buffet/party-food-delivery" style={style.drawerLink} onClick={closeDrawer}>
         Food Delivery
       </Link>
-      <Link to="/fooddeliveryCreateOrder/liveCatering" style={style.drawerLink} onClick={closeDrawer}>
+      <Link to="/party-food-delivery-live-catering-buffet/party-live-buffet-catering" style={style.drawerLink} onClick={closeDrawer}>
         Live Catering
       </Link>
       <Link to="/" style={style.drawerLink} onClick={closeDrawer}>
@@ -267,7 +264,6 @@ const Drawer = ({ closeDrawer, drawerRef, handleLogout }) => {
         </Link>
       ) : (
         <>
-          <h1 style={{ fontSize: "16px", marginBottom: "12px" }}>Welcome to Hora</h1>
           <Link to="/" style={style.drawerLink} onClick={() => {
             handleLogout();
             closeDrawer();
@@ -277,23 +273,6 @@ const Drawer = ({ closeDrawer, drawerRef, handleLogout }) => {
         </>
       )}
       </div>
-      {/* <div style={{ position:"fixed" , bottom:"0" , padding:"6px 10px 6px 16px" , backgroundColor:"rgb(157, 74, 147)" , width:"70%" , color:"#fff"}}>
-      {localStorage.getItem("isLoggedIn") !== "true" ? (
-        <Link to="/login" style={style.drawerLinklogin} onClick={closeDrawer} >
-          Login
-        </Link>
-      ) : (
-        <>
-          <h1 style={{ fontSize: "16px", marginBottom: "12px" }}>Welcome to Hora</h1>
-          <Link to="/" style={style.drawerLink} onClick={() => {
-            handleLogout();
-            closeDrawer();
-          }}>
-            Logout
-          </Link>
-        </>
-      )}
-      </div> */}
     </div>
   );
 };

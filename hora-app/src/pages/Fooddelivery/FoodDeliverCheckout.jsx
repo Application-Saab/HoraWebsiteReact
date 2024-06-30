@@ -299,12 +299,12 @@ function calculateDiscountPercentage(peopleCount, dishCount ) {
 
 const dishPrice = selectedMealList.reduce((total, dish) => total + dish.price, 0);
 console.log("dishPrice" + dishPrice)
-var totalPrice = selectedDeliveryOption === 'liveCatering' ?  ((dishPrice * peopleCount) * 1.1 + 6500).toFixed(0) : dishPrice * peopleCount;
+var totalPrice = selectedDeliveryOption === 'party-live-buffet-catering' ?  ((dishPrice * peopleCount) * 1.1 + 6500).toFixed(0) : dishPrice * peopleCount;
 
 
 const discountPercentage = calculateDiscountPercentage(peopleCount, dishCount);
 console.log("discountPercentage" + discountPercentage)
-var discountedPrice = selectedDeliveryOption === 'liveCatering' ? ((totalPrice - 6500) * (discountPercentage / 100)).toFixed(0) : (totalPrice * (discountPercentage / 100)).toFixed(0);
+var discountedPrice = selectedDeliveryOption === 'party-live-buffet-catering' ? ((totalPrice - 6500) * (discountPercentage / 100)).toFixed(0) : (totalPrice * (discountPercentage / 100)).toFixed(0);
 
 
 const calculateFinalTotal = () => {
@@ -313,7 +313,7 @@ const calculateFinalTotal = () => {
 
     console.log("finalTotal: " + finalTotal);
 
-    if (selectedDeliveryOption === 'foodDelivery') {
+    if (selectedDeliveryOption === 'party-food-delivery') {
         finalTotal += parseFloat(packingCost);
         console.log("finalTotal after packing cost: " + finalTotal);
 
@@ -321,7 +321,7 @@ const calculateFinalTotal = () => {
             finalTotal += parseFloat((20 * peopleCount).toFixed(0));
             console.log("finalTotal after disposable cost: " + finalTotal);
         }
-    } else if (selectedDeliveryOption === 'liveCatering') {
+    } else if (selectedDeliveryOption === 'party-live-buffet-catering') {
         if (includeTables) {
             finalTotal += 1200;
             console.log("finalTotal after table cost: " + finalTotal);
@@ -803,7 +803,7 @@ const onContinueClick = async () => {
                       {/* <img style={{ width: 290, height: 1, marginTop: 5, marginBottom: 5 }} src="../../assets/Rectangleline.png" alt="line" /> */}
                   </div>
               )}
-               {selectedDeliveryOption === 'foodDelivery' && (
+               {selectedDeliveryOption === 'party-food-delivery' && (
                   <div>
                       <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center", backgroundColor: includeDisposable ? '#efefef' : '#fff', paddingHorizontal: 5, paddingVertical: 4, marginTop: 4 }}>
                           <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
@@ -851,7 +851,7 @@ const onContinueClick = async () => {
                   </div>
               )}
   
-              {selectedDeliveryOption === 'liveCatering' && (
+              {selectedDeliveryOption === 'party-live-buffet-catering' && (
                   <div>
                       <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center", backgroundColor: includeTables ? '#efefef' : '#fff', paddingHorizontal: 5, paddingVertical: 4, marginTop: 4 }}>
                           <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
@@ -968,7 +968,7 @@ const onContinueClick = async () => {
                     </div>
                     )}
                     
-                    {selectedDeliveryOption === 'foodDelivery' && (
+                    {selectedDeliveryOption === 'party-food-delivery' && (
                     <div>
                     <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center", backgroundColor: includeDisposable ? '#efefef' : '#fff', padding:"7px 4px", marginTop: 4 }}>
                     <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
@@ -1010,7 +1010,7 @@ const onContinueClick = async () => {
                     </div>
                     )}
 
-                    {selectedDeliveryOption === 'liveCatering' && (
+                    {selectedDeliveryOption === 'party-live-buffet-catering' && (
                     <div>
                     <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center", backgroundColor: includeTables ? '#efefef' : '#fff', padding:"10px 4px", marginTop: 0 , marginBottom:8 }}>
                     <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>

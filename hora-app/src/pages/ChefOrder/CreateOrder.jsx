@@ -313,7 +313,7 @@ const CreateOrder = ({ history }) => {
 
     const addDish = selectedDishPrice => {
        
-            navigate(`/selectdate`, { state: { selectedDishDictionary, selectedDishPrice, selectedDishes, orderType , isDishSelected , selectedCount} });
+            navigate(`/book-chef-cook-for-party/order-details`, { state: { selectedDishDictionary, selectedDishPrice, selectedDishes, orderType , isDishSelected , selectedCount} });
     
     };
 

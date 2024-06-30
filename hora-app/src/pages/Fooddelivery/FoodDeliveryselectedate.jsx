@@ -41,27 +41,33 @@ const FoodDeliveryselectDate = ({ history }) => {
     const contactUsRedirection = () => {
         window.open('whatsapp://send?phone=+917338584828&text=Hello%20I%20have%20some%20queries%20for%20food%20delivey%20and%20live%20Catering%20service');
     }
-
     const onContinueClick = () => {
-        const totalOrderAmount = selectedOption === 'liveCatering' ? dishPrice * peopleCount + 6500 : dishPrice * peopleCount;
+        const totalOrderAmount = selectedOption === 'party-live-buffet-catering' ? dishPrice * peopleCount + 6500 : dishPrice * peopleCount;
+        
         if (totalOrderAmount < 3000) {
-            // setWarningVisible(true);
-            alert("Please select minimum mininum order amount: 3000rps")
-        } else {
-            navigate("/foodDeliveryCheckout", {
-                state: {
-                    peopleCount: peopleCount,
-                    selectedDeliveryOption: selectedOption,
-                    selectedDishes: data,
-                    totalOrderAmount:totalOrderAmount,
-                    selectedDishes: data,
-                    selectedDishQuantities: selectedDishQuantities,
-                    selectedOption: selectedOption,
-                }
-            });
+            alert("Please select minimum order amount: 3000rps");
+            return; // Stop further execution if totalOrderAmount is less than 3000
         }
-    }
-
+    
+        const navigateState = {
+            state: {
+                from: window.location.pathname,
+                peopleCount: peopleCount,
+                selectedDeliveryOption: selectedOption,
+                selectedDishes: data,
+                totalOrderAmount: totalOrderAmount,
+                selectedDishQuantities: selectedDishQuantities,
+                selectedOption: selectedOption,
+            }
+        };
+    
+        if (localStorage.getItem("isLoggedIn") !== "true") {
+            navigate('/login', navigateState);
+        } else {
+            navigate("/party-food-delivery-live-catering-buffet-checkout", navigateState);
+        }
+    };
+    
 
 
 
@@ -70,7 +76,7 @@ const FoodDeliveryselectDate = ({ history }) => {
         return (
             <div style={{  paddingTop: 10, backgroundColor: '#FFFFFF', paddingLeft:10, borderRadius: 10, fontSize: 14 , paddingBottom:10}}>
                 <div>
-                    {selectedOption === "foodDelivery" && (
+                    {selectedOption === "party-food-delivery" && (
                         <>
                            
                             <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', width: '100%' }}>
@@ -89,7 +95,7 @@ const FoodDeliveryselectDate = ({ history }) => {
                     )}
                 </div>
                 <div>
-                    {selectedOption === "liveCatering" && (
+                    {selectedOption === "party-live-buffet-catering" && (
                         <>
                             <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', width: '100%' }}>
                                 <img src={require('../../assets/tick.png')} alt="tick" style={{ height: 16, width: 16 }} />

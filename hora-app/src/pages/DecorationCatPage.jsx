@@ -137,7 +137,6 @@ function DecorationCatPage() {
           rating: getRandomRating(),
           userCount: getRandomNumber(20, 500)
         }));
-        
         setCatalogueData(decoratedData);
       }
     } catch (error) {
@@ -150,10 +149,10 @@ function DecorationCatPage() {
   const handleViewDetails = (subCategory, catValue, product) => {
     const productName = product.name.replace(/ /g, "-");
     if (hasCityPageParam) {
-      navigate(`/citypage/${city}/decoration/product/${catValue}/${productName}`, { state: { subCategory, product, orderType } });
+      navigate(`/${city}/balloon-decoration/${catValue}/product/${productName}`, { state: { subCategory, product, orderType } });
     }
     else {
-      navigate(`/decoration/product/${catValue}/${productName}`, { state: { subCategory, product, orderType } });
+      navigate(`/balloon-decoration/${catValue}/product/${productName}`, { state: { subCategory, product, orderType } });
     }
   };
 
@@ -286,7 +285,6 @@ function DecorationCatPage() {
           |
         </div>
       </>
-      {/* // )} */}
     </div>
   );
 }

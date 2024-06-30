@@ -346,7 +346,7 @@ const FoodDeliveryCreateOrder = () => {
               id:item.mealId
             };
           });
-            navigate(`/fooddeliveryselectdate`, { state: { selectedDishDictionary, selectedDishPrice, selectedDishes, orderType , isDishSelected , selectedCount , selectedDishQuantities  , selectedOption} });
+            navigate(`/party-food-delivery-live-catering-buffet-select-date/${selectedOption}`, { state: { selectedDishDictionary, selectedDishPrice, selectedDishes, orderType , isDishSelected , selectedCount , selectedDishQuantities  , selectedOption} });
     };
 
 

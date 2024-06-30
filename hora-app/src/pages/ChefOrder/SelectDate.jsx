@@ -41,14 +41,33 @@ const SelectDate = ({ history }) => {
         }
     }
 
-        const onContinueClick = () => {
-            if (dishPrice < 400) {
-                setWarningVisible(true);
-            }
-            else {
-                navigate(`/chefcheckout`, { state: { peopleCount, selectedDishDictionary, selectedDishPrice, selectedDishes, orderType , isDishSelected , selectedCount} });
-            }
+       const onContinueClick = () => {
+    if (dishPrice < 400) {
+        setWarningVisible(true);
+        return; // Stop further execution if dishPrice is less than 400
+    }
+
+    const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+    const navigateState = {
+        state: {
+            from: window.location.pathname,
+            peopleCount,
+            selectedDishDictionary,
+            selectedDishPrice,
+            selectedDishes,
+            orderType,
+            isDishSelected,
+            selectedCount
         }
+    };
+
+    if (!isLoggedIn) {
+        navigate('/login', navigateState);
+    } else {
+        navigate('/book-chef-checkout', navigateState);
+    }
+};
+
 
     const getTotalBurnerCount = () => {
         let totalBurnerCount = 0;

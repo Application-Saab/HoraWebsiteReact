@@ -124,25 +124,25 @@ function Home() {
                     </div>
                     <div style={styles.bannerBottomSec} className="bannerBottomSec">
                         <div style={styles.bannerDecorationImage} className="bannerDecorationImage">
-                        <Link to="/decoration">
+                        <Link to="/balloon-decoration">
                         <img src={bannerDecorationImage} alt="Decoration Near me" />
                         <h2 style={{ fontSize: "16px", fontWeight: "600", color: "#fff", textAlign: "center" , margin:"10px 0 0 0" }}>Decoration</h2>
                      </Link>
                         </div>
                         <div style={styles.bannerDecorationImage} className="bannerDecorationImage">
-                        <Link to="/chefOrder">
+                        <Link to="/book-chef-cook-for-party">
                                 <img src={bannerChefImage} alt="Chef Near me" />
                                 <h2 style={{ fontSize: "16px", fontWeight: "600", color: "#fff", textAlign: "center" , margin:"10px 0 0 0"  }}>Chef for Party</h2>
                             </Link>
                         </div>
                         <div style={styles.bannerDecorationImage} className="bannerDecorationImage">
-                        <Link to="/fooddeliveryCreateOrder/foodDelivery">
+                        <Link to="/party-food-delivery-live-catering-buffet/party-food-delivery">
                                 <img src={bannerFoodDeliveryImage} alt="Food Delivery Near me" />
                                 <h2 style={{ fontSize: "16px", fontWeight: "600", color: "#fff", textAlign: "center" , margin:"10px 0 0 0"  }}>Food Delivery</h2>
                             </Link>
                         </div>
                         <div style={styles.bannerDecorationImage} className="bannerDecorationImage">
-                        <Link to="/fooddeliveryCreateOrder/liveCatering">
+                        <Link to="/party-food-delivery-live-catering-buffet/party-live-buffet-catering">
                                 <img src={service4Image} alt="Return Gift Near me" />
                                 <h2 style={{ fontSize: "16px", fontWeight: "600", color: "#fff", textAlign: "center" , margin:"10px 0 0 0"  }}>Live Catering</h2>
                             </Link>

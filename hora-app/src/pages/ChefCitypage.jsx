@@ -16,7 +16,7 @@ import Celebrate4Image from '../assets/wedding-event.png';
 import Celebrate5Image from '../assets/gathering.png';
 import Celebrate6Image from '../assets/kids-event.png';
 
-function Citypage() {
+function ChefCitypage() {
     const [showButton, setShowButton] = useState(window.innerWidth > 800);
     const openLink = () => {
         window.open("https://play.google.com/store/apps/details?id=com.hora", "_blank");
@@ -857,13 +857,13 @@ function Citypage() {
                     </div>
                     <div style={styles.bannerBottomSec} className="bannerBottomSec">
                         <div style={styles.bannerDecorationImage} className="bannerDecorationImage">
-                        <a href={`/citypage/${city}/decoration`} style={{ textDecoration: "none" }}>
+                        <a href={`/${city}/balloon-decoration`} style={{ textDecoration: "none" }}>
                                 <img src={bannerDecorationImage} alt="Decoration Near me" />
                                 <h2 style={{ fontSize: "16px", fontWeight: "normal", color: "#fff", textAlign: "center" }}>Decoration</h2>
                             </a>
                         </div>
                         <div style={styles.bannerDecorationImage} className="bannerDecorationImage">
-                            <a href="/" style={{ textDecoration: "none" }}>
+                            <a href={`/${city}/book-chef-cook-for-party`} style={{ textDecoration: "none" }}>
                                 <img src={bannerChefImage} alt="Chef Near me" />
                                 <h2 style={{ fontSize: "18px", fontWeight: "normal", color: "#fff", textAlign: "center" }}>Hire Chef</h2>
                             </a>
@@ -1196,4 +1196,4 @@ const styles = {
 
 };
 
-export default Citypage;
+export default ChefCitypage;

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { useParams } from "react-router-dom";
+import service4Image from '../assets/live-buffet-service.png';
 import bannerSvgImage from '../assets/banner-home-bg.svg';
 import bannerDecorationImage from '../assets/decoration-home-banner.png';
 import bannerChefImage from '../assets/chef-home-banner.png';
@@ -857,35 +858,36 @@ function DecorationCity() {
                     </div>
                     <div style={styles.bannerBottomSec} className="bannerBottomSec">
                         <div style={styles.bannerDecorationImage} className="bannerDecorationImage">
-                            <a href={`/citypage/${city}/decoration`} style={{ textDecoration: "none" }}>
+                            <a href={`/${city}/balloon-decoration`} style={{ textDecoration: "none" }}>
                                 <img src={bannerDecorationImage} alt="Decoration Near me" />
                                 <h2 style={{ fontSize: "16px", fontWeight: "normal", color: "#fff", textAlign: "center" }}>Decoration</h2>
                             </a>
                         </div>
                         <div style={styles.bannerDecorationImage} className="bannerDecorationImage">
-                            <a href="/chefOrder" style={{ textDecoration: "none" }}>
+                            <a href={`/${city}/book-chef-cook-for-party`} style={{ textDecoration: "none" }}>
                                 <img src={bannerChefImage} alt="Chef Near me" />
                                 <h2 style={{ fontSize: "18px", fontWeight: "normal", color: "#fff", textAlign: "center" }}>Hire Chef</h2>
                             </a>
                         </div>
                         <div style={styles.bannerDecorationImage} className="bannerDecorationImage">
-                            <a href="/" style={{ textDecoration: "none" }}>
-                                <img src={bannerReturnGiftImage} alt="Return Gift Near me" />
-                                <h2 style={{ fontSize: "18px", fontWeight: "normal", color: "#fff", textAlign: "center" }}>Gift & Party Supplies</h2>
-                            </a>
-                        </div>
-                        <div style={styles.bannerDecorationImage} className="bannerDecorationImage">
-                            <a href="/" style={{ textDecoration: "none" }}>
-                                <img src={bannerEntertainmentImage} alt="Entertainment Near me" />
-                                <h2 style={{ fontSize: "18px", fontWeight: "normal", color: "#fff", textAlign: "center" }}>Entertainment</h2>
-                            </a>
-                        </div>
-                        <div style={styles.bannerDecorationImage} className="bannerDecorationImage">
-                            <a href="/" style={{ textDecoration: "none" }}>
+                            <a href="/party-food-delivery-live-catering-buffet/party-food-delivery" style={{ textDecoration: "none" }}>
                                 <img src={bannerFoodDeliveryImage} alt="Food Delivery Near me" />
                                 <h2 style={{ fontSize: "18px", fontWeight: "normal", color: "#fff", textAlign: "center" }}>Food Delivery</h2>
                             </a>
                         </div>
+                        <div style={styles.bannerDecorationImage} className="bannerDecorationImage">
+                            <a href="/party-food-delivery-live-catering-buffet/party-live-buffet-catering" style={{ textDecoration: "none" }}>
+                            <img src={service4Image} alt="Return Gift Near me" />
+                                <h2 style={{ fontSize: "18px", fontWeight: "normal", color: "#fff", textAlign: "center" }}>Live Catering</h2>
+                            </a>
+                        </div>
+                        <div style={styles.bannerDecorationImage} className="bannerDecorationImage">
+                            <a href="/party-food-delivery-live-catering-buffet/party-food-delivery" style={{ textDecoration: "none" }}>
+                                <img src={bannerEntertainmentImage} alt="Entertainment Near me" />
+                                <h2 style={{ fontSize: "18px", fontWeight: "normal", color: "#fff", textAlign: "center" }}>Entertainment</h2>
+                            </a>
+                        </div>
+                       
                     </div>
                 </div>
             </div>
@@ -993,46 +995,46 @@ function DecorationCity() {
                     <div class="tab-inner">
                         <ul style={{ listStyle: "none", padding: "20px 0" }}>
                             <li className="city-link" data-city="Delhi" style={{ padding: "0 10px", display: "inline-block" }} >
-                                <a href="/decoration/delhi">Delhi</a>
+                                <a href="/balloon-decoration/delhi">Delhi</a>
                             </li>
                             <li className="city-link" data-city="Gurugram" style={{ padding: "0 10px", display: "inline-block" }}>
                                
-                                <a href="/decoration/delhi">Gurugram</a>
+                                <a href="/balloon-decoration/delhi">Gurugram</a>
                             </li>
                             <li className="city-link" data-city="Ghaziabad" style={{ padding: "0 10px", display: "inline-block" }}>
                                
-                                <a href="/decoration/delhi">Ghaziabad</a>
+                                <a href="/balloon-decoration/delhi">Ghaziabad</a>
                             </li>
                             <li className="city-link" data-city="Faridabad" style={{ padding: "0 10px", display: "inline-block" }}>
                                
-                                <a href="/decoration/delhi">Faridabad</a>
+                                <a href="/balloon-decoration/delhi">Faridabad</a>
                             </li>
                             <li className="city-link" data-city="Noida" style={{ padding: "0 10px", display: "inline-block" }}>
                               
-                                <a href="/decoration/delhi">Noida</a>
+                                <a href="/balloon-decoration/delhi">Noida</a>
                             </li>
                             <li className="city-link" data-city="Bengaluru" style={{ padding: "0 10px", display: "inline-block" }}>
                                 
-                                <a href="/decoration/delhi">Bengaluru</a>
+                                <a href="/balloon-decoration/delhi">Bengaluru</a>
                             </li>
                             <li className="city-link" data-city="Hyderabad" style={{ padding: "0 10px", display: "inline-block" }}>
                               
-                                <a href="/decoration/delhi">Hyderabad</a>
+                                <a href="/balloon-decoration/delhi">Hyderabad</a>
                             </li>
                             <li className="city-link" data-city="Mumbai" style={{ padding: "0 10px", display: "inline-block" }}>
                                
-                                <a href="/decoration/delhi">Mumbai</a>
+                                <a href="/balloon-decoration/delhi">Mumbai</a>
                             </li>
                             <li className="city-link" data-city="Indore" style={{ padding: "0 10px", display: "inline-block" }}>
-                                <a href="decoration/indore">Indore</a>
+                                <a href="balloon-decoration/indore">Indore</a>
                             </li>
                             <li className="city-link" data-city="Chennai" style={{ padding: "0 10px", display: "inline-block" }}>
                               
-                                <a href="/decoration/chennai">Chennai</a>
+                                <a href="/balloon-decoration/chennai">Chennai</a>
                             </li>
                             <li className="city-link" data-city="Pune" style={{ padding: "0 10px", display: "inline-block" }}>
                             
-                                <a href="/decoration/pune">Pune</a>
+                                <a href="/balloon-decoration/pune">Pune</a>
                             </li>
                             <li className="city-link" data-city="Surat" style={{ padding: "0 10px", display: "inline-block" }}>
                                 <Link to="#" >Surat</Link>
@@ -1040,19 +1042,19 @@ function DecorationCity() {
                             </li>
                             <li className="city-link" data-city="Bhopal" style={{ padding: "0 10px", display: "inline-block" }}>
                               
-                                <a href="/decoration/bhopal">Bhopal</a>
+                                <a href="/balloon-decoration/bhopal">Bhopal</a>
                             </li>
                             <li className="city-link" data-city="kanpur" style={{ padding: "0 10px", display: "inline-block" }}>
-                            <a href="/decoration/kanpur">Kanpur</a>
+                            <a href="/balloon-decoration/kanpur">Kanpur</a>
                             </li>
                             <li className="city-link" data-city="Lucknow" style={{ padding: "0 10px", display: "inline-block" }}>
-                            <a href="/decoration/Lucknow">Lucknow</a>
+                            <a href="/balloon-decoration/Lucknow">Lucknow</a>
                             </li>
                             <li className="city-link" data-city="kolkata" style={{ padding: "0 10px", display: "inline-block" }}>
-                            <a href="/decoration/kolkata">kolkata</a>
+                            <a href="/balloon-decoration/kolkata">kolkata</a>
                             </li>
                             <li className="city-link" data-city="Goa" style={{ padding: "0 10px", display: "inline-block" }}>
-                            <a href="/decoration/Goa">Goa</a>
+                            <a href="/balloon-decoration/Goa">Goa</a>
                             </li>
                         </ul>
 
@@ -1118,56 +1120,56 @@ function DecorationCity() {
                     <div class="tab-inner">
                         <ul style={{ listStyle: "none", padding: "20px 0" }}>
                             <li className="city-link" data-city={city} style={{ padding: "0 10px", display: "inline-block" }} >
-                                <a href="/decoration">Birthday Decoration in {city}</a>
+                                <a href="/balloon-decoration">Birthday Decoration in {city}</a>
                             </li>
                             <li className="city-link" data-city="Gurugram" style={{ padding: "0 10px", display: "inline-block" }}>
-                            <a href="/decoration">Baby Shower Decoration in {city}</a>
+                            <a href="/balloon-decoration">Baby Shower Decoration in {city}</a>
                             </li>
                             <li className="city-link" data-city="Ghaziabad" style={{ padding: "0 10px", display: "inline-block" }}>
-                                <a href="/decoration">Baby Welcome Decoration in {city}</a>
+                                <a href="/balloon-decoration">Baby Welcome Decoration in {city}</a>
                             </li>
                             <li className="city-link" data-city="Faridabad" style={{ padding: "0 10px", display: "inline-block" }}>
-                                <a href="/decoration">First Night Decoration in {city}</a>
+                                <a href="/balloon-decoration">First Night Decoration in {city}</a>
                             </li>
                             <li className="city-link" data-city="Noida" style={{ padding: "0 10px", display: "inline-block" }}>
-                                <a href="deocration">Kids Birthday Decoration in  {city}</a>
+                                <a href="balloon-decoration">Kids Birthday Decoration in  {city}</a>
                             </li>
                             <li className="city-link" data-city="Bengaluru" style={{ padding: "0 10px", display: "inline-block" }}>
-                                <a href="/decoration">Anniversary Decoration in {city}</a>
+                                <a href="/balloon-decoration">Anniversary Decoration in {city}</a>
                             </li>
                             <li className="city-link" data-city="Hyderabad" style={{ padding: "0 10px", display: "inline-block" }}>
-                                <a href="/decoration">Candle Light Dinner in  {city}</a>
+                                <a href="/balloon-decoration">Candle Light Dinner in  {city}</a>
                             </li>
                             <li className="city-link" data-city="Mumbai" style={{ padding: "0 10px", display: "inline-block" }}>
-                                <a href="/decoration">Car Decoration in  {city}</a>
+                                <a href="/balloon-decoration">Car Decoration in  {city}</a>
                             </li>
                             <li className="city-link" data-city="Indore" style={{ padding: "0 10px", display: "inline-block" }}>
-                                <a href="/decoration">Naming Ceremony Decoration in {city}</a>
+                                <a href="/balloon-decoration">Naming Ceremony Decoration in {city}</a>
                             </li>
                             <li className="city-link" data-city="Chennai" style={{ padding: "0 10px", display: "inline-block" }}>
-                                <a href="/decoration">Terrace Decoration in{city}</a>
+                                <a href="/balloon-decoration">Terrace Decoration in{city}</a>
                             </li>
                             <li className="city-link" data-city="Pune" style={{ padding: "0 10px", display: "inline-block" }}>
-                                <a href="/decoration">Proposal Decoration in {city}</a>
+                                <a href="/balloon-decoration">Proposal Decoration in {city}</a>
                             </li>
                             <li className="city-link" data-city="Surat" style={{ padding: "0 10px", display: "inline-block" }}>
-                                <a href="/decoration">Bride-to-be Decoration in {city}</a>
+                                <a href="/balloon-decoration">Bride-to-be Decoration in {city}</a>
                             </li>
                             <li className="city-link" data-city="Bhopal" style={{ padding: "0 10px", display: "inline-block" }}>
-                                <a href="/decoration">Cabana Decoration in {city}</a>
+                                <a href="/balloon-decoration">Cabana Decoration in {city}</a>
                             </li>
                             <li className="city-link" data-city="kanpur" style={{ padding: "0 10px", display: "inline-block" }}>
-                                <a href="/decoration">Haldi Decoration in {city}</a>
+                                <a href="/balloon-decoration">Haldi Decoration in {city}</a>
                             </li>
                             <li className="city-link" data-city="Lucknow" style={{ padding: "0 10px", display: "inline-block" }}>
-                                <a href="/decoration">Balloon Decoration in {city}</a>
+                                <a href="/balloon-decoration">Balloon Decoration in {city}</a>
                             </li>
                             <li className="city-link" data-city="kolkata" style={{ padding: "0 10px", display: "inline-block" }}>
-                                <a href="/decoration" >Office Decoration in  {city}</a>
+                                <a href="/balloon-decoration" >Office Decoration in  {city}</a>
                             </li>
                             <li className="city-link" data-city="Goa" style={{ padding: "0 10px", display: "inline-block" }}>
                      
-                                <a href="/decoration">Engagement Ring Platter in {city}</a>
+                                <a href="/balloon-decoration">Engagement Ring Platter in {city}</a>
                             </li>
                         </ul>
 

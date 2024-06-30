@@ -53,10 +53,10 @@ function Decoration() {
 
     const openCatItems = (item) => {
       if(hasCityPageParam){
-        navigate(`/citypage/${city}/decoration/occasions/${item.catValue}`, { state: { subCategory: item.subCategory , imgAlt:item.imgAlt } });
+        navigate(`/${city}/balloon-decoration/${item.catValue}`, { state: { subCategory: item.subCategory , imgAlt:item.imgAlt } });
       }
       else{
-      navigate(`/decoration/occasions/${item.catValue}`, { state: { subCategory: item.subCategory , imgAlt:item.imgAlt } });
+      navigate(`/balloon-decoration/${item.catValue}`, { state: { subCategory: item.subCategory , imgAlt:item.imgAlt } });
       }
     };
     useEffect(() => {
@@ -73,9 +73,17 @@ function Decoration() {
                     <div key={index} style={{...styles.imageContainer, ...(hoveredIndex === index ? styles.zoomedContainer : {})}} className="imageContainer">
                         <img src={item.image} style={styles.decCatimage} alt={item.name}  onClick={() => openCatItems(item)}/>
                     </div>
-                ))}
+                ))} 
 
             </div>
+            {/* <div>
+            {decCat.map((item, index) => (
+            <url>
+            <loc>{`https://horaservices.com/balloon-decoration/${item.catValue}`}</loc>
+            <priority>1.00</priority>
+            </url>
+            ))} 
+            </div> */}
             </div>
         </div>
     );
