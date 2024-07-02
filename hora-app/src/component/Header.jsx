@@ -118,7 +118,7 @@ function Header() {
                 )}
               </li>
               <li style={styles.desktopMenuli}>
-                <Link to="https://horaservices.com/ContactUs.html" style={styles.link}>
+                <Link to="/contactus" style={styles.link}>
                   Contact Us
                 </Link>
               </li>
