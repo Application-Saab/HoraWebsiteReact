@@ -22,6 +22,17 @@ function Login() {
   const subCategory = location.state && location.state.subCategory;
   const orderType = location.state && location.state.orderType;
   const product = location.state && location.state.product;
+  const selectedDishDictionary = location.state && location.state.selectedDishDictionary;
+  const selectedDishPrice = location.state && location.state.selectedDishPrice;
+  const selectedDishes = location.state && location.state.selectedDishes;
+  const isDishSelected = location.state && location.state.isDishSelected;
+  const selectedCount = location.state && location.state.selectedCount;
+  const peopleCount = location.state && location.state.peopleCount;
+  const selectedDeliveryOption = location.state && location.state.selectedOption;
+  const totalOrderAmount = location.state && location.state.totalOrderAmount;
+  const selectedDishQuantities = location.state && location.state.selectedDishQuantities;
+  const selectedOption = location.state && location.state.selectedOption;
+  const data = location.state && location.state.data;
   const [validMobileNumber, setValidMobileNumber] = useState(false); // Add state for valid mobile number
   const navigate = useNavigate();
   const otpRefs = useRef([React.createRef(), React.createRef(), React.createRef(), React.createRef()]);
@@ -83,9 +94,29 @@ useEffect(() => {
           localStorage.setItem("mobileNumber", mobileNumber);
           localStorage.setItem('token', response.data.token);
           localStorage.setItem('userID', response.data.data._id);
-          if (previousPage) {
+          console.log("previousPage" , previousPage ,)
+         
+          if (previousPage.includes("/book-chef-cook-for-party/order-details")) {
+            navigate('/book-chef-checkout', { state: { peopleCount,
+              selectedDishDictionary,
+              selectedDishPrice,
+              selectedDishes,
+              orderType,
+              isDishSelected,
+              selectedCount } });
+          }
+          if(previousPage.includes('/balloon-decoration/anniversary-decoration/product')){
             navigate('/checkout', { state: { subCategory, product, orderType } });
-          } else {
+          }
+          if(previousPage.includes('/party-food-delivery-live-catering-buffet-select-date')){
+            navigate("/party-food-delivery-live-catering-buffet-checkout", { state: {  peopleCount: peopleCount,
+              selectedDeliveryOption: selectedOption,
+              selectedDishes: data,
+              totalOrderAmount: totalOrderAmount,
+              selectedDishQuantities: selectedDishQuantities,
+              selectedOption: selectedOption,} });
+          }
+           else {
             navigate('/');
           }
         } else {

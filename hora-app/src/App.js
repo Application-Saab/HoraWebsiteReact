@@ -50,7 +50,7 @@ function App() {
           <Route path="/book-chef-cook-for-party" element={<CreateOrder/>} /> 
           <Route path="/:city/book-chef-cook-for-party" element={<CreateOrder/>} /> 
           <Route path="/book-chef-cook-for-party/order-details" element={<SelectDate/>} />
-          <Route path="/:city/chef-near-you" element={<ChefCitypage />} />
+          <Route path="/:city/chef-near-me" element={<ChefCitypage />} />
           {/* other pages */}
           <Route path="/aboutus" element={<AboutUs />} />
           <Route path="/contactus" element={<ContactUs />} />
