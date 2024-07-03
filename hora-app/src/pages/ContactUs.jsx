@@ -36,7 +36,7 @@ function ContactUs() {
           <div className="imageOverlay" style={styles.imageOverlay}>
             <div className="textContent" style={styles.textContent}>
               <h1>Contact Us</h1>
-              <p>
+              <p className="contact-us-main-heading">
                 We would love to hear from you! Feel free to reach out to us.
               </p>
             </div>
@@ -108,8 +108,8 @@ function ContactUs() {
             </div>
           </div>
         </div> */}
-        <div style={styles.secRight}>
-          <div style={styles.boxHow}>
+        <div className="contact-us-secRight" style={styles.secRight}>
+          <div className="contact-us-boxsection" style={styles.boxHow}>
             <FaTag style={styles.icon} />
             <h2
               style={{ fontSize: "1.3125rem", color: "#444", margin: "10px 0" }}
@@ -120,7 +120,7 @@ function ContactUs() {
               +918884221487
             </a>
           </div>
-          <div style={styles.boxHow}>
+          <div className="contact-us-boxsection" style={styles.boxHow}>
             <FaMapMarkerAlt style={styles.icon} />
             <h2
               style={{ fontSize: "1.3125rem", color: "#444", margin: "10px 0" }}
@@ -131,7 +131,7 @@ function ContactUs() {
               dev@horaservices.com
             </a>
           </div>
-          <div style={styles.boxHow}>
+          <div className="contact-us-boxsection" style={styles.boxHow}>
             <FaDownload style={styles.icon} />
             <h2
               style={{ fontSize: "1.3125rem", color: "#444", margin: "10px 0" }}
@@ -155,6 +155,7 @@ function ContactUs() {
         <div style={styles.contactUs}>
           <div style={styles.secRight1}>
             <h5
+              className="contact-us-second-heading"
               style={{
                 textAlign: "center",
                 fontWeight: "500",
@@ -167,6 +168,7 @@ function ContactUs() {
             </h5>
             <div>
               <div
+                className="contact-us-img-section-1"
                 style={{
                   display: "flex",
                   justifyContent: "space-between",
@@ -174,21 +176,22 @@ function ContactUs() {
                   marginBottom: "30px",
                 }}
               >
-                <div>
-                  <img src={mumbai} />
-                  <h4>Mumbai</h4>
+                <div className="contact-us-section-div">
+                  <img className="contact-us-img" src={mumbai} />
+                  <h4 className="contact-us-heading">Mumbai</h4>
                 </div>
-                <div>
-                  <img src={delhi} />
-                  <h4>Delhi</h4>
+                <div className="contact-us-section-div">
+                  <img className="contact-us-img" src={delhi} />
+                  <h4 className="contact-us-heading">Delhi</h4>
                 </div>
 
-                <div>
-                  <img src={banglore} />
-                  <h4>Bangalore</h4>
+                <div className="contact-us-section-div">
+                  <img className="contact-us-img" src={banglore} />
+                  <h4 className="contact-us-heading">Bangalore</h4>
                 </div>
               </div>
               <div
+                className="contact-us-img-section-1"
                 style={{
                   display: "flex",
                   justifyContent: "space-between",
@@ -196,20 +199,21 @@ function ContactUs() {
                   marginBottom: "30px",
                 }}
               >
-                <div>
-                  <img src={pune} />
-                  <h4>Pune</h4>
+                <div className="contact-us-section-div">
+                  <img className="contact-us-img" src={pune} />
+                  <h4 className="contact-us-heading">Pune</h4>
                 </div>
-                <div>
-                  <img src={noida} />
-                  <h4>Noida</h4>
+                <div className="contact-us-section-div">
+                  <img className="contact-us-img" src={noida} />
+                  <h4 className="contact-us-heading">Noida</h4>
                 </div>
-                <div>
-                  <img src={ghaziabad} />
-                  <h4>Gaziabad</h4>
+                <div className="contact-us-section-div">
+                  <img className="contact-us-img" src={ghaziabad} />
+                  <h4 className="contact-us-heading">Gaziabad</h4>
                 </div>
               </div>
               <div
+                className="contact-us-img-section-1"
                 style={{
                   display: "flex",
                   justifyContent: "space-between",
@@ -217,20 +221,21 @@ function ContactUs() {
                   marginBottom: "30px",
                 }}
               >
-                <div>
-                  <img src={gurugram} />
-                  <h4>Gurugram</h4>
+                <div className="contact-us-section-div">
+                  <img className="contact-us-img" src={gurugram} />
+                  <h4 className="contact-us-heading">Gurugram</h4>
                 </div>
-                <div>
-                  <img src={faridabad} />
-                  <h4>Faridabad</h4>
+                <div className="contact-us-section-div">
+                  <img className="contact-us-img" src={faridabad} />
+                  <h4 className="contact-us-heading">Faridabad</h4>
                 </div>
-                <div>
-                  <img src={hydrabad} />
-                  <h4>Hydrabad</h4>
+                <div className="contact-us-section-div">
+                  <img className="contact-us-img" src={hydrabad} />
+                  <h4 className="contact-us-heading">Hydrabad</h4>
                 </div>
               </div>
               <div
+                className="contact-us-img-section-1"
                 style={{
                   display: "flex",
                   justifyContent: "space-between",
@@ -238,20 +243,21 @@ function ContactUs() {
                   marginBottom: "30px",
                 }}
               >
-                <div>
-                  <img src={chennai} />
-                  <h4>Chennai</h4>
+                <div className="contact-us-section-div">
+                  <img className="contact-us-img" src={chennai} />
+                  <h4 className="contact-us-heading">Chennai</h4>
                 </div>
-                <div>
-                  <img src={jaipur} />
-                  <h4>Jaipur</h4>
+                <div className="contact-us-section-div">
+                  <img className="contact-us-img" src={jaipur} />
+                  <h4 className="contact-us-heading">Jaipur</h4>
                 </div>
-                <div>
-                  <img src={ahmdabad} />
-                  <h4>Ahmdabad</h4>
+                <div className="contact-us-section-div">
+                  <img className="contact-us-img" src={ahmdabad} />
+                  <h4 className="contact-us-heading">Ahmdabad</h4>
                 </div>
               </div>
               <div
+                className="contact-us-img-section-1"
                 style={{
                   display: "flex",
                   justifyContent: "space-between",
@@ -259,20 +265,21 @@ function ContactUs() {
                   marginBottom: "30px",
                 }}
               >
-                <div>
-                  <img src={chandigarh} />
-                  <h4>Chandigarh</h4>
+                <div className="contact-us-section-div">
+                  <img className="contact-us-img" src={chandigarh} />
+                  <h4 className="contact-us-heading">Chandigarh</h4>
                 </div>
-                <div>
-                  <img src={kolkata} />
-                  <h4>Kolkata</h4>
+                <div className="contact-us-section-div">
+                  <img className="contact-us-img" src={kolkata} />
+                  <h4 className="contact-us-heading">Kolkata</h4>
                 </div>
-                <div>
-                  <img src={lakhnow} />
-                  <h4>Locknow</h4>
+                <div className="contact-us-section-div">
+                  <img className="contact-us-img" src={lakhnow} />
+                  <h4 className="contact-us-heading">Locknow</h4>
                 </div>
               </div>
               <div
+                className="contact-us-img-section-1"
                 style={{
                   display: "flex",
                   justifyContent: "space-between",
@@ -280,20 +287,21 @@ function ContactUs() {
                   marginBottom: "30px",
                 }}
               >
-                <div>
-                  <img src={kanpur} />
-                  <h4>Kanpur</h4>
+                <div className="contact-us-section-div">
+                  <img className="contact-us-img" src={kanpur} />
+                  <h4 className="contact-us-heading">Kanpur</h4>
                 </div>
-                <div>
-                  <img src={indore} />
-                  <h4>Indore</h4>
+                <div className="contact-us-section-div">
+                  <img className="contact-us-img" src={indore} />
+                  <h4 className="contact-us-heading">Indore</h4>
                 </div>
-                <div>
-                  <img src={surat} />
-                  <h4>Surat</h4>
+                <div className="contact-us-section-div">
+                  <img className="contact-us-img" src={surat} />
+                  <h4 className="contact-us-heading">Surat</h4>
                 </div>
               </div>
               <div
+                className="contact-us-img-section-1"
                 style={{
                   display: "flex",
                   justifyContent: "space-between",
@@ -301,13 +309,13 @@ function ContactUs() {
                   marginBottom: "30px",
                 }}
               >
-                <div>
-                  <img src={bhopal} />
-                  <h4>Bhopal</h4>
+                <div className="contact-us-section-div">
+                  <img className="contact-us-img" src={bhopal} />
+                  <h4 className="contact-us-heading">Bhopal</h4>
                 </div>
-                <div>
-                  <img src={goa} />
-                  <h4>Goa</h4>
+                <div className="contact-us-section-div">
+                  <img className="contact-us-img" src={goa} />
+                  <h4 className="contact-us-heading">Goa</h4>
                 </div>
               </div>
             </div>
