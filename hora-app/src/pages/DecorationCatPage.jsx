@@ -270,6 +270,8 @@ function DecorationCatPage() {
                       </div>
                     </div>
 
+                   
+
                   </div>
                 ))
               ) : (
@@ -282,7 +284,22 @@ function DecorationCatPage() {
               )
             )
           }
-          |
+          |<div>
+          {/* <div>
+                      {
+                         filteredData.map((item, index) => (
+                         
+                          <url>
+                            <loc>
+                            {`https://horaservices.com/balloon-decoration/${catValue}/product/${item.name}`}
+                            </loc>
+                        
+                        </url>
+                         )
+                      )}
+                   
+                    </div> */}
+          </div>
         </div>
       </>
     </div>

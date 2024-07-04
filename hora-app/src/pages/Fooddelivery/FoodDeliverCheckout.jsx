@@ -638,7 +638,7 @@ const onContinueClick = async () => {
         "payable_amount": totalPrice,
         "is_gst": "0",
         "order_type": true,
-        "items" : selectedDishes,
+        "items" : selectedDishData,
         "status": 0
       }
 

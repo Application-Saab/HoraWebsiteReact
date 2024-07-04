@@ -88,38 +88,47 @@ useEffect(() => {
         });
 
         if (response.data.status === API_SUCCESS_CODE) {
-          alert("logged in successfully")
-          setLoginMsg("successfully logged in")
+          alert("Logged in successfully");
+          setLoginMsg("Successfully logged in");
           localStorage.setItem('isLoggedIn', 'true');
           localStorage.setItem("mobileNumber", mobileNumber);
           localStorage.setItem('token', response.data.token);
           localStorage.setItem('userID', response.data.data._id);
-          console.log("previousPage" , previousPage ,)
-         
-          if (previousPage.includes("/book-chef-cook-for-party/order-details")) {
-            navigate('/book-chef-checkout', { state: { peopleCount,
-              selectedDishDictionary,
-              selectedDishPrice,
-              selectedDishes,
-              orderType,
-              isDishSelected,
-              selectedCount } });
-          }
-          if(previousPage.includes('/balloon-decoration/anniversary-decoration/product')){
-            navigate('/checkout', { state: { subCategory, product, orderType } });
-          }
-          if(previousPage.includes('/party-food-delivery-live-catering-buffet-select-date')){
-            navigate("/party-food-delivery-live-catering-buffet-checkout", { state: {  peopleCount: peopleCount,
-              selectedDeliveryOption: selectedOption,
-              selectedDishes: data,
-              totalOrderAmount: totalOrderAmount,
-              selectedDishQuantities: selectedDishQuantities,
-              selectedOption: selectedOption,} });
-          }
-           else {
+          console.log("previousPage", previousPage);
+        
+          if (previousPage.includes("/book-chef-cook-for-party")) {
+            alert(previousPage.includes("/book-chef-cook-for-party"));
+            navigate('/book-chef-checkout', {
+              state: {
+                peopleCount,
+                selectedDishDictionary,
+                selectedDishPrice,
+                selectedDishes,
+                orderType,
+                isDishSelected,
+                selectedCount
+              }
+            });
+          } else if (previousPage.includes('/balloon-decoration/anniversary-decoration/product')) {
+            navigate('/checkout', {
+              state: { subCategory, product, orderType }
+            });
+          } else if (previousPage.includes('/party-food-delivery-live-catering-buffet-select-date')) {
+            navigate("/party-food-delivery-live-catering-buffet-checkout", {
+              state: {
+                peopleCount,
+                selectedDeliveryOption: selectedOption,
+                selectedDishes: data,
+                totalOrderAmount: totalOrderAmount,
+                selectedDishQuantities: selectedDishQuantities,
+                selectedOption: selectedOption
+              }
+            });
+          } else {
             navigate('/');
           }
-        } else {
+        }
+        else {
           setLoginMsg(" ")
           setOtpError('Failed to verify OTP. Please try again.');
         }

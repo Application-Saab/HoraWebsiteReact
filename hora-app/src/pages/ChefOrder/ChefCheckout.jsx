@@ -34,9 +34,7 @@ function ChefCheckout() {
   const [combinedDateTime, setCombinedDateTime] = useState(null);
   const [combinedDateTimeError, setCombinedDateTimeError] = useState(false);
 
-  if (selectedDishes.length > 7){
-    selectedDishPrice += 700
-  }
+  
 
   /// order.type is 2 for chef
   /// order.type is 1 for decoration
@@ -269,9 +267,9 @@ const pincodes =[
         "order_date": selectedDate.toDateString(),
         "no_of_burner": 0,
         "order_locality": city,
-        "total_amount": selectedDishPrice,
+        "total_amount": totalPrice,
         "orderApplianceIds": [],
-        "payable_amount": selectedDishPrice,
+        "payable_amount": totalPrice,
         "is_gst": "0",
         "order_type": true,
         "items" : selectedDishes,
@@ -343,7 +341,12 @@ const pincodes =[
 
   }
 
-
+  const priceForPeople = peopleCount * 49
+    let totalPrice = selectedDishPrice + priceForPeople
+    if (selectedDishes.length > 7){
+        console.log("more than 7 dish")
+        totalPrice += 700
+    }
 
 
   return (
@@ -431,8 +434,8 @@ const pincodes =[
                       })
                     }
                   </div>
-                  <p style={{ color: "rgb(146, 82, 170)", fontWeight: "600", fontSize: "20px", margin: "9px 0 0 0", padding: "0" }}>Total: {selectedDishPrice}</p>
-                  <p style={{ color: "rgb(146, 82, 170)", fontWeight: "600", fontSize: "20px", margin: "0", padding: "0" }}>Advance payment: ₹ {Math.round(selectedDishPrice / 5)}</p>
+                  <p style={{ color: "rgb(146, 82, 170)", fontWeight: "600", fontSize: "20px", margin: "9px 0 0 0", padding: "0" }}>Total: {totalPrice}</p>
+                  <p style={{ color: "rgb(146, 82, 170)", fontWeight: "600", fontSize: "20px", margin: "0", padding: "0" }}>Advance payment: ₹ {Math.round(totalPrice / 5)}</p>
 
                 </div>
            
@@ -478,11 +481,11 @@ const pincodes =[
                       </div>
                       <div style={{ display: "flex", justifyContent: "space-between", flexDirection: "row", margin: "0 0 5px 0" }}>
                         <label style={{ color: "rgb(146, 82, 170)", fontSize: "16px", marigin: "16px 0 6px", fontWeight: 700 }}>Total Amount:</label>
-                        <p style={{ margin: 0, windth: "100%", color: "rgb(146, 82, 170)", fontSize: "16px", fontWeight: 700 }}>₹  {selectedDishPrice}</p>
+                        <p style={{ margin: 0, windth: "100%", color: "rgb(146, 82, 170)", fontSize: "16px", fontWeight: 700 }}>₹  {totalPrice}</p>
                       </div>
                       <div style={{ display: "flex", justifyContent: "space-between", flexDirection: "row", margin: "0 0 5px 0" }}>
                         <label style={{ color: "rgb(146, 82, 170)", fontSize: "16px", marigin: "16px 0 6px", fontWeight: 700 }}>Advance Amount:</label>
-                        <p style={{ margin: 0, windth: "100%", color: "rgb(146, 82, 170)", fontSize: "16px", fontWeight: 700 }}>₹ {Math.round(selectedDishPrice / 5)}</p>
+                        <p style={{ margin: 0, windth: "100%", color: "rgb(146, 82, 170)", fontSize: "16px", fontWeight: 700 }}>₹ {Math.round(totalPrice / 5)}</p>
                       </div>
 
 
