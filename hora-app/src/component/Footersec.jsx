@@ -78,7 +78,7 @@ const footerColumns = [
     links: [
       { text: '+917338584828', href: 'tel:+918982321487' },
       { text: 'dev@horaservices.com', href: 'mailto:dev@horaservices.com', style: { textTransform: 'lowercase' } },
-      { text: 'Contact Us', href: 'https://horaservices.com/ContactUs.html' },
+      { text: 'Contact Us', href: '/contactus' },
     ],
   },
 ];
