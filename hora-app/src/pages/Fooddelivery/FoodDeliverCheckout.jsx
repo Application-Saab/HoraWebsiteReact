@@ -609,6 +609,8 @@ const onContinueClick = async () => {
 
     const apiUrl = BASE_URL + PAYMENT;
 
+    const item = Object.keys(selectedDishes);
+
     const storedUserID = await localStorage.getItem('userID');
     const phoneNumber = await localStorage.getItem('mobileNumber')
 
@@ -638,7 +640,7 @@ const onContinueClick = async () => {
         "payable_amount": totalPrice,
         "is_gst": "0",
         "order_type": true,
-        "items" : selectedDishData,
+        "items" : item,
         "status": 0
       }
 

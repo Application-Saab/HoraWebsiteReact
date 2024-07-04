@@ -245,6 +245,8 @@ const pincodes =[
 
     const apiUrl = BASE_URL + PAYMENT;
 
+    console.log(selectedDishes);
+
     const storedUserID = await localStorage.getItem('userID');
     const phoneNumber = await localStorage.getItem('mobileNumber')
 
