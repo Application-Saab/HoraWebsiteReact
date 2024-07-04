@@ -45,69 +45,6 @@ function ContactUs() {
           <div className="frame white"></div>
         </div>
 
-        {/* <div style={styles.secRight}>
-          <div style={styles.boxHow}>
-            <i className="icon_tag_alt"></i>
-            <h2
-              style={{
-                fontSize: "1.3125rem",
-                color: "#444",
-                margin: "10px 0 10px 0",
-              }}
-            >
-              Call & Whatsapp
-            </h2>
-            <a href="tel:+918982321487" style={{ color: "#444" }}>
-              +918884221487
-            </a>
-          </div>
-          <div style={styles.boxHow}>
-            <i className="icon_pin_alt"></i>
-            <h2
-              style={{
-                fontSize: "1.3125rem",
-                color: "#444",
-                margin: "10px 0 10px 0",
-              }}
-            >
-              Email
-            </h2>
-            <div>
-              {" "}
-              <a href="mailto:dev@horaservices.com" style={{ color: "#444" }}>
-                dev@horaservices.com
-              </a>
-            </div>
-          </div>
-
-          <div style={styles.boxHow}>
-            <i className="icon_download"></i>
-            <h2
-              style={{
-                fontSize: "1.3125rem",
-                color: "#444",
-                margin: "10px 0 10px 0",
-              }}
-            >
-              Download Application
-            </h2>
-            <div>
-              {" "}
-              <small>
-                -{" "}
-                <a
-                  target="_blank"
-                  href="https://play.google.com/store/apps/details?id=com.hora"
-                  style={{ color: "#444" }}
-                >
-                  {" "}
-                  Click Here{" "}
-                </a>{" "}
-                -
-              </small>{" "}
-            </div>
-          </div>
-        </div> */}
         <div className="contact-us-secRight" style={styles.secRight}>
           <div className="contact-us-boxsection" style={styles.boxHow}>
             <FaTag style={styles.icon} />
@@ -117,7 +54,7 @@ function ContactUs() {
               Call & Whatsapp
             </h2>
             <a href="tel:+918982321487" style={{ color: "#444" }}>
-              +918884221487
+              +917338584828
             </a>
           </div>
           <div className="contact-us-boxsection" style={styles.boxHow}>

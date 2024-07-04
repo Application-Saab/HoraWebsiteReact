@@ -1,4 +1,4 @@
-import React, { useState,useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { BASE_URL, OTP_GENERATE_END_POINT, API_SUCCESS_CODE, OTP_VERIFY_ENDPOINT } from "../utills/apiconstants";
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -39,7 +39,6 @@ function Login() {
   const { time, isTimeUp, resetTimer } = useTimer(25);
 
   const handleMobileNumberChange = (e) => {
-    console.log("inside handle Mobile")
     const value = e.target.value.trim();
     setMobileNumber(value);
     // Check if the phone number is valid
@@ -47,26 +46,27 @@ function Login() {
     if (!isValidPhoneNumber) {
       setPhoneNumberError('Please enter a valid 10-digit phone number.');
       setValidMobileNumber(false); // Update validMobileNumber state
-      setLoginError(true)
+      setLoginError(true);
     } else {
       setPhoneNumberError('');
-      setLoginError(false)
+      setLoginError(false);
       setValidMobileNumber(true); // Update validMobileNumber state
     }
   }
- //when time is up set otpFail to true
- useEffect(() => {
-  if (isTimeUp && otpSent) {
-    setOtpError(true);
-  }
-}, [isTimeUp,otpSent]);
 
-//when component mounts focus on the first input field
-useEffect(() => {
-  if (otpSent) {
-    otpRefs.current[0]?.current?.focus();
-  }
-}, [otpSent]);
+  //when time is up set otpFail to true
+  useEffect(() => {
+    if (isTimeUp && otpSent) {
+      setOtpError(true);
+    }
+  }, [isTimeUp, otpSent]);
+
+  //when component mounts focus on the first input field
+  useEffect(() => {
+    if (otpSent) {
+      otpRefs.current[0]?.current?.focus();
+    }
+  }, [otpSent]);
 
   const handleSendOtp = () => {
     fetchOtp();
@@ -94,10 +94,10 @@ useEffect(() => {
           localStorage.setItem("mobileNumber", mobileNumber);
           localStorage.setItem('token', response.data.token);
           localStorage.setItem('userID', response.data.data._id);
-          console.log("previousPage", previousPage);
+          console.log("previousPage:", previousPage);
         
           if (previousPage.includes("/book-chef-cook-for-party")) {
-            alert(previousPage.includes("/book-chef-cook-for-party"));
+           // alert("Navigating to /book-chef-checkout");
             navigate('/book-chef-checkout', {
               state: {
                 peopleCount,
@@ -109,11 +109,13 @@ useEffect(() => {
                 selectedCount
               }
             });
-          } else if (previousPage.includes('/balloon-decoration/anniversary-decoration/product')) {
+          } else if (previousPage.startsWith('/balloon-decoration/anniversary-decoration/product')) {
+           // alert("Navigating to /checkout for anniversary decoration");
             navigate('/checkout', {
               state: { subCategory, product, orderType }
             });
           } else if (previousPage.includes('/party-food-delivery-live-catering-buffet-select-date')) {
+           // alert("Navigating to /party-food-delivery-live-catering-buffet-checkout");
             navigate("/party-food-delivery-live-catering-buffet-checkout", {
               state: {
                 peopleCount,
@@ -124,22 +126,27 @@ useEffect(() => {
                 selectedOption: selectedOption
               }
             });
+          } else if (previousPage.startsWith('/balloon-decoration/birthday-decoration/product/')) {
+           // alert("Navigating to /checkout for birthday decoration");
+            navigate('/checkout', {
+              state: { subCategory, product, orderType }
+            });
           } else {
+          //  alert("Navigating to home page");
             navigate('/');
           }
-        }
-        else {
-          setLoginMsg(" ")
+        } else {
+          setLoginMsg(" ");
           setOtpError('Failed to verify OTP. Please try again.');
         }
       } else {
-        setLoginMsg("")
+        setLoginMsg("");
         setValidOtp(false);
         setOtpError('Invalid OTP. Please try again.');
       }
     } catch (error) {
-      setLoginMsg(" ")
-      setLoginError(true)
+      setLoginMsg(" ");
+      setLoginError(true);
       console.log('Error verifying OTP:', error.message);
       setOtpError('Failed to verify OTP. Please try again.');
     }
@@ -197,7 +204,7 @@ useEffect(() => {
         resetTimer(); // Start the timer after OTP is sent successfully
         setOtp(['', '', '', '']); // Clear OTP fields
         setOtpError(''); // Clear OTP error
-        console.log("OTP sent successfully")
+        console.log("OTP sent successfully");
       } else {
         console.log('OTP sending failed');
       }
@@ -209,30 +216,32 @@ useEffect(() => {
   return (
     <div className="login-page" style={{ display: "flex", justifyContent: "center", flexDirection: "column", textAlign: "center", margin: "50px 0 0"}}>
       {!loggedIn ? (
-        <form className="loginform" style={!otpSent?{maxWidth:'36rem'}:{maxWidth:'30rem'}}>
-          {!otpSent ? (<>
-            <div className="form-group" style={{ display: "flex", justifyContent: "center", flexDirection: "column", textAlign: "center" }}>
-              <p className='font-16px' style={{color:"#9252AA" , fontWeight:600}}>Login with your mobile number </p>
-              <div className='row gap-1 justify-content-around' >
-                <div className='col-2 p-0 m-0 text-center'>
-                  <p className='form-control rounded-2 phone-code font-16px m-0 py-3'>+91</p>
+        <form className="loginform" style={!otpSent ? { maxWidth: '36rem' } : { maxWidth: '30rem' }}>
+          {!otpSent ? (
+            <>
+              <div className="form-group" style={{ display: "flex", justifyContent: "center", flexDirection: "column", textAlign: "center" }}>
+                <p className='font-16px' style={{ color: "#9252AA", fontWeight: 600 }}>Login with your mobile number </p>
+                <div className='row gap-1 justify-content-around'>
+                  <div className='col-2 p-0 m-0 text-center'>
+                    <p className='form-control rounded-2 phone-code font-16px m-0 py-3'>+91</p>
+                  </div>
+                  <div className='col-9 p-0 m-0'>
+                    <Form.Control
+                      className={`rounded-2 font-20px px-4 py-3 mb-4 ${loginError ? 'otp-failed' : 'input-field'}`}
+                      type="tel"
+                      name="mobileNumber"
+                      onChange={handleMobileNumberChange}
+                      value={mobileNumber}
+                      placeholder="Enter your 10 digit mobile number"
+                      isInvalid={loginError}
+                    />
+                  </div>
                 </div>
-                <div className='col-9 p-0 m-0'>
-                  <Form.Control
-                    className={`rounded-2 font-20px px-4 py-3 mb-4  ${loginError ? 'otp-failed' : 'input-field'}`}
-                    type="tel"
-                    name="mobileNumber"
-                    onChange={handleMobileNumberChange}
-                    value={mobileNumber}
-                    placeholder="Enter your 10 digit mobile number"
-                    isInvalid={loginError}
-                  />
-                </div>
+                {phoneNumberError && <span className="error">{phoneNumberError}</span>}
               </div>
-              {phoneNumberError && <span className="error">{phoneNumberError}</span>}
-            </div>
-            <button type="button" onClick={handleSendOtp} disabled={!validMobileNumber} className="blue-btn loginbtn">GET OTP</button>
-          </>) : (
+              <button type="button" onClick={handleSendOtp} disabled={!validMobileNumber} className="blue-btn loginbtn">GET OTP</button>
+            </>
+          ) : (
             <>
               <p className="font-14px text-center">
                 Check your phone we have sent you an OTP to {' '}
@@ -248,7 +257,7 @@ useEffect(() => {
                       maxLength={1}
                       inputMode="numeric"
                       value={digit}
-                      onChange={(e) => handleOtpChange(e, index)} 
+                      onChange={(e) => handleOtpChange(e, index)}
                       onKeyDown={(e) => handleKeyDown(e, index)}
                       ref={otpRefs.current[index]}
                     />
@@ -260,20 +269,20 @@ useEffect(() => {
           {loginMsg && <span className="successmsg">{loginMsg}</span>}
           {otpError && <span className="error">{otpError}</span>}
           {otpError ? (
-          <div className="d-flex justify-content-between mt-4">
-            <p className="m-0 p-0 text-danger font-13px">*Wrong OTP</p>
-            <p className="m-0 p-0 font-13px" style={{ color: '#9252AA' , cursor:"pointer"}} onClick={fetchOtp}>
-              Resend Code
-            </p>
-          </div>
-        ) : (
-          otpSent&&
-          <div className="d-flex justify-content-center mt-4">
-            <p className="m-0 p-0 font-13px text-center" style={{ color: '#8A8A8A' }}>
-              Resend Code in {time} sec
-            </p>
-          </div>
-        )}
+            <div className="d-flex justify-content-between mt-4">
+              <p className="m-0 p-0 text-danger font-13px">*Wrong OTP</p>
+              <p className="m-0 p-0 font-13px" style={{ color: '#9252AA', cursor: "pointer" }} onClick={fetchOtp}>
+                Resend Code
+              </p>
+            </div>
+          ) : (
+            otpSent &&
+            <div className="d-flex justify-content-center mt-4">
+              <p className="m-0 p-0 font-13px text-center" style={{ color: '#8A8A8A' }}>
+                Resend Code in {time} sec
+              </p>
+            </div>
+          )}
         </form>
       ) : (
         <div>
@@ -293,7 +302,3 @@ const styles = {
 }
 
 export default Login;
-
-
-
-

@@ -293,7 +293,7 @@ function DecorationCatPage() {
                             <loc>
                             {`https://horaservices.com/balloon-decoration/${catValue}/product/${item.name}`}
                             </loc>
-                        
+                            <priority>1.00</priority>
                         </url>
                          )
                       )}
