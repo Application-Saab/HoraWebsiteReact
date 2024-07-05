@@ -1,20 +1,217 @@
-import React from 'react';
+import React, { useEffect, useState } from "react";
+import { BASE_URL, ORDERLIST_ENDPOINT } from "../utills/apiconstants";
+import { FaRegCalendarAlt, FaClock, FaUsers } from "react-icons/fa";
+import { IoCalendarClear } from "react-icons/io5";
+import { FiClock } from "react-icons/fi";
+import clock from "../assets/clock.png";
+import people from "../assets/people.png";
+import date_time_icon from "../assets/date-time-icon.png";
+
+// order.type is 2 for chef
+// order.type is 1 for decoration
+// order.type is 3 for waiter
+// order type 4 bar tender
+// order type 5 cleaner
+// order type 6 Food Delivery
+// order type 7 Live Catering
 
 function Orderlist() {
-  const styles = {
-    textCenter: {
-      textAlign: 'center',
-    },
-    entryContent: {
-      padding: '0 20%',
-    },
+  const [orders, setOrders] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const fetchOrderList = async () => {
+      try {
+        const userId = await localStorage.getItem("userID");
+        setLoading(true);
+        const response = await fetch(BASE_URL + ORDERLIST_ENDPOINT, {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            page: "1",
+            _id: userId,
+          }),
+        });
+        const responseData = await response.json();
+
+        if (responseData && responseData.data && responseData.data.order) {
+          const sortedOrders = responseData.data.order.sort(
+            (a, b) => new Date(b.order_date) - new Date(a.order_date)
+          );
+          setOrders(sortedOrders);
+        } else {
+          console.log("No orders found");
+        }
+      } catch (error) {
+        console.log("Error fetching orders:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchOrderList();
+  }, []);
+
+  const getOrderStatus = (orderStatusValue) => {
+    if (orderStatusValue === 0) {
+      return { status: "Booked", className: "status-booked" };
+    }
+    if (orderStatusValue == 1) {
+      return { status: "Accepted", className: "status-accepted" };
+    }
+    if (orderStatusValue === 2) {
+      return { status: "In-progress", className: "status-in-progress" };
+    }
+    if (orderStatusValue === 3) {
+      return { status: "Completed", className: "status-completed" };
+    }
+    if (orderStatusValue === 4) {
+      return { status: "Cancelled", className: "status-cancelled" };
+    }
+    if (orderStatusValue === 5) {
+      return { status: "", className: "status-empty" };
+    }
+    if (orderStatusValue === 6) {
+      return { status: "Expired", className: "status-expired" };
+    }
   };
 
+  const getOrderType = (orderTypeValue) => {
+    if (orderTypeValue == 1) {
+      return "Decoration";
+    }
+    if (orderTypeValue === 2) {
+      return "Chef";
+    }
+    if (orderTypeValue === 3) {
+      return "Waiter";
+    }
+    if (orderTypeValue === 4) {
+      return "Bar Tender";
+    }
+    if (orderTypeValue === 5) {
+      return "Cleaner";
+    }
+    if (orderTypeValue === 6) {
+      return "Food Delivery";
+    }
+    if (orderTypeValue === 7) {
+      return "Live Catering";
+    }
+  };
+
+  const formatDate = (dateString) => {
+    const options = { day: "numeric", month: "short", year: "numeric" };
+    return new Date(dateString).toLocaleDateString("en-GB", options);
+  };
+
+  if (loading) {
+    return (
+      <center>
+        <div className="custom-spinner m-5">
+          <div className="spinner-border" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </div>
+          <div style={{ marginTop: "10px", color: "#9252AA" }}>
+            {" "}
+            <h4> Data is loading...</h4>
+          </div>
+        </div>
+      </center>
+    );
+  }
+
   return (
-    <main>
-      <div className="container occation-intro-inner col-lg-12 row justify-content-center d-flex align-items-center">
-        <h3 style={styles.textCenter}>Order History</h3>
-      
+    <main className="order-list">
+      <div className="order-container">
+        {orders?.map((order) => {
+          const orderStatus = getOrderStatus(order?.order_status);
+          return (
+            <div key={order.order_id} className="order-card">
+              <div className="order-div">
+                <div className="order-id">
+                  <strong style={{ color: "#9252AA" }}>
+                    Order Id: {order?.order_id}
+                  </strong>
+                  <h6 className="order-otp mt-2" style={{ color: "#9252AA" }}>
+                    OTP: {order?.otp}
+                  </h6>
+                </div>
+                <div className="order-status">
+                  <span className={orderStatus.className}>
+                    {orderStatus.status}
+                  </span>
+                  <h6 className="mt-2" style={{ color: "#9252AA" }}>
+                    {getOrderType(order?.type)}
+                  </h6>
+                </div>
+              </div>
+              <div className="order-details">
+                <div className="left-details">
+                  <div>
+                    {/* <IoCalendarClear color="#9252AA" size={20}/>{" "} */}
+                    <img
+                      className="contact-us-img"
+                      src={date_time_icon}
+                      height={20}
+                      width={20}
+                    />{" "}
+                    <strong>{formatDate(order.order_date)}</strong>
+                  </div>
+                  <div>
+                    {/* <FiClock color="#9252AA" size={20}/>{" "} */}
+                    <img
+                      className="contact-us-img"
+                      src={clock}
+                      height={20}
+                      width={20}
+                    />{" "}
+                    <strong>{order.order_time}</strong>
+                  </div>
+                  <div>
+                    {/* <FaUsers color="#9252AA" size={20}/>{" "} */}
+                    <img
+                      className="contact-us-img"
+                      src={people}
+                      height={20}
+                      width={20}
+                    />{" "}
+                    <strong>{order?.no_of_people} People</strong>
+                  </div>
+                </div>
+                <div className="right-details">
+                  <div>
+                    <strong style={{ color: "#9252AA" }}>
+                      Total Amount
+                      <p className="mb-0"> ₹{order?.payable_amount}</p>
+                    </strong>
+                  </div>
+                  <div>
+                    <strong style={{ color: "#9252AA" }}>
+                      Balance Amount
+                      <p className="mb-0">
+                        {" "}
+                        ₹{Math.round(order?.payable_amount * 0.35)}
+                      </p>
+                    </strong>
+                  </div>
+                </div>
+              </div>
+              <hr className="m-0"/>
+              <div className="d-flex button-div">
+                <div>
+                  <button className="view-details">View Details</button>
+                </div>
+                <div>
+                  <button className="send-invite">Send Invite</button>
+                </div>
+              </div>
+            </div>
+          );
+        })}
       </div>
     </main>
   );

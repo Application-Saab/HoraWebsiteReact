@@ -491,6 +491,38 @@ button.dec-continueButton {
     padding: 0 20px;
 }
 
+/* My order mobile view */
+.order-list{
+  width: 100% !important;
+}
+.order-card{
+  width: 100% !important;
+}
+
+.button-div {
+  padding: 0px !important;
+  justify-content: space-between;
+  margin-top: 0px !important;
+}
+
+.view-details {
+  /* background-color: #6c63ff; */
+  color: #ac108d;
+  border: 1px solid #ac108d;
+  padding: 4px 18px !important;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 10px !important;
+}
+.send-invite{
+  color: white;
+  border: 1px solid #9252AA;
+  background-color: #9252AA;
+  padding: 4px 18px !important;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 10px !important;
+}
 /* contact-us mobile view */
 
 .textContent{
@@ -1174,4 +1206,187 @@ p.req-des {
 .dish-item-inner {
   height: 115px;
 }
+}
+
+
+/* My order css */
+
+.order-list {
+  width: 80%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.order-header {
+  margin-bottom: 20px;
+}
+
+.order-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.order-card {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  width: 60%;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.order-div {
+  display: flex;
+  justify-content: space-between;
+  background-color: rgb(224, 219, 219);
+  border-radius: 10px;
+  align-items: flex-start;
+  padding: 10px;
+}
+
+.order-id {
+  font-size: 1.2em;
+  margin-bottom: 10px;
+}
+.order-otp{
+  align-items: flex-start;
+  margin: 0;
+  text-align: start;
+}
+.order-status {
+  margin-bottom: 10px;
+  /* position: absolute; */
+  /* top: 20px; */
+  /* right: 20px; */
+}
+
+.order-details {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  margin-top: 5px;
+}
+
+ .right-details {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end
+}
+.right-details , p{
+  text-align: end;
+}
+.left-details{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.left-details div, .right-details div {
+  margin-bottom: 10px;
+}
+
+.view-details {
+  /* background-color: #6c63ff; */
+  color:#9252AA;
+  border: 1px solid #9252AA;
+  padding: 6px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  /* margin-top: 40px !important; */
+}
+
+.send-invite{
+  color: white;
+  border: 1px solid #9252AA;
+  background-color: #9252AA;
+  padding: 6px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  /* margin-top: 42px !important; */
+}
+.button-div{
+  padding: 10px;
+  justify-content: space-between;
+  margin-top: 5px;
+}
+.view-details:hover {
+  /* background-color: #5753d6; */
+}
+
+.status.cancelled {
+  color: red;
+}
+.status.fooddelivery {
+  color: orange;
+}
+.status.livecatering {
+  color: green;
+}
+
+
+/* order status */
+
+.status-booked {
+  color: orange;
+  background-color: #fff7e6;
+  /* border: 1px solid orange; */
+  border-radius: 13px;
+  padding: 3px 13px;
+}
+
+.status-accepted {
+  color: blue;
+  background-color: #e6f0ff;
+  /* border: 1px solid blue; */
+  border-radius: 13px;
+  padding: 3px 13px;
+}
+
+.status-in-progress {
+  color: yellow;
+  background-color: #ffffe6;
+  /* border: 1px solid yellow; */
+  border-radius: 13px;
+  padding: 3px 13px;
+}
+
+.status-completed {
+  color: green;
+  background-color: #e6ffe6;
+  /* border: 1px solid green; */
+  border-radius: 13px;
+  padding: 3px 13px;
+}
+
+.status-cancelled {
+  color: red;
+  background-color: #ffe6e6;
+  /* border: 1px solid red; */
+  border-radius: 13px;
+  padding: 3px 13px;
+}
+
+.status-empty {
+  color: grey;
+  background-color: #f0f0f0;
+  /* border: 1px solid grey; */
+  border-radius: 13px;
+  padding: 3px 13px;
+}
+
+.status-expired {
+  color: rgb(245, 111, 111);
+  background-color: #ffe6e6;
+  /* border: 1px solid grey; */
+  border-radius: 13px;
+  padding: 3px 13px;
+}
+
+
+/* Loader css */
+
+.custom-spinner .spinner-border {
+  color: #9252AA;
 }
