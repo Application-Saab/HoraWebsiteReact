@@ -33,10 +33,12 @@ const FoodDeliveryselectDate = ({ history }) => {
     }
 
     const decreasePeopleCount = () => {
-        if (peopleCount != 0) {
-            setPeopleCount(peopleCount - 1)
+        if (peopleCount > 10) {
+            setPeopleCount(peopleCount - 1);
+        } else {
+            alert("Minimum guest count should be 10");
         }
-    }
+    };
 
     const contactUsRedirection = () => {
         window.open('whatsapp://send?phone=+917338584828&text=Hello%20I%20have%20some%20queries%20for%20food%20delivey%20and%20live%20Catering%20service');
@@ -45,7 +47,7 @@ const FoodDeliveryselectDate = ({ history }) => {
         const totalOrderAmount = selectedOption === 'party-live-buffet-catering' ? dishPrice * peopleCount + 6500 : dishPrice * peopleCount;
         
         if (totalOrderAmount < 3000) {
-            alert("Please select minimum order amount: 3000rps");
+            alert("Minimum Order value shuold be 3000 Rs");
             return; // Stop further execution if totalOrderAmount is less than 3000
         }
     
@@ -54,7 +56,7 @@ const FoodDeliveryselectDate = ({ history }) => {
                 from: window.location.pathname,
                 peopleCount: peopleCount,
                 selectedDeliveryOption: selectedOption,
-                selectedDishes: data,
+                selectedDishesFoodDelivery: data,
                 totalOrderAmount: totalOrderAmount,
                 selectedDishQuantities: selectedDishQuantities,
                 selectedOption: selectedOption,

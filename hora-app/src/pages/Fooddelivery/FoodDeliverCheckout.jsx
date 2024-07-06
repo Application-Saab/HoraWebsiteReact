@@ -14,7 +14,7 @@ import { Dropdown, DropdownButton } from 'react-bootstrap';
 import checkImage from '../../assets/check.png';
 
 function FoodDeliveryCheckout() {
-  const { selectedDishes , selectedOption ,orderType, selectedDishDictionary, selectedDishPrice, totalOrderAmount , selectedDishQuantities , peopleCount} = useLocation().state || {}; // Accessing subCategory and itemName safely
+  const { selectedDishesFoodDelivery , selectedOption ,orderType, selectedDishDictionary, selectedDishPrice, totalOrderAmount , selectedDishQuantities , peopleCount} = useLocation().state || {}; // Accessing subCategory and itemName safely
   const [comment, setComment] = useState('');
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [selectedDateError, setSelectedDateError] = useState(false);
@@ -29,7 +29,6 @@ function FoodDeliveryCheckout() {
   const [cityError, setCityError] = useState(false);
   const navigate = useNavigate();
   const [showDatePicker, setShowDatePicker] = useState(false);
-    const selectedDishData  = selectedDishes;
     const selectedDeliveryOption = selectedOption;
     const [deliveryCharges, setDeliveryCharges] = useState(300);
     const [packingCost, setpackingCost] = useState(200);
@@ -50,7 +49,9 @@ const [combinedDateTimeError, setCombinedDateTimeError] = useState(false);
     setComment(e.target.value);
   };
 
-  const selectedMealList = Object.values(selectedDishData).map(dish => {
+
+
+  const selectedMealList = Object.values(selectedDishesFoodDelivery).map(dish => {
     return {
         name: dish.name,
         image: dish.image,
@@ -638,7 +639,7 @@ const onContinueClick = async () => {
         "payable_amount": totalPrice,
         "is_gst": "0",
         "order_type": true,
-        "items" : selectedDishData,
+        "items" : selectedDishesFoodDelivery,
         "status": 0
       }
 
@@ -776,7 +777,7 @@ const onContinueClick = async () => {
                 <div style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
                               <div style={{ marginHorizontal: 16, flexDirection: 'column', width: 120, borderRadius: 6, borderColor: '#E6E6E6', borderWidth: 1, marginTop: 6 }}>
                                   <p style={{ color: '#A3A3A3', fontSize: 9, fontWeight: '400' }}>Total Dishes</p>
-                                  <p style={{ color: '#9252AA', fontSize: 13, fontWeight: '600' }}>{Object.keys(selectedDishData).length}</p>
+                                  <p style={{ color: '#9252AA', fontSize: 13, fontWeight: '600' }}>{Object.keys(selectedDishesFoodDelivery).length}</p>
                               </div>
                               <div style={{ marginHorizontal: 16, flexDirection: 'column', width: 120, borderRadius: 6, borderColor: '#E6E6E6', borderWidth: 1, marginTop: 6 }}>
                                   <p style={{ color: '#A3A3A3', fontSize: 9, fontWeight: '400' }}>No. of People</p>
@@ -935,7 +936,7 @@ const onContinueClick = async () => {
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexDirection: "row" }}>
                     <div style={{ display: "flex", justifyContent: "space-between", flexDirection: "column" }}>
                         <label style={{ color: "rgb(146, 82, 170)", fontSize: "12px", marigin: "16px 0 6px", fontWeight: 500 }}>Total Dishes</label>
-                        <p style={{ margin: 0, windth: "100%", color: "rgb(146, 82, 170)", fontSize: "12px", fontWeight: 200 }}> {Object.keys(selectedDishData).length}</p>
+                        <p style={{ margin: 0, windth: "100%", color: "rgb(146, 82, 170)", fontSize: "12px", fontWeight: 200 }}> {Object.keys(selectedDishesFoodDelivery).length}</p>
                     </div>
                     {
                         peopleCount > 0 ?

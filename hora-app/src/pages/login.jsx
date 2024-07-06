@@ -32,7 +32,7 @@ function Login() {
   const totalOrderAmount = location.state && location.state.totalOrderAmount;
   const selectedDishQuantities = location.state && location.state.selectedDishQuantities;
   const selectedOption = location.state && location.state.selectedOption;
-  const data = location.state && location.state.data;
+  const selectedDishesFoodDelivery = location.state && location.state.selectedDishesFoodDelivery;
   const [validMobileNumber, setValidMobileNumber] = useState(false); // Add state for valid mobile number
   const navigate = useNavigate();
   const otpRefs = useRef([React.createRef(), React.createRef(), React.createRef(), React.createRef()]);
@@ -120,7 +120,7 @@ function Login() {
               state: {
                 peopleCount,
                 selectedDeliveryOption: selectedOption,
-                selectedDishes: data,
+                selectedDishesFoodDelivery: selectedDishesFoodDelivery,
                 totalOrderAmount: totalOrderAmount,
                 selectedDishQuantities: selectedDishQuantities,
                 selectedOption: selectedOption
