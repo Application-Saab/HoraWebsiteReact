@@ -620,9 +620,7 @@ const onContinueClick = async () => {
     const advance = calculateAdvancePayment();
     const total = calculateFinalTotal();
 
-    console.log(selectedDishesFoodDelivery)
-
-    console.log(advance);
+    console.log(selectedTimeSlot);
 
     try {
 
@@ -687,7 +685,7 @@ const onContinueClick = async () => {
         });
 
         
-        //window.location.href = response2.data
+        window.location.href = response2.data
 
       }else{
         if(!city){
