@@ -20,11 +20,15 @@ import whatsppicon from "./assets/whatsapp-icon.png";
 import FoodDeliveryCreateOrder from './pages/Fooddelivery/FoodDeliveryCreateOrder.jsx';
 import FoodDeliveryselectDate from './pages/Fooddelivery/FoodDeliveryselectedate.jsx';
 import FoodDeliveryCheckout from './pages/Fooddelivery/FoodDeliverCheckout.jsx';
+import ChefCitypage from './pages/ChefCitypage.jsx';
+import CreateOrder from './pages/ChefOrder/CreateOrder.jsx';
+import ChefCheckout from './pages/ChefOrder/ChefCheckout.jsx';
+import SelectDate from './pages/ChefOrder/SelectDate.jsx';
 
-const ChefCitypage = lazy(() => import('./pages/ChefCitypage.jsx'));
-const CreateOrder = lazy(() => import('./pages/ChefOrder/CreateOrder'));
-const ChefCheckout = lazy(() => import('./pages/ChefOrder/ChefCheckout.jsx'));
-const SelectDate = lazy(() => import('./pages/ChefOrder/SelectDate'));
+// const ChefCitypage = lazy(() => import('./pages/ChefCitypage.jsx'));
+// const CreateOrder = lazy(() => import('./pages/ChefOrder/CreateOrder'));
+// const ChefCheckout = lazy(() => import('./pages/ChefOrder/ChefCheckout.jsx'));
+// const SelectDate = lazy(() => import('./pages/ChefOrder/SelectDate'));
 
 function App() {
   return (

@@ -853,7 +853,7 @@ function DecorationCity() {
                     <div style={styles.pageWidth}>
                         <div style={styles.textContainer} className="textContainerhome">
                             <h1 style={{ fontSize: "40px", fontWeight: "500", margin: "0" }}>{"Simplifying and Enhancing celebrations."}</h1>
-                            <h2 style={{ fontSize: "72px", fontWeight: "900", margin: "0 0 10px", lineHeight: "77px", margin: "0px 0 10px", padding: "3px 14% 5px 14%", textTransform: "uppercase" }}>{"DECORATION IN YOUR "}{city}</h2>
+                            <h2 style={{ fontSize: "72px", fontWeight: "900", margin: "0 0 10px", lineHeight: "77px", margin: "0px 0 10px", padding: "3px 14% 5px 14%", textTransform: "uppercase" }}>{"ALL PARTY SERVICE ONE PLATFORM"}</h2>
                         </div>
                     </div>
                     <div style={styles.bannerBottomSec} className="bannerBottomSec">
