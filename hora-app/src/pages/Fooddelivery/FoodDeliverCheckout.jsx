@@ -610,7 +610,7 @@ const onContinueClick = async () => {
 
     const apiUrl = BASE_URL + PAYMENT;
 
-    const item = Object.keys(selectedDishesFoodDelivery);
+    
 
     const storedUserID = await localStorage.getItem('userID');
     const phoneNumber = await localStorage.getItem('mobileNumber')
@@ -618,6 +618,9 @@ const onContinueClick = async () => {
     let merchantTransactionId;
 
     const advance = calculateAdvancePayment();
+    const total = calculateFinalTotal();
+
+    console.log(selectedTimeSlot);
 
     try {
 
@@ -636,12 +639,12 @@ const onContinueClick = async () => {
         "order_date": selectedDate.toDateString(),
         "no_of_burner": includeDisposable,
         "order_locality": city,
-        "total_amount": totalPrice,
+        "total_amount": total,
         "orderApplianceIds": [],
-        "payable_amount": totalPrice,
+        "payable_amount": total,
         "is_gst": "0",
         "order_type": true,
-        "items" : selectedDishesFoodDelivery,
+        "items" : Object.keys(selectedDishesFoodDelivery),
         "status": 0
       }
 
