@@ -24,6 +24,7 @@ import Success from './pages/Success.jsx'
 import FoodDeliveryCreateOrder from './pages/Fooddelivery/FoodDeliveryCreateOrder.jsx'
 import FoodDeliveryselectDate from './pages/Fooddelivery/FoodDeliveryselectedate.jsx';
 import FoodDeliveryCheckout from './pages/Fooddelivery/FoodDeliverCheckout.jsx';
+import OrderDetail from './pages/OrderDetail.jsx';
 
 function App() {
   return (
@@ -61,6 +62,8 @@ function App() {
           <Route path="/party-food-delivery-live-catering-buffet/:selectedfoodCategory" element={<FoodDeliveryCreateOrder/>}/>
           <Route path="/party-food-delivery-live-catering-buffet-select-date/:selectedfoodCategory" element={<FoodDeliveryselectDate/>}/>
           <Route path="/party-food-delivery-live-catering-buffet-checkout" element={<FoodDeliveryCheckout/>}/>
+          {/* order detail page */}
+          <Route path="/order-details/:api_id/:order_id/:order_type" element={<OrderDetail/>}/>
         </Routes>
         </div>
 <div>
