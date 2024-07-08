@@ -6,19 +6,12 @@ import { FiClock } from "react-icons/fi";
 import clock from "../assets/clock.png";
 import people from "../assets/people.png";
 import date_time_icon from "../assets/date-time-icon.png";
-
-// order.type is 2 for chef
-// order.type is 1 for decoration
-// order.type is 3 for waiter
-// order type 4 bar tender
-// order type 5 cleaner
-// order type 6 Food Delivery
-// order type 7 Live Catering
+import {  useNavigate } from 'react-router-dom';
 
 function Orderlist() {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(false);
-
+  const navigate = useNavigate();
   useEffect(() => {
     const fetchOrderList = async () => {
       try {
@@ -79,6 +72,10 @@ function Orderlist() {
     }
   };
 
+  const openContinueShopping = () => {
+    navigate("/")
+  }
+
   const getOrderType = (orderTypeValue) => {
     if (orderTypeValue == 1) {
       return "Decoration";
@@ -124,6 +121,19 @@ function Orderlist() {
     );
   }
 
+  if (orders.length === 0) {
+    return (
+      <center>
+        <div className="no-orders">
+          <h4>No Orders.. Please continue shopping with Hora</h4>
+          <button className="button-style" onClick={openContinueShopping}>
+            Continue Shopping
+          </button>
+        </div>
+      </center>
+    );
+  }
+
   return (
     <main className="order-list">
       <div className="order-container">
@@ -152,7 +162,6 @@ function Orderlist() {
               <div className="order-details">
                 <div className="left-details">
                   <div>
-                    {/* <IoCalendarClear color="#9252AA" size={20}/>{" "} */}
                     <img
                       className="contact-us-img"
                       src={date_time_icon}
@@ -162,7 +171,6 @@ function Orderlist() {
                     <strong>{formatDate(order.order_date)}</strong>
                   </div>
                   <div>
-                    {/* <FiClock color="#9252AA" size={20}/>{" "} */}
                     <img
                       className="contact-us-img"
                       src={clock}
@@ -172,7 +180,6 @@ function Orderlist() {
                     <strong>{order.order_time}</strong>
                   </div>
                   <div>
-                    {/* <FaUsers color="#9252AA" size={20}/>{" "} */}
                     <img
                       className="contact-us-img"
                       src={people}

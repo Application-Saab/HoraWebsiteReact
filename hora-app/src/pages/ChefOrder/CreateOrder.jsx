@@ -317,6 +317,22 @@ const CreateOrder = ({ history }) => {
     
     };
 
+    if (loading) {
+        return (
+          <center>
+            <div className="custom-spinner m-5">
+              <div className="spinner-border" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </div>
+              <div style={{ marginTop: "10px", color: "#9252AA" }}>
+                {" "}
+                <h4> Data is loading...</h4>
+              </div>
+            </div>
+          </center>
+        );
+      }
+
 
       const closeBottomSheet = () => {
         setDishDetail(null);
@@ -396,12 +412,6 @@ const CreateOrder = ({ history }) => {
     return (
         <>
             <div className="order-container">
-                {loading && (
-                    <div className="d-flex justify-content-center align-items-center">
-                        <Spinner animation="border" />
-                    </div>
-                )}
-                {!loading && (
                     <>
                         <Row className="d-flex justify-content-start">
                             <div style={{display:"flex", margin:"10px 0 0" }}>
@@ -500,7 +510,7 @@ const CreateOrder = ({ history }) => {
 )}
 
                     </>
-                )}
+        
             </div>
             <Modal show={isViewAllSheetOpen} onHide={closeViewAllSheet}>
         <Modal.Header closeButton>
