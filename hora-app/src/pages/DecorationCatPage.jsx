@@ -3,11 +3,11 @@ import { useParams, useLocation, useNavigate } from "react-router-dom";
 import { Modal, Button, Container, Row, Col, Spinner, Card } from 'react-bootstrap';
 import { BASE_URL, GET_DECORATION_CAT_ID, GET_DECORATION_CAT_ITEM, API_SUCCESS_CODE } from '../utills/apiconstants';
 import axios from 'axios';
+import { Helmet } from 'react-helmet';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons"
-import Slider from "react-slick";
 import { CardSkeleton } from "../component/CardSkeleton";
-
+import { getDecorationCatOrganizationSchema } from "../utills/schema";
 function DecorationCatPage() {
   const location = useLocation();
   let { city } = useParams();
@@ -24,7 +24,8 @@ function DecorationCatPage() {
   const navigate = useNavigate();
   const [priceFilter, setPriceFilter] = useState("all"); // Default: Show all
   const [themeFilter, setThemeFilter] = useState("all"); // Default: Show all
-
+  const schemaOrg = getDecorationCatOrganizationSchema(catValue);
+  const scriptTag = JSON.stringify(schemaOrg);
   const themeFilters = [
     { label: 'Select Design', value: 'all' },
     { label: 'Astronaut space theme', value: 'Astronaut-space' },
@@ -149,10 +150,10 @@ function DecorationCatPage() {
   const handleViewDetails = (subCategory, catValue, product) => {
     const productName = product.name.replace(/ /g, "-");
     if (hasCityPageParam) {
-      navigate(`/${city}/balloon-decoration/${catValue}/product/${productName}`, { state: { subCategory, product, orderType } });
+      navigate(`/${city}/balloon-decoration/${catValue}/product/${productName}`, { state: { subCategory, product, orderType , catValue } });
     }
     else {
-      navigate(`/balloon-decoration/${catValue}/product/${productName}`, { state: { subCategory, product, orderType } });
+      navigate(`/balloon-decoration/${catValue}/product/${productName}`, { state: { subCategory, product, orderType, catValue } });
     }
   };
 
@@ -171,6 +172,19 @@ function DecorationCatPage() {
 
   return (
     <div style={{ backgroundColor: "#EDEDED" }} className="decCatPage">
+       <Helmet>
+        <title>Balloon and Flower Decoration @999</title>
+        <meta name="description" content="Celebrate Anniversary, Birthday & other Occasions with Candlelight Dinners, Surprises & Balloon Decorations" />
+        <meta name="keywords" content="Balloon and Flower Decoration @999" />
+        <meta property="og:title" content="Balloon and Flower Decoration by Professional Decorators" />
+        <meta property="og:description" content="Celebrate Anniversary, Birthday & other Occasions with Candlelight Dinners, Surprises & Balloon Decorations" />
+        <meta property="og:image" content="https://horaservices.com/api/uploads/attachment-1706520980436.png" />
+        <script type="application/ld+json">{scriptTag}</script>
+        <meta name="robots" content="index, follow" />
+        <meta name="author" content="Hora Services" />
+        <meta property="og:url" content={`https://horaservices.com/balloon-decoration/${catValue}`} />
+        <meta property="og:type" content="website" />
+      </Helmet>
       <>
         <div style={{ textAlign: "center", justifyContent: "center", alignItems: "center" }}>
           <div style={{ marginTop: "0px" }}>

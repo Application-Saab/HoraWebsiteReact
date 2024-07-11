@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Helmet } from 'react-helmet';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import axios from 'axios';
 import { useParams } from "react-router-dom";
@@ -12,12 +13,11 @@ import WelcomebabyImage from '../assets/welcome_baby_dec.jpeg'
 import PremiumImage from '../assets/preminumdecor.jpeg'
 import CarbootImage from '../assets/car_boot.jpg'
 import BallonBImage from '../assets/Balloon-B-new.jpeg'
-import BachelorPartyImage from '../assets/bechelor_party.jpg'
-import CandlelightdinnerImage from '../assets/candlelightdinner.jpg'
-import PartySupplyImage from '../assets/Party_Supply.jpg'
-import EntertainerImage from '../assets/entertainer.jpg'
+import { getDecorationOrganizationSchema } from '../utills/schema';
 
 function Decoration() {
+  const schemaOrg = getDecorationOrganizationSchema();
+  const scriptTag = JSON.stringify(schemaOrg);
   let { city } = useParams();
   const hasCityPageParam = city ? true : false;
     const navigate = useNavigate();
@@ -67,6 +67,19 @@ function Decoration() {
 
     return (
         <div>
+        <Helmet>
+        <title>Balloon and Flower Decoration @999</title>
+        <meta name="description" content="Celebrate Anniversary, Birthday & other Occasions with Candlelight Dinners, Surprises & Balloon Decorations" />
+        <meta name="keywords" content="Balloon and Flower Decoration @999" />
+        <meta property="og:title" content="Balloon and Flower Decoration by Professional Decorators" />
+        <meta property="og:description" content="Celebrate Anniversary, Birthday & other Occasions with Candlelight Dinners, Surprises & Balloon Decorations" />
+        <meta property="og:image" content="https://horaservices.com/api/uploads/attachment-1706520980436.png" />
+        <script type="application/ld+json">{scriptTag}</script>
+        <meta name="robots" content="index, follow" />
+        <meta name="author" content="Hora Services" />
+        <meta property="og:url" content="https://horaservices.com/balloon-decoration" />
+        <meta property="og:type" content="website" />
+      </Helmet>
             <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", margin: "30px auto 0", width: "60%" }} className="decContainerSec decPage">
             <div style={styles.decContainer} className="decContainer gap-4">
                 {decCat.map((item, index) => (
@@ -87,8 +100,6 @@ function Decoration() {
             </div>
         </div>
     );
-    
-
 }
 
     const styles = {

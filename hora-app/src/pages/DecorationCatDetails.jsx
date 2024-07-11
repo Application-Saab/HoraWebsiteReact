@@ -8,17 +8,17 @@ import buynowImage3 from '../assets/originalreviews.png';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons"
 import checkImage from '../assets/tick.jpeg.jpeg';
-
-
+import { getDecorationProductOrganizationSchema } from "../utills/schema";
+import { Helmet } from "react-helmet";
 function DecorationCatDetails() {
   const [selCat, setSelCat] = useState("");
   const [orderType, setOrderType] = useState(1);
-
   const navigate = useNavigate();
-  const { subCategory, product } = useLocation().state || {}; // Accessing subCategory and itemName safely
-
+  const { subCategory, product , catValue} = useLocation().state || {}; // Accessing subCategory and itemName safely
+  const schemaOrg = getDecorationProductOrganizationSchema(product);
+  const scriptTag = JSON.stringify(schemaOrg);
   const handleCheckout = (subCategory, product) => {
-    const stateData = { from: window.location.pathname, subCategory, product, orderType };
+  const stateData = { from: window.location.pathname, subCategory, product, orderType , catValue };
 
     if (localStorage.getItem("isLoggedIn") !== "true") {
         navigate('/login', { state: stateData });
@@ -26,9 +26,6 @@ function DecorationCatDetails() {
         navigate('/checkout', { state: { subCategory, product, orderType } });
     }
 };
-
-
-
 
   function addSpaces(subCategory) {
     let result = "";
@@ -79,6 +76,19 @@ function DecorationCatDetails() {
   };
   return (
     <div className="App" style={{ backgroundColor:"#EDEDED"}}>
+       <Helmet>
+        <title>Balloon and Flower Decoration @999</title>
+        <meta name="description" content="Celebrate Anniversary, Birthday & other Occasions with Candlelight Dinners, Surprises & Balloon Decorations" />
+        <meta name="keywords" content="Balloon and Flower Decoration @999" />
+        <meta property="og:title" content="Balloon and Flower Decoration by Professional Decorators" />
+        <meta property="og:description" content="Celebrate Anniversary, Birthday & other Occasions with Candlelight Dinners, Surprises & Balloon Decorations" />
+        <meta property="og:image" content="https://horaservices.com/api/uploads/attachment-1706520980436.png" />
+        <script type="application/ld+json">{scriptTag}</script>
+        <meta name="robots" content="index, follow" />
+        <meta name="author" content="Hora Services" />
+        <meta property="og:url" content={`https://horaservices.com/balloon-decoration/${catValue}/product/${product.name}`} />
+        <meta property="og:type" content="website" />
+      </Helmet>
       <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
 
         <div style={{ display: "flex", justifyContent: "center", alignItems: "flex-start", paddingTop: "10px", position: "relative" }} className="decDetails">
