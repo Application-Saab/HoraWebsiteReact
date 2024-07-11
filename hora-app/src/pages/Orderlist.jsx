@@ -143,8 +143,11 @@ function Orderlist() {
 
   const handleViewDetail = (order) => {
     const { _id, order_id, type } = order;
-    navigate(`/order-details/${_id}/${order_id}/${type}`, {
-      state: {_id, order_id, type},
+    const apiOrderId = _id
+    const orderType = type
+    const orderId = order_id
+    navigate(`/order-details`, {
+      state: {apiOrderId, orderType, orderId},
     });
   };
 
@@ -228,13 +231,16 @@ function Orderlist() {
                     <div>
                       <strong style={{ color: "#9252AA" }}>
                         Total Amount
-                        <p className="mb-0"> ₹{order?.payable_amount}</p>
+                        <p className="mb-0 price-para">
+                          {" "}
+                          ₹{order?.payable_amount}
+                        </p>
                       </strong>
                     </div>
                     <div>
                       <strong style={{ color: "#9252AA" }}>
                         Balance Amount
-                        <p className="mb-0">
+                        <p className="mb-0 price-para">
                           {" "}
                           ₹{Math.round(order?.payable_amount * 0.35)}
                         </p>

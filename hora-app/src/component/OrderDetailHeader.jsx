@@ -3,7 +3,6 @@ import { CiCalendar } from "react-icons/ci";
 import { GoClock } from "react-icons/go";
 import { MdPeopleAlt } from "react-icons/md";
 const OrderDetailHeader = ({ orderDetail }) => {
-
   const getOrderId = (e) => {
     const orderId1 = 10800 + e;
     const updateOrderId = "#" + orderId1;
@@ -34,14 +33,13 @@ const OrderDetailHeader = ({ orderDetail }) => {
     }
   };
 
-  const orderStatus = getOrderStatus(orderDetail?.order_status)
+  const orderStatus = getOrderStatus(orderDetail?.order_status);
 
   const formatDate = (dateString) => {
     const options = { day: "numeric", month: "short", year: "numeric" };
     return new Date(dateString).toLocaleDateString("en-GB", options);
   };
 
-  console.log("orderDetail?.order_status",orderDetail?.order_status)
   return (
     <div className="order-header">
       <div className="order-id-status">
@@ -52,15 +50,15 @@ const OrderDetailHeader = ({ orderDetail }) => {
       </div>
       <div className="order-info">
         <div className="order-info-div">
-          <CiCalendar size={20} />
+          <CiCalendar className="header-icons" size={20} />
           <p>{formatDate(orderDetail?.order_date)}</p>
         </div>
         <div className="order-info-div">
-          <GoClock size={20} />
+          <GoClock className="header-icons" size={20} />
           <p>{orderDetail?.order_time}</p>
         </div>
         <div className="order-info-div">
-          <MdPeopleAlt size={20} />
+          <MdPeopleAlt className="header-icons" size={20} />
           <p>{orderDetail?.no_of_people} People</p>
         </div>
       </div>

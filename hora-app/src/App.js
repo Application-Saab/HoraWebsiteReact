@@ -63,7 +63,7 @@ function App() {
           <Route path="/party-food-delivery-live-catering-buffet-select-date/:selectedfoodCategory" element={<FoodDeliveryselectDate/>}/>
           <Route path="/party-food-delivery-live-catering-buffet-checkout" element={<FoodDeliveryCheckout/>}/>
           {/* order detail page */}
-          <Route path="/order-details/:api_id/:order_id/:order_type" element={<OrderDetail/>}/>
+          <Route path="/order-details" element={<OrderDetail/>}/>
         </Routes>
         </div>
 <div>
