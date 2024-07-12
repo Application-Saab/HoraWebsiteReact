@@ -722,10 +722,33 @@ button.dec-continueButton {
     margin-bottom: 16px;
   }
 
+  /* Appliances mobile view css */
+
+  .burner-count img {
+    width: 39px !important;
+    height: 39px !important;
+  }
+
+  .application-section-heading {
+    color: #000;
+    font-family: Roboto;
+    font-size: 13px !important;
+    font-style: normal !important;
+    font-weight: 600;
+  }
+
+  .application-section-para {
+    color: #969696;
+    font-family: Inter !important;
+    font-size: 11px !important;
+    font-style: normal !important;
+    font-weight: 500 !important;
+  }
+
   .burner-count {
     display: flex;
     align-items: center;
-    gap: 8px !important;
+    gap: 30px !important;
     font-size: 24px;
     font-weight: bold;
     color: #9252aa;
@@ -737,26 +760,33 @@ button.dec-continueButton {
     justify-content: space-around;
   }
 
+  .burner-count span {
+    color: #9252aa !important;
+
+    text-align: right !important;
+    font-family: Roboto !important;
+    font-size: 26px !important;
+    font-style: normal;
+    font-weight: 700;
+  }
+
   .appliance-items {
     display: flex;
     flex-wrap: wrap;
-    gap: 16px;
+    gap: 0px !important;
     justify-content: space-between;
   }
 
   .appliance-item {
     max-width: calc(50% - 16px) !important;
     flex-basis: calc(50% - 16px) !important;
-    /* background-color: #f8f8f8; */
     border: 1px solid #dadada;
     border-radius: 8px;
     padding: 5px !important;
     text-align: center;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     display: flex;
-    /* flex-direction: column; */
     align-items: center;
-    /* justify-content: space-between; */
     gap: 10px !important;
     width: 50% !important;
   }
@@ -778,6 +808,8 @@ button.dec-continueButton {
     height: 57px !important;
     border-radius: 19.39px;
   }
+
+  /* ingredients mobile view css */
 
   /* .ingredient-item {
   flex: 1 1 calc(50% - 16px);
@@ -1933,16 +1965,74 @@ p {
 /*  Css for appliances */
 
 .appliances-section {
+  padding-top: 20px;
+  background-color: #fff;
+  padding-left: 20px;
+}
+
+.application-section-heading {
+  font-weight: 600;
+  color: #000;
+  font-size: 16px;
+}
+
+.application-section-para {
+  color: #969696;
+  font-size: 15px;
+  font-weight: 500;
+  text-align: start;
+  /* margin: 0; */
+}
+
+.burner-count {
+  display: flex;
+  border: 1px solid #969696;
+  border-radius: 6px;
+  width: 34%;
+  padding: 10px 9px;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 20px 0;
+  gap: 10%;
+}
+
+.burner-count img {
+  height: 10%;
+  width: 10%;
+}
+
+.burner-count span {
+  color: #9252aa;
+  font-weight: 600;
+  font-size: 20px;
+}
+
+.appliance-items {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.appliance-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 10px;
+}
+
+.appliance-item img {
+  height: 60px;
+  width: 60px;
+  margin-bottom: 10px;
+}
+
+/* .appliances-section {
   background-color: #fff;
   padding: 16px;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   margin-bottom: 16px;
 }
-/* .application-section-para{
-  color: #969696;
-  text-align: start;
-} */
+
 .burner-count {
   display: flex;
   align-items: center;
@@ -1955,7 +2045,6 @@ p {
   width: 12%;
   padding: 10px;
   border-radius: 15px;
-  /* justify-content: space-around; */
 }
 
 .burner-count img {
@@ -1971,18 +2060,15 @@ p {
 }
 
 .appliance-item {
-  flex: 1 1 calc(33.333% - 16px); /* 3 columns */
+  flex: 1 1 calc(33.333% - 16px); 
   max-width: calc(33.333% - 16px);
-  /* background-color: #f8f8f8; */
   border: 1px solid #dadada;
   border-radius: 8px;
   padding: 16px;
   text-align: center;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   display: flex;
-  /* flex-direction: column; */
   align-items: center;
-  /* justify-content: space-between; */
   gap: 100px;
 }
 
@@ -2010,7 +2096,7 @@ p {
 
 .appliances-section p {
   color: #969696;
-}
+} */
 
 /* Ingredients CSS */
 

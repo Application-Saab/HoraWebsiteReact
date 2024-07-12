@@ -1,7 +1,16 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import daal_image from "../assets/daal-image.png";
 
-const OrderDetailsAppliances = () => {
+const OrderDetailsAppliances = ({ orderDetail, orderType }) => {
+  const [orderAppliances, setOrderAppliances] = useState([]);
+
+  useEffect(() => {
+    if (orderDetail?.orderApplianceIds) {
+      setOrderAppliances(orderDetail?.orderApplianceIds);
+    }
+  }, [orderDetail]);
+
+
   return (
     <>
       <div className="appliances-section">
@@ -10,7 +19,7 @@ const OrderDetailsAppliances = () => {
           (Burners would be used at your location)
         </p>
         <div className="burner-count">
-          <img src={daal_image} alt="Burner Icon" />
+          <img src={require("../assets/burner.png")} alt="Burner Icon" />
           <span>04</span>
         </div>
         <h4 className="application-section-heading">
@@ -20,26 +29,27 @@ const OrderDetailsAppliances = () => {
           (Keep these appliances ready at your location)
         </p>
         <div className="appliance-items">
-          <div className="appliance-item">
-            <img src={daal_image} alt="Charcoal Burner" />
-            <p>Charcoal Burner</p>
-          </div>
-          <div className="appliance-item">
-            <img src={daal_image} alt="Electric Tandoor" />
-            <p>Electric Tandoor</p>
-          </div>
-          <div className="appliance-item">
-            <img src={daal_image} alt="Idly Stand" />
-            <p>Idly Stand</p>
-          </div>
-          <div className="appliance-item">
-            <img src={daal_image} alt="Idly Stand" />
-            <p>Idly Stand</p>
-          </div>
-          <div className="appliance-item">
-            <img src={daal_image} alt="Idly Stand" />
-            <p>Idly Stand</p>
-          </div>
+          {orderAppliances.length > 0 ? (
+            orderAppliances.map((item, index) => (
+              <div key={index} className="appliance-item">
+                <img
+                  src={`https://horaservices.com/api/uploads/${item.image}`}
+                  alt={item.name}
+                />
+                <p>{item.name}</p>
+              </div>
+            ))
+          ) : (
+            <>
+              <p className="application-section-para">
+                No special appliances required.
+              </p>
+              <p className="application-section-para">
+                Normally available utensils would be sufficient to complete your
+                order.
+              </p>
+            </>
+          )}
         </div>
       </div>
     </>
