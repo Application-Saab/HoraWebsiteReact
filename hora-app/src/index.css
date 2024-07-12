@@ -549,7 +549,7 @@ button.dec-continueButton {
     padding: 0px !important;
     margin-bottom: 16px;
     padding-top: 0 px !important;
-    width: 390px !important;
+    width: 100% !important;
     height: 62px !important;
     flex-shrink: 0 !important;
   }
@@ -559,8 +559,8 @@ button.dec-continueButton {
     color: #ffffff;
     padding: 10px !important;
     border-radius: 0px !important;
-    width: 200px !important;
-    height: 62px !important;
+    width: 50% !important;
+    /* height: 62px !important; */
   }
 
   .order-id-h {
@@ -573,7 +573,6 @@ button.dec-continueButton {
   }
   .order-status-p {
     color: #fff;
-
     font-family: Poppins !important;
     font-size: 10px !important;
     font-style: normal !important;
@@ -585,13 +584,13 @@ button.dec-continueButton {
   }
 
   .order-status-p {
-    text-align: center !important;
-    color: green;
+    text-align: start !important;
+    /* color: green;  */
     background-color: #e6ffe6;
     /* border: 1px solid green; */
     border-radius: 19px;
     padding: 3px 6px;
-    width: 65% !important;
+    width: 67% !important;
   }
 
   .order-info {
@@ -600,16 +599,16 @@ button.dec-continueButton {
     align-items: center;
     gap: 10px;
     color: #9252aa;
-    width: 390px;
+    /* width: 390px; */
     height: 62px;
     top: 70px;
-    gap: 5px !important;
+    gap: 0px !important;
     opacity: 0px;
   }
   .order-info-div {
     display: flex;
   }
-  .header-icons{
+  .header-icons {
     height: 10px !important;
     width: 10px !important;
   }
@@ -621,6 +620,7 @@ button.dec-continueButton {
     font-style: normal !important;
     font-weight: 500 !important;
     line-height: 21px !important;
+    margin: 0px !important;
   }
 
   .menu-items {
@@ -638,7 +638,7 @@ button.dec-continueButton {
   }
 
   .tab.active {
-    width: 119px !important;
+    width: 33% !important;
     height: 51.784px;
     border-top-right-radius: 15px !important;
     border-top-left-radius: 15px !important;
@@ -650,7 +650,7 @@ button.dec-continueButton {
   }
 
   .tab {
-    width: 119px !important;
+    width: 33% !important;
     height: 51.784px;
     border-top-right-radius: 15px !important;
     border-top-left-radius: 15px !important;
