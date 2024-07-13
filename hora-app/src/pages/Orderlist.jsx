@@ -194,9 +194,9 @@ function Orderlist() {
               <div key={order.order_id} className="order-card">
                 <div className="order-div">
                   <div className="order-id">
-                    <strong style={{ color: "#9252AA" }}>
+                    <div style={{ color: "#9252AA" }}>
                       Order Id: {getOrderId(order?.order_id)}
-                    </strong>
+                    </div>
                     <h6 className="order-otp mt-2" style={{ color: "#9252AA" }}>
                       OTP: {order?.otp}
                     </h6>
@@ -220,7 +220,7 @@ function Orderlist() {
                         height={20}
                         width={20}
                       />{" "}
-                      <strong>{formatDate(order.order_date)}</strong>
+                      <span>{formatDate(order.order_date)}</span>
                     </div>
                     <div>
                       {/* <FiClock color="#9252AA" size={20}/>{" "} */}
@@ -230,7 +230,7 @@ function Orderlist() {
                         height={20}
                         width={20}
                       />{" "}
-                      <strong>{order.order_time}</strong>
+                      <span>{order.order_time}</span>
                     </div>
                     <div>
                       {/* <FaUsers color="#9252AA" size={20}/>{" "} */}
@@ -240,7 +240,7 @@ function Orderlist() {
                         height={20}
                         width={20}
                       />{" "}
-                      <strong>{order?.no_of_people} People</strong>
+                      <span>{order?.no_of_people} People</span>
                     </div>
                   </div>
                   <div className="right-details">

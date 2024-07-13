@@ -119,7 +119,7 @@ const OrderDetail = () => {
     <>
       <div className="orderheader-orderdetail">
         <OrderDetailHeader orderDetail={orderDetail} />
-        <div className="order-detail-page">
+        <div className="order-detail-page-decoration">
           <OrderDetailTab
             orderDetail={orderDetail}
             orderType={orderType}

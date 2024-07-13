@@ -193,7 +193,7 @@ const OrderDetailTab = ({
           </div>
         </>
       ) : orderType === 1 ? (
-        <>
+        <div  className="decoration-container">
           {decorationItems?.map((product, index) => {
             return (
               <div key={product?.id} className="product-container">
@@ -214,13 +214,13 @@ const OrderDetailTab = ({
               </div>
             );
           })}
-          {decorationComments && (
+            {decorationComments && (
             <div className="comment-container">
               <p className="comments-header">Additional Comments:</p>
               <p className="comments-text">{decorationComments}</p>
             </div>
           )}
-        </>
+        </div>
       ) : null}
 
       {/* <div className="rate-us-footer">
