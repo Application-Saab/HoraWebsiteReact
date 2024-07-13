@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons"
 import checkImage from '../assets/tick.jpeg.jpeg';
 import { getDecorationProductOrganizationSchema } from "../utills/schema";
+import '../css/Decoration.css';
 import { Helmet } from "react-helmet";
 function DecorationCatDetails() {
   const [selCat, setSelCat] = useState("");

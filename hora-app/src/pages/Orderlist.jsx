@@ -6,12 +6,20 @@ import { FiClock } from "react-icons/fi";
 import clock from "../assets/clock.png";
 import people from "../assets/people.png";
 import date_time_icon from "../assets/date-time-icon.png";
-import {  useNavigate } from 'react-router-dom';
+import { WhatsappShareButton, WhatsappIcon } from "react-share";
+import { useNavigate } from "react-router-dom";
+// order.type is 2 for chef
+// order.type is 1 for decoration
+// order.type is 3 for waiter
+// order type 4 bar tender
+// order type 5 cleaner
+// order type 6 Food Delivery
+// order type 7 Live Catering
 
 function Orderlist() {
+  const navigate = useNavigate();
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
   useEffect(() => {
     const fetchOrderList = async () => {
       try {
@@ -105,16 +113,58 @@ function Orderlist() {
     return new Date(dateString).toLocaleDateString("en-GB", options);
   };
 
+  const handleRateUs = (order) => {
+    const {} = order;
+    window.open(
+      "https://wa.me/917338584828?text=Hello%20I%20have%20some%20queries%20for%20decoration%20services",
+      "_blank"
+    );
+  };
+
+  const handleSendInvite = (order) => {
+    let message = `You are Invited!!!\n* * * * * *\nEnjoy the gathering with specially cooked by professional chef from hora `;
+
+    message += `${order.order_date.slice(0, 10)} ${order.order_time}\n`;
+
+    order.selecteditems.forEach((dish, index) => {
+      message += `${index + 1}. ${dish.name}\n`;
+    });
+
+    if (order.addressId) {
+      message += `\nAt ${order.addressId.address1} ${order.addressId.address2}\nhttps://play.google.com/store/apps/details?id=com.hora`;
+    }
+
+    return message;
+  };
+
+  const getOrderId = (e) => {
+    const orderId1 = 10800 + e;
+    const updateOrderId = "#" + orderId1;
+    localStorage.setItem("orderId", updateOrderId);
+    return updateOrderId;
+  };
+
+  const handleViewDetail = (order) => {
+    const { _id, order_id, type } = order;
+    const apiOrderId = _id
+    const orderType = type
+    const orderId = order_id
+    navigate(`/order-details`, {
+      state: {apiOrderId, orderType, orderId},
+    });
+  };
+
   if (loading) {
     return (
       <center>
-        <div className="custom-spinner m-5">
-          <div className="spinner-border" role="status">
-            <span className="visually-hidden">Loading...</span>
-          </div>
-          <div style={{ marginTop: "10px", color: "#9252AA" }}>
-            {" "}
-            <h4> Data is loading...</h4>
+        <div className="custom-spinner">
+          <div>
+            <div className="spinner-border" role="status">
+              <span className="visually-hidden">Loading...</span>
+            </div>
+            <div style={{ color: "#9252AA", textAlign: "center" }}>
+              <h4>Data is loading...</h4>
+            </div>
           </div>
         </div>
       </center>
@@ -137,88 +187,132 @@ function Orderlist() {
   return (
     <main className="order-list">
       <div className="order-container">
-        {orders?.map((order) => {
-          const orderStatus = getOrderStatus(order?.order_status);
-          return (
-            <div key={order.order_id} className="order-card">
-              <div className="order-div">
-                <div className="order-id">
-                  <strong style={{ color: "#9252AA" }}>
-                    Order Id: {order?.order_id}
-                  </strong>
-                  <h6 className="order-otp mt-2" style={{ color: "#9252AA" }}>
-                    OTP: {order?.otp}
-                  </h6>
-                </div>
-                <div className="order-status">
-                  <span className={orderStatus.className}>
-                    {orderStatus.status}
-                  </span>
-                  <h6 className="mt-2" style={{ color: "#9252AA" }}>
-                    {getOrderType(order?.type)}
-                  </h6>
-                </div>
-              </div>
-              <div className="order-details">
-                <div className="left-details">
-                  <div>
-                    <img
-                      className="contact-us-img"
-                      src={date_time_icon}
-                      height={20}
-                      width={20}
-                    />{" "}
-                    <strong>{formatDate(order.order_date)}</strong>
-                  </div>
-                  <div>
-                    <img
-                      className="contact-us-img"
-                      src={clock}
-                      height={20}
-                      width={20}
-                    />{" "}
-                    <strong>{order.order_time}</strong>
-                  </div>
-                  <div>
-                    <img
-                      className="contact-us-img"
-                      src={people}
-                      height={20}
-                      width={20}
-                    />{" "}
-                    <strong>{order?.no_of_people} People</strong>
-                  </div>
-                </div>
-                <div className="right-details">
-                  <div>
+        {orders && orders.length > 0 ? (
+          orders?.map((order) => {
+            const orderStatus = getOrderStatus(order?.order_status);
+            return (
+              <div key={order.order_id} className="order-card">
+                <div className="order-div">
+                  <div className="order-id">
                     <strong style={{ color: "#9252AA" }}>
-                      Total Amount
-                      <p className="mb-0"> ₹{order?.payable_amount}</p>
+                      Order Id: {getOrderId(order?.order_id)}
                     </strong>
+                    <h6 className="order-otp mt-2" style={{ color: "#9252AA" }}>
+                      OTP: {order?.otp}
+                    </h6>
                   </div>
+                  <div className="order-status">
+                    <span className={orderStatus.className}>
+                      {orderStatus.status}
+                    </span>
+                    <h6 className="mt-2" style={{ color: "#9252AA" }}>
+                      {getOrderType(order?.type)}
+                    </h6>
+                  </div>
+                </div>
+                <div className="order-details">
+                  <div className="left-details">
+                    <div>
+                      {/* <IoCalendarClear color="#9252AA" size={20}/>{" "} */}
+                      <img
+                        className="contact-us-img"
+                        src={date_time_icon}
+                        height={20}
+                        width={20}
+                      />{" "}
+                      <strong>{formatDate(order.order_date)}</strong>
+                    </div>
+                    <div>
+                      {/* <FiClock color="#9252AA" size={20}/>{" "} */}
+                      <img
+                        className="contact-us-img"
+                        src={clock}
+                        height={20}
+                        width={20}
+                      />{" "}
+                      <strong>{order.order_time}</strong>
+                    </div>
+                    <div>
+                      {/* <FaUsers color="#9252AA" size={20}/>{" "} */}
+                      <img
+                        className="contact-us-img"
+                        src={people}
+                        height={20}
+                        width={20}
+                      />{" "}
+                      <strong>{order?.no_of_people} People</strong>
+                    </div>
+                  </div>
+                  <div className="right-details">
+                    <div>
+                      <strong style={{ color: "#9252AA" }}>
+                        Total Amount
+                        <p className="mb-0 price-para">
+                          {" "}
+                          ₹{order?.payable_amount}
+                        </p>
+                      </strong>
+                    </div>
+                    <div>
+                      <strong style={{ color: "#9252AA" }}>
+                        Balance Amount
+                        <p className="mb-0 price-para">
+                          {" "}
+                          ₹{Math.round(order?.payable_amount * 0.35)}
+                        </p>
+                      </strong>
+                    </div>
+                  </div>
+                </div>
+                <hr className="m-0" />
+                <div className="d-flex button-div">
                   <div>
-                    <strong style={{ color: "#9252AA" }}>
-                      Balance Amount
-                      <p className="mb-0">
-                        {" "}
-                        ₹{Math.round(order?.payable_amount * 0.35)}
-                      </p>
-                    </strong>
+                    <button
+                      className="view-details"
+                      onClick={() => handleViewDetail(order)}
+                    >
+                      View Details
+                    </button>
                   </div>
+                  {order?.type == 2 &&
+                    (orderStatus?.status == "Booked" ||
+                    orderStatus?.status == "Accepted" ||
+                    orderStatus?.status == "In-progress" ? (
+                      <div>
+                        <WhatsappShareButton
+                          url="https://play.google.com/store/apps/details?id=com.hora"
+                          title={handleSendInvite(order)}
+                          separator="\n\n"
+                        >
+                          {/* <WhatsappIcon size={32} round /> */}
+                          <button
+                            className="send-invite"
+                            onClick={() => handleSendInvite(order)}
+                          >
+                            Send Invite
+                          </button>
+                        </WhatsappShareButton>
+                      </div>
+                    ) : null)}
+                  {order?.type === 2 && orderStatus?.status == "Completed" ? (
+                    <div>
+                      <button
+                        className="send-invite"
+                        onClick={() => handleRateUs(order)}
+                      >
+                        Rate us
+                      </button>
+                    </div>
+                  ) : null}
                 </div>
               </div>
-              <hr className="m-0"/>
-              <div className="d-flex button-div">
-                <div>
-                  <button className="view-details">View Details</button>
-                </div>
-                <div>
-                  <button className="send-invite">Send Invite</button>
-                </div>
-              </div>
-            </div>
-          );
-        })}
+            );
+          })
+        ) : (
+          <div className="no-record-div m-5">
+            <h2 className="no-record-heading">No record found</h2>
+          </div>
+        )}
       </div>
     </main>
   );

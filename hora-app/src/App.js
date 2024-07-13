@@ -29,6 +29,7 @@ import SelectDate from './pages/ChefOrder/SelectDate.jsx';
 // const CreateOrder = lazy(() => import('./pages/ChefOrder/CreateOrder'));
 // const ChefCheckout = lazy(() => import('./pages/ChefOrder/ChefCheckout.jsx'));
 // const SelectDate = lazy(() => import('./pages/ChefOrder/SelectDate'));
+import OrderDetail from './pages/OrderDetail.jsx';
 
 function App() {
   return (
@@ -61,11 +62,13 @@ function App() {
           <Route path="/contactus" element={<ContactUs />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/orderlist" element={<Orderlist />} />
-          <Route path="/myaccount" element={<MyAccount />} />
-          {/* food delivery pages */}
-          <Route path="/party-food-delivery-live-catering-buffet/:selectedfoodCategory" element={<FoodDeliveryCreateOrder />} />
-          <Route path="/party-food-delivery-live-catering-buffet-select-date/:selectedfoodCategory" element={<FoodDeliveryselectDate />} />
-          <Route path="/party-food-delivery-live-catering-buffet-checkout" element={<FoodDeliveryCheckout />} />
+          <Route path="/myaccount" element={<MyAccount/>} /> 
+         {/* food delivery pages */}
+          <Route path="/party-food-delivery-live-catering-buffet/:selectedfoodCategory" element={<FoodDeliveryCreateOrder/>}/>
+          <Route path="/party-food-delivery-live-catering-buffet-select-date/:selectedfoodCategory" element={<FoodDeliveryselectDate/>}/>
+          <Route path="/party-food-delivery-live-catering-buffet-checkout" element={<FoodDeliveryCheckout/>}/>
+          {/* order detail page */}
+          <Route path="/order-details" element={<OrderDetail/>}/>
         </Routes>
       </div>
       <div>
