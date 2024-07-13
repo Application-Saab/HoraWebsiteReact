@@ -42,13 +42,13 @@ const OrderDetailHeader = ({ orderDetail }) => {
 
   return (
     <div className="order-header">
-      <div className="order-id-status">
+      <div className="order-header-left">
         <h5 className="order-id-h">
           Order Id: {getOrderId(orderDetail?.order_id)}
         </h5>
-        <p className="order-status-p">{orderStatus?.status}</p>
+        <p className="order-status-button">{orderStatus?.status}</p>
       </div>
-      <div className="order-info">
+      <div className="order-header-right">
         <div className="order-info-div">
           <CiCalendar className="header-icons" size={20} />
           <p>{formatDate(orderDetail?.order_date)}</p>
