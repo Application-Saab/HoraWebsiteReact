@@ -117,14 +117,16 @@ const OrderDetail = () => {
 
   return (
     <>
-      <OrderDetailHeader orderDetail={orderDetail} />
-      <div className="order-detail-page">
-        <OrderDetailTab
-          orderDetail={orderDetail}
-          orderType={orderType}
-          decorationItems={decorationItems}
-          decorationComments={decorationComments}
-        />
+      <div className="orderheader-orderdetail">
+        <OrderDetailHeader orderDetail={orderDetail} />
+        <div className="order-detail-page">
+          <OrderDetailTab
+            orderDetail={orderDetail}
+            orderType={orderType}
+            decorationItems={decorationItems}
+            decorationComments={decorationComments}
+          />
+        </div>
       </div>
     </>
   );

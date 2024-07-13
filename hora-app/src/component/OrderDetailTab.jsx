@@ -137,9 +137,9 @@ const OrderDetailTab = ({
       ) : orderType === 6 ? (
         <>
           <OrderDetailsMenu orderDetail={orderDetail} orderType={orderType} />
-          <div className="container">
+          <div className="food-delivert-inclusions-container">
             <h5>Inclusions:</h5>
-            <ul className="list-unstyled">
+            <ul className="list-unstyled-inclusion">
               <li>
                 <span>✔️</span> Food Delivery at Door-Step
               </li>

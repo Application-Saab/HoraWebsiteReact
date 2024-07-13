@@ -564,67 +564,19 @@ button.dec-continueButton {
     padding: 0px !important;
     margin-bottom: 16px;
     padding-top: 0 px !important;
-    width: 390px !important;
+    width: 100% !important;
     height: 62px !important;
     flex-shrink: 0 !important;
   }
 
-  .order-id-status {
-    background: #b16bcb;
-    color: #ffffff;
-    padding: 10px !important;
-    border-radius: 0px !important;
-    width: 200px !important;
-    height: 62px !important;
-  }
-
-  .order-id-h {
-    color: #fff;
-    font-family: Roboto !important;
-    font-size: 13px !important;
-    font-style: normal !important;
-    font-weight: 700 !important;
-    line-height: 15px !important;
-  }
-  .order-status-p {
-    color: #fff;
-
-    font-family: Poppins !important;
+  .order-status-button {
     font-size: 10px !important;
-    font-style: normal !important;
-    font-weight: 500 !important;
-    line-height: 15px !important;
   }
   .price-para {
     text-align: end !important;
   }
 
-  .order-status-p {
-    text-align: center !important;
-    color: green;
-    background-color: #e6ffe6;
-    /* border: 1px solid green; */
-    border-radius: 19px;
-    padding: 3px 6px;
-    width: 65% !important;
-  }
-
-  .order-info {
-    display: flex;
-    margin-top: 10px !important;
-    align-items: center;
-    gap: 10px;
-    color: #9252aa;
-    width: 390px;
-    height: 62px;
-    top: 70px;
-    gap: 5px !important;
-    opacity: 0px;
-  }
-  .order-info-div {
-    display: flex;
-  }
-  .header-icons{
+  .header-icons {
     height: 10px !important;
     width: 10px !important;
   }
@@ -636,6 +588,7 @@ button.dec-continueButton {
     font-style: normal !important;
     font-weight: 500 !important;
     line-height: 21px !important;
+    margin: 0px !important;
   }
 
   .menu-items {
@@ -653,7 +606,7 @@ button.dec-continueButton {
   }
 
   .tab.active {
-    width: 119px !important;
+    width: 33% !important;
     height: 51.784px;
     border-top-right-radius: 15px !important;
     border-top-left-radius: 15px !important;
@@ -665,7 +618,7 @@ button.dec-continueButton {
   }
 
   .tab {
-    width: 119px !important;
+    width: 33% !important;
     height: 51.784px;
     border-top-right-radius: 15px !important;
     border-top-left-radius: 15px !important;
@@ -737,10 +690,33 @@ button.dec-continueButton {
     margin-bottom: 16px;
   }
 
+  /* Appliances mobile view css */
+
+  .burner-count img {
+    width: 39px !important;
+    height: 39px !important;
+  }
+
+  .application-section-heading {
+    color: #000;
+    font-family: Roboto;
+    font-size: 13px !important;
+    font-style: normal !important;
+    font-weight: 600;
+  }
+
+  .application-section-para {
+    color: #969696;
+    font-family: Inter !important;
+    font-size: 11px !important;
+    font-style: normal !important;
+    font-weight: 500 !important;
+  }
+
   .burner-count {
     display: flex;
     align-items: center;
-    gap: 8px !important;
+    gap: 30px !important;
     font-size: 24px;
     font-weight: bold;
     color: #9252aa;
@@ -752,28 +728,37 @@ button.dec-continueButton {
     justify-content: space-around;
   }
 
+  .burner-count span {
+    color: #9252aa !important;
+
+    text-align: right !important;
+    font-family: Roboto !important;
+    font-size: 26px !important;
+    font-style: normal;
+    font-weight: 700;
+  }
+
   .appliance-items {
     display: flex;
     flex-wrap: wrap;
-    gap: 16px;
+    gap: 0px !important;
     justify-content: space-between;
   }
 
   .appliance-item {
     max-width: calc(50% - 16px) !important;
     flex-basis: calc(50% - 16px) !important;
-    /* background-color: #f8f8f8; */
     border: 1px solid #dadada;
+    flex-direction: row !important;
     border-radius: 8px;
     padding: 5px !important;
     text-align: center;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     display: flex;
-    /* flex-direction: column; */
     align-items: center;
-    /* justify-content: space-between; */
-    gap: 10px !important;
+    gap: 20px !important;
     width: 50% !important;
+    padding-top: 15px !important;
   }
 
   .appliance-item img {
@@ -793,6 +778,8 @@ button.dec-continueButton {
     height: 57px !important;
     border-radius: 19.39px;
   }
+
+  /* ingredients mobile view css */
 
   /* .ingredient-item {
   flex: 1 1 calc(50% - 16px);
@@ -1728,71 +1715,74 @@ button.dec-continueButton {
 
 /* Order detail css */
 
+.orderheader-orderdetail {
+  background-color: #f2f2f2;
+}
+
 .order-detail-page {
   font-family: Arial, sans-serif;
   padding: 16px;
-  background-color: #f8f8f8;
+  /* background-color: #f8f8f8; */
   padding-top: 0;
 }
 
 .order-header {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
   background-color: #dfdfdf;
-  padding: 16px;
-  border-radius: 8px;
+  padding: 0px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   margin-bottom: 16px;
-  padding-top: 1px;
-  padding-bottom: 0px;
 }
 
-.order-id-status {
+.order-header-left {
   background: #b16bcb;
   color: #ffffff;
   padding: 20px;
   border-radius: 5px;
-  width: 15%;
 }
+
 .order-id-h {
   text-align: start;
+  color: #fff;
+  font-family: Roboto !important;
+  font-size: 10px !important;
+  font-style: normal !important;
+  font-weight: 700 !important;
+  line-height: 15px !important;
 }
-.order-status-p {
+.order-status-button {
+  display: inline-block;
+  padding: 3px 10px;
+  font-style: normal;
+  font-weight: 500;
   text-align: center;
   color: #ffffff;
   background-color: #9252aa;
-  /* border: 1px solid green; */
+  font-family: Poppins;
+
   border-radius: 19px;
-  padding: 3px 6px;
-  width: 50%;
   margin-bottom: 10px;
 }
-.order-id-status p {
+.order-header-left p {
   margin: 0;
 }
 
-.order-info {
+.order-header-right {
   display: flex;
+  justify-content: space-evenly;
   align-items: center;
   gap: 10px;
   color: #9252aa;
-  width: 390px;
-  height: 62px;
+  width: 75%;
+  padding-left: 20px;
   top: 70px;
   gap: 0px;
   opacity: 0px;
 }
 
-.order-info > div {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start !important;
-  align-items: center;
-  margin-left: 16px;
-}
-
-.order-info img {
+.order-header-right img {
   margin-right: 8px;
   height: 20px;
   width: 20px;
@@ -1947,16 +1937,74 @@ button.dec-continueButton {
 /*  Css for appliances */
 
 .appliances-section {
+  padding-top: 20px;
+  background-color: #fff;
+  padding-left: 20px;
+}
+
+.application-section-heading {
+  font-weight: 600;
+  color: #000;
+  font-size: 16px;
+}
+
+.application-section-para {
+  color: #969696;
+  font-size: 15px;
+  font-weight: 500;
+  text-align: start;
+  /* margin: 0; */
+}
+
+.burner-count {
+  display: flex;
+  border: 1px solid #969696;
+  border-radius: 6px;
+  width: 34%;
+  padding: 10px 9px;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 20px 0;
+  gap: 10%;
+}
+
+.burner-count img {
+  height: 10%;
+  width: 10%;
+}
+
+.burner-count span {
+  color: #9252aa;
+  font-weight: 600;
+  font-size: 20px;
+}
+
+.appliance-items {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.appliance-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 10px;
+}
+
+.appliance-item img {
+  height: 60px;
+  width: 60px;
+  margin-bottom: 10px;
+}
+
+/* .appliances-section {
   background-color: #fff;
   padding: 16px;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   margin-bottom: 16px;
 }
-/* .application-section-para{
-  color: #969696;
-  text-align: start;
-} */
+
 .burner-count {
   display: flex;
   align-items: center;
@@ -1969,7 +2017,6 @@ button.dec-continueButton {
   width: 12%;
   padding: 10px;
   border-radius: 15px;
-  /* justify-content: space-around; */
 }
 
 .burner-count img {
@@ -1985,18 +2032,15 @@ button.dec-continueButton {
 }
 
 .appliance-item {
-  flex: 1 1 calc(33.333% - 16px); /* 3 columns */
+  flex: 1 1 calc(33.333% - 16px); 
   max-width: calc(33.333% - 16px);
-  /* background-color: #f8f8f8; */
   border: 1px solid #dadada;
   border-radius: 8px;
   padding: 16px;
   text-align: center;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   display: flex;
-  /* flex-direction: column; */
   align-items: center;
-  /* justify-content: space-between; */
   gap: 100px;
 }
 
@@ -2024,7 +2068,7 @@ button.dec-continueButton {
 
 .appliances-section p {
   color: #969696;
-}
+} */
 
 /* Ingredients CSS */
 
@@ -2178,30 +2222,30 @@ button.dec-continueButton {
 }
 
 /* Inclusion for the food */
-/* .container {
+.food-delivert-inclusions-container {
   margin-top: 1rem;
   max-width: 100% !important;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   background-color: #ffffff;
   padding: 10px;
 }
-.container h5 {
+.food-delivert-inclusions-container h5 {
   color: #9252aa;
   font-weight: 700;
   font-size: 1.2em;
 }
-.list-unstyled {
+.list-unstyled-inclusion {
   list-style-type: none;
   padding-left: 0;
 }
-.list-unstyled li {
+.list-unstyled-inclusion li {
   display: flex;
   align-items: center;
   color: #b16bcb;
 }
-.list-unstyled span {
+.list-unstyled-inclusion span {
   margin-right: 0.5rem;
-} */
+}
 
 /* inclusion for live catering */
 
