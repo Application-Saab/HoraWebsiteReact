@@ -1,18 +1,49 @@
-import React from 'react'
-
+import React from "react";
+import "../css/success.css";
+import confirmOrder from "../assets/confirmOrder.png";
+import { Link, useNavigate } from "react-router-dom";
 const Success = () => {
-    return (
-        <div className="container">
-          <div className="row justify-content-center">
-            <div className="col-md-6 text-center">
-                <div className="alert alert-success text-center">
-                    <h4 className="alert-heading">Payment Successfull</h4>
-                </div>
-                <a href='/'>Back to Home</a>
-            </div>
-          </div>
-        </div>
-      );
-}
+  const navigate = useNavigate();
 
-export default Success
+  const contactUsRedirection = async () => {
+    try {
+      window.open(
+        `whatsapp://send?phone=+918982321487&text=I've canceled my order, kindly assist with the refund process. Thanks!`
+      );
+    } catch (error) {
+      console.log("contactUsRedirection error", error);
+    }
+  };
+
+  const handleContinue = () => {
+    navigate("/orderList");
+  };
+
+  return (
+    <div className="confirm-order">
+      <div className="confirm-order-image">
+        <img
+          src={confirmOrder}
+          alt="Order Confirmed"
+          className="success-image"
+        />
+      </div>
+      <div className="confirm-order-details">
+        <h2>Your order is confirmed!</h2>
+        <p>
+          Your chef will contact 5 hours before the scheduled time. Have a great
+          feast!
+        </p>
+        <Link to="/" className="track-order">
+          Track Order
+        </Link>
+        <h6 onClick={contactUsRedirection}>Need help? Call us.</h6>
+        <button className="continue-button" onClick={handleContinue}>
+          Continue
+        </button>
+      </div>
+    </div>
+  );
+};
+
+export default Success;
