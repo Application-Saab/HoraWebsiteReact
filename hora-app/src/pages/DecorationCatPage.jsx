@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
-import { Modal, Button, Container, Row, Col, Spinner, Card } from 'react-bootstrap';
 import { BASE_URL, GET_DECORATION_CAT_ID, GET_DECORATION_CAT_ITEM, API_SUCCESS_CODE } from '../utills/apiconstants';
 import axios from 'axios';
 import { Helmet } from 'react-helmet';
@@ -8,6 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons"
 import { CardSkeleton } from "../component/CardSkeleton";
 import { getDecorationCatOrganizationSchema } from "../utills/schema";
+import '../css/decoration.css'
 function DecorationCatPage() {
   const location = useLocation();
   let { city } = useParams();

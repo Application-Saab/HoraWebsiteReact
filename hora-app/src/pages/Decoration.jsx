@@ -80,15 +80,12 @@ function Decoration() {
         <meta property="og:url" content="https://horaservices.com/balloon-decoration" />
         <meta property="og:type" content="website" />
       </Helmet>
-            <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", margin: "30px auto 0", width: "60%" }} className="decContainerSec decPage">
-            <div style={styles.decContainer} className="decContainer gap-4">
+            <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", margin: "20px auto 0", width: "70%" , justifyContent:"space-between"}} className="decContainerSec decPage">
                 {decCat.map((item, index) => (
-                    <div key={index} style={{...styles.imageContainer, ...(hoveredIndex === index ? styles.zoomedContainer : {})}} className="imageContainer">
-                        <img src={item.image} style={styles.decCatimage} alt={item.name}  onClick={() => openCatItems(item)}/>
+                    <div key={index} className="imageContainer">
+                        <img src={item.image} className="decCatimage" alt={item.name}  onClick={() => openCatItems(item)}/>
                     </div>
                 ))} 
-
-            </div>
             {/* <div>
             {decCat.map((item, index) => (
             <url>
@@ -102,52 +99,5 @@ function Decoration() {
     );
 }
 
-    const styles = {
-        decContainer: {
-          flexDirection: 'row',
-          alignItems: 'center',
-          display: "flex",
-          flexWrap: "wrap",
-          width:"100%",
-        },
-        decCatimage: {
-          width: "100%",
-          height: "100%",
-          borderRadius: "5px",
-          objectFit: "cover",
-        },
-        imageContainer: {
-          position:"relative",
-          width: '31%',
-          marginBottom: 40,
-          boxShadow: "0 6px 16px 0 rgba(0,0,0,.14)",
-          borderRadius: "5px",
-          overflow: "hidden", // Ensure the image stays within the container
-          transition: "transform 0.3s ease-in-out", // Smooth transition effect for zoom
-          margin: "0 0px 30px",
-          // padding:"0 0 10px 0",
-        },
-        zoomedContainer: {
-          transform: "scale(1.1)", // Scale the container by 10% on hover
-        },
-        itemName: {
-          textAlign: "center",
-          fontSize: "16px",
-          fontWeight: "500",
-          color: "#444",
-          padding: "10px",
-        },
-        priceContainer: {
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        },
-        price: {
-          fontSize: "17px",
-          fontWeight: "500",
-          color: "#444",
-          margin: "0",
-        },
-      };
 
 export default Decoration;

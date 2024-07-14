@@ -4,14 +4,12 @@ import { useNavigate } from 'react-router-dom';
 import buynowImage from '../assets/experts.png';
 import buynowImage1 from '../assets/secured.png';
 import buynowImage2 from '../assets/service.png';
-import buynowImage3 from '../assets/originalreviews.png';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar } from "@fortawesome/free-solid-svg-icons"
 import checkImage from '../assets/tick.jpeg.jpeg';
 import { getDecorationProductOrganizationSchema } from "../utills/schema";
-import '../css/Decoration.css';
+import '../css/decoration.css';
 import { Helmet } from "react-helmet";
-function DecorationCatDetails() {
+function DecorationCatDetails() {y
+  
   const [selCat, setSelCat] = useState("");
   const [orderType, setOrderType] = useState(1);
   const navigate = useNavigate();

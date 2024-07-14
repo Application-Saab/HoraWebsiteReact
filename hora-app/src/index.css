@@ -499,6 +499,9 @@ button.dec-continueButton {
 .no-orders {
   padding: 100px 30px;
 }
+.left-details {
+  text-align: left;
+}
 
 /* select date chef flow */
 @media (max-width: 800px) {
@@ -1084,63 +1087,7 @@ button.dec-continueButton {
     padding: 0 16px !important;
   }
 
-  .decContainer.gap-4 {
-    display: flex;
-    justify-content: space-between !important;
-    gap: 0 !important;
-    align-items: center;
-  }
-  .decPage .imageContainer {
-    width: 48% !important;
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-    margin-bottom: 14px !important;
-  }
-
-  .decPage.decContainerSec {
-    width: 100% !important;
-    margin: 11px 0 0px !important;
-    padding: 0 11px 1px 8px;
-  }
-
-  .decCatPage .decimagecontainer {
-    width: 46% !important;
-    margin: 0 6px 16px !important;
-
-    img {
-      height: 160px !important;
-    }
-  }
-
-  .decCatPage .decimagecontainer p {
-    margin: 0 !important;
-    padding: 0 !important;
-    font-size: 12px !important;
-  }
-
-  .imageContainer img {
-    height: 100% !important;
-  }
-
-  .decPage .decimagecontainer {
-    width: 47% !important;
-    margin: 0 0 30px 0 !important;
-    min-height: 13px !important;
-
-    img {
-      height: 200px !important;
-    }
-
-    p {
-      font-size: 70% !important;
-    }
-  }
-
-  .decContainer {
-    justify-content: center !important;
-    width: 100%;
-  }
-
+ 
   .decDetails {
     margin-top: 0 !important;
     flex-direction: column !important;
@@ -1343,9 +1290,7 @@ h5.order-id-h {
   margin-bottom: 0;
   font-size: 9px;
 }
-  .decCatPage .decimagecontainer p.pro_price {
-    font-size: 18px !important;
-  }
+
   .personsectionprice p {
     font-size: 65% !important;
   }
@@ -1475,9 +1420,7 @@ h6.order-otp{
   font-size: 14px !important;
   font-weight: 600;
 }
-  .decCatPage .decimagecontainer p.pro_price {
-    font-size: 17px !important;
-  }
+
   .ingredientrightsecheading {
     font-size: 104% !important;
     line-height: 13px;
@@ -1485,9 +1428,7 @@ h6.order-otp{
   .ingredientrightsecsibheading {
     font-size: 100% !important;
   }
-  .decCatPage .decimagecontainer {
-    width: 46% !important;
-  }
+
 
   p.billheading {
     font-size: 65% !important;
@@ -1508,18 +1449,11 @@ h6.order-otp{
 }
 
 @media (max-width: 340px) {
-  .decCatPage .decimagecontainer p.pro_price {
-    font-size: 14px !important;
-  }
   .textContainerhome h1 {
     font-size: 93% !important;
     padding: 0 20px !important;
   }
-  .decCatPage .decimagecontainer {
-    img {
-      height: 130px !important;
-    }
-  }
+ 
 }
 
 @media (max-width: 321px) {
@@ -2289,3 +2223,4 @@ h6.order-otp{
   margin-top: 1rem;
   margin-bottom: 1rem;
 }
+
