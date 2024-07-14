@@ -8,7 +8,7 @@ import checkImage from '../assets/tick.jpeg.jpeg';
 import { getDecorationProductOrganizationSchema } from "../utills/schema";
 import '../css/decoration.css';
 import { Helmet } from "react-helmet";
-function DecorationCatDetails() {y
+function DecorationCatDetails() {
   
   const [selCat, setSelCat] = useState("");
   const [orderType, setOrderType] = useState(1);
@@ -160,7 +160,6 @@ function DecorationCatDetails() {y
                   position:"fixed" , 
                   bottom:0 , 
                   width:"100%",
-                  backgroundColor:"#fff",
                   borderTop:"1px solid #efefef",
                   backgroundColor:"#EDEDED"
                 }}
