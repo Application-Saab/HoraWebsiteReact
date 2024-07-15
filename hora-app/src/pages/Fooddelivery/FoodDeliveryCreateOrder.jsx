@@ -9,7 +9,8 @@ import RectangleWhite from '../../assets/rectanglewhite.png';
 import MinusIcon from '../../assets/minus.png';
 import PlusIcon from '../../assets/plus.png';
 import { useParams } from "react-router-dom";
-
+import warningImage from "../../assets/Group.png";
+import Popup from '../../utills/popup';
 
 const FoodDeliveryCreateOrder = () => {
     const viewBottomSheetRef = useRef(null);
@@ -40,7 +41,15 @@ const FoodDeliveryCreateOrder = () => {
     const [isWarningVisibleForCuisineCount, setWarningVisibleForCuisineCount] = useState(false);
     const [isViewAllExpanded, setIsViewAllExpanded] = useState(false);
     const [isButtonVisible, setIsButtonVisible] = useState(false);
+     const [popupMessage, setPopupMessage] = useState({
+       image: "",
+       title: "",
+       body: "",
+       button: "",
+     });
+
     const navigate = useNavigate();
+
       const handleWarningClose = () => {
         setWarningVisibleForDishCount(false);
         setWarningVisibleForCuisineCount(false);
@@ -118,6 +127,12 @@ const FoodDeliveryCreateOrder = () => {
         }
         if (selectedDishes.length >= 15 && !isSelected) {
           setWarningVisibleForDishCount(true);
+           setPopupMessage({
+             image: warningImage,
+             title: "Total Dishes Selected can not be more than 15 Dish.",
+             body: "Total dish selected can not be more than 15 dish, for more help contact us.",
+             button: "Contact Us",
+           });
         } else {
           const updatedSelectedDishes = [...selectedDishes];
           const updatedSelectedDishDictionary = {...selectedDishDictionary};
@@ -164,6 +179,12 @@ const FoodDeliveryCreateOrder = () => {
     } else {
       // Display a popup or handle the case where the user tries to select more than 3 cuisines
       setWarningVisibleForCuisineCount(true);
+      setPopupMessage({
+        image: warningImage,
+        title: "One chef is only expert in 3 cuisine only.",
+        body: "Our chef is expert in cuisines only please select appropriate number of cuisines to continue",
+        button: "Continue",
+      });
     }
   };
 
@@ -426,120 +447,130 @@ const FoodDeliveryCreateOrder = () => {
       };
 
     return (
-        <>
-            <div className="order-container">
-                {loading && (
-                    <div className="d-flex justify-content-center align-items-center">
-                        <Spinner animation="border" />
-                    </div>
-                )}
-                {!loading && (
-                    <>
-                        <h1 style={{fontSize: "16px" , color:"#000" , marginTop:"20px" , marginBottom: "0",}}>Select Your Menu Here</h1>
-                        <Row className="d-flex justify-content-start">
-                            <div style={{display:"flex", margin:"10px 0 0" }}>
-                            <div style={{marginRight:"10px"}}>
-                                <Button
-                                    variant={selected === 'veg' ? 'success' : 'outline-success'}
-                                    onClick={() => handleSwitchChange('veg')}
-                                    className='cuisinebtn'
-                                >
-                                    Only Veg
-                                </Button>
-                            </div>
-                            <div>
-                                <Button
-                                    variant={selected === 'non-veg' ? 'danger' : 'outline-danger'}
-                                    onClick={() => handleSwitchChange('non-veg')}
-                                    className='cuisinebtn'
-                                >
-                                    Non-Veg
-                                </Button>
-                            </div>
-                            </div>
-                            <div className='chef-divider' style={{marginTop:"20px"}}></div> 
-                        </Row>
-                        <div className='chef-divider'></div>
-                        <Row className="mt-1">
-                            <Col>
-                                {selectedCuisines.length > 0 && (
-                                    <ListGroup className="dish-list">
-                                        {mealList.map((meal) => (
-                                            <div>
-                                                     <ListGroupItem key={meal._id} className="dish-item">
-                                                {renderDishItem({ item: meal })}
-                                            </ListGroupItem>
-                                            </div>
-                                           
-                                        ))}
-                                    </ListGroup>
-                                    
-                                )}
-                            </Col>
-                        </Row>
-
-                        <Row>
-    <Col>
-        {isButtonVisible && (
-              
-   
-                  <div style={{
-                      position: "fixed",
-                      bottom: 0,
-                      width: "100%",
-                      backgroundColor: "#EDEDED",
-                      borderTop: "1px solid #efefef",
-                      padding:"15px 0",
-                      left:"0",
-                  }}>
-            
-            <Button
-                onClick={() => addDish(selectedDishPrice)}
+      <>
+        <div className="order-container">
+          {loading && (
+            <div className="d-flex justify-content-center align-items-center">
+              <Spinner animation="border" />
+            </div>
+          )}
+          {!loading && (
+            <>
+              <h1
                 style={{
-                    width: "50%",
-                    backgroundColor: isDishSelected ? '#9252AA' : '#F9E9FF',
-                    borderColor: isDishSelected ? '#9252AA' : '#F9E9FF',
+                  fontSize: "16px",
+                  color: "#000",
+                  marginTop: "20px",
+                  marginBottom: "0",
                 }}
-                disabled={!isDishSelected}
-                className='continuebtnchef'
-            >
-                <div
-                    style={{
-                        className: "continueButtonLeftText",
-                        color: isDishSelected ? 'white' : '#fff',
-                    }}
-                >
-                    Continue
+              >
+                Select Your Menu Here
+              </h1>
+              <Row className="d-flex justify-content-start">
+                <div style={{ display: "flex", margin: "10px 0 0" }}>
+                  <div style={{ marginRight: "10px" }}>
+                    <Button
+                      variant={
+                        selected === "veg" ? "success" : "outline-success"
+                      }
+                      onClick={() => handleSwitchChange("veg")}
+                      className="cuisinebtn"
+                    >
+                      Only Veg
+                    </Button>
+                  </div>
+                  <div>
+                    <Button
+                      variant={
+                        selected === "non-veg" ? "danger" : "outline-danger"
+                      }
+                      onClick={() => handleSwitchChange("non-veg")}
+                      className="cuisinebtn"
+                    >
+                      Non-Veg
+                    </Button>
+                  </div>
                 </div>
                 <div
-                    style={{
-                        className: "continueButtonRightText",
-                        color: isDishSelected ? 'white' : '#fff',
-                    }}
-                >
-                    {selectedCount} Items
-                </div>
-            </Button>
-            </div>
-        )}
-    </Col>
-</Row>
+                  className="chef-divider"
+                  style={{ marginTop: "20px" }}
+                ></div>
+              </Row>
+              <div className="chef-divider"></div>
+              <Row className="mt-1">
+                <Col>
+                  {selectedCuisines.length > 0 && (
+                    <ListGroup className="dish-list">
+                      {mealList.map((meal) => (
+                        <div>
+                          <ListGroupItem key={meal._id} className="dish-item">
+                            {renderDishItem({ item: meal })}
+                          </ListGroupItem>
+                        </div>
+                      ))}
+                    </ListGroup>
+                  )}
+                </Col>
+              </Row>
 
-                    </>
-                )}
-            </div>
+              <Row>
+                <Col>
+                  {isButtonVisible && (
+                    <div
+                      style={{
+                        position: "fixed",
+                        bottom: 0,
+                        width: "100%",
+                        backgroundColor: "#EDEDED",
+                        borderTop: "1px solid #efefef",
+                        padding: "15px 0",
+                        left: "0",
+                      }}
+                    >
+                      <Button
+                        onClick={() => addDish(selectedDishPrice)}
+                        style={{
+                          width: "50%",
+                          backgroundColor: isDishSelected
+                            ? "#9252AA"
+                            : "#F9E9FF",
+                          borderColor: isDishSelected ? "#9252AA" : "#F9E9FF",
+                        }}
+                        disabled={!isDishSelected}
+                        className="continuebtnchef"
+                      >
+                        <div
+                          style={{
+                            className: "continueButtonLeftText",
+                            color: isDishSelected ? "white" : "#fff",
+                          }}
+                        >
+                          Continue
+                        </div>
+                        <div
+                          style={{
+                            className: "continueButtonRightText",
+                            color: isDishSelected ? "white" : "#fff",
+                          }}
+                        >
+                          {selectedCount} Items
+                        </div>
+                      </Button>
+                    </div>
+                  )}
+                </Col>
+              </Row>
+            </>
+          )}
+        </div>
 
-          
-
-            <Modal show={isViewAllSheetOpen} onHide={closeViewAllSheet}>
-        <Modal.Header closeButton>
-          <Modal.Title>View All</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          {dishDetail && <RenderBottomSheetContent />}
-        </Modal.Body>
-      </Modal>
-      <Modal show={isWarningVisibleForDishCount || isWarningVisibleForCuisineCount || isWarningVisibleForTotalAmount} onHide={handleWarningClose}>
+        <Modal show={isViewAllSheetOpen} onHide={closeViewAllSheet}>
+          <Modal.Header closeButton>
+            <Modal.Title>View All</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>{dishDetail && <RenderBottomSheetContent />}</Modal.Body>
+        </Modal>
+        {/* <Modal show={isWarningVisibleForDishCount || isWarningVisibleForCuisineCount || isWarningVisibleForTotalAmount} onHide={handleWarningClose}>
         <Modal.Header closeButton>
           <Modal.Title>Warning</Modal.Title>
         </Modal.Header>
@@ -551,8 +582,11 @@ const FoodDeliveryCreateOrder = () => {
             Close
           </Button>
         </Modal.Footer>
-      </Modal>
-        </>
+      </Modal> */}
+        {(isWarningVisibleForCuisineCount || isWarningVisibleForDishCount) && (
+          <Popup popupMessage={popupMessage} onClose={handleWarningClose} />
+        )}
+      </>
     );
 };
 
