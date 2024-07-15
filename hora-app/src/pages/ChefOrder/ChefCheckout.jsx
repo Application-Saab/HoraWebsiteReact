@@ -12,7 +12,7 @@ import { BASE_URL, GET_ADDRESS_LIST, CONFIRM_ORDER_ENDPOINT, SAVE_LOCATION_ENDPO
 import { PAYMENT, PAYMENT_STATUS, API_SUCCESS_CODE } from '../../utills/apiconstants';
 import { Button, Card, Form } from 'react-bootstrap';
 import { Dropdown, DropdownButton } from 'react-bootstrap';
-
+import '../../css/chefOrder.css';
 function ChefCheckout() {
   let { peopleCount, orderType, selectedDishDictionary, selectedDishPrice, selectedCount , selectedDishes } = useLocation().state || {}; // Accessing subCategory and itemName safely
   const { subCategory, product } = useLocation().state || {}; // Accessing subCategory and itemName safely
@@ -417,7 +417,55 @@ const pincodes =[
 
                 <div className="rightSeccheckout chef" style={{ boxShadow: "0 1px 8px rgba(0,0,0,.18)", padding: "20px", backgroundColor: "#fff", borderRadius: "20px", width: "59%" }}>
                   <h3 style={{ fontSize: "22px", fontWeight: "400", color: "#222", borderBottom: "1px solid #f0f0f0", margin: "0 0 11px 0", lineHeight: "35px" }}>Order Summary</h3>
+                  
                   <div className='righysercchefinner'>
+                  <div style={{ display: "flex", padding: 7, flexDirection: 'row', borderRadius: 5, marginTop: 5, marginBottom: 10, backgroundColor: 'rgba(211, 75, 233, 0.10)', justifyContent: 'flex-start', alignItems: 'top' }}>
+                        <div style={{ color: "#9252AA", fontWeight: '500', fontSize: 10}}>Note: Additional charge of 700 applies for more than 7 dishes.  </div>
+                      </div>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "top", flexDirection: "row" }}>
+                    <div>
+                    <div style={{ display: "flex", justifyContent: "space-between", flexDirection: "column" , border:"1px solid #efefef", borderRadius:"3px" , margin:"0 0 10px 0" , textAlign:"left" , padding:"3px 8px"}}>
+                          <label style={{ color: "rgb(146, 82, 170)", fontSize: "12px", marigin: "16px 0 6px", fontWeight: 500 }}>Total Dishes</label>
+                          <p style={{ margin: 0, windth: "100%", color: "rgb(146, 82, 170)", fontSize: "12px", fontWeight: 200 }}> {selectedCount}</p>
+                        </div>
+                        {
+                          peopleCount > 0 ?
+                            <div style={{ display: "flex", justifyContent: "space-between", flexDirection: "column"  ,fontWeight: 500 , border:"1px solid #efefef" , borderRadius:"3px" , margin:"0 0 10px 0" , textAlign:"left" , padding:"3px 8px"}}>
+                              <label style={{ color: "rgb(146, 82, 170)", fontSize: "12px", marigin: "16px 0 6px", fontWeight: 500 }}>Number of people</label>
+                              <p style={{ margin: 0, windth: "100%", color: "rgb(146, 82, 170)", fontSize: "12px", fontWeight: 200 }}>{peopleCount}</p>
+                            </div>
+                            :
+                            null
+                        }
+                      </div>
+                    
+                       
+
+                      <div>
+                     
+                      <div style={{ display: "flex", justifyContent: "space-between", flexDirection: "row", margin: "0 0 5px 0" }}>
+                        <label style={{ color: "rgb(146, 82, 170)", fontSize: "16px", marigin: "16px 0 6px", fontWeight: 700 }}>Total Amount:</label>
+                        <p style={{ margin: 0, windth: "100%", color: "rgb(146, 82, 170)", fontSize: "16px", fontWeight: 700 }}>₹  {totalPrice}</p>
+                      </div>
+                      <div style={{ display: "flex", justifyContent: "space-between", flexDirection: "row", margin: "0 0 5px 0" }}>
+                        <label style={{ color: "rgb(146, 82, 170)", fontSize: "16px", marigin: "16px 0 6px", fontWeight: 700 }}>Advance Amount:</label>
+                        <p style={{ margin: 0, windth: "100%", color: "rgb(146, 82, 170)", fontSize: "16px", fontWeight: 700 }}>₹ {Math.round(totalPrice / 5)}</p>
+                      </div>
+                        </div>
+                        </div>
+                    
+                     
+
+
+                      <div style={{ display: "flex", padding: 7, flexDirection: 'row', borderRadius: 5, marginTop: 5, marginBottom: 10, backgroundColor: 'rgba(211, 75, 233, 0.10)', justifyContent: 'flex-start', alignItems: 'top' }}>
+                        <div>
+                          <img style={{ width: "10px", marginRight: "10px" }} src={require('../../assets/info.png')} />
+                        </div>
+                        <div  style={{ color: "#9252AA", fontWeight: '500', fontSize: 10}}>
+                          Balance payment is to be paid to chef after order completion.
+                        </div>
+                      </div>
+                      <div style={{ display:"flex" , justifyContent:"flex-start" , alignItems:"top" , flexWrap:"wrap"}}>
                     {
                       Object.values(selectedDishDictionary).map((item) => {
                         return (
@@ -433,11 +481,25 @@ const pincodes =[
                         )
                       })
                     }
+                    </div>
                   </div>
-                  <p style={{ color: "rgb(146, 82, 170)", fontWeight: "600", fontSize: "20px", margin: "9px 0 0 0", padding: "0" }}>Total: {totalPrice}</p>
-                  <p style={{ color: "rgb(146, 82, 170)", fontWeight: "600", fontSize: "20px", margin: "0", padding: "0" }}>Advance payment: ₹ {Math.round(totalPrice / 5)}</p>
+                 
+                  <div className='d-flex justify-content-center align-items-center mt-3 mb-0'>
+                  <h5 className=''>Need more info?</h5>
+                  <button onClick={contactUsRedirection}  style={{ border: "2px solid rgb(157, 74, 147)", color: "rgb(157, 74, 147)" }} className=' rounded-5 ms-1 contactus-redirection'>Contact Us</button>
+                </div>
+
+                <div className='px-1 py-3 border rounded my-2 cancellatiop-policy' style={{
+                  background: "rgb(157, 74,147, 28%)"
+                }}>
+                  <p style={{ fontSize: "13px", color: "rgb(157, 74, 147)" }} className=' text-center m-1'>Cancellation and order change policy</p>
+                  <p style={{ fontSize: "13px", color: "rgb(157, 74, 147)" }} className='m-1'>Till the order is not assign to the service provider , 100% of the amount will be refunded, othewise 50%of the advance will be deducted as a cancellation charges to componsate the service provider. </p>
+                  <p style={{ fontSize: "13px", color: "rgb(157, 74, 147)" }} className='m-1'>The order cannot be edited after paying the advance customers can cancel the order and replace it with a new order with the required changes.</p>
+                </div>
 
                 </div>
+
+                
            
             </div>
 

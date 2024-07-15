@@ -13,7 +13,7 @@ const SelectDate = ({ history }) => {
     const [selectedTime, setSelectedTime] = useState(new Date());
     const [showDatePicker, setShowDatePicker] = useState(false);
     const [showTimePicker, setShowTimePicker] = useState(false);
-    const [peopleCount, setPeopleCount] = useState(0);
+    const [peopleCount, setPeopleCount] = useState(1);
     const [activeTab, setActiveTab] = useState('right');
     const data = selectedDishDictionary;
     const [dishPrice, setDishPrice] = useState(selectedDishPrice);
@@ -42,7 +42,7 @@ const SelectDate = ({ history }) => {
     }
 
        const onContinueClick = () => {
-    if (dishPrice < 400) {
+    if (dishPrice < 700) {
         setWarningVisible(true);
         return; // Stop further execution if dishPrice is less than 400
     }
@@ -330,9 +330,15 @@ const RightTabContent = ({ ingredientList, preparationTextList, toggleShowAll, s
             </div>
           
             <div style={{width:"90%" , margin:"0 auto" , backgroudColor:"rgb(237, 237, 237)" , display:"flex"   , flexDirection:"column" ,  backgroundColor:"#edededc9"}} className='selectdateContainersec'>
+                
                 <div style={{  width:"98%" , margin:"10px" , padding:"10px 30px"}} className='selectdateContainer'>
+                    
                 <div style={{  backgroundColor:"#fff"  , borderRadius:"10px" , padding:"10px 10px 20px 15px"}} className='peoplecontsec'>
+                <div style={{ display: "flex", padding: 7, flexDirection: 'row', borderRadius: 5, marginTop: 5, marginBottom: 10, backgroundColor: 'rgba(211, 75, 233, 0.10)', justifyContent: 'flex-start', alignItems: 'top' }}>
+                        <div style={{ color: "#9252AA", fontWeight: '500', fontSize: 10}}>Note: Additional charge of 700 applies for more than 7 dishes.  </div>
+                      </div>
                 <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginTop: 13, alignItems: 'center' }}>
+                    
                 <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'row' }}>
                     <img src={require('../../assets/people.png')} style={{ height: 25, width: 25 }} alt="people icon" />
                     <p style={{ margin: "0 0 0 10px", fontSize: "100%", padding:"0", color: '#3C3C3E', fontWeight: '500' }} className='selectdateContainerheadig'>How many people you are hosting?</p>

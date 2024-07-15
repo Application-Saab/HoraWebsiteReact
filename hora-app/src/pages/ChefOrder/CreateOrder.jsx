@@ -527,7 +527,7 @@ const CreateOrder = ({ history }) => {
         <Modal.Body>
           {isWarningVisibleForDishCount && <p>You cannot select more than 12 dishes!</p>}
           {isWarningVisibleForCuisineCount && <p>You cannot select more than 3 cuisines!</p>}
-          {isWarningVisibleForTotalAmount && <p>Total Price should be grether than 500!</p>}
+          {isWarningVisibleForTotalAmount && <p>Total Price should be grether than 700!</p>}
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleWarningClose}>

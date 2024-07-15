@@ -12,7 +12,7 @@ import { BASE_URL, GET_ADDRESS_LIST, CONFIRM_ORDER_ENDPOINT, SAVE_LOCATION_ENDPO
 import { PAYMENT, PAYMENT_STATUS, API_SUCCESS_CODE } from '../utills/apiconstants';
 import { Button, Card, Form } from 'react-bootstrap';
 import { Dropdown, DropdownButton } from 'react-bootstrap';
-
+import '../css/decoration.css';
 
 function Checkout() {
   const { orderType, selectedDishDictionary, selectedDishPrice, selectedCount, peopleCount } = useLocation().state || {}; // Accessing subCategory and itemName safely
@@ -362,7 +362,7 @@ const pincodes =[
                   <textarea className=' rounded border border-1 p-1 '
                     value={comment}
                     onChange={handleComment}
-                    rows={4}
+                    rows={3}
                     placeholder="Enter your comment."
                   />
                 </div>
@@ -374,7 +374,7 @@ const pincodes =[
                       className=' rounded border border-1 p-1'
                       value={address}
                       onChange={handleAddressChange}
-                      rows={4}
+                      rows={3}
                       placeholder="Enter your Address."
                     />
                     {addressError && <p className={`p-0 m-0 ${addressError ? "text-danger" : ""}`}>This field is required!</p>}
@@ -406,8 +406,8 @@ const pincodes =[
 
              
                 <div className="rightSeccheckout" style={{ boxShadow: "0 1px 8px rgba(0,0,0,.18) ", padding: "20px", backgroundColor: "#fff", borderRadius: "20px", width: "59%" }} >
-                  <div className='righysercchefinner'>
-                    <h3 style={{ fontSize: "22px", fontWeight: "400", color: "#222", borderBottom: "1px solid #f0f0f0", margin: "0 0 11px 0", lineHeight: "35px" }}>Order Summary</h3>
+                  <div className='rightsecdecinner decoration'>
+                    <h3 style={{ fontSize: "22px", fontWeight: "400", color: "#222", borderBottom: "1px solid #f0f0f0", margin: "0 0 11px 0", lineHeight: "35px" , width:"100%" }}>Order Summary</h3>
                     <div className='d-flex flex-column flex-lg-row'>
                       <div>
                         <img className='checkoutRightImg' src={`https://horaservices.com/api/uploads/${product.featured_image}`} />
@@ -430,7 +430,7 @@ const pincodes =[
                     </div>
                     <div >
 
-                      <div className='d-flex justify-content-center align-items-center mt-3 mb-0'>
+                      <div className='d-flex justify-content-center align-items-center need-more-info-sec'>
                         <h5 className=''>Need more info?</h5>
                         <button onClick={contactUsRedirection}  style={{ border: "2px solid rgb(157, 74, 147)", color: "rgb(157, 74, 147)" }} className=' rounded-5 ms-1 contactus-redirection'>Contact Us</button>
                       </div>
@@ -494,7 +494,7 @@ const pincodes =[
                           className=' rounded border border-1 p-1'
                           value={address}
                           onChange={handleAddressChange}
-                          rows={4}
+                          rows={3}
                           placeholder="Enter your Address."
                         />
                         {addressError && <p className={`p-0 m-0 ${addressError ? "text-danger" : ""}`}>This field is required!</p>}
@@ -537,7 +537,7 @@ const pincodes =[
                         <textarea className=' rounded border border-1 p-1 decor-commemnts'
                           value={comment}
                           onChange={handleComment}
-                          rows={4}
+                          rows={3}
                           placeholder="No Extra charges for customizing ballon color or replacing tags(Happy Birthday / Anniversary). Chages wil be applied for additional items"
                         />
                       </div>

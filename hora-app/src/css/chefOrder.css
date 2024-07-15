@@ -1,0 +1,13 @@
+
+.righysercchefinner {
+    justify-content: flex-start;
+    align-items: top;
+    flex-wrap: wrap;
+    padding: 4px;
+    overflow-y: scroll;
+  }
+
+.ordersummeryprice{
+margin: 0;
+}
+  

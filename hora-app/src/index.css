@@ -73,9 +73,7 @@ code {
   width: 200px;
 }
 
-.checkoutRightImg {
-  height: 270px;
-}
+
 
 .checkoutProblemWhatsappButton {
   width: 49%;
@@ -189,19 +187,15 @@ button.continuebtnchef.btn.btn-primary {
   border-radius: 24px !important;
 }
 
-.righysercchefinner {
-  display: flex;
-  justify-content: flex-start;
-  align-items: top;
-  flex-wrap: wrap;
-  padding: 4px;
-  height: 80vh;
-  overflow-y: scroll;
-}
-
 .leftSeccheckout {
   padding: 20px 5% 20px 20px !important;
   box-sizing: border-box;
+  /* textarea {
+    font-size: 14px;
+}
+select {
+  font-size: 14px !important;
+} */
 }
 
 .checkoutInputType {
@@ -423,18 +417,17 @@ a.whatappicon {
   z-index: 11111111;
   width: 60px;
 }
+p.ordersummeryname , .ordersummeryprice{
+  font-size: 10px;
+}
 .ordersummaryproduct {
   border: 1px solid #efefef;
-  padding: 10px;
-  width: 25%;
-  margin: 0 10px 0 10px;
+    padding: 10px;
+    width: 15%;
+    margin: 0 10px 13px 10px;
 }
 .ordersummaryproduct img {
   height: auto;
-}
-p.ordersummeryname {
-  font-size: 13px;
-  min-height: 63px;
 }
 .footerheading {
   font-size: 20px;
