@@ -15,6 +15,7 @@ import MinusIcon from "../../assets/minus.png";
 import PlusIcon from "../../assets/plus.png";
 import Popup from "../../utills/popup";
 import warningImage from "../../assets/Group.png";
+import { CardSkeleton } from "../../component/CardSkeleton";
 
 const CreateOrder = ({ history }) => {
   const viewBottomSheetRef = useRef(null);
@@ -541,11 +542,12 @@ const CreateOrder = ({ history }) => {
   return (
     <>
       <div className="order-container">
-        {loading && (
-          <div className="d-flex justify-content-center align-items-center">
-            <Spinner animation="border" />
-          </div>
-        )}
+        {loading &&
+          [1, 2, 3, 4, 5, 6, 7, 8].map((item, index) => (
+            <div className="decimagecontainer" style={styles.imageContainer}>
+              <CardSkeleton key={index} />
+            </div>
+          ))}
         {!loading && (
           <>
             <Row className="d-flex justify-content-start">
@@ -660,12 +662,26 @@ const CreateOrder = ({ history }) => {
         <Modal.Body>{dishDetail && <RenderBottomSheetContent />}</Modal.Body>
       </Modal>
 
-
       {(isWarningVisibleForCuisineCount || isWarningVisibleForDishCount) && (
         <Popup popupMessage={popupMessage} onClose={handleWarningClose} />
       )}
     </>
   );
+};
+
+const styles = {
+  imageContainer: {
+    position: "relative",
+    width: "270px",
+    backgroundColor: "#fff",
+    marginBottom: 40,
+    boxShadow: "0 6px 16px 0 rgba(0,0,0,.14)",
+    borderRadius: "5px",
+    overflow: "hidden", 
+    transition: "transform 0.3s ease-in-out", 
+    margin: "10px 12px 20px",
+    padding: "6px 5px 10px",
+  },
 };
 
 export default CreateOrder;
