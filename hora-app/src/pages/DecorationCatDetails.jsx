@@ -6,7 +6,7 @@ import buynowImage1 from '../assets/secured.png';
 import buynowImage2 from '../assets/service.png';
 import checkImage from '../assets/tick.jpeg.jpeg';
 import { getDecorationProductOrganizationSchema } from "../utills/schema";
-import '../css/decoration.css';
+import '../css/Decoration.css';
 import { Helmet } from "react-helmet";
 function DecorationCatDetails() {
   

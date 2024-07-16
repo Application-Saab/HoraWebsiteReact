@@ -12,7 +12,7 @@ import { BASE_URL, GET_ADDRESS_LIST, CONFIRM_ORDER_ENDPOINT, SAVE_LOCATION_ENDPO
 import { PAYMENT, PAYMENT_STATUS, API_SUCCESS_CODE } from '../utills/apiconstants';
 import { Button, Card, Form } from 'react-bootstrap';
 import { Dropdown, DropdownButton } from 'react-bootstrap';
-import '../css/decoration.css';
+import '../css/Decoration.css';
 
 function Checkout() {
   const { orderType, selectedDishDictionary, selectedDishPrice, selectedCount, peopleCount } = useLocation().state || {}; // Accessing subCategory and itemName safely

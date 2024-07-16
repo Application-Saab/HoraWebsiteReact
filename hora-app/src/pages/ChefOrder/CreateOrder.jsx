@@ -16,6 +16,9 @@ import PlusIcon from "../../assets/plus.png";
 import Popup from "../../utills/popup";
 import warningImage from "../../assets/Group.png";
 import { CardSkeleton } from "../../component/CardSkeleton";
+import {
+  CardSkeletonGrid,
+} from "../../component/ChefCardSkeleton";
 
 const CreateOrder = ({ history }) => {
   const viewBottomSheetRef = useRef(null);
@@ -538,6 +541,10 @@ const CreateOrder = ({ history }) => {
         : [...prevExpanded, categoryId]
     );
   };
+
+  if(loading){
+    return <CardSkeletonGrid loading={true} />;
+  }
 
   return (
     <>

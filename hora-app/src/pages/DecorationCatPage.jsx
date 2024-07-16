@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons"
 import { CardSkeleton } from "../component/CardSkeleton";
 import { getDecorationCatOrganizationSchema } from "../utills/schema";
-import '../css/decoration.css'
+import '../css/Decoration.css'
 function DecorationCatPage() {
   const location = useLocation();
   let { city } = useParams();

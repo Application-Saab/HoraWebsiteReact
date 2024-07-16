@@ -12,6 +12,7 @@ import { useParams } from "react-router-dom";
 import warningImage from "../../assets/Group.png";
 import Popup from '../../utills/popup';
 import { CardSkeleton } from '../../component/CardSkeleton';
+import { CardSkeletonGrid } from '../../component/ChefCardSkeleton';
 
 const FoodDeliveryCreateOrder = () => {
     const viewBottomSheetRef = useRef(null);
@@ -446,6 +447,10 @@ const FoodDeliveryCreateOrder = () => {
               : [...prevExpanded, categoryId],
         );
       };
+
+      if(loading){
+        return <CardSkeletonGrid loading={true} />;
+      }
 
     return (
       <>
