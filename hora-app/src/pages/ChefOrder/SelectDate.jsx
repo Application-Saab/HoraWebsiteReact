@@ -5,6 +5,9 @@ import { Modal, Button, Container, Row, Col, Spinner } from 'react-bootstrap';
 import { BASE_URL, GET_CUISINE_ENDPOINT, API_SUCCESS_CODE, GET_MEAL_DISH_ENDPOINT } from '../../utills/apiconstants';
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import orderWarning from "../../assets/OrderWarning.png";
+import Popup from '../../utills/popup';
+
 
 const SelectDate = ({ history }) => {
     const navigate = useNavigate();
@@ -28,6 +31,15 @@ const SelectDate = ({ history }) => {
     const [showCookingTime, setShowCookingTime] = useState(true);
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [selectedTab, setSelectedTab] = useState('Appliances');
+    const [isWarningVisibleForTotalAmount, setWarningVisibleForTotalAmount] =
+      useState(false);
+
+    const [popupMessage, setPopupMessage] = useState({
+        image: "",
+        title: "",
+        body: "",
+        button: "",
+    });
 
     const increasePeopleCount = () => {
         setPeopleCount(peopleCount + 1)
@@ -35,15 +47,23 @@ const SelectDate = ({ history }) => {
     }
 
     const decreasePeopleCount = () => {
-        if (peopleCount != 0) {
+        if (peopleCount != 1) {
             setPeopleCount(peopleCount - 1)
             setDishPrice(dishPrice - 49)
         }
     }
-
+    const handleWarningClose = () => {
+      setWarningVisibleForTotalAmount(false);
+    };
        const onContinueClick = () => {
     if (dishPrice < 700) {
-        setWarningVisible(true);
+        setWarningVisibleForTotalAmount(true);
+        setPopupMessage({
+          image: orderWarning,
+          title: "Total Order Amount is less than ₹700",
+          body: "Total Order amount can not be less than ₹700, Add more to continue",
+          button: "Add More",
+        });
         return; // Stop further execution if dishPrice is less than 400
     }
 
@@ -456,6 +476,7 @@ const RightTabContent = ({ ingredientList, preparationTextList, toggleShowAll, s
                     </div>
                 </Col>
             </Row>
+            {isWarningVisibleForTotalAmount && (<Popup popupMessage={popupMessage} onClose={handleWarningClose}/>)}
         </div>
     )
 }

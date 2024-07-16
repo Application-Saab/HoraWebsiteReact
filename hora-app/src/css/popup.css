@@ -12,6 +12,9 @@
 }
 
 @media (max-width: 400px) {
+  .add-more-button{
+    font-size: 14px !important;
+  }
 }
 
 @media (max-width: 380px) {
@@ -19,8 +22,10 @@
 
 @media (max-width: 375px) {
   .popup-body h1 {
-    font-size: 19px !important;
-  }
+    font-size: 13px !important;
+    padding: 6px 10px 0 !important;
+    line-height: 20px !important;
+}
 }
 
 @media (max-width: 321px) {
@@ -42,7 +47,7 @@
   background-color: white;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  width: 90%;
+  width: 80%;
   max-width: 400px;
   text-align: center;
   padding: 10px;
@@ -73,11 +78,11 @@
   margin-bottom: 10px;
   color: #000;
   text-align: center;
-  font-family: Inter;
   font-size: 17px;
   font-style: normal;
   font-weight: 500;
-  margin: 13px;
+  padding: 18px 51px 0px;
+  line-height: 26px;
 }
 
 .popup-body span {
@@ -95,18 +100,19 @@
   font-size: 12px;
   font-style: normal;
   font-weight: 400;
+  padding: 0 22px;
 }
 
 .add-more-button {
-  width: 65%;
+  width: auto;
   border-radius: 19.39px;
   background: #9252aa;
   border: 2px solid #9252aa;
   box-shadow: 0px 0px 14.009px 0px rgba(0, 0, 0, 0.34);
   color: #fff;
-  font-family: Inter;
-  font-size: 19.39px;
+  font-size: 20px;
   font-style: normal;
   font-weight: 500;
-  height: 41px;
+  height: auto;
+  padding: 3px 27px;
 }

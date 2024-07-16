@@ -429,7 +429,7 @@ const pincodes =[
                           <p style={{ margin: 0, windth: "100%", color: "rgb(146, 82, 170)", fontSize: "12px", fontWeight: 200 }}> {selectedCount}</p>
                         </div>
                         {
-                          peopleCount > 0 ?
+                          peopleCount >= 0 ?
                             <div style={{ display: "flex", justifyContent: "space-between", flexDirection: "column"  ,fontWeight: 500 , border:"1px solid #efefef" , borderRadius:"3px" , margin:"0 0 10px 0" , textAlign:"left" , padding:"3px 8px"}}>
                               <label style={{ color: "rgb(146, 82, 170)", fontSize: "12px", marigin: "16px 0 6px", fontWeight: 500 }}>Number of people</label>
                               <p style={{ margin: 0, windth: "100%", color: "rgb(146, 82, 170)", fontSize: "12px", fontWeight: 200 }}>{peopleCount}</p>
@@ -528,7 +528,7 @@ const pincodes =[
                           <p style={{ margin: 0, windth: "100%", color: "rgb(146, 82, 170)", fontSize: "12px", fontWeight: 200 }}> {selectedCount}</p>
                         </div>
                         {
-                          peopleCount > 0 ?
+                          peopleCount >= 0 ?
                             <div style={{ display: "flex", justifyContent: "space-between", flexDirection: "column"  ,fontWeight: 500 , border:"1px solid #efefef" , borderRadius:"3px" , margin:"0 0 10px 0" , textAlign:"left" , padding:"3px 8px"}}>
                               <label style={{ color: "rgb(146, 82, 170)", fontSize: "12px", marigin: "16px 0 6px", fontWeight: 500 }}>Number of people</label>
                               <p style={{ margin: 0, windth: "100%", color: "rgb(146, 82, 170)", fontSize: "12px", fontWeight: 200 }}>{peopleCount}</p>
