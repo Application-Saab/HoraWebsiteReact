@@ -16,6 +16,7 @@ function Header() {
   const [showDrawer, setShowDrawer] = useState(false);
   const [showDecorationSubMenu, setShowDecorationSubMenu] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+  const [pageTitle, setPageTitle] = useState("");
   const navigate = useNavigate();
   const isHomePage = location.pathname === '/';
   const toggleDrawer = () => {
@@ -42,6 +43,38 @@ function Header() {
     navigate(`/decoration-cat-page/${subCategory}`);
   };
 
+
+ useEffect(() => {
+   const getTitle = () => {
+     switch (location.pathname) {
+       case "/balloon-decoration":
+         return "Decoration";
+       case "/book-chef-cook-for-party":
+         return "Create Order";
+        case "/book-chef-cook-for-party/order-details":
+         return "Order Details";
+        case "/book-chef-checkout":
+          return "Checkout";
+       case "/party-food-delivery-live-catering-buffet/party-food-delivery":
+         return "Food Delivery";
+        case "/party-food-delivery-live-catering-buffet-select-date/party-food-delivery":
+          return "Food Delivery Order Details"
+        case "/party-food-delivery-live-catering-buffet-checkout":
+          return "Checkout"
+       case "/party-food-delivery-live-catering-buffet/party-live-buffet-catering":
+         return "Live Catering";
+        case "/party-food-delivery-live-catering-buffet-select-date/party-live-buffet-catering":
+          return "Live Catering Order Details" 
+       case "/contactus":
+         return "Contact Us";
+      //  case "https://horaservices.com/AboutUs.html":
+      //    return "About Us";
+       default:
+         return "";
+     }
+   };
+   setPageTitle(getTitle());
+ }, [location]);
 
   const openLink = () => {
     window.open("https://play.google.com/store/apps/details?id=com.hora", "_blank");
@@ -179,7 +212,7 @@ function Header() {
                   }}
                   onClick={handleBack}
                 />
-                <h1 style={{ margin: 0 , fontSize:"16px" }}>{''}</h1>
+                <h1 style={{ margin: 0 , fontSize:"16px" }}>{pageTitle}</h1>
               </>
             )}  
           </div>
