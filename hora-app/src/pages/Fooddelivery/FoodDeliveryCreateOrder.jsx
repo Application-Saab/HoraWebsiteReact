@@ -245,7 +245,11 @@ const FoodDeliveryCreateOrder = () => {
             <div>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "top", margin: "9px 19px 0px 6px" }}>
                 <h1 style={{ color: "#000", fontSize: "110%", marginBottom: "13px" }}>{item.mealObject.name}{"  "}{"(" + item.dish.length + ")"}</h1>
-                <Button onClick={() => handleViewAll(item.mealObject._id)} style={{ color: expandedCategories.includes(item.mealObject._id) ? '#000' : '#fff', fontWeight: '400', textDecorationLine: 'none', fontSize: 12 }} className='viewbtn'>View All</Button>
+                <Button onClick={() => handleViewAll(item.mealObject._id)} style={{ color: expandedCategories.includes(item.mealObject._id) ? '#000' : '#fff', fontWeight: '400', textDecorationLine: 'none', fontSize: 12 }} className={`viewbtn ${
+                expandedCategories.includes(item.mealObject._id)
+                  ? "clickedviewAll"
+                  : ""
+              }`}>View All</Button>
             </div>
             <div className="dish-item">
                 {
