@@ -89,6 +89,7 @@ function Login() {
 
         if (response.data.status === API_SUCCESS_CODE) {
           alert("Logged in successfully");
+          navigate('/myaccount')
           setLoginMsg("Successfully logged in");
           localStorage.setItem('isLoggedIn', 'true');
           localStorage.setItem("mobileNumber", mobileNumber);
