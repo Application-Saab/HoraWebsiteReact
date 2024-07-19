@@ -75,8 +75,10 @@ useEffect(() => {
         return "Contact Us";
       case pathname === "/aboutus":
         return "About Us";
+      case pathname.match(/^\/balloon-decoration\/.+\/product\/.+$/) !== null:
+        return "Product";
       case pathname.match(/^\/balloon-decoration\/.+$/) !== null:
-        return "Decoration Detail";
+        return "Decoration category";
       default:
         return "";
     }
