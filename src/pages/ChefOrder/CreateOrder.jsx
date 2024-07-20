@@ -255,7 +255,11 @@ const CreateOrder = ({ history }) => {
                 textDecorationLine: "none",
                 fontSize: 12,
               }}
-              className="viewbtn"
+              className={`viewbtn ${
+                expandedCategories.includes(item.mealObject._id)
+                  ? "clickedviewAll"
+                  : ""
+              }`}
             >
               View All
             </Button>

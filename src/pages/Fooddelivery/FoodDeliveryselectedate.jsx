@@ -40,7 +40,9 @@ const FoodDeliveryselectDate = ({ history }) => {
        button: "",
      });
 
-
+     const minPeopleCount = 10;
+     const maxPeopleCount = 100;
+     const step = 10;
 
     const increasePeopleCount = () => {
         setPeopleCount(peopleCount + 1)
@@ -52,6 +54,11 @@ const FoodDeliveryselectDate = ({ history }) => {
         } else {
             alert("Minimum guest count should be 10");
         }
+    };
+
+    const handleRangeChange = (e) => {
+      const value = parseInt(e.target.value, 10);
+      setPeopleCount(value);
     };
 
     const handleWarningClose = () => {
@@ -410,7 +417,7 @@ const renderTabContent = (selectedDishQuantities) => {
                     marginRight: 9,
                   }}
                 >
-                  <button
+                  {/* <button
                     onClick={decreasePeopleCount}
                     style={{ backgroundColor: "transparent", border: "none" }}
                   >
@@ -444,7 +451,32 @@ const renderTabContent = (selectedDishQuantities) => {
                       style={{ height: 25, width: 25, marginLeft: 5 }}
                       alt="plus icon"
                     />
-                  </button>
+                  </button> */}
+                  <input
+                    type="range"
+                    className="form-range"
+                    min={minPeopleCount}
+                    max={maxPeopleCount}
+                    step={step}
+                    value={peopleCount}
+                    id="customRange3"
+                    onChange={handleRangeChange}
+                  />
+                  <p
+                    style={{
+                      marginLeft: 5,
+                      lineHeight: "23px",
+                      fontSize: 18,
+                      marginTop: 2,
+                      width: 22,
+                      textAlign: "center",
+                      color: "black",
+                      marginBottom: "10px",
+                    }}
+                    className="totalcount"
+                  >
+                    {peopleCount}
+                  </p>
                 </div>
               </div>
 

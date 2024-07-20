@@ -2222,3 +2222,10 @@ h6.order-otp{
   margin-bottom: 1rem;
 }
 
+
+/* View button for chef page */
+
+.viewbtn.clickedviewAll {
+  background-color: #fff !important; /* Background color when clicked */
+  color: purple !important; /* Font color when clicked */
+}
