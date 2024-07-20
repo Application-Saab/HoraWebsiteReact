@@ -24,6 +24,8 @@ import ChefCitypage from './pages/ChefCitypage.jsx';
 import CreateOrder from './pages/ChefOrder/CreateOrder.jsx';
 import ChefCheckout from './pages/ChefOrder/ChefCheckout.jsx';
 import SelectDate from './pages/ChefOrder/SelectDate.jsx';
+import CustomersReviews from './pages/Reviews/CustomersReviews.js';
+
 
 // const ChefCitypage = lazy(() => import('./pages/ChefCitypage.jsx'));
 // const CreateOrder = lazy(() => import('./pages/ChefOrder/CreateOrder'));
@@ -69,6 +71,8 @@ function App() {
           <Route path="/party-food-delivery-live-catering-buffet-checkout" element={<FoodDeliveryCheckout/>}/>
           {/* order detail page */}
           <Route path="/order-details" element={<OrderDetail/>}/>
+          {/* reviews */}
+          <Route path="/reviews" element={<CustomersReviews/>}/>
         </Routes>
       </div>
       <div>

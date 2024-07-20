@@ -172,7 +172,7 @@ useEffect(() => {
                 </Link>
               </li>
               <li style={styles.desktopMenuli}>
-                <Link to="/" style={styles.link}>
+                <Link to="/reviews" style={styles.link}>
                   Customer Reviews
                 </Link>
               </li>
