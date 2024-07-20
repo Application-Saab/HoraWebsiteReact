@@ -1,0 +1,92 @@
+.confirm-order {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  padding: 20px;
+  text-align: center;
+}
+
+.confirm-order-image {
+  width: 20%;
+  margin-bottom: 20px;
+}
+
+.confirm-order-details {
+  padding: 20px;
+  width: 100%;
+  max-width: 400px;
+}
+
+.confirm-order-details h2 {
+  color:  #3e4462;
+  margin-bottom: 10px;
+  font-family: Poppins;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+}
+
+.confirm-order-details p {
+  margin-bottom: 10px;
+  color:  #7e7e7e;
+  text-align: center;
+  font-family: Poppins;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+}
+
+.track-order {
+  margin-bottom: 20px;
+  margin: 10px;
+  text-decoration: underline;
+  color: #9252aa;
+  text-align: center;
+  font-family: Roboto;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+}
+
+.confirm-order-details .need-help {
+  color: #000;
+  text-align: center;
+  font-family: Roboto;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  margin: 15px;
+  cursor: pointer;
+}
+
+.continue-button {
+  border-radius: 19.39px;
+  background: #9252aa;
+  border: 1px solid #9252aa;
+  color: white;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  width: 90%;
+  flex-shrink: 0;
+}
+
+@media (max-width: 800px) {
+  .confirm-order-image {
+    width: 80% !important;
+}
+  .confirm-order-details {
+    padding: 0px !important;
+  }
+}
+
+
+@media (max-width: 380px) {
+  .confirm-order-details h2 {
+    font-size: 19px;
+}
+}
+
+

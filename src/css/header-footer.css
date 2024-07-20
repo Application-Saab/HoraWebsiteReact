@@ -1,0 +1,25 @@
+ul.list-unstyled-0,
+ul.list-unstyled-1,
+ul.list-unstyled-2,
+ul.list-unstyled-3,
+ul.list-unstyled-4,
+ul.list-unstyled-5
+{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+@media (max-width: 641px) {
+    ul.list-unstyled-3 ,
+    ul.list-unstyled-2
+    {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        li{
+            margin-right: 14px;
+        }
+    }
+}
