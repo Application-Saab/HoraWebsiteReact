@@ -375,15 +375,15 @@ const RightTabContent = ({ ingredientList, preparationTextList, toggleShowAll, s
                     <p style={{ margin: "0 0 0 10px", fontSize: "100%", padding:"0", color: '#3C3C3E', fontWeight: '500' }} className='selectdateContainerheadig'>How many people you are hosting?</p>
                 </div>
                 <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-end', marginRight: 9 }}>
-                    {/* <button onClick={decreasePeopleCount} style={{ backgroundColor: 'transparent', border: 'none' }}>
+                    <button onClick={decreasePeopleCount} style={{ backgroundColor: 'transparent', border: 'none' }}>
                         <img src={require('../../assets/ic_minus.png')} style={{ height: 25, width: 25, marginLeft: 5 }} alt="minus icon" />
                     </button>
                     <p style={{ marginLeft: 5, lineHeight: '23px', fontSize: 18, marginTop: 2, width: 22, textAlign: 'center', color: 'black' , marginBottom:"10px" }} className='totalcount'>{peopleCount}</p>
                     <button onClick={increasePeopleCount} style={{ backgroundColor: 'transparent', border: 'none' }}>
                         <img src={require('../../assets/plus.png')} style={{ height: 25, width: 25, marginLeft: 5 }} alt="plus icon" />
-                    </button> */}
+                    </button> 
                     
-                    <input
+                    {/* <input
                        type="range"
                        className="form-range"
                        min={minPeopleCount}
@@ -394,8 +394,8 @@ const RightTabContent = ({ ingredientList, preparationTextList, toggleShowAll, s
                        onChange={handleRangeChange}
 
                     />
-                    <p style={{ marginLeft: 5, lineHeight: '23px', fontSize: 18, marginTop: 2, width: 22, textAlign: 'center', color: 'black' , marginBottom:"10px" }}              className='totalcount'>{peopleCount}</p>
-                </div>
+                    <p style={{ marginLeft: 5, lineHeight: '23px', fontSize: 18, marginTop: 2, width: 22, textAlign: 'center', color: 'black' , marginBottom:"10px" }} className='totalcount'>{peopleCount}</p>*/}
+                </div> 
 
                 </div>
 

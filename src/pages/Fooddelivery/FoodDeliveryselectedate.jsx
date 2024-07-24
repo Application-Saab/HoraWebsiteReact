@@ -56,10 +56,10 @@ const FoodDeliveryselectDate = ({ history }) => {
         }
     };
 
-    const handleRangeChange = (e) => {
-      const value = parseInt(e.target.value, 10);
-      setPeopleCount(value);
-    };
+    // const handleRangeChange = (e) => {
+    //   const value = parseInt(e.target.value, 10);
+    //   setPeopleCount(value);
+    // };
 
     const handleWarningClose = () => {
       setWarningVisibleForTotalAmount(false);
@@ -417,7 +417,7 @@ const renderTabContent = (selectedDishQuantities) => {
                     marginRight: 9,
                   }}
                 >
-                  {/* <button
+                  <button
                     onClick={decreasePeopleCount}
                     style={{ backgroundColor: "transparent", border: "none" }}
                   >
@@ -451,8 +451,8 @@ const renderTabContent = (selectedDishQuantities) => {
                       style={{ height: 25, width: 25, marginLeft: 5 }}
                       alt="plus icon"
                     />
-                  </button> */}
-                  <input
+                  </button> 
+                  {/* <input
                     type="range"
                     className="form-range"
                     min={minPeopleCount}
@@ -476,7 +476,7 @@ const renderTabContent = (selectedDishQuantities) => {
                     className="totalcount"
                   >
                     {peopleCount}
-                  </p>
+                  </p> */}
                 </div>
               </div>
 
