@@ -23,7 +23,7 @@ import FoodDeliveryCheckout from './pages/Fooddelivery/FoodDeliverCheckout.jsx';
 import ChefCitypage from './pages/ChefCitypage.jsx';
 import CreateOrder from './pages/ChefOrder/CreateOrder.jsx';
 import ChefCheckout from './pages/ChefOrder/ChefCheckout.jsx';
-import SelectDate from './pages/ChefOrder/SelectDate.jsx';
+import SelectDate from './pages/ChefOrder/SelectDate/SelectDate.jsx';
 import CustomersReviews from './pages/Reviews/CustomersReviews.js';
 
 

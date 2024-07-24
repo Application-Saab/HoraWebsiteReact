@@ -1,7 +1,7 @@
 
 .righysercchefinner {
     justify-content: flex-start;
-    align-items: top;
+    align-items: flex-start;
     flex-wrap: wrap;
     padding: 4px;
     overflow-y: scroll;
@@ -10,4 +10,7 @@
 .ordersummeryprice{
 margin: 0;
 }
-  
+
+.order-container.chef {
+    padding: 0;
+}
