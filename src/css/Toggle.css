@@ -1,0 +1,322 @@
+/* Base styling for the toggle switch */
+.toggle-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px; /* Adds space between toggle elements */
+    /*padding: 10px; !* Adds padding around the container *!*/
+}
+
+/* Styling for individual toggle elements */
+.toggle {
+    display: flex;
+    align-items: center;
+    margin-right: 0; /* Removes right margin for better spacing */
+}
+
+/* Label for toggle switches */
+.toggle-label {
+    margin-left: 10px; /* Default margin */
+    text-align: center;
+    cursor: pointer;
+    user-select: none;
+    color: #9D4A93;
+    font-weight: bold;
+    font-family: Mukta;
+}
+
+/* Active state for toggle labels */
+.toggle-label.active {
+    font-weight: bold;
+    color: #9D4A93;
+}
+
+/* Base styling for the toggle switch */
+.toggle-switch {
+    position: relative;
+    width: 60px; /* Default width */
+    height: 30px; /* Default height */
+    background-color: #ccc;
+    border-radius: 15px; /* Default border-radius */
+    cursor: pointer;
+}
+
+/* Slider inside the toggle switch */
+.toggle-slider {
+    position: absolute;
+    top: 3px; /* Default top position */
+    left: 3px; /* Default left position */
+    width: 24px; /* Default width */
+    height: 24px; /* Default height */
+    background-color: white;
+    border-radius: 50%;
+    transition: transform 0.3s;
+}
+
+/* Active state for the slider */
+.toggle-slider.active {
+    transform: translateX(30px); /* Default translation */
+    background-color: #f1f7fd;
+}
+
+/* Active state for the toggle switch */
+.toggle-switch.active {
+    background-color: #a1a6ad;
+}
+
+/* Disabled state for the toggle switch */
+.toggle-switch.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none; /* Prevents clicks */
+}
+
+/* Additional styling for 'Veg' and 'Non-Veg' toggles */
+.toggle.veg {
+    border: 1px solid green;
+    padding: 5px; /* Default padding */
+}
+
+.toggle.non-veg {
+    border: 1px solid red;
+    padding: 5px; /* Default padding */
+}
+
+/* Mobile view adjustments */
+@media (max-width: 768px) {
+    .toggle-container {
+        gap: 5px; /* Adjust space between toggle elements */
+        padding: 5px; /* Adjust padding around the container */
+        margin-right: 103px;
+    }
+
+    .toggle-label {
+        margin-left: 5px; /* Reduced margin for mobile */
+        font-size: 14px; /* Adjust font size for mobile */
+    }
+
+    .toggle-switch {
+        width: 40px; /* Reduced width for mobile */
+        height: 20px; /* Reduced height for mobile */
+        border-radius: 10px; /* Reduced border-radius for mobile */
+    }
+
+    .toggle-slider {
+        top: 2px; /* Adjusted top position for mobile */
+        left: 2px; /* Adjusted left position for mobile */
+        width: 16px; /* Reduced width for mobile */
+        height: 16px; /* Reduced height for mobile */
+    }
+
+    .toggle-slider.active {
+        transform: translateX(20px); /* Adjusted translation for mobile */
+    }
+
+    .toggle.veg {
+        padding: 3px; /* Reduced padding for mobile */
+    }
+
+    .toggle.non-veg {
+        padding: 3px; /* Reduced padding for mobile */
+    }
+}
+
+
+
+/*sdff*/
+/* src/components/StepProgressBar.css */
+.progress-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px;
+}
+
+.step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.circle {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #e0e0e0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+}
+
+.label {
+    margin-top: 10px;
+    font-size: 10px;
+    color: #999;
+}
+
+.progress-line {
+    width: 50px;
+    height: 2px;
+    background-color: #e0e0e0;
+    margin: 0 10px;
+}
+
+.step.active .circle {
+    background-color: #ff6f61; /* Active step color */
+}
+
+.step.active .label {
+    color: #ff6f61; /* Active step label color */
+}
+
+.progress-line.active {
+    background-color: #ff6f61; /* Active line color */
+}
+
+
+/*
+
+.notification-bar {
+    display: flex;
+    align-items: center;
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    padding: 10px;
+    width: 100%;
+    max-width: 500px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.notification-bar .icon {
+    margin-right: 10px;
+    font-size: 18px;
+    color: #ffffff;
+    background-color: #1a35ea;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.notification-bar .message {
+    font-size: 12px;
+    color: #333;
+}*/
+
+
+/* src/App.css */
+
+.notification-bar {
+    display: flex;
+    align-items: center;
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    padding: 10px;
+    width: 90%;
+    max-width: 500px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    margin: 0 auto; /* Center the bar horizontally */
+}
+
+.notification-bar .icon {
+    margin-right: 10px;
+    font-size: 18px;
+    color: #ffffff;
+    background-color: #1a35ea;
+    border-radius: 50%;
+    width: 20px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.notification-bar .message {
+    font-size: 14px;
+    color: #333;
+}
+
+/* Responsive styles */
+@media (max-width: 600px) {
+    .notification-bar {
+        padding: 8px;
+    }
+
+    .notification-bar .icon {
+        width: 20px;
+        height: 20px;
+        font-size: 16px;
+    }
+
+    .notification-bar .message {
+        font-size: 11px;
+    }
+}
+
+/*d*/
+.steps-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap; /* Ensure items stay in a single row */
+    overflow-x: auto; /* Enable horizontal scrolling if needed */
+    white-space: nowrap; /* Prevent wrapping */
+}
+
+.step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 5px 10px; /* Adjust margin for smaller spacing */
+}
+
+.step-icon {
+    width: 30px; /* Default size */
+    height: 30px; /* Default size */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 5px; /* Default margin */
+}
+
+.step-text {
+    font-size: 16px; /* Default font size */
+}
+
+.connector {
+    width: 50px; /* Default width */
+    height: 2px;
+    margin: 0 10px; /* Default margin */
+}
+
+@media (max-width: 600px) {
+    .steps-container {
+        flex-direction: row; /* Ensure steps stay in a row */
+        overflow-x: auto; /* Enable horizontal scrolling */
+    }
+    .step {
+        margin: 0 5px; /* Adjust margin for horizontal layout */
+    }
+    .step-icon {
+        width: 20px; /* Smaller size for mobile */
+        height: 20px; /* Smaller size for mobile */
+        margin-bottom: 3px; /* Smaller margin for mobile */
+    }
+    .step-text {
+        font-size: 14px; /* Smaller font size for mobile */
+    }
+    .connector {
+        width: 40px; /* Smaller width for mobile */
+        margin: 0 5px; /* Smaller margin for mobile */
+    }
+}

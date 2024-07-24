@@ -1,0 +1,59 @@
+/* src/CookingTimeIndicator.css */
+
+.cooking-time-indicator {
+    display: flex; /* Ensure flex display is used for centering */
+    align-items: center;
+    justify-content: center; /* Center horizontally */
+    background-color: #FFF3E0;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-family: Arial, sans-serif;
+    color: #FF9800;
+    font-size: 14px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+.cooking-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+    flex-shrink: 0;
+}
+
+.cooking-text {
+    margin-right: 8px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.cooking-time {
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+@media (max-width: 480px) {
+    .cooking-time-indicator {
+        flex-wrap: nowrap; /* Ensure items stay on the same line */
+        justify-content: center; /* Center content in mobile view */
+        padding: 8px;
+    }
+
+    .cooking-icon {
+        margin-right: 4px;
+    }
+
+    .cooking-text {
+        font-size: 12px;
+        text-align: center;
+        width: auto; /* Allow width to adjust based on content */
+        margin: 0 4px; /* Adjust margins for better spacing */
+    }
+
+    .cooking-time {
+        font-size: 14px;
+        text-align: center;
+    }
+}
