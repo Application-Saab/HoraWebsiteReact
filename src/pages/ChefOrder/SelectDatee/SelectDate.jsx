@@ -12,7 +12,7 @@ import CookingTimeIndicator from "./CookingTimeIndicator";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCalendarAlt, faCheckCircle, faUtensils} from "@fortawesome/free-solid-svg-icons";
 
-import '../../../css/selectOrder.css';
+import '../../../css/chefOrder.css';
 
 import styled from 'styled-components';
 

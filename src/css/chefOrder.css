@@ -14,3 +14,128 @@ margin: 0;
 .order-container.chef {
     padding: 0;
 }
+
+.peoplecontsec {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 10px 10px 20px 15px;
+}
+
+.header-section {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 13px;
+}
+
+.heading {
+    font-weight: bold;
+    font-size: 18px; /* Default font size for desktop */
+}
+
+.control-buttons {
+    display: flex;
+    align-items: center;
+}
+
+.control-button {
+    background-color: transparent;
+    border: none;
+}
+
+.control-button img {
+    height: 25px;
+    width: 25px;
+}
+
+.count-text {
+    margin: 0 10px;
+    font-weight: bold;
+}
+
+.range-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.range-wrapper {
+    width: 100%;
+}
+
+.range-input {
+    width: 95%;
+}
+
+.count-display {
+    margin-left: 965px;
+    margin-top: -27px;
+}
+
+.personsectionprice {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    margin-top: 10px;
+    border-radius: 10px;
+    background-color: #F9E9FF;
+    padding: 10px;
+}
+
+.info-icon {
+    height: 16px;
+    width: 16px;
+}
+
+.info-text {
+    color: #9252AA;
+    font-weight: 700;
+    margin-left: 5px;
+    font-size: 90%;
+    margin-bottom: 0;
+}
+
+/* Responsive styles */
+@media (max-width: 480px) {
+    .header-section {
+        flex-direction: column; /* Stack elements vertically */
+        align-items: flex-start; /* Align items to the start */
+    }
+
+    .heading {
+        font-size: 14px; /* Smaller font size for mobile */
+    }
+
+    .control-buttons {
+        margin-top: 10px; /* Add some spacing on mobile */
+        justify-content: center; /* Center the buttons */
+        margin-left: 233px;
+        margin-top: -22px;
+    }
+
+    .control-button img {
+        height: 20px;
+        width: 20px;
+    }
+
+    .count-text {
+        font-size: 14px;
+    }
+
+    .range-container {
+        margin-top: 15px;
+    }
+
+    .count-display {
+        margin-left: 300px;
+        margin-top: -33px;
+        text-align: center; /* Center text on mobile */
+    }
+
+    .range-input {
+        width: 92%;
+        height: 30px; /* Adjust the height for mobile view */
+    }
+}
