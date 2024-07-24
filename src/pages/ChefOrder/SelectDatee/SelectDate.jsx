@@ -12,8 +12,10 @@ import CookingTimeIndicator from "./CookingTimeIndicator";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCalendarAlt, faCheckCircle, faUtensils} from "@fortawesome/free-solid-svg-icons";
 
+import '../../../css/chefOrder.css';
 
 import styled from 'styled-components';
+
 
 import SelectDishes from "../../../assets/selectDish.png";
 import SelectDateTime from "../../../assets/event2.png";
@@ -118,7 +120,6 @@ const SelectDate = ({ history, currentStep }) => {
 // Range Input container
     const RangeWrapper = styled.div`
   flex: 1;
-  border: 2px solid black;
   padding: 5px;
   box-sizing: border-box;
 
@@ -194,7 +195,7 @@ const SelectDate = ({ history, currentStep }) => {
     const Image = styled.img`
       width: 48px;       // Default size for mobile view
       height: 48px;
-      flex-shrink: 0;
+
       ${(props) => props.active && `border: 2px solid #000;`};
 
       @media (max-width: 600px) {
@@ -538,7 +539,7 @@ const RightTabContent = ({ ingredientList, preparationTextList, toggleShowAll, s
 
     return (
 
-        <div style={{width:"90%" , margin:"0 auto" , backgroundColor:"#EDEDED", marginBottom: "100px"}} className='selectdatesecouter'>
+        <div style={{width:"90%" , margin:"0 auto" , backgroundColor:"#EDEDED", marginBottom: "10px"}} className='selectdatesecouter'>
             <div style={{ flexDirection: 'row', backgroundColor: '#EFF0F3' , boxShadow:"0px 0px 6px 0px rgba(0, 0, 0, 0.23)" , display:"flex" ,justifyContent:"center" , alignItems:"center" , padding:"10px 0"}}>
                 <img style={{width:"20px" , marginRight:"10px"}} src={require('../../../assets/info.png')} />
                 <p style={{ color: '#676767', fontSize: "94%", fontWeight: '400', margin:"0" }} className='billheading'>Bill value depends upon Dish selected + Number of people</p>
@@ -561,62 +562,62 @@ const RightTabContent = ({ ingredientList, preparationTextList, toggleShowAll, s
                 </Step>
             </Container>
           
-            <div style={{width:"90%" , margin:"0 auto" , backgroudColor:"rgb(237, 237, 237)" , display:"flex"   , flexDirection:"column" ,  backgroundColor:"#edededc9"}} className='selectdateContainersec'>
+            <div style={{width:"90%" , margin:"0 auto" , backgroudColor:"rgb(237, 237, 237)" ,
+                display:"flex"   , flexDirection:"column" ,  backgroundColor:"#edededc9"}} className='selectdateContainersec'>
                 
                 <div style={{  width:"98%" , margin:"10px" , padding:"10px 30px"}} className='selectdateContainer'>
-                    
-                <div style={{  backgroundColor:"#fff"  , borderRadius:"10px" , padding:"10px 10px 20px 15px"}} className='peoplecontsec'>
-                <div style={{ display: "flex", padding: 7, flexDirection: 'row', borderRadius: 5, marginTop: 5, marginBottom: 10, backgroundColor: 'rgba(211, 75, 233, 0.10)', justifyContent: 'flex-start', alignItems: 'top' }}>
-                        <div style={{ color: "#9252AA", fontWeight: '500', fontSize: 10}}>Note: Additional charge of 700 applies for more than 7 dishes.  </div>
-                      </div>
-                <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginTop: 13, alignItems: 'center' }}>
 
-                    <MainContainer>
-                        {/* Header Section */}
-                        <HeaderSection>
-                            <Heading>How many people you are hosting?</Heading>
-                            <ControlButtons>
-                                <button onClick={decreasePeopleCount} style={{ backgroundColor: 'transparent', border: 'none' }}>
-                                    <img src={require('../../../assets/ic_minus.png')} style={{ height: 25, width: 25 }} alt="minus icon" />
+                    <div style={{ backgroundColor:"#fff", borderRadius:"10px", padding:"10px 10px 20px 15px" }} className='peoplecontsec'>
+                        <div style={{ display: "flex", padding: 7, flexDirection: 'row', borderRadius: 5, marginTop: 5, marginBottom: 10, backgroundColor: 'rgba(211, 75, 233, 0.10)', justifyContent: 'flex-start', alignItems: 'top' }}>
+                            <div style={{ color: "#9252AA", fontWeight: '500', fontSize: 10}}>Note: Additional charge of 700 applies for more than 7 dishes.</div>
+                        </div>
+                        <div className="header-section">
+                            <div className="heading">How many people you are hosting?</div>
+                            <div className="control-buttons">
+                                <button onClick={decreasePeopleCount} className="control-button">
+                                    <img src={require('../../../assets/ic_minus.png')} alt="minus icon" />
                                 </button>
-                                <CountText>{peopleCount}</CountText>
-                                <button onClick={increasePeopleCount} style={{ backgroundColor: 'transparent', border: 'none' }}>
-                                    <img src={require('../../../assets/plus.png')} style={{ height: 25, width: 25 }} alt="plus icon" />
+                                <div className="count-text">{peopleCount}</div>
+                                <button onClick={increasePeopleCount} className="control-button">
+                                    <img src={require('../../../assets/plus.png')} alt="plus icon" />
                                 </button>
-                            </ControlButtons>
-                        </HeaderSection>
+                            </div>
+                        </div>
 
-                        {/* Range Input and Count Display */}
-                        <RangeContainer>
-                            <RangeWrapper>
-                                <input
-                                    type="range"
-                                    min={minPeopleCount}
-                                    max={maxPeopleCount}
-                                    step={step}
-                                    value={peopleCount}
-                                    id="customRange3"
-                                    onChange={handleRangeChange}
-                                    style={{ width: '100%' }}
-                                />
-                            </RangeWrapper>
-                            <CountDisplay>{peopleCount}</CountDisplay>
-                        </RangeContainer>
-                    </MainContainer>
+                        <div className="range-container">
+                            <div className="range-wrapper">
+                            <input
+    type="range"
+    min={minPeopleCount}
+    max={maxPeopleCount}
+    step={step}
+    value={peopleCount}
+    id="customRange3"
+    onChange={handleRangeChange}
+    className="range-input"
+    style={{
+        // CSS styles inline for the range input
+        '--range-color': 'rgb(146, 82, 170)',  // Custom color variable
+        '--range-track-height': '6px',         // Custom track height
+        '--range-thumb-size': '14px'  ,         // Custom thumb (handle) size
+        '--range-thumb-transform': 'translateY(-30%)'  // Vertically center the thumb
+    }}
+/>
+                            <div>
+                                <div className="count-display">{peopleCount}</div>
+                            </div>
+                            </div>
+
+                        </div>
+
+                        <div className='personsectionprice'>
+                            <img src={require('../../../assets/info.png')} className="info-icon" alt="info icon" />
+                            <p className="info-text">₹ 49/person would be added to bill value in addition to dish price</p>
+                        </div>
+                    </div>
 
 
-                </div>
-
-                <div style={{ alignItems: 'center', flexDirection: 'row', marginTop:"10px", borderRadius: 10,
-                    backgroundColor: '#F9E9FF' , padding:"10px" , display:"flex"}} className='personsectionprice'>
-                <img src={require('../../../assets/info.png')} style={{ height: 16, width: 16 }} alt="info icon" />
-                <p style={{ color: '#9252AA', fontWeight: '700', marginLeft: 5, fontSize: "90%" , marginBottom:"0"}}>₹ 49/person would be added to bill value in addition to dish price</p>
-                </div>
-               
-
-                </div>
-
-                <div>
+                    <div>
                 <div style={{
                     flex: 1, marginTop: 16,
                     justifyContent: 'center',
@@ -712,12 +713,12 @@ const RightTabContent = ({ ingredientList, preparationTextList, toggleShowAll, s
             {isWarningVisibleForTotalAmount && (<Popup popupMessage={popupMessage} onClose={handleWarningClose}/>)}
 
 
-            <div>
+              {/* <div>
                 <ReadinessListt />
             </div>
             <div>
                 <CookingTimeIndicator time={3.5} />
-            </div>
+            </div> */}
         </div>
     )
 }

@@ -20,3 +20,146 @@ margin: 0;
 .order-container.chef {
     padding: 0;
 }
+
+.peoplecontsec {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 10px 10px 20px 15px;
+}
+
+.header-section {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 13px;
+}
+
+.heading {
+    font-weight: bold;
+    font-size: 18px; /* Default font size for desktop */
+}
+
+.control-buttons {
+    display: flex;
+    align-items: center;
+}
+
+.control-button {
+    background-color: transparent;
+    border: none;
+}
+
+.control-button img {
+    height: 25px;
+    width: 25px;
+}
+
+.count-display {
+    color: rgb(146, 82, 170);
+    font-weight: 600;
+    font-size: 14px;
+}
+.range-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.range-wrapper {
+    width: 100%;
+}
+
+.range-input {
+    -webkit-appearance: none;
+    width: 100%;
+    height: var(--range-track-height, 6px); /* Adjust height as needed */
+    background-color:rgb(146, 82, 170);
+}
+
+.range-input:focus {
+    outline: none;
+}
+
+.range-input::-webkit-slider-runnable-track {
+    width: 100%;
+    height: var(--range-track-height, 6px); /* Adjust height as needed */
+    background-color: var(--range-color, rgb(146, 82, 170)); /* Custom color */
+    border-radius: 1px; /* Adjust if needed */
+    border: none;
+}
+
+.range-input::-moz-range-track {
+    width: 100%;
+    height: var(--range-track-height, 6px); /* Adjust height as needed */
+    background-color: var(--range-color, rgb(146, 82, 170)); /* Custom color */
+    border-radius: 1px; /* Adjust if needed */
+    border: none;
+}
+
+.range-input::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: var(--range-thumb-size, 16px); /* Custom thumb (handle) size */
+    height: var(--range-thumb-size, 16px); /* Custom thumb (handle) size */
+    background-color: var(--range-color, rgb(146, 82, 170)); /* Custom color */
+    border-radius: 50%; /* Ensure it's round */
+    cursor: pointer;
+    border: none;
+    transform: var(--range-thumb-transform, none); /* Apply transform for vertical centering */
+
+}
+
+.range-input::-moz-range-thumb {
+    width: var(--range-thumb-size, 16px); /* Custom thumb (handle) size */
+    height: var(--range-thumb-size, 16px); /* Custom thumb (handle) size */
+    background-color: var(--range-color, rgb(146, 82, 170)); /* Custom color */
+    border-radius: 50%; /* Ensure it's round */
+    cursor: pointer;
+    border: none;
+    transform: var(--range-thumb-transform, none); /* Apply transform for vertical centering */
+
+}
+
+/* Dotted track style */
+.range-input::-moz-range-track {
+    background: linear-gradient(to right, var(--range-color, rgb(146, 82, 170)) 0%, var(--range-color, rgb(146, 82, 170)) var(--percentage, 0%), transparent var(--percentage, 0%), transparent 100%);
+}
+
+.range-input::-webkit-slider-runnable-track {
+    background: linear-gradient(to right, var(--range-color, rgb(146, 82, 170)) 0%, var(--range-color, rgb(146, 82, 170)) var(--percentage, 0%), transparent var(--percentage, 0%), transparent 100%);
+}
+
+
+.personsectionprice {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    margin-top: 10px;
+    border-radius: 10px;
+    background-color: #F9E9FF;
+    padding: 10px;
+}
+
+.info-icon {
+    height: 16px;
+    width: 16px;
+}
+
+.info-text {
+    color: #9252AA;
+    font-weight: 700;
+    margin-left: 5px;
+    font-size: 90%;
+    margin-bottom: 0;
+}
+
+/* Responsive styles */
+@media (max-width: 480px) {
+    .heading {
+        font-weight: bold;
+        font-size: 14px;
+        width: 57%;
+    }
+}

@@ -11,8 +11,9 @@
     color: #FF9800;
     font-size: 14px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    max-width: 100%;
+    max-width: 83%;
     box-sizing: border-box;
+    margin-left: 104px;
 }
 
 .cooking-icon {
@@ -39,6 +40,9 @@
         flex-wrap: nowrap; /* Ensure items stay on the same line */
         justify-content: center; /* Center content in mobile view */
         padding: 8px;
+        margin: 10px auto; /* Center the container horizontally */
+        width: 95%; /* Increase width for mobile view */
+        max-width: none; /* Remove the max-width restriction */
     }
 
     .cooking-icon {

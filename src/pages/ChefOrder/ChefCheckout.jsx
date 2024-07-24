@@ -13,6 +13,12 @@ import { PAYMENT, PAYMENT_STATUS, API_SUCCESS_CODE } from '../../utills/apiconst
 import { Button, Card, Form } from 'react-bootstrap';
 import { Dropdown, DropdownButton } from 'react-bootstrap';
 import '../../css/chefOrder.css';
+import SelectDishes from "../../assets/selectDish.png";
+import SelectDateTime from "../../assets/event2.png";
+import SelectConfirmOrder from "../../assets/ConfirmOrderSelected.png";
+import styled from "styled-components";
+
+
 function ChefCheckout() {
   let { peopleCount, orderType, selectedDishDictionary, selectedDishPrice, selectedCount , selectedDishes } = useLocation().state || {}; // Accessing subCategory and itemName safely
   const { subCategory, product } = useLocation().state || {}; // Accessing subCategory and itemName safely
@@ -34,7 +40,71 @@ function ChefCheckout() {
   const [combinedDateTime, setCombinedDateTime] = useState(null);
   const [combinedDateTimeError, setCombinedDateTimeError] = useState(false);
 
-  
+  const orangeColor = '#FF6F61';
+  const defaultColor = '#B0BEC5';
+
+
+
+
+  const Container = styled.div`
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: row; // Align items horizontally
+      overflow-x: auto;    // Enable horizontal scrolling if needed
+      padding: 10px;      // Adjust padding for mobile view
+      width: 100%;        // Ensure it takes up the full width of the parent
+      white-space: nowrap; // Prevent labels from wrapping to the next line
+
+      @media (max-width: 600px) {
+        padding: 5px;    // Reduce padding on smaller screens
+      }
+    `;
+
+  const Step = styled.div`
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 0 10px;    // Adjust margin for spacing
+    `;
+
+  const Line = styled.div`
+      height: 2px;
+      width: 50px;       // Default width for mobile view
+      background-color: #ccc;
+      margin: 0 4px;     // Adjust margin for spacing
+      color: ${(props) => (props.active ? '#F46C5B' : 'black')};
+
+      @media (max-width: 600px) {
+        width: 30px;     // Smaller width for mobile view
+      }
+    `;
+
+  const Image = styled.img`
+      width: 48px;       // Default size for mobile view
+      height: 48px;
+      flex-shrink: 0;
+      ${(props) => props.active && `border: 2px solid #000;`};
+
+      @media (max-width: 600px) {
+      width: 32px;     // Smaller width for mobile view
+      height: 32px;    // Maintain aspect ratio
+    }
+    `;
+
+  const Label = styled.div`
+      margin-top: 5px;
+      text-align: center;
+      font-size: 14px;   // Default font size
+      color: ${(props) => (props.active ? '#F46C5B' : 'black')}; // Color based on active prop
+      white-space: nowrap; // Prevent text from wrapping
+
+      @media (max-width: 600px) {
+        font-size: 10px; // Smaller font size for mobile view
+      }
+    `;
+
+
 
   /// order.type is 2 for chef
   /// order.type is 1 for decoration
@@ -354,11 +424,31 @@ const pincodes =[
       {
         window.innerWidth > 800 ?
           <div style={{ padding: "1% 2%", backgroundColor: "#edededc9" }}>
-            <div style={{ display: "flex", alignItems: "start", margin: "0 !important", padding: "10px 0" }} className='checoutSec my-3 gap-3'>
-              <div style={{ width: "40%", boxShadow: "0 1px 8px rgba(0,0,0,.18)", padding: "20px", backgroundColor: "#fff", borderRadius: "20px" }} className='leftSeccheckout'>
-                <h2 style={{ fontSize: "22px", fontWeight: "400", color: "#222", borderBottom: "1px solid #f0f0f0", margin: "0 0 8px 0", lineHeight: "35px" }}>Booking Details</h2>
+            <Container>
+              <Step active>
+                <Image  src={SelectDishes} alt="Select Dishes" />
+                <Label active>Select Dishes</Label>
+              </Step>
+              <Line active/>
+              <Step>
+                <Image src={SelectDateTime} alt = "Select Date & Time"/>
+                <Label active>Select Date & Time</Label>
+              </Step>
+              <Line active />
+              <Step>
+                <Image src={SelectConfirmOrder} alt= "Confirm Order"/>
+                <Label active>Select Confirm Order</Label>
+              </Step>
+            </Container>
+            <div style={{ display: "flex", alignItems: "start", margin: "0 !important", padding: "10px 0" }}
+                 className='checoutSec my-3 gap-3'>
+              <div style={{ width: "40%", boxShadow: "0 1px 8px rgba(0,0,0,.18)", padding: "20px", backgroundColor: "#fff",
+                borderRadius: "20px" }} className='leftSeccheckout'>
+                <h2 style={{ fontSize: "22px", fontWeight: "400", color: "#222", borderBottom: "1px solid #f0f0f0",
+                  margin: "0 0 8px 0", lineHeight: "35px" }}>Booking Details</h2>
               
-                  <div className='border border-danger p-1 px-3 rounded bg-danger-subtle text-black text-center' style={{ color: '#000', fontSize: 12, fontWeight: '500', textAlign: 'left', color: "#9252AA" }}>
+                  <div className='border border-danger p-1 px-3 rounded bg-danger-subtle text-black text-center'
+                       style={{  fontSize: 12, fontWeight: '500', textAlign: 'left', color: "#9252AA" }}>
                     Chef details will be shared 5 hours before the order time.
                   </div>
                
@@ -510,7 +600,8 @@ const pincodes =[
               <div>
                 {/* <h2 style={{ fontSize: "22px", fontWeight: "400", color: "#222", borderBottom: "1px solid #f0f0f0", margin: "0 0 8px 0", lineHeight: "35px" }}>Booking Details</h2> */}
                
-                  <div className='border border-danger p-1 px-3 rounded bg-danger-subtle text-black text-center' style={{ color: '#000', fontSize: 12, fontWeight: '500', textAlign: 'left', color: "#9252AA" }}>
+                  <div className='border border-danger p-1 px-3 rounded bg-danger-subtle text-black text-center'
+                       style={{  fontSize: 12, fontWeight: '500', textAlign: 'left', color: "#9252AA" }}>
                     Chef details will be shared 5 hours before the order time.
                   </div>
                
@@ -594,7 +685,7 @@ const pincodes =[
                         {cityError && <p className={`p-0 m-0 ${cityError ? "text-danger" : ""}`}>This field is required!</p>}
                       </div>
                       <div>
-                        <h1 style={{padding: 4, color: '#000', fontSize: 13, fontWeight: '600' , margin:0 , padding:"10px 0"}}>
+                        <h1 style={{color: '#000', fontSize: 13, fontWeight: '600' , margin:0 , padding:"10px 0"}}>
                           Dishes Selected
                         </h1>
                         <div style={{ display:"flex" , flexDirection:"row" , justifyContent:"space-between" , flexFlow: "wrap"}}>
@@ -653,7 +744,6 @@ const pincodes =[
                   bottom:0 , 
                   left:0,
                   width:"100%",
-                  backgroundColor:"#fff",
                   borderTop:"1px solid #efefef",
                   backgroundColor:"#EDEDED"
                 }}

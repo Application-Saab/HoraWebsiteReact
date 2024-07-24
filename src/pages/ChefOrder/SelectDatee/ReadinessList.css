@@ -3,9 +3,9 @@
     background-color: #fbeeff;
     border-radius: 8px;
     padding: 10px;
-    width: fit-content;
+    width: 1006px;
     margin: 20px auto; /* Center the container horizontally */
-    max-width: 100%; /* Ensure it doesn't exceed the screen width */
+    max-width: 83%; /* Ensure it doesn't exceed the screen width */
 }
 .readiness-header {
     font-weight: bold;
@@ -37,8 +37,9 @@
 @media (max-width: 600px) {
     .readiness-container {
         padding: 8px;
-        margin: 10px; /* Adjust margin for smaller screens */
-        width: 90%; /* Make the container full width */
+        margin: 10px auto; /* Adjust margin for smaller screens and center the container */
+        width: 95%; /* Increase width for mobile view */
+        max-width: none; /* Remove the max-width restriction */
     }
 
     .readiness-header {
