@@ -6,18 +6,19 @@ body {
   box-sizing: border-box;
 }
 .button-style {
-  border: "2px solid rgb(157, 74, 147)";
-  background-color: "rgb(157, 74, 147)";
-  color: "#fff";
-  font-size: "16px";
-  padding: "10px";
-  border-radius: "5px";
-  display: "flex";
-  justify-content: "center";
-  align-items: "center";
-  margin: "23px auto 14px";
-  width: "93%";
+  border: 2px solid rgb(157, 74, 147);
+  background-color: rgb(157, 74, 147);
+  color: #fff;
+  font-size: 16px;
+  padding: 10px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 23px auto 14px;
+  width: 93%;
 }
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
@@ -275,7 +276,7 @@ button.viewbtn.btn.btn-primary {
 
 .order-container {
   background-color: #edededc9;
-  padding: 20px;
+  padding: 10px;
 }
 
 .dish-item-inner {
@@ -325,14 +326,14 @@ button.cuisinebtn {
 .cuisine-item {
   margin-right: 10px;
   /* Adjust margin as needed */
-  border: "none";
+  border: none;
 }
 
 .dish-list {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  align-items: top;
+  align-items: flex-start;
 }
 
 button.pluBtn {
@@ -450,7 +451,7 @@ p.m-0.p-0.fw-bold.filter-price-tag {
 
 .input-field:focus {
   background-color: #d9d9d9;
-  border-color: none;
+  border-color: transparent;
 }
 
 .form-control {
@@ -556,7 +557,7 @@ button.dec-continueButton {
     background-color: #dfdfdf;
     padding: 0px !important;
     margin-bottom: 16px;
-    padding-top: 0 px !important;
+    padding-top: 0px !important;
     width: 100% !important;
     height: 62px !important;
     flex-shrink: 0 !important;
@@ -992,7 +993,7 @@ button.dec-continueButton {
     justify-content: space-between;
     align-items: center;
     /* padding: 10px 0px 8px; */
-    background: "linear-gradient(119deg, #6730B2 -20.39%, #EE7464 80.65%)";
+    background: linear-gradient(119deg, #6730B2 -20.39%, #EE7464 80.65%);
   }
 
   .svg-inline--fa {
@@ -1220,11 +1221,11 @@ button.dec-continueButton {
     padding: 12px 6px;
     /* justify-content: center;
     align-items: center; */
+  }
 
-    select {
-      width: 45%;
-      padding: 2px 12px 5px 4px !important;
-    }
+  select {
+    width: 45%;
+    padding: 2px 12px 5px 4px !important;
   }
 
   .filterdropdown.sticky {
@@ -1234,236 +1235,232 @@ button.dec-continueButton {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     z-index: 1000;
   }
+
   .checkoutmobileview {
     position: relative;
+  }
 
-    .timepkerSec {
-      width: 48% !important;
-      background-color: #fff;
+  .checkoutmobileview .timepkerSec {
+    width: 48% !important;
+    background-color: #fff;
+  }
+
+  .checkoutmobileview .checoutSec {
+    padding: 0 5px !important;
+    margin-top: 7px !important;
+  }
+
+  .checkoutmobileview .decoratore-note {
+    font-size: 11px !important;
+  }
+
+  .checkoutmobileview .rightSeccheckout {
+    width: 98% !important;
+    margin: 14px 1% 0 3px !important;
+    border-radius: 13px !important;
+    box-shadow: none !important;
+    padding: 7px 21px !important;
+  }
+
+  .checkoutmobileview .checkoutRightImg {
+    height: auto;
+    border-radius: 10px;
+  }
+
+  .checkoutmobileview .decor-commemnts {
+    font-size: 12px !important;
+    font-weight: 400 !important;
+  }
+
+  .checkoutmobileview .ordersummaryproduct {
+    width: 22% !important;
+  }
+
+  @media (max-width: 400px) {
+    .textContainerhome h2 {
+      padding: 4px 8% 5px !important;
     }
-    .checoutSec {
-      padding: 0 5px !important;
-      margin-top: 7px !important;
+    p.ordersummeryname, .ordersummeryprice {
+      font-size: 10px;
     }
-    .decoratore-note {
+  }
+
+  @media (max-width: 480px) {
+    .order-header-left {
+      padding: 12px 13px !important;
+      border-radius: 0 !important;
+    }
+    h5.order-id-h {
+      margin-bottom: 0;
+      font-size: 9px;
+    }
+    .personsectionprice p {
+      font-size: 65% !important;
+    }
+    .tabButton {
+      padding: 1px 8% !important;
+    }
+    button.viewbtn.btn.btn-primary {
+      border-radius: 42px !important;
+      padding: 0px 9px !important;
+      font-size: 11px !important;
+      height: 21px;
+    }
+    button.cuisinebtn {
+      width: 74px;
+      border-radius: 27px !important;
+      padding: 6px 0 !important;
       font-size: 11px !important;
     }
-    .rightSeccheckout {
-      width: 98% !important;
-      margin: 14px 1% 0 3px !important;
-      border-radius: 13px !important;
-      box-shadow: none !important;
-      padding: 7px 21px !important;
-    }
-    .checkoutRightImg {
-      height: auto;
-      border-radius: 10px;
-    }
-    .decor-commemnts {
+    button.cusinebtn {
+      border-radius: 27px !important;
+      padding: 3px 8px !important;
       font-size: 12px !important;
-      font-weight: 400 !important;
+      border: 1px solid !important;
     }
-    .ordersummaryproduct {
-      width: 22% !important;
+    .dish-item-inner {
+      height: 134px;
     }
-  }
-}
-
-@media (max-width: 400px) {
-  .textContainerhome h2 {
-    padding: 4px 8% 5px !important;
-  }
-  p.ordersummeryname , .ordersummeryprice{
-    font-size: 10px;
-  
-  }
-}
-
-@media (max-width: 480px) {
-  .order-header-left {
-    padding: 12px 13px !important;
-    border-radius: 0 !important;
-}
-h5.order-id-h {
-  margin-bottom: 0;
-  font-size: 9px;
-}
-
-  .personsectionprice p {
-    font-size: 65% !important;
-  }
-  .tabButton {
-    padding: 1px 8% !important;
-  }
-  button.viewbtn.btn.btn-primary {
-    border-radius: 42px !important;
-    padding: 0px 9px !important;
-    font-size: 11px !important;
-    height: 21px;
-  }
-  button.cuisinebtn {
-    width: 74px;
-    border-radius: 27px !important;
-    padding: 6px 0 !important;
-    font-size: 11px !important;
-  }
-  button.cusinebtn {
-    border-radius: 27px !important;
-    padding: 3px 8px !important;
-    font-size: 12px !important;
-    border: 1px solid !important;
-  }
-  .dish-item-inner {
-    height: 134px;
-  }
-  .d-flex.justify-content-between.w-100.px-3.dishPrice {
-    padding-left: 10px !important;
-    padding-right: 10px !important;
-    align-items: end;
-  }
-  .dish-price {
-    font-size: 93%;
-    padding: 2px 0 0px;
-  }
-  button.pluBtn.btn.btn-primary img {
-    width: 19px !important;
-    height: 19px !important;
-  }
-  .order-container .dish-name {
-    font-size: 62%;
-    min-height: 45px;
-    padding: 13px 11px 7px;
-  }
-  p.subheading {
-    font-size: 12px;
-    line-height: 16px;
-    padding: 0px 10px 13px !important;
-  }
-  .filterdropdown {
-    select {
+    .d-flex.justify-content-between.w-100.px-3.dishPrice {
+      padding-left: 10px !important;
+      padding-right: 10px !important;
+      align-items: end;
+    }
+    .dish-price {
+      font-size: 93%;
+      padding: 2px 0 0px;
+    }
+    button.pluBtn.btn.btn-primary img {
+      width: 19px !important;
+      height: 19px !important;
+    }
+    .order-container .dish-name {
+      font-size: 62%;
+      min-height: 45px;
+      padding: 13px 11px 7px;
+    }
+    p.subheading {
+      font-size: 12px;
+      line-height: 16px;
+      padding: 0px 10px 13px !important;
+    }
+    .filterdropdown select {
       width: 97%;
       padding: 3px 4px 5px 4px !important;
       font-size: 13px !important;
       margin: -7px auto 0;
       padding: 0;
     }
-  }
-  p.m-0.p-0.fw-bold.filter-price-tag {
-    padding: 0 8px !important;
-    font-size: 63% !important;
-  }
-  p.totalcount {
-    margin-bottom: 0 !important;
-  }
-  .ingredientsec {
-    padding: 11px 5px !important;
-    margin-bottom: 10px !important;
-    width: 45% !important;
-    margin-right: 11px;
-  }
-  p.req-sec {
-    font-size: 14px !important;
-  }
-  p.req-des {
-    font-size: 12px !important;
-  }
-  .ingredientrightsecheading {
-    font-size: 72% !important;
-    line-height: 13px;
-  }
-  .ingredientleftsec {
-    margin-right: 8% !important;
-    width: 50% !important;
-  }
-  .ingredientrightsecsibheading {
-    font-size: 70% !important;
-  }
-  .req-applicance-details p {
-    padding: 2px 0 !important;
-    font-size: 12px !important;
-    margin-bottom: 2px !important;
-  }
-}
-
-@media (max-width: 380px) {
-  .order-header-right{
-    padding-left: 0 !important;
-  }
-  .order-header-left {
-    padding: 12px 8px !important;
-  }
-  h5.order-id-h {
-    margin-bottom: 0;
-    font-size: 8px;
-}
-  .personsectionprice p {
-    font-size: 58% !important;
-  }
-  .dish-item-inner {
-    height: 123px;
-  }
-  .dish-image {
-    width: 70px;
-    height: 64px;
-  }
-}
-
-@media (max-width: 375px) {
-  .order-id>div {
-    font-size: 14px;
-    margin-bottom: 1px;
-    font-weight: 600;
-}
-h6.order-otp{
-  font-size: 14px !important;
-  font-weight: 600;
-}
-
-  .ingredientrightsecheading {
-    font-size: 104% !important;
-    line-height: 13px;
-  }
-  .ingredientrightsecsibheading {
-    font-size: 100% !important;
+    p.m-0.p-0.fw-bold.filter-price-tag {
+      padding: 0 8px !important;
+      font-size: 63% !important;
+    }
+    p.totalcount {
+      margin-bottom: 0 !important;
+    }
+    .ingredientsec {
+      padding: 11px 5px !important;
+      margin-bottom: 10px !important;
+      width: 45% !important;
+      margin-right: 11px;
+    }
+    p.req-sec {
+      font-size: 14px !important;
+    }
+    p.req-des {
+      font-size: 12px !important;
+    }
+    .ingredientrightsecheading {
+      font-size: 65% !important;
+      line-height: 13px;
+    }
+    .ingredientleftsec {
+      margin-right: 8% !important;
+      width: 50% !important;
+    }
+    .ingredientrightsecsibheading {
+      font-size: 70% !important;
+    }
+    .req-applicance-details p {
+      padding: 2px 0 !important;
+      font-size: 12px !important;
+      margin-bottom: 2px !important;
+    }
   }
 
-
-  p.billheading {
-    font-size: 65% !important;
+  @media (max-width: 380px) {
+    .order-header-right {
+      padding-left: 0 !important;
+    }
+    .order-header-left {
+      padding: 12px 8px !important;
+    }
+    h5.order-id-h {
+      margin-bottom: 0;
+      font-size: 8px;
+    }
+    .personsectionprice p {
+      font-size: 58% !important;
+    }
+    .dish-item-inner {
+      height: 123px;
+    }
+    .dish-image {
+      width: 70px;
+      height: 64px;
+    }
   }
 
-  p.selectdateContainerheadig {
-    font-size: 72% !important;
-    font-weight: 700 !important;
+  @media (max-width: 375px) {
+    .order-id>div {
+      font-size: 14px;
+      margin-bottom: 1px;
+      font-weight: 600;
+    }
+    h6.order-otp {
+      font-size: 14px !important;
+      font-weight: 600;
+    }
+    .ingredientrightsecheading {
+      font-size: 104% !important;
+      line-height: 13px;
+    }
+    .ingredientrightsecsibheading {
+      font-size: 100% !important;
+    }
+    p.billheading {
+      font-size: 65% !important;
+    }
+    p.selectdateContainerheadig {
+      font-size: 72% !important;
+      font-weight: 700 !important;
+    }
+    .ingredientrightsec {
+      font-size: 10px !important;
+    }
+    .tabButton {
+      padding: 1px 8% !important;
+    }
   }
 
-  .ingredientrightsec {
-    font-size: 10px !important;
+  @media (max-width: 340px) {
+    .textContainerhome h1 {
+      font-size: 93% !important;
+      padding: 0 20px !important;
+    }
   }
 
-  .tabButton {
-    padding: 1px 8% !important;
+  @media (max-width: 321px) {
+    .order-container .dish-name {
+      font-size: 55%;
+      min-height: 43px;
+      padding: 9px 11px 0;
+    }
+    .dish-item-inner {
+      height: 115px;
+    }
   }
-}
 
-@media (max-width: 340px) {
-  .textContainerhome h1 {
-    font-size: 93% !important;
-    padding: 0 20px !important;
-  }
- 
-}
-
-@media (max-width: 321px) {
-  .order-container .dish-name {
-    font-size: 55%;
-    min-height: 43px;
-    padding: 9px 11px 0;
-  }
-  .dish-item-inner {
-    height: 115px;
-  }
-}
 
 /* My order css */
 
@@ -1701,7 +1698,7 @@ h6.order-otp{
   padding-left: 20px;
   top: 70px;
   gap: 0px;
-  opacity: 0px;
+  opacity: 0;
 }
 
 .order-header-right img {

@@ -2,14 +2,28 @@ import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { ListGroup, ListGroupItem } from 'react-bootstrap';
 import { Modal, Button, Container, Row, Col, Spinner } from 'react-bootstrap';
-import { BASE_URL, GET_CUISINE_ENDPOINT, API_SUCCESS_CODE, GET_MEAL_DISH_ENDPOINT } from '../../utills/apiconstants';
+import { BASE_URL, GET_CUISINE_ENDPOINT, API_SUCCESS_CODE, GET_MEAL_DISH_ENDPOINT } from '../../../utills/apiconstants';
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import orderWarning from "../../assets/OrderWarning.png";
-import Popup from '../../utills/popup';
+import orderWarning from "../../../assets/OrderWarning.png";
+import Popup from '../../../utills/popup';
+import ReadinessList from "./ReadinessList";
+import CookingTimeIndicator from "./CookingTimeIndicator";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faCalendarAlt, faCheckCircle, faUtensils} from "@fortawesome/free-solid-svg-icons";
 
 
-const SelectDate = ({ history }) => {
+import styled from 'styled-components';
+
+import SelectDishes from "../../../assets/selectDish.png";
+import SelectDateTime from "../../../assets/event2.png";
+import SelectConfirmOrder from "../../../assets/confirm_order.png";
+
+const orangeColor = '#FF6F61';
+const defaultColor = '#B0BEC5';
+
+
+const SelectDate = ({ history, currentStep }) => {
     const navigate = useNavigate();
     const { orderType, selectedDishDictionary, selectedDishPrice, selectedDishes , isDishSelected , selectedCount} = useLocation().state || {}; // Accessing subCategory and itemName safely
     const [selectedDate, setSelectedDate] = useState(new Date());
@@ -33,6 +47,174 @@ const SelectDate = ({ history }) => {
     const [selectedTab, setSelectedTab] = useState('Appliances');
     const [isWarningVisibleForTotalAmount, setWarningVisibleForTotalAmount] =
       useState(false);
+
+    // Container for the whole component
+    const MainContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 0 10px;
+
+  @media (max-width: 768px) {
+    padding: 0;
+  }
+`;
+
+// Layout for heading and control section
+    const HeaderSection = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 10px;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 20px;
+  }
+`;
+
+// Heading
+    const Heading = styled.p`
+  margin: 0;
+  font-size: 18px;
+  color: #3C3C3E;
+  font-weight: 500;
+
+  @media (max-width: 768px) {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+`;
+
+// Buttons container
+    const ControlButtons = styled.div`
+  display: flex;
+  align-items: center;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    justify-content: space-between;
+    margin: 0;
+  }
+`;
+
+// Container for Range Input and Count Display
+    const RangeContainer = styled.div`
+  display: flex;
+  align-items: center;
+  width: 94%;
+  max-width: 920px;
+  margin-top: 10px;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    width: 100%;
+  }
+`;
+
+// Range Input container
+    const RangeWrapper = styled.div`
+  flex: 1;
+  border: 2px solid black;
+  padding: 5px;
+  box-sizing: border-box;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    margin: 0;
+  }
+`;
+
+// Text
+    const CountText = styled.p`
+  margin: 0 10px;
+  line-height: 23px;
+  font-size: 18px;
+  text-align: center;
+  color: black;
+
+  @media (max-width: 768px) {
+    font-size: 16px;
+  }
+`;
+
+// Display Count
+    const CountDisplay = styled.p`
+  margin-left: 20px;
+  line-height: 23px;
+  font-size: 18px;
+  text-align: center;
+  color: black;
+
+  @media (max-width: 768px) {
+    font-size: 16px;
+    margin-left: 0; // Adjust margin for mobile
+  }
+`;
+    //different
+
+
+    const Container = styled.div`
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: row; // Align items horizontally
+      overflow-x: auto;    // Enable horizontal scrolling if needed
+      padding: 10px;      // Adjust padding for mobile view
+      width: 100%;        // Ensure it takes up the full width of the parent
+      white-space: nowrap; // Prevent labels from wrapping to the next line
+
+      @media (max-width: 600px) {
+        padding: 5px;    // Reduce padding on smaller screens
+      }
+    `;
+
+    const Step = styled.div`
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 0 10px;    // Adjust margin for spacing
+    `;
+
+    const Line = styled.div`
+      height: 2px;
+      width: 50px;       // Default width for mobile view
+      background-color: #ccc;
+      margin: 0 4px;     // Adjust margin for spacing
+      color: ${(props) => (props.active ? '#F46C5B' : 'black')};
+
+      @media (max-width: 600px) {
+        width: 30px;     // Smaller width for mobile view
+      }
+    `;
+
+    const Image = styled.img`
+      width: 48px;       // Default size for mobile view
+      height: 48px;
+      flex-shrink: 0;
+      ${(props) => props.active && `border: 2px solid #000;`};
+
+      @media (max-width: 600px) {
+      width: 32px;     // Smaller width for mobile view
+      height: 32px;    // Maintain aspect ratio
+    }
+    `;
+
+    const Label = styled.div`
+      margin-top: 5px;
+      text-align: center;
+      font-size: 14px;   // Default font size
+      color: ${(props) => (props.active ? '#F46C5B' : 'black')}; // Color based on active prop
+      white-space: nowrap; // Prevent text from wrapping
+
+      @media (max-width: 600px) {
+        font-size: 10px; // Smaller font size for mobile view
+      }
+    `;
+
 
     const [popupMessage, setPopupMessage] = useState({
         image: "",
@@ -227,12 +409,13 @@ const RenderIngredients = ({ item }) => {
                 unit = 'L'
         }
         return (
-            <div style={{ width:"23%", alignItems: 'center', borderRadius: 5, border: "1px solid #DADADA",  flexDirection: 'row', padding:"10px" , display:"flex" , marginBottom:"20px"}} className='ingredientsec'>
+            <div style={{ width:"23%", alignItems: 'center', borderRadius: 5, border: "1px solid #DADADA",
+                flexDirection: 'row', padding:"10px" , display:"flex" , marginBottom:"20px", marginRight: "10px"}} className='ingredientsec'>
                 <div style={{ marginLeft: 5, width: "45%", height: "auto", backgroundColor: '#F0F0F0', borderRadius: "10px", alignItems: 'center', padding:"5%" , justifyContent: 'center', marginRight: 15 }} className='ingredientleftsec'>
                 <img src={`https://horaservices.com/api/uploads/${item.image}`} alt={item.name} style={{width:"100%" , height:"100%"}}/>
                 </div>
                 <div style={{ flexDirection: 'column', marginLeft: 1, width: 80 }} className='ingredientrightsec'>
-                    <div style={{ fontSize: "80%", fontWeight: '500', color: '#414141' }} className='ingredientrightsecheading'>{item.name}</div>
+                    <div style={{ fontSize: "70%", fontWeight: '500', color: '#414141' }} className='ingredientrightsecheading'>{item.name}</div>
                     <div style={{ fontSize: "140%", fontWeight: '700', color: '#9252AA' , textTransform:"lowerCase"}} className='ingredientrightsecsibheading'>{quantity + ' ' + unit}</div>
                 </div>
             </div>
@@ -251,7 +434,7 @@ const LeftTabContent = ({ burnerCount, ApplianceList }) => {
 
     <div style={{ width: 90, height: 54, flexDirection: 'column', borderColor: "#DADADA", borderWidth: 0.5, borderRadius: 5  }}>
         <div style={{ flexDirection: 'row' }}>
-            <img style={styles.burner} src={require('../../assets/burner.png')} alt="burner" />
+            <img style={styles.burner} src={require('../../../assets/burner.png')} alt="burner" />
             <span style={{ marginInlineStart: 12, marginBlock: 6, fontSize: 26, color: "#9252AA" }}>{burnerCount}</span>
         </div>
     </div>
@@ -267,7 +450,7 @@ const LeftTabContent = ({ burnerCount, ApplianceList }) => {
 
     {ApplianceList.length > 0 && (
         <div style={{ flexDirection: 'row', marginTop: 11 }}>
-            <img style={styles.verticalSeparator} src={require('../../assets/verticalSeparator.png')} alt="separator" />
+            <img style={styles.verticalSeparator} src={require('../../../assets/verticalSeparator.png')} alt="separator" />
         </div>
     )}
 
@@ -354,11 +537,29 @@ const RightTabContent = ({ ingredientList, preparationTextList, toggleShowAll, s
     
 
     return (
-        <div style={{width:"90%" , margin:"0 auto" , backgroundColor:"#EDEDED"}} className='selectdatesecouter'>
+
+        <div style={{width:"90%" , margin:"0 auto" , backgroundColor:"#EDEDED", marginBottom: "100px"}} className='selectdatesecouter'>
             <div style={{ flexDirection: 'row', backgroundColor: '#EFF0F3' , boxShadow:"0px 0px 6px 0px rgba(0, 0, 0, 0.23)" , display:"flex" ,justifyContent:"center" , alignItems:"center" , padding:"10px 0"}}>
-                <img style={{width:"20px" , marginRight:"10px"}} src={require('../../assets/info.png')} />
+                <img style={{width:"20px" , marginRight:"10px"}} src={require('../../../assets/info.png')} />
                 <p style={{ color: '#676767', fontSize: "94%", fontWeight: '400', margin:"0" }} className='billheading'>Bill value depends upon Dish selected + Number of people</p>
             </div>
+
+            <Container>
+                <Step active>
+                    <Image  src={SelectDishes} alt="Select Dishes" />
+                    <Label active>Select Dishes</Label>
+                </Step>
+                <Line active/>
+                <Step>
+                    <Image src={SelectDateTime} alt = "Select Date & Time"/>
+                    <Label active>Select Date & Time</Label>
+                </Step>
+                <Line />
+                <Step>
+                    <Image src={SelectConfirmOrder} alt= "Confirm Order"/>
+                    <Label>Select Confirm Order</Label>
+                </Step>
+            </Container>
           
             <div style={{width:"90%" , margin:"0 auto" , backgroudColor:"rgb(237, 237, 237)" , display:"flex"   , flexDirection:"column" ,  backgroundColor:"#edededc9"}} className='selectdateContainersec'>
                 
@@ -369,38 +570,46 @@ const RightTabContent = ({ ingredientList, preparationTextList, toggleShowAll, s
                         <div style={{ color: "#9252AA", fontWeight: '500', fontSize: 10}}>Note: Additional charge of 700 applies for more than 7 dishes.  </div>
                       </div>
                 <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginTop: 13, alignItems: 'center' }}>
-                    
-                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'row' }}>
-                    <img src={require('../../assets/people.png')} style={{ height: 25, width: 25 }} alt="people icon" />
-                    <p style={{ margin: "0 0 0 10px", fontSize: "100%", padding:"0", color: '#3C3C3E', fontWeight: '500' }} className='selectdateContainerheadig'>How many people you are hosting?</p>
+
+                    <MainContainer>
+                        {/* Header Section */}
+                        <HeaderSection>
+                            <Heading>How many people you are hosting?</Heading>
+                            <ControlButtons>
+                                <button onClick={decreasePeopleCount} style={{ backgroundColor: 'transparent', border: 'none' }}>
+                                    <img src={require('../../../assets/ic_minus.png')} style={{ height: 25, width: 25 }} alt="minus icon" />
+                                </button>
+                                <CountText>{peopleCount}</CountText>
+                                <button onClick={increasePeopleCount} style={{ backgroundColor: 'transparent', border: 'none' }}>
+                                    <img src={require('../../../assets/plus.png')} style={{ height: 25, width: 25 }} alt="plus icon" />
+                                </button>
+                            </ControlButtons>
+                        </HeaderSection>
+
+                        {/* Range Input and Count Display */}
+                        <RangeContainer>
+                            <RangeWrapper>
+                                <input
+                                    type="range"
+                                    min={minPeopleCount}
+                                    max={maxPeopleCount}
+                                    step={step}
+                                    value={peopleCount}
+                                    id="customRange3"
+                                    onChange={handleRangeChange}
+                                    style={{ width: '100%' }}
+                                />
+                            </RangeWrapper>
+                            <CountDisplay>{peopleCount}</CountDisplay>
+                        </RangeContainer>
+                    </MainContainer>
+
+
                 </div>
-                <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-end', marginRight: 9 }}>
-                    <button onClick={decreasePeopleCount} style={{ backgroundColor: 'transparent', border: 'none' }}>
-                        <img src={require('../../assets/ic_minus.png')} style={{ height: 25, width: 25, marginLeft: 5 }} alt="minus icon" />
-                    </button>
-                    <p style={{ marginLeft: 5, lineHeight: '23px', fontSize: 18, marginTop: 2, width: 22, textAlign: 'center', color: 'black' , marginBottom:"10px" }} className='totalcount'>{peopleCount}</p>
-                    <button onClick={increasePeopleCount} style={{ backgroundColor: 'transparent', border: 'none' }}>
-                        <img src={require('../../assets/plus.png')} style={{ height: 25, width: 25, marginLeft: 5 }} alt="plus icon" />
-                    </button> 
-                    
-                    {/* <input
-                       type="range"
-                       className="form-range"
-                       min={minPeopleCount}
-                       max={maxPeopleCount}
-                       step={step}
-                       value={peopleCount}
-                       id="customRange3"
-                       onChange={handleRangeChange}
 
-                    />
-                    <p style={{ marginLeft: 5, lineHeight: '23px', fontSize: 18, marginTop: 2, width: 22, textAlign: 'center', color: 'black' , marginBottom:"10px" }} className='totalcount'>{peopleCount}</p>*/}
-                </div> 
-
-                </div>
-
-                <div style={{ alignItems: 'center', flexDirection: 'row', marginTop:"10px", borderRadius: 10, backgroundColor: '#F9E9FF' , padding:"10px" , display:"flex"}} className='personsectionprice'>
-                <img src={require('../../assets/info.png')} style={{ height: 16, width: 16 }} alt="info icon" />
+                <div style={{ alignItems: 'center', flexDirection: 'row', marginTop:"10px", borderRadius: 10,
+                    backgroundColor: '#F9E9FF' , padding:"10px" , display:"flex"}} className='personsectionprice'>
+                <img src={require('../../../assets/info.png')} style={{ height: 16, width: 16 }} alt="info icon" />
                 <p style={{ color: '#9252AA', fontWeight: '700', marginLeft: 5, fontSize: "90%" , marginBottom:"0"}}>₹ 49/person would be added to bill value in addition to dish price</p>
                 </div>
                
@@ -501,6 +710,14 @@ const RightTabContent = ({ ingredientList, preparationTextList, toggleShowAll, s
                 </Col>
             </Row>
             {isWarningVisibleForTotalAmount && (<Popup popupMessage={popupMessage} onClose={handleWarningClose}/>)}
+
+
+            <div>
+                <ReadinessList />
+            </div>
+            <div>
+                <CookingTimeIndicator time={3.5} />
+            </div>
         </div>
     )
 }
