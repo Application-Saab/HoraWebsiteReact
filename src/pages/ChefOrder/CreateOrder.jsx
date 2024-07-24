@@ -108,7 +108,7 @@ const CreateOrder = ({ history, currentStep }) => {
     width: 48px;       // Default size for mobile view
     height: 48px;
     flex-shrink: 0;
-    ${(props) => props.active && `border: 2px solid #000;`}
+    ${(props) => props.active && `border: 2px solid #000;`};
 
     @media (max-width: 600px) {
     width: 32px;     // Smaller width for mobile view
