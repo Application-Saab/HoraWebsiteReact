@@ -7,7 +7,7 @@ import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import orderWarning from "../../../assets/OrderWarning.png";
 import Popup from '../../../utills/popup';
-import ReadinessList from "./ReadinessList";
+import ReadinessListt from "./ReadinessListt";
 import CookingTimeIndicator from "./CookingTimeIndicator";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCalendarAlt, faCheckCircle, faUtensils} from "@fortawesome/free-solid-svg-icons";
@@ -713,7 +713,7 @@ const RightTabContent = ({ ingredientList, preparationTextList, toggleShowAll, s
 
 
             <div>
-                <ReadinessList />
+                <ReadinessListt />
             </div>
             <div>
                 <CookingTimeIndicator time={3.5} />

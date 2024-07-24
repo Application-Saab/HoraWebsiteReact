@@ -100,13 +100,13 @@ const CreateOrder = ({ history, currentStep }) => {
     margin: 0 4px;     // Adjust margin for spacing
 
     @media (max-width: 600px) {
-      width: 30px;     // Smaller width for mobile view
+      width: 80px;     // Smaller width for mobile view
     }
   `;
 
   const Image = styled.img`
-    width: 48px;       // Default size for mobile view
-    height: 48px;
+    width: 100%;       // Default size for mobile view
+    height: 100%;
     flex-shrink: 0;
     ${(props) => props.active && `border: 2px solid #000;`}
 
@@ -669,7 +669,7 @@ const CreateOrder = ({ history, currentStep }) => {
               <p style={{ color: '#676767', fontSize: "94%", fontWeight: '400', margin:"0" }} className='billheading'>Bill value depends upon Dish selected + Number of people</p>
             </div>
 
-        <Container>
+        <Container className="step-sec">
           <Step active>
             <Image  src={SelectDishes} alt="Select Dishes" />
             <Label active>Select Dishes</Label>

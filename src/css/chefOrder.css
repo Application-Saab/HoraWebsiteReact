@@ -5,7 +5,13 @@
     flex-wrap: wrap;
     padding: 4px;
     overflow-y: scroll;
-  }
+}
+
+
+.step-sec{
+    padding: 14px 0 !important;
+    justify-content: space-between !important;
+}
 
 .ordersummeryprice{
 margin: 0;
