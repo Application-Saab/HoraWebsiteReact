@@ -195,7 +195,7 @@ const SelectDate = ({ history, currentStep }) => {
     const Image = styled.img`
       width: 48px;       // Default size for mobile view
       height: 48px;
-      flex-shrink: 0;
+
       ${(props) => props.active && `border: 2px solid #000;`};
 
       @media (max-width: 600px) {
@@ -586,16 +586,23 @@ const RightTabContent = ({ ingredientList, preparationTextList, toggleShowAll, s
 
                         <div className="range-container">
                             <div className="range-wrapper">
-                                <input
-                                    type="range"
-                                    min={minPeopleCount}
-                                    max={maxPeopleCount}
-                                    step={step}
-                                    value={peopleCount}
-                                    id="customRange3"
-                                    onChange={handleRangeChange}
-                                    className="range-input"
-                                />
+                            <input
+    type="range"
+    min={minPeopleCount}
+    max={maxPeopleCount}
+    step={step}
+    value={peopleCount}
+    id="customRange3"
+    onChange={handleRangeChange}
+    className="range-input"
+    style={{
+        // CSS styles inline for the range input
+        '--range-color': 'rgb(146, 82, 170)',  // Custom color variable
+        '--range-track-height': '6px',         // Custom track height
+        '--range-thumb-size': '14px'  ,         // Custom thumb (handle) size
+        '--range-thumb-transform': 'translateY(-30%)'  // Vertically center the thumb
+    }}
+/>
                             <div>
                                 <div className="count-display">{peopleCount}</div>
                             </div>
@@ -706,12 +713,12 @@ const RightTabContent = ({ ingredientList, preparationTextList, toggleShowAll, s
             {isWarningVisibleForTotalAmount && (<Popup popupMessage={popupMessage} onClose={handleWarningClose}/>)}
 
 
-            <div>
+              {/* <div>
                 <ReadinessListt />
             </div>
             <div>
                 <CookingTimeIndicator time={3.5} />
-            </div>
+            </div> */}
         </div>
     )
 }

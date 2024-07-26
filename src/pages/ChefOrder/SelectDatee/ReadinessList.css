@@ -7,7 +7,6 @@
     margin: 20px auto; /* Center the container horizontally */
     max-width: 83%; /* Ensure it doesn't exceed the screen width */
 }
-
 .readiness-header {
     font-weight: bold;
     color: #7b1fa2;
@@ -31,6 +30,8 @@
 .readiness-list li {
     margin-bottom: 5px;
 }
+
+
 
 /* Responsive styles */
 @media (max-width: 600px) {

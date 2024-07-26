@@ -5,7 +5,13 @@
     flex-wrap: wrap;
     padding: 4px;
     overflow-y: scroll;
-  }
+}
+
+
+.step-sec{
+    padding: 14px 0 !important;
+    justify-content: space-between !important;
+}
 
 .ordersummeryprice{
 margin: 0;
@@ -49,16 +55,16 @@ margin: 0;
     width: 25px;
 }
 
-.count-text {
-    margin: 0 10px;
-    font-weight: bold;
+.count-display {
+    color: rgb(146, 82, 170);
+    font-weight: 600;
+    font-size: 14px;
 }
-
 .range-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
 .range-wrapper {
@@ -66,13 +72,65 @@ margin: 0;
 }
 
 .range-input {
-    width: 95%;
+    -webkit-appearance: none;
+    width: 100%;
+    height: var(--range-track-height, 6px); /* Adjust height as needed */
+    background-color:rgb(146, 82, 170);
 }
 
-.count-display {
-    margin-left: 965px;
-    margin-top: -27px;
+.range-input:focus {
+    outline: none;
 }
+
+.range-input::-webkit-slider-runnable-track {
+    width: 100%;
+    height: var(--range-track-height, 6px); /* Adjust height as needed */
+    background-color: var(--range-color, rgb(146, 82, 170)); /* Custom color */
+    border-radius: 1px; /* Adjust if needed */
+    border: none;
+}
+
+.range-input::-moz-range-track {
+    width: 100%;
+    height: var(--range-track-height, 6px); /* Adjust height as needed */
+    background-color: var(--range-color, rgb(146, 82, 170)); /* Custom color */
+    border-radius: 1px; /* Adjust if needed */
+    border: none;
+}
+
+.range-input::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: var(--range-thumb-size, 16px); /* Custom thumb (handle) size */
+    height: var(--range-thumb-size, 16px); /* Custom thumb (handle) size */
+    background-color: var(--range-color, rgb(146, 82, 170)); /* Custom color */
+    border-radius: 50%; /* Ensure it's round */
+    cursor: pointer;
+    border: none;
+    transform: var(--range-thumb-transform, none); /* Apply transform for vertical centering */
+
+}
+
+.range-input::-moz-range-thumb {
+    width: var(--range-thumb-size, 16px); /* Custom thumb (handle) size */
+    height: var(--range-thumb-size, 16px); /* Custom thumb (handle) size */
+    background-color: var(--range-color, rgb(146, 82, 170)); /* Custom color */
+    border-radius: 50%; /* Ensure it's round */
+    cursor: pointer;
+    border: none;
+    transform: var(--range-thumb-transform, none); /* Apply transform for vertical centering */
+
+}
+
+/* Dotted track style */
+.range-input::-moz-range-track {
+    background: linear-gradient(to right, var(--range-color, rgb(146, 82, 170)) 0%, var(--range-color, rgb(146, 82, 170)) var(--percentage, 0%), transparent var(--percentage, 0%), transparent 100%);
+}
+
+.range-input::-webkit-slider-runnable-track {
+    background: linear-gradient(to right, var(--range-color, rgb(146, 82, 170)) 0%, var(--range-color, rgb(146, 82, 170)) var(--percentage, 0%), transparent var(--percentage, 0%), transparent 100%);
+}
+
 
 .personsectionprice {
     display: flex;
@@ -99,43 +157,9 @@ margin: 0;
 
 /* Responsive styles */
 @media (max-width: 480px) {
-    .header-section {
-        flex-direction: column; /* Stack elements vertically */
-        align-items: flex-start; /* Align items to the start */
-    }
-
     .heading {
-        font-size: 14px; /* Smaller font size for mobile */
-    }
-
-    .control-buttons {
-        margin-top: 10px; /* Add some spacing on mobile */
-        justify-content: center; /* Center the buttons */
-        margin-left: 233px;
-        margin-top: -22px;
-    }
-
-    .control-button img {
-        height: 20px;
-        width: 20px;
-    }
-
-    .count-text {
+        font-weight: bold;
         font-size: 14px;
-    }
-
-    .range-container {
-        margin-top: 15px;
-    }
-
-    .count-display {
-        margin-left: 300px;
-        margin-top: -33px;
-        text-align: center; /* Center text on mobile */
-    }
-
-    .range-input {
-        width: 92%;
-        height: 30px; /* Adjust the height for mobile view */
+        width: 57%;
     }
 }

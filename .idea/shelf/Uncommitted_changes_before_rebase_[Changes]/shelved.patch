@@ -1,0 +1,585 @@
+Index: hora-app/src/component/Header.jsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import React, { useState } from \"react\";\r\nimport { Link } from 'react-router-dom';\r\nimport { FontAwesomeIcon } from '@fortawesome/react-fontawesome';\r\nimport { faUser, faShoppingCart } from '@fortawesome/free-solid-svg-icons';\r\nimport { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';\r\n\r\nimport { useNavigate } from 'react-router-dom';\r\n\r\nfunction Header() {\r\n    const [showDeliverySubMenu, setShowDeliverySubMenu] = useState(false);\r\n    const [showServicesSubMenu, setShowServicesSubMenu] = useState(false);\r\n    const [showDecorationSubMenu , setShowDecorationSubMenu] = useState(false);\r\n    const navigate = useNavigate();\r\n\r\n    const openCatItems = (subCategory) => {\r\n        navigate(`/decoration-cat-page/${subCategory}`); // Navigate to the decoration category page with the subcategory\r\n    };\r\n    return (\r\n        <header style={styles.headerContainer}>\r\n            <div style={styles.headerContainerinner}>\r\n                <div>\r\n                    {/* Redirect to /home on click of logo */}\r\n                    <Link to=\"/home\">\r\n                        <img src={require('../assets/logo_white.svg').default} alt=\"Logo\" style={styles.logo} />\r\n                    </Link>\r\n                </div>\r\n                <nav>\r\n                    <ul style={styles.desktopMenu}>\r\n                    {/* <li style={styles.desktopMenuli}><Link to=\"/decoration\" style={styles.link}>Decoration herer</Link></li> */}\r\n\r\n                    <li style={styles.desktopMenuli} onMouseEnter={() => setShowDecorationSubMenu(true)} onMouseLeave={() => setShowDecorationSubMenu(false)}>\r\n                            {/* <Link to=\"/decoration\" style={styles.link}>Decoration</Link> */}\r\n                            <span style={styles.link}>Decoration</span>\r\n                            {showDecorationSubMenu && (\r\n                                <ul style={styles.subMenu}>\r\n                                  <li><Link to=\"/decoration-cat-page/KidsBirthday\" style={styles.subMenuLink} onClick={() => openCatItems('KidsBirthday')}>Kids Birthday</Link></li>\r\n                                      <li><Link to=\"/decoration-cat-page/BabyShower\" style={styles.subMenuLink} onClick={() => openCatItems('BabyShower')}>Baby Shower</Link></li>\r\n                                      <li><Link to=\"/decoration-cat-page/WelcomeBaby\" style={styles.subMenuLink} onClick={() => openCatItems('WelcomeBaby')}>Welcome Baby</Link></li>\r\n                                     <li><Link to=\"/decoration-cat-page/Birthday\" style={styles.subMenuLink} onClick={() => openCatItems('Birthday')}>Birthday</Link></li>\r\n                                    <li><Link to=\"/decoration-cat-page/FirstNight\" style={styles.subMenuLink} onClick={() => openCatItems('FirstNight')}>First Night</Link></li>\r\n                                    <li><Link to=\"/decoration-cat-page/Anniversary\" style={{ ...styles.subMenuLink, ...styles.lastChild }} onClick={() => openCatItems('Anniversary')}>Anniversary</Link></li>\r\n                                </ul>\r\n                            )}\r\n                            </li>\r\n                        <li style={styles.desktopMenuli}><Link to=\"/chef\" style={styles.link}>Chef at Home</Link></li>\r\n                        <li style={styles.desktopMenuli} onMouseEnter={() => setShowDeliverySubMenu(true)} onMouseLeave={() => setShowDeliverySubMenu(false)}>\r\n                            <span style={styles.link}>Food Delivery</span>\r\n                            {showDeliverySubMenu && (\r\n                                <ul style={styles.subMenu}>\r\n                                    <li><Link to=\"/meal\" style={styles.subMenuLink}>Hora Meal</Link></li>\r\n                                    <li><Link to=\"/buffet\" style={styles.subMenuLink}>Hora Buffet</Link></li>\r\n                                    <li><Link to=\"/live-catering\" style={{ ...styles.subMenuLink, ...styles.lastChild }}>Hora Live Catering</Link></li>\r\n                                </ul>\r\n                            )}\r\n                        </li> \r\n                        <li style={styles.desktopMenuli} onMouseEnter={() => setShowServicesSubMenu(true)} onMouseLeave={() => setShowServicesSubMenu(false)}>\r\n                            <span style={styles.link}>Other Services</span>\r\n                            {showServicesSubMenu && (\r\n                                <ul style={styles.subMenu}>\r\n                                    <li><Link to=\"/waiter\" style={styles.subMenuLink}>Waiter</Link></li>\r\n                                    <li><Link to=\"/bartender\" style={styles.subMenuLink}>Bartender</Link></li>\r\n                                    <li><Link to=\"/cleaner\" style={{ ...styles.subMenuLink, ...styles.lastChild }}>Cleaner</Link></li>\r\n                                </ul>\r\n                            )}\r\n                        </li>\r\n                   <li style={styles.desktopMenuli}><Link to=\"/decoration\" style={styles.link}>Cakes</Link></li> \r\n\r\n                    </ul>\r\n                </nav>\r\n                <div>\r\n                    <ul style={styles.desktopMenu}>\r\n                        <li style={styles.desktopMenuli1}>\r\n                            <Link to=\"/login\" style={styles.linkicon}>\r\n                                <FontAwesomeIcon icon={faUser} style={styles.icon} />\r\n                                <span style={{marginLeft:\"3px\"}}>Login</span>\r\n                            </Link>\r\n                        </li>\r\n                        <li style={styles.desktopMenuli}>\r\n                            <Link to=\"/cart\" style={styles.linkicon1}>\r\n                                <FontAwesomeIcon icon={faShoppingCart} style={styles.icon} />\r\n                                <span style={{marginLeft:\"3px\"}}>Cart</span>\r\n                            </Link>\r\n                        </li>\r\n                    </ul>\r\n                </div>\r\n            </div>\r\n        </header>\r\n    )\r\n}\r\n\r\nconst styles = {\r\n    headerContainer: {\r\n        // background: 'linear-gradient(120deg, rgba(157,74,147,1) 0%, rgba(204,98,119,1) 35%, rgba(234,113,102,1) 100%)',\r\n       backgroundColor:\"rgb(157, 74, 147)\",\r\n        padding: \"0 30px\",\r\n        boxShadow:\"0px 4px 4px 0px rgba(0,0,0,0.25)\",\r\n    },\r\n    headerContainerinner: {\r\n        justifyContent: \"space-between\",\r\n        alignItems: 'center',\r\n        display: \"flex\",\r\n        window: \"1200px\"\r\n    },\r\n    logo: {\r\n        width: \"109px\",\r\n        height: \"56px\"\r\n    },\r\n    desktopMenu: {\r\n        display: \"flex\",\r\n        justifyContent: \"center\",\r\n        alignItems: \"center\",\r\n        listStyle: \"none\",\r\n    },\r\n    desktopMenuli: {\r\n        paddingRight: \"16px\",\r\n        position: \"relative\", // Added position relative for the sub-menu\r\n    },\r\n    desktopMenuli1: {\r\n        paddingRight: \"3px\",\r\n        position: \"relative\", // Added position relative for the sub-menu\r\n    },\r\n    link: {\r\n        color: \"#fff\",\r\n        textDecoration: \"none\",\r\n        fontSize:\"16px\",\r\n        fontWeight:\"500\",\r\n    },\r\n    linkicon:{\r\n        color: \"#fff\",\r\n        textDecoration: \"none\",\r\n        fontSize:\"16px\",\r\n        fontWeight:\"500\", \r\n    },\r\n    linkicon1:{\r\n        padding:\"0 18px\",\r\n        color: \"#fff\",\r\n        textDecoration: \"none\",\r\n        fontSize:\"16px\",\r\n        marginLeft: \"1px\",\r\n    },\r\n    subMenu: {\r\n        position: \"absolute\",\r\n        top: \"100%\", // Position the sub-menu below the parent menu\r\n        left: 0,\r\n        backgroundColor: \"#fff\", // Background color for sub-menu\r\n        boxShadow: \"0px 8px 16px 0px rgba(0,0,0,0.2)\", // Box shadow for sub-menu\r\n        padding: \"8px 0\",\r\n        // borderRadius: \"4px\",\r\n        minWidth: \"300px\",\r\n        zIndex: 1, // Ensure the sub-menu is above other elements\r\n        listStyle:\"none\"\r\n    },\r\n    subMenuLink: {\r\n        display: \"block\",\r\n        // color: \"#da584a\",\r\n        color:\"#444\",\r\n        padding: \"8px 16px\",\r\n        textDecoration: \"none\",\r\n        fontSize: \"16px\",\r\n        fontWeight: \"500\",\r\n        borderBottom:\"1px solid #2222\"\r\n    },\r\n    lastChild: {\r\n        borderBottom: \"none\"\r\n      },\r\n    icon: {\r\n        marginRight: \"5px\",\r\n    },\r\n};\r\n\r\nexport default Header;\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/hora-app/src/component/Header.jsx b/hora-app/src/component/Header.jsx
+--- a/hora-app/src/component/Header.jsx	(revision 9aef8eb5580364d51a02500e0aba6033fb37edf0)
++++ b/hora-app/src/component/Header.jsx	(date 1721372150442)
+@@ -63,9 +63,13 @@
+                                 </ul>
+                             )}
+                         </li>
+-                   <li style={styles.desktopMenuli}><Link to="/decoration" style={styles.link}>Cakes</Link></li> 
++                   <li style={styles.desktopMenuli}><Link to="/decoration" style={styles.link}>Cakes</Link></li>
+ 
++                        <li style={styles.desktopMenuli}><Link to="/customer-review" style={styles.link}>Customer Review</Link></li>
++
+                     </ul>
++
++
+                 </nav>
+                 <div>
+                     <ul style={styles.desktopMenu}>
+Index: hora-app/src/App.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';\r\nimport Header from './component/Header';\r\nimport Footer from './component/Footersec';\r\nimport Home from './pages/Home';\r\nimport Decoration from './pages/Decoration';\r\nimport DecorationCatPage from './pages/DecorationCatPage';\r\nimport DecorationCatDetails from './pages/DecorationCatDetails'\r\nimport Checkout from './pages/Checkout';\r\nimport Login from './pages/login';\r\nimport AboutUs from './pages/AboutUs';\r\nimport './index.css'; // Import your CSS file here\r\nimport ContactUs from './pages/ContactUs';\r\nimport PrivacyPolicy from './pages/PrivacyPolicy';\r\nimport Citypage from './pages/Citypage';\r\n\r\nfunction App() {\r\n  return (\r\n    <Router>\r\n      <div className=\"App\">\r\n        <Header />\r\n        <Routes>\r\n          <Route path=\"/home\" element={<Home />} />\r\n          <Route path=\"/login\" element={<Login />} />\r\n          <Route path=\"/decoration\" element={<Decoration />} />\r\n          <Route path=\"/decoration-cat-page/:subCategory\" element={<DecorationCatPage />} />\r\n          <Route path=\"/decoration-cat-details/:subCategory/:productName\" element={<DecorationCatDetails />} />\r\n          <Route path=\"/checkout\" element={<Checkout />} />\r\n          <Route path=\"/aboutus\" element={<AboutUs />} />\r\n          <Route path=\"/contactus\" element={<ContactUs />} />\r\n          <Route path=\"/privacy-policy\" element={<PrivacyPolicy />} />\r\n          <Route path=\"/citypage\" element={<Citypage />} />\r\n        </Routes>\r\n        </div>\r\n        <Footer />\r\n     \r\n    </Router>\r\n   \r\n  );\r\n}\r\n\r\nexport default App;\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/hora-app/src/App.js b/hora-app/src/App.js
+--- a/hora-app/src/App.js	(revision 9aef8eb5580364d51a02500e0aba6033fb37edf0)
++++ b/hora-app/src/App.js	(date 1721371482504)
+@@ -13,6 +13,8 @@
+ import PrivacyPolicy from './pages/PrivacyPolicy';
+ import Citypage from './pages/Citypage';
+ 
++import CustomerReview from './pages/CustomerReview/CustomerReviews';
++
+ function App() {
+   return (
+     <Router>
+@@ -29,6 +31,8 @@
+           <Route path="/contactus" element={<ContactUs />} />
+           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+           <Route path="/citypage" element={<Citypage />} />
++
++          <Route path="/customer-review" element={<CustomerReview />} />
+         </Routes>
+         </div>
+         <Footer />
+Index: hora-app/package-lock.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/hora-app/package-lock.json b/hora-app/package-lock.json
+--- a/hora-app/package-lock.json	(revision 9aef8eb5580364d51a02500e0aba6033fb37edf0)
++++ b/hora-app/package-lock.json	(date 1721373315611)
+@@ -14,6 +14,7 @@
+         "@testing-library/jest-dom": "^5.17.0",
+         "@testing-library/react": "^13.4.0",
+         "@testing-library/user-event": "^13.5.0",
++        "axios": "^1.7.2",
+         "react": "^18.2.0",
+         "react-datepicker": "^6.2.0",
+         "react-dom": "^18.2.0",
+@@ -21,8 +22,9 @@
+         "react-image-gallery": "^1.3.0",
+         "react-image-magnify": "^2.7.4",
+         "react-router-dom": "^6.22.1",
+-        "react-scripts": "5.0.1",
++        "react-scripts": "^5.0.1",
+         "react-time-picker": "^6.6.0",
++        "styled-components": "^6.1.12",
+         "web-vitals": "^2.1.4"
+       }
+     },
+@@ -2292,6 +2294,24 @@
+         "postcss-selector-parser": "^6.0.10"
+       }
+     },
++    "node_modules/@emotion/is-prop-valid": {
++      "version": "1.2.2",
++      "resolved": "https://registry.npmjs.org/@emotion/is-prop-valid/-/is-prop-valid-1.2.2.tgz",
++      "integrity": "sha512-uNsoYd37AFmaCdXlg6EYD1KaPOaRWRByMCYzbKUX4+hhMfrxdVSelShywL4JVaAeM/eHUOSprYBQls+/neX3pw==",
++      "dependencies": {
++        "@emotion/memoize": "^0.8.1"
++      }
++    },
++    "node_modules/@emotion/memoize": {
++      "version": "0.8.1",
++      "resolved": "https://registry.npmjs.org/@emotion/memoize/-/memoize-0.8.1.tgz",
++      "integrity": "sha512-W2P2c/VRW1/1tLox0mVUalvnWXxavmv/Oum2aPsRcoDJuob75FC3Y8FbpfLwUegRcxINtGUMPq0tFCvYNTBXNA=="
++    },
++    "node_modules/@emotion/unitless": {
++      "version": "0.8.1",
++      "resolved": "https://registry.npmjs.org/@emotion/unitless/-/unitless-0.8.1.tgz",
++      "integrity": "sha512-KOEGMu6dmJZtpadb476IsZBclKvILjopjUii3V+7MnXIQCYh8W3NgNcgwo21n9LXZX6EDIKvqfjYxXebDwxKmQ=="
++    },
+     "node_modules/@eslint-community/eslint-utils": {
+       "version": "4.4.0",
+       "resolved": "https://registry.npmjs.org/@eslint-community/eslint-utils/-/eslint-utils-4.4.0.tgz",
+@@ -4657,6 +4677,11 @@
+       "resolved": "https://registry.npmjs.org/@types/stack-utils/-/stack-utils-2.0.3.tgz",
+       "integrity": "sha512-9aEbYZ3TbYMznPdcdr3SmIrLXwC/AKZXQeCf9Pgao5CKb8CyHuEX5jzWPTkvregvhRJHcpRO6BFoGW9ycaOkYw=="
+     },
++    "node_modules/@types/stylis": {
++      "version": "4.2.5",
++      "resolved": "https://registry.npmjs.org/@types/stylis/-/stylis-4.2.5.tgz",
++      "integrity": "sha512-1Xve+NMN7FWjY14vLoY5tL3BVEQ/n42YLwaqJIPYhotZ9uBHt87VceMwWQpzmdEt2TNXIorIFG+YeCUUW7RInw=="
++    },
+     "node_modules/@types/testing-library__jest-dom": {
+       "version": "5.14.9",
+       "resolved": "https://registry.npmjs.org/@types/testing-library__jest-dom/-/testing-library__jest-dom-5.14.9.tgz",
+@@ -5569,6 +5594,29 @@
+         "node": ">=4"
+       }
+     },
++    "node_modules/axios": {
++      "version": "1.7.2",
++      "resolved": "https://registry.npmjs.org/axios/-/axios-1.7.2.tgz",
++      "integrity": "sha512-2A8QhOMrbomlDuiLeK9XibIBzuHeRcqqNOHp0Cyp5EoJ1IFDh+XZH3A6BkXtv0K4gFGCI0Y4BM7B1wOEi0Rmgw==",
++      "dependencies": {
++        "follow-redirects": "^1.15.6",
++        "form-data": "^4.0.0",
++        "proxy-from-env": "^1.1.0"
++      }
++    },
++    "node_modules/axios/node_modules/form-data": {
++      "version": "4.0.0",
++      "resolved": "https://registry.npmjs.org/form-data/-/form-data-4.0.0.tgz",
++      "integrity": "sha512-ETEklSGi5t0QMZuiXoA/Q6vcnxcLQP5vdugSpuAyi6SVGi2clPPp+xgEhuMaHC+zGgn31Kd235W35f7Hykkaww==",
++      "dependencies": {
++        "asynckit": "^0.4.0",
++        "combined-stream": "^1.0.8",
++        "mime-types": "^2.1.12"
++      },
++      "engines": {
++        "node": ">= 6"
++      }
++    },
+     "node_modules/axobject-query": {
+       "version": "3.2.1",
+       "resolved": "https://registry.npmjs.org/axobject-query/-/axobject-query-3.2.1.tgz",
+@@ -6114,6 +6162,14 @@
+         "node": ">= 6"
+       }
+     },
++    "node_modules/camelize": {
++      "version": "1.0.1",
++      "resolved": "https://registry.npmjs.org/camelize/-/camelize-1.0.1.tgz",
++      "integrity": "sha512-dU+Tx2fsypxTgtLoE36npi3UqcjSSMNYfkqgmoEhtZrraP5VWq0K7FkWVTYa8eMPtnU/G2txVsfdCJTn9uzpuQ==",
++      "funding": {
++        "url": "https://github.com/sponsors/ljharb"
++      }
++    },
+     "node_modules/caniuse-api": {
+       "version": "3.0.0",
+       "resolved": "https://registry.npmjs.org/caniuse-api/-/caniuse-api-3.0.0.tgz",
+@@ -6564,6 +6620,14 @@
+         "postcss": "^8.4"
+       }
+     },
++    "node_modules/css-color-keywords": {
++      "version": "1.0.0",
++      "resolved": "https://registry.npmjs.org/css-color-keywords/-/css-color-keywords-1.0.0.tgz",
++      "integrity": "sha512-FyyrDHZKEjXDpNJYvVsV960FiqQyXc/LlYmsxl2BcdMb2WPx0OGRVgTg55rPSyLSNMqP52R9r8geSp7apN3Ofg==",
++      "engines": {
++        "node": ">=4"
++      }
++    },
+     "node_modules/css-declaration-sorter": {
+       "version": "6.4.1",
+       "resolved": "https://registry.npmjs.org/css-declaration-sorter/-/css-declaration-sorter-6.4.1.tgz",
+@@ -6754,6 +6818,16 @@
+       "resolved": "https://registry.npmjs.org/css-select-base-adapter/-/css-select-base-adapter-0.1.1.tgz",
+       "integrity": "sha512-jQVeeRG70QI08vSTwf1jHxp74JoZsr2XSgETae8/xC8ovSnL2WF87GTLO86Sbwdt2lK4Umg4HnnwMO4YF3Ce7w=="
+     },
++    "node_modules/css-to-react-native": {
++      "version": "3.2.0",
++      "resolved": "https://registry.npmjs.org/css-to-react-native/-/css-to-react-native-3.2.0.tgz",
++      "integrity": "sha512-e8RKaLXMOFii+02mOlqwjbD00KSEKqblnpO9e++1aXS1fPQOpS1YoqdVHBqPjHNoxeF2mimzVqawm2KCbEdtHQ==",
++      "dependencies": {
++        "camelize": "^1.0.0",
++        "css-color-keywords": "^1.0.0",
++        "postcss-value-parser": "^4.0.2"
++      }
++    },
+     "node_modules/css-tree": {
+       "version": "1.0.0-alpha.37",
+       "resolved": "https://registry.npmjs.org/css-tree/-/css-tree-1.0.0-alpha.37.tgz",
+@@ -8724,9 +8798,9 @@
+       "integrity": "sha512-X8cqMLLie7KsNUDSdzeN8FYK9rEt4Dt67OsG/DNGnYTSDBG4uFAJFBnUeiV+zCVAvwFy56IjM9sH51jVaEhNxw=="
+     },
+     "node_modules/follow-redirects": {
+-      "version": "1.15.5",
+-      "resolved": "https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.15.5.tgz",
+-      "integrity": "sha512-vSFWUON1B+yAw1VN4xMfxgn5fTUiaOzAJCKBwIIgT/+7CuGy9+r+5gITvP62j3RmaD5Ph65UaERdOSRGUzZtgw==",
++      "version": "1.15.6",
++      "resolved": "https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.15.6.tgz",
++      "integrity": "sha512-wWN62YITEaOpSK584EZXJafH1AGpO8RVgElfkuXbTOrPX4fIfOyEpW/CsiNd8JdYrAoOvafRTOEnvsO++qCqFA==",
+       "funding": [
+         {
+           "type": "individual",
+@@ -13712,9 +13786,9 @@
+       }
+     },
+     "node_modules/postcss": {
+-      "version": "8.4.35",
+-      "resolved": "https://registry.npmjs.org/postcss/-/postcss-8.4.35.tgz",
+-      "integrity": "sha512-u5U8qYpBCpN13BsiEB0CbR1Hhh4Gc0zLFuedrHJKMctHCHAGrMdG0PRM/KErzAL3CU6/eckEtmHNB3x6e3c0vA==",
++      "version": "8.4.38",
++      "resolved": "https://registry.npmjs.org/postcss/-/postcss-8.4.38.tgz",
++      "integrity": "sha512-Wglpdk03BSfXkHoQa3b/oulrotAkwrlLDRSOb9D0bN86FdRyE9lppSp33aHNPgBa0JKCoB+drFLZkQoRRYae5A==",
+       "funding": [
+         {
+           "type": "opencollective",
+@@ -13732,7 +13806,7 @@
+       "dependencies": {
+         "nanoid": "^3.3.7",
+         "picocolors": "^1.0.0",
+-        "source-map-js": "^1.0.2"
++        "source-map-js": "^1.2.0"
+       },
+       "engines": {
+         "node": "^10 || ^12 || >=14"
+@@ -15019,6 +15093,11 @@
+         "node": ">= 0.10"
+       }
+     },
++    "node_modules/proxy-from-env": {
++      "version": "1.1.0",
++      "resolved": "https://registry.npmjs.org/proxy-from-env/-/proxy-from-env-1.1.0.tgz",
++      "integrity": "sha512-D+zkORCbA9f1tdWRK0RaCR3GPv50cMxcrz4X8k5LTSUD1Dkw47mKJEZQNunItRTkWwgtaUSo1RVFRIG9ZXiFYg=="
++    },
+     "node_modules/psl": {
+       "version": "1.9.0",
+       "resolved": "https://registry.npmjs.org/psl/-/psl-1.9.0.tgz",
+@@ -16381,6 +16460,11 @@
+       "resolved": "https://registry.npmjs.org/setprototypeof/-/setprototypeof-1.2.0.tgz",
+       "integrity": "sha512-E5LDX7Wrp85Kil5bhZv46j8jOeboKq5JMmYM3gVGdGH8xFpPWXUMsNrlODCrkoxMEeNi/XZIwuRvY4XNwYMJpw=="
+     },
++    "node_modules/shallowequal": {
++      "version": "1.1.0",
++      "resolved": "https://registry.npmjs.org/shallowequal/-/shallowequal-1.1.0.tgz",
++      "integrity": "sha512-y0m1JoUZSlPAjXVtPPW70aZWfIL/dSP7AFkRnniLCrK/8MDKog3TySTBmckD+RObVxH0v4Tox67+F14PdED2oQ=="
++    },
+     "node_modules/shebang-command": {
+       "version": "2.0.0",
+       "resolved": "https://registry.npmjs.org/shebang-command/-/shebang-command-2.0.0.tgz",
+@@ -16467,9 +16551,9 @@
+       }
+     },
+     "node_modules/source-map-js": {
+-      "version": "1.0.2",
+-      "resolved": "https://registry.npmjs.org/source-map-js/-/source-map-js-1.0.2.tgz",
+-      "integrity": "sha512-R0XvVJ9WusLiqTCEiGCmICCMplcCkIwwR11mOSD9CR5u+IXYdiseeEuXCVAjS54zqwkLcPNnmU4OeJ6tUrWhDw==",
++      "version": "1.2.0",
++      "resolved": "https://registry.npmjs.org/source-map-js/-/source-map-js-1.2.0.tgz",
++      "integrity": "sha512-itJW8lvSA0TXEphiRoawsCksnlf8SyvmFzIhltqAHluXd88pkCd+cXJVHTDwdCr0IzwptSm035IHQktUu1QUMg==",
+       "engines": {
+         "node": ">=0.10.0"
+       }
+@@ -16912,6 +16996,33 @@
+         "webpack": "^5.0.0"
+       }
+     },
++    "node_modules/styled-components": {
++      "version": "6.1.12",
++      "resolved": "https://registry.npmjs.org/styled-components/-/styled-components-6.1.12.tgz",
++      "integrity": "sha512-n/O4PzRPhbYI0k1vKKayfti3C/IGcPf+DqcrOB7O/ab9x4u/zjqraneT5N45+sIe87cxrCApXM8Bna7NYxwoTA==",
++      "dependencies": {
++        "@emotion/is-prop-valid": "1.2.2",
++        "@emotion/unitless": "0.8.1",
++        "@types/stylis": "4.2.5",
++        "css-to-react-native": "3.2.0",
++        "csstype": "3.1.3",
++        "postcss": "8.4.38",
++        "shallowequal": "1.1.0",
++        "stylis": "4.3.2",
++        "tslib": "2.6.2"
++      },
++      "engines": {
++        "node": ">= 16"
++      },
++      "funding": {
++        "type": "opencollective",
++        "url": "https://opencollective.com/styled-components"
++      },
++      "peerDependencies": {
++        "react": ">= 16.8.0",
++        "react-dom": ">= 16.8.0"
++      }
++    },
+     "node_modules/stylehacks": {
+       "version": "5.1.1",
+       "resolved": "https://registry.npmjs.org/stylehacks/-/stylehacks-5.1.1.tgz",
+@@ -16927,6 +17038,11 @@
+         "postcss": "^8.2.15"
+       }
+     },
++    "node_modules/stylis": {
++      "version": "4.3.2",
++      "resolved": "https://registry.npmjs.org/stylis/-/stylis-4.3.2.tgz",
++      "integrity": "sha512-bhtUjWd/z6ltJiQwg0dUfxEJ+W+jdqQd8TbWLWyeIJHlnsqmGLRFFd8e5mA0AZi/zx90smXRlN66YMTcaSFifg=="
++    },
+     "node_modules/sucrase": {
+       "version": "3.35.0",
+       "resolved": "https://registry.npmjs.org/sucrase/-/sucrase-3.35.0.tgz",
+@@ -17598,16 +17714,16 @@
+       }
+     },
+     "node_modules/typescript": {
+-      "version": "5.3.3",
+-      "resolved": "https://registry.npmjs.org/typescript/-/typescript-5.3.3.tgz",
+-      "integrity": "sha512-pXWcraxM0uxAS+tN0AG/BF2TyqmHO014Z070UsJ+pFvYuRSq8KH8DmWpnbXe0pEPDHXZV3FcAbJkijJ5oNEnWw==",
++      "version": "4.9.5",
++      "resolved": "https://registry.npmjs.org/typescript/-/typescript-4.9.5.tgz",
++      "integrity": "sha512-1FXk9E2Hm+QzZQ7z+McJiHL4NW1F2EzMu9Nq9i3zAaGqibafqYwCVU6WyWAuyQRRzOlxou8xZSyXLEN8oKj24g==",
+       "peer": true,
+       "bin": {
+         "tsc": "bin/tsc",
+         "tsserver": "bin/tsserver"
+       },
+       "engines": {
+-        "node": ">=14.17"
++        "node": ">=4.2.0"
+       }
+     },
+     "node_modules/ua-parser-js": {
+@@ -20321,6 +20437,24 @@
+       "integrity": "sha512-+OJ9konv95ClSTOJCmMZqpd5+YGsB2S+x6w3E1oaM8UuR5j8nTNHYSz8c9BEPGDOCMQYIEEGlVPj/VY64iTbGw==",
+       "requires": {}
+     },
++    "@emotion/is-prop-valid": {
++      "version": "1.2.2",
++      "resolved": "https://registry.npmjs.org/@emotion/is-prop-valid/-/is-prop-valid-1.2.2.tgz",
++      "integrity": "sha512-uNsoYd37AFmaCdXlg6EYD1KaPOaRWRByMCYzbKUX4+hhMfrxdVSelShywL4JVaAeM/eHUOSprYBQls+/neX3pw==",
++      "requires": {
++        "@emotion/memoize": "^0.8.1"
++      }
++    },
++    "@emotion/memoize": {
++      "version": "0.8.1",
++      "resolved": "https://registry.npmjs.org/@emotion/memoize/-/memoize-0.8.1.tgz",
++      "integrity": "sha512-W2P2c/VRW1/1tLox0mVUalvnWXxavmv/Oum2aPsRcoDJuob75FC3Y8FbpfLwUegRcxINtGUMPq0tFCvYNTBXNA=="
++    },
++    "@emotion/unitless": {
++      "version": "0.8.1",
++      "resolved": "https://registry.npmjs.org/@emotion/unitless/-/unitless-0.8.1.tgz",
++      "integrity": "sha512-KOEGMu6dmJZtpadb476IsZBclKvILjopjUii3V+7MnXIQCYh8W3NgNcgwo21n9LXZX6EDIKvqfjYxXebDwxKmQ=="
++    },
+     "@eslint-community/eslint-utils": {
+       "version": "4.4.0",
+       "resolved": "https://registry.npmjs.org/@eslint-community/eslint-utils/-/eslint-utils-4.4.0.tgz",
+@@ -22087,6 +22221,11 @@
+       "resolved": "https://registry.npmjs.org/@types/stack-utils/-/stack-utils-2.0.3.tgz",
+       "integrity": "sha512-9aEbYZ3TbYMznPdcdr3SmIrLXwC/AKZXQeCf9Pgao5CKb8CyHuEX5jzWPTkvregvhRJHcpRO6BFoGW9ycaOkYw=="
+     },
++    "@types/stylis": {
++      "version": "4.2.5",
++      "resolved": "https://registry.npmjs.org/@types/stylis/-/stylis-4.2.5.tgz",
++      "integrity": "sha512-1Xve+NMN7FWjY14vLoY5tL3BVEQ/n42YLwaqJIPYhotZ9uBHt87VceMwWQpzmdEt2TNXIorIFG+YeCUUW7RInw=="
++    },
+     "@types/testing-library__jest-dom": {
+       "version": "5.14.9",
+       "resolved": "https://registry.npmjs.org/@types/testing-library__jest-dom/-/testing-library__jest-dom-5.14.9.tgz",
+@@ -22740,6 +22879,28 @@
+       "resolved": "https://registry.npmjs.org/axe-core/-/axe-core-4.7.0.tgz",
+       "integrity": "sha512-M0JtH+hlOL5pLQwHOLNYZaXuhqmvS8oExsqB1SBYgA4Dk7u/xx+YdGHXaK5pyUfed5mYXdlYiphWq3G8cRi5JQ=="
+     },
++    "axios": {
++      "version": "1.7.2",
++      "resolved": "https://registry.npmjs.org/axios/-/axios-1.7.2.tgz",
++      "integrity": "sha512-2A8QhOMrbomlDuiLeK9XibIBzuHeRcqqNOHp0Cyp5EoJ1IFDh+XZH3A6BkXtv0K4gFGCI0Y4BM7B1wOEi0Rmgw==",
++      "requires": {
++        "follow-redirects": "^1.15.6",
++        "form-data": "^4.0.0",
++        "proxy-from-env": "^1.1.0"
++      },
++      "dependencies": {
++        "form-data": {
++          "version": "4.0.0",
++          "resolved": "https://registry.npmjs.org/form-data/-/form-data-4.0.0.tgz",
++          "integrity": "sha512-ETEklSGi5t0QMZuiXoA/Q6vcnxcLQP5vdugSpuAyi6SVGi2clPPp+xgEhuMaHC+zGgn31Kd235W35f7Hykkaww==",
++          "requires": {
++            "asynckit": "^0.4.0",
++            "combined-stream": "^1.0.8",
++            "mime-types": "^2.1.12"
++          }
++        }
++      }
++    },
+     "axobject-query": {
+       "version": "3.2.1",
+       "resolved": "https://registry.npmjs.org/axobject-query/-/axobject-query-3.2.1.tgz",
+@@ -23150,6 +23311,11 @@
+       "resolved": "https://registry.npmjs.org/camelcase-css/-/camelcase-css-2.0.1.tgz",
+       "integrity": "sha512-QOSvevhslijgYwRx6Rv7zKdMF8lbRmx+uQGx2+vDc+KI/eBnsy9kit5aj23AgGu3pa4t9AgwbnXWqS+iOY+2aA=="
+     },
++    "camelize": {
++      "version": "1.0.1",
++      "resolved": "https://registry.npmjs.org/camelize/-/camelize-1.0.1.tgz",
++      "integrity": "sha512-dU+Tx2fsypxTgtLoE36npi3UqcjSSMNYfkqgmoEhtZrraP5VWq0K7FkWVTYa8eMPtnU/G2txVsfdCJTn9uzpuQ=="
++    },
+     "caniuse-api": {
+       "version": "3.0.0",
+       "resolved": "https://registry.npmjs.org/caniuse-api/-/caniuse-api-3.0.0.tgz",
+@@ -23485,6 +23651,11 @@
+         "postcss-selector-parser": "^6.0.9"
+       }
+     },
++    "css-color-keywords": {
++      "version": "1.0.0",
++      "resolved": "https://registry.npmjs.org/css-color-keywords/-/css-color-keywords-1.0.0.tgz",
++      "integrity": "sha512-FyyrDHZKEjXDpNJYvVsV960FiqQyXc/LlYmsxl2BcdMb2WPx0OGRVgTg55rPSyLSNMqP52R9r8geSp7apN3Ofg=="
++    },
+     "css-declaration-sorter": {
+       "version": "6.4.1",
+       "resolved": "https://registry.npmjs.org/css-declaration-sorter/-/css-declaration-sorter-6.4.1.tgz",
+@@ -23592,6 +23763,16 @@
+       "resolved": "https://registry.npmjs.org/css-select-base-adapter/-/css-select-base-adapter-0.1.1.tgz",
+       "integrity": "sha512-jQVeeRG70QI08vSTwf1jHxp74JoZsr2XSgETae8/xC8ovSnL2WF87GTLO86Sbwdt2lK4Umg4HnnwMO4YF3Ce7w=="
+     },
++    "css-to-react-native": {
++      "version": "3.2.0",
++      "resolved": "https://registry.npmjs.org/css-to-react-native/-/css-to-react-native-3.2.0.tgz",
++      "integrity": "sha512-e8RKaLXMOFii+02mOlqwjbD00KSEKqblnpO9e++1aXS1fPQOpS1YoqdVHBqPjHNoxeF2mimzVqawm2KCbEdtHQ==",
++      "requires": {
++        "camelize": "^1.0.0",
++        "css-color-keywords": "^1.0.0",
++        "postcss-value-parser": "^4.0.2"
++      }
++    },
+     "css-tree": {
+       "version": "1.0.0-alpha.37",
+       "resolved": "https://registry.npmjs.org/css-tree/-/css-tree-1.0.0-alpha.37.tgz",
+@@ -25077,9 +25258,9 @@
+       "integrity": "sha512-X8cqMLLie7KsNUDSdzeN8FYK9rEt4Dt67OsG/DNGnYTSDBG4uFAJFBnUeiV+zCVAvwFy56IjM9sH51jVaEhNxw=="
+     },
+     "follow-redirects": {
+-      "version": "1.15.5",
+-      "resolved": "https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.15.5.tgz",
+-      "integrity": "sha512-vSFWUON1B+yAw1VN4xMfxgn5fTUiaOzAJCKBwIIgT/+7CuGy9+r+5gITvP62j3RmaD5Ph65UaERdOSRGUzZtgw=="
++      "version": "1.15.6",
++      "resolved": "https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.15.6.tgz",
++      "integrity": "sha512-wWN62YITEaOpSK584EZXJafH1AGpO8RVgElfkuXbTOrPX4fIfOyEpW/CsiNd8JdYrAoOvafRTOEnvsO++qCqFA=="
+     },
+     "for-each": {
+       "version": "0.3.3",
+@@ -28623,13 +28804,13 @@
+       "integrity": "sha512-d7Uw+eZoloe0EHDIYoe+bQ5WXnGMOpmiZFTuMWCwpjzzkL2nTjcKiAk4hh8TjnGye2TwWOk3UXucZ+3rbmBa8Q=="
+     },
+     "postcss": {
+-      "version": "8.4.35",
+-      "resolved": "https://registry.npmjs.org/postcss/-/postcss-8.4.35.tgz",
+-      "integrity": "sha512-u5U8qYpBCpN13BsiEB0CbR1Hhh4Gc0zLFuedrHJKMctHCHAGrMdG0PRM/KErzAL3CU6/eckEtmHNB3x6e3c0vA==",
++      "version": "8.4.38",
++      "resolved": "https://registry.npmjs.org/postcss/-/postcss-8.4.38.tgz",
++      "integrity": "sha512-Wglpdk03BSfXkHoQa3b/oulrotAkwrlLDRSOb9D0bN86FdRyE9lppSp33aHNPgBa0JKCoB+drFLZkQoRRYae5A==",
+       "requires": {
+         "nanoid": "^3.3.7",
+         "picocolors": "^1.0.0",
+-        "source-map-js": "^1.0.2"
++        "source-map-js": "^1.2.0"
+       }
+     },
+     "postcss-attribute-case-insensitive": {
+@@ -29379,6 +29560,11 @@
+         }
+       }
+     },
++    "proxy-from-env": {
++      "version": "1.1.0",
++      "resolved": "https://registry.npmjs.org/proxy-from-env/-/proxy-from-env-1.1.0.tgz",
++      "integrity": "sha512-D+zkORCbA9f1tdWRK0RaCR3GPv50cMxcrz4X8k5LTSUD1Dkw47mKJEZQNunItRTkWwgtaUSo1RVFRIG9ZXiFYg=="
++    },
+     "psl": {
+       "version": "1.9.0",
+       "resolved": "https://registry.npmjs.org/psl/-/psl-1.9.0.tgz",
+@@ -30352,6 +30538,11 @@
+       "resolved": "https://registry.npmjs.org/setprototypeof/-/setprototypeof-1.2.0.tgz",
+       "integrity": "sha512-E5LDX7Wrp85Kil5bhZv46j8jOeboKq5JMmYM3gVGdGH8xFpPWXUMsNrlODCrkoxMEeNi/XZIwuRvY4XNwYMJpw=="
+     },
++    "shallowequal": {
++      "version": "1.1.0",
++      "resolved": "https://registry.npmjs.org/shallowequal/-/shallowequal-1.1.0.tgz",
++      "integrity": "sha512-y0m1JoUZSlPAjXVtPPW70aZWfIL/dSP7AFkRnniLCrK/8MDKog3TySTBmckD+RObVxH0v4Tox67+F14PdED2oQ=="
++    },
+     "shebang-command": {
+       "version": "2.0.0",
+       "resolved": "https://registry.npmjs.org/shebang-command/-/shebang-command-2.0.0.tgz",
+@@ -30417,9 +30608,9 @@
+       "integrity": "sha512-l3BikUxvPOcn5E74dZiq5BGsTb5yEwhaTSzccU6t4sDOH8NWJCstKO5QT2CvtFoK6F0saL7p9xHAqHOlCPJygA=="
+     },
+     "source-map-js": {
+-      "version": "1.0.2",
+-      "resolved": "https://registry.npmjs.org/source-map-js/-/source-map-js-1.0.2.tgz",
+-      "integrity": "sha512-R0XvVJ9WusLiqTCEiGCmICCMplcCkIwwR11mOSD9CR5u+IXYdiseeEuXCVAjS54zqwkLcPNnmU4OeJ6tUrWhDw=="
++      "version": "1.2.0",
++      "resolved": "https://registry.npmjs.org/source-map-js/-/source-map-js-1.2.0.tgz",
++      "integrity": "sha512-itJW8lvSA0TXEphiRoawsCksnlf8SyvmFzIhltqAHluXd88pkCd+cXJVHTDwdCr0IzwptSm035IHQktUu1QUMg=="
+     },
+     "source-map-loader": {
+       "version": "3.0.2",
+@@ -30750,6 +30941,22 @@
+       "integrity": "sha512-0WqXzrsMTyb8yjZJHDqwmnwRJvhALK9LfRtRc6B4UTWe8AijYLZYZ9thuJTZc2VfQWINADW/j+LiJnfy2RoC1w==",
+       "requires": {}
+     },
++    "styled-components": {
++      "version": "6.1.12",
++      "resolved": "https://registry.npmjs.org/styled-components/-/styled-components-6.1.12.tgz",
++      "integrity": "sha512-n/O4PzRPhbYI0k1vKKayfti3C/IGcPf+DqcrOB7O/ab9x4u/zjqraneT5N45+sIe87cxrCApXM8Bna7NYxwoTA==",
++      "requires": {
++        "@emotion/is-prop-valid": "1.2.2",
++        "@emotion/unitless": "0.8.1",
++        "@types/stylis": "4.2.5",
++        "css-to-react-native": "3.2.0",
++        "csstype": "3.1.3",
++        "postcss": "8.4.38",
++        "shallowequal": "1.1.0",
++        "stylis": "4.3.2",
++        "tslib": "2.6.2"
++      }
++    },
+     "stylehacks": {
+       "version": "5.1.1",
+       "resolved": "https://registry.npmjs.org/stylehacks/-/stylehacks-5.1.1.tgz",
+@@ -30759,6 +30966,11 @@
+         "postcss-selector-parser": "^6.0.4"
+       }
+     },
++    "stylis": {
++      "version": "4.3.2",
++      "resolved": "https://registry.npmjs.org/stylis/-/stylis-4.3.2.tgz",
++      "integrity": "sha512-bhtUjWd/z6ltJiQwg0dUfxEJ+W+jdqQd8TbWLWyeIJHlnsqmGLRFFd8e5mA0AZi/zx90smXRlN66YMTcaSFifg=="
++    },
+     "sucrase": {
+       "version": "3.35.0",
+       "resolved": "https://registry.npmjs.org/sucrase/-/sucrase-3.35.0.tgz",
+@@ -31262,9 +31474,9 @@
+       }
+     },
+     "typescript": {
+-      "version": "5.3.3",
+-      "resolved": "https://registry.npmjs.org/typescript/-/typescript-5.3.3.tgz",
+-      "integrity": "sha512-pXWcraxM0uxAS+tN0AG/BF2TyqmHO014Z070UsJ+pFvYuRSq8KH8DmWpnbXe0pEPDHXZV3FcAbJkijJ5oNEnWw==",
++      "version": "4.9.5",
++      "resolved": "https://registry.npmjs.org/typescript/-/typescript-4.9.5.tgz",
++      "integrity": "sha512-1FXk9E2Hm+QzZQ7z+McJiHL4NW1F2EzMu9Nq9i3zAaGqibafqYwCVU6WyWAuyQRRzOlxou8xZSyXLEN8oKj24g==",
+       "peer": true
+     },
+     "ua-parser-js": {
+Index: hora-app/package.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>{\r\n  \"name\": \"hora-app\",\r\n  \"version\": \"0.1.0\",\r\n  \"private\": true,\r\n  \"dependencies\": {\r\n    \"@fortawesome/fontawesome-svg-core\": \"^6.5.1\",\r\n    \"@fortawesome/free-solid-svg-icons\": \"^6.5.1\",\r\n    \"@fortawesome/react-fontawesome\": \"^0.2.0\",\r\n    \"@testing-library/jest-dom\": \"^5.17.0\",\r\n    \"@testing-library/react\": \"^13.4.0\",\r\n    \"@testing-library/user-event\": \"^13.5.0\",\r\n    \"react\": \"^18.2.0\",\r\n    \"react-datepicker\": \"^6.2.0\",\r\n    \"react-dom\": \"^18.2.0\",\r\n    \"react-image\": \"^4.1.0\",\r\n    \"react-image-gallery\": \"^1.3.0\",\r\n    \"react-image-magnify\": \"^2.7.4\",\r\n    \"react-router-dom\": \"^6.22.1\",\r\n    \"react-scripts\": \"5.0.1\",\r\n    \"react-time-picker\": \"^6.6.0\",\r\n    \"web-vitals\": \"^2.1.4\"\r\n  },\r\n  \"scripts\": {\r\n    \"start\": \"react-scripts start\",\r\n    \"build\": \"react-scripts build\",\r\n    \"test\": \"react-scripts test\",\r\n    \"eject\": \"react-scripts eject\"\r\n  },\r\n  \"eslintConfig\": {\r\n    \"extends\": [\r\n      \"react-app\",\r\n      \"react-app/jest\"\r\n    ]\r\n  },\r\n  \"browserslist\": {\r\n    \"production\": [\r\n      \">0.2%\",\r\n      \"not dead\",\r\n      \"not op_mini all\"\r\n    ],\r\n    \"development\": [\r\n      \"last 1 chrome version\",\r\n      \"last 1 firefox version\",\r\n      \"last 1 safari version\"\r\n    ]\r\n  }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/hora-app/package.json b/hora-app/package.json
+--- a/hora-app/package.json	(revision 9aef8eb5580364d51a02500e0aba6033fb37edf0)
++++ b/hora-app/package.json	(date 1721373315613)
+@@ -9,6 +9,7 @@
+     "@testing-library/jest-dom": "^5.17.0",
+     "@testing-library/react": "^13.4.0",
+     "@testing-library/user-event": "^13.5.0",
++    "axios": "^1.7.2",
+     "react": "^18.2.0",
+     "react-datepicker": "^6.2.0",
+     "react-dom": "^18.2.0",
+@@ -16,8 +17,9 @@
+     "react-image-gallery": "^1.3.0",
+     "react-image-magnify": "^2.7.4",
+     "react-router-dom": "^6.22.1",
+-    "react-scripts": "5.0.1",
++    "react-scripts": "^5.0.1",
+     "react-time-picker": "^6.6.0",
++    "styled-components": "^6.1.12",
+     "web-vitals": "^2.1.4"
+   },
+   "scripts": {
