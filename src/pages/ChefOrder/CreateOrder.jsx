@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef ,Suspense, lazy } from "react";
 import axios from "axios";
 import {Image, ListGroup, ListGroupItem} from "react-bootstrap";
 import { Modal, Button, Container, Row, Col, Spinner } from "react-bootstrap";
@@ -25,11 +25,10 @@ import SelectDishes from "../../assets/selectDish.png";
 import SelectDateTime from "../../assets/event.png";
 import SelectConfirmOrder from "../../assets/confirm_order.png";
 
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUtensils, faCalendarAlt, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
-
 import styled from 'styled-components';
+
+
+
 
 const orangeColor = '#FF6F61';
 const defaultColor = '#B0BEC5';
@@ -57,11 +56,11 @@ const CreateOrder = ({ history, currentStep }) => {
   const [isPopupVisible, setPopupVisible] = useState(false);
   const [loading, setLoading] = useState(true);
   const [isWarningVisibleForTotalAmount, setWarningVisibleForTotalAmount] =
-    useState(false);
+      useState(false);
   const [isWarningVisibleForDishCount, setWarningVisibleForDishCount] =
-    useState(false);
+      useState(false);
   const [isWarningVisibleForCuisineCount, setWarningVisibleForCuisineCount] =
-    useState(false);
+      useState(false);
   const [isViewAllExpanded, setIsViewAllExpanded] = useState(false);
   const [isButtonVisible, setIsButtonVisible] = useState(false);
   const [popupMessage, setPopupMessage] = useState({
@@ -165,7 +164,9 @@ const CreateOrder = ({ history, currentStep }) => {
     return false; // Show nothing if neither are selected
   });
 
+
   const navigate = useNavigate();
+
   const handleWarningClose = () => {
     setWarningVisibleForDishCount(false);
     setWarningVisibleForCuisineCount(false);
@@ -187,7 +188,7 @@ const CreateOrder = ({ history, currentStep }) => {
         });
         if (response.status === API_SUCCESS_CODE) {
           const names = response.data.data.configuration.map(
-            ({ _id, name }) => [_id, name]
+              ({ _id, name }) => [_id, name]
           );
           setCuisines(names);
         }
@@ -208,28 +209,28 @@ const CreateOrder = ({ history, currentStep }) => {
     const isSelected = selectedCuisines.includes(item[0]);
 
     return (
-      <div className="d-flex align-items-center justify-content-between mb-2">
-        <Button
-          variant={isSelected ? "primary" : "outline-primary"}
-          onClick={() => handleCuisinePress(item[0])}
-          className="cusinebtn"
-        >
-          {item[1]}
-        </Button>
-        {expandedCategories.includes(item[0]) && (
-          <ListGroup className="d-flex flex-wrap">
-            {cuisines.map((cuisine, index) => (
-              <ListGroupItem
-                key={index}
-                className="flex-grow-1"
-                style={{ flexBasis: "calc(25% - 10px)", margin: "5px" }} // Adjust margin and flexBasis as needed
-              >
-                {renderItem({ item: cuisine })}
-              </ListGroupItem>
-            ))}
-          </ListGroup>
-        )}
-      </div>
+        <div className="d-flex align-items-center justify-content-between mb-2">
+          <Button
+              variant={isSelected ? "primary" : "outline-primary"}
+              onClick={() => handleCuisinePress(item[0])}
+              className="cusinebtn"
+          >
+            {item[1]}
+          </Button>
+          {expandedCategories.includes(item[0]) && (
+              <ListGroup className="d-flex flex-wrap">
+                {cuisines.map((cuisine, index) => (
+                    <ListGroupItem
+                        key={index}
+                        className="flex-grow-1"
+                        style={{ flexBasis: "calc(25% - 10px)", margin: "5px" }} // Adjust margin and flexBasis as needed
+                    >
+                      {renderItem({ item: cuisine })}
+                    </ListGroupItem>
+                ))}
+              </ListGroup>
+          )}
+        </div>
     );
   };
 
@@ -335,230 +336,230 @@ const CreateOrder = ({ history, currentStep }) => {
   }, [selectedCuisines, isNonVegSelected]);
 
   const renderDishItem = ({ item }) => (
-    <div>
-      {item.dish.length > 0 ? (
-        <div>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "top",
-              margin: "9px 19px 0px 6px",
-            }}
-          >
-            <h1
-              style={{ color: "#000", fontSize: "16px", marginBottom: "0px" }}
-            >
-              {item.mealObject.name}
-              {"  "}
-              {"(" + item.dish.length + ")"}
-            </h1>
-            <Button
-              onClick={() => handleViewAll(item.mealObject._id)}
-              style={{
-                color: expandedCategories.includes(item.mealObject._id)
-                  ? "#000"
-                  : "#fff",
-                fontWeight: "400",
-                textDecorationLine: "none",
-                fontSize: 12,
-              }}
-              className={`viewbtn ${
-                expandedCategories.includes(item.mealObject._id)
-                  ? "clickedviewAll"
-                  : ""
-              }`}
-            >
-              View All
-            </Button>
-          </div>
-          <div className="dish-item">
-            {expandedCategories.includes(item.mealObject._id)
-              ? item.dish.map((dish, index) => {
-                  const dishImage = dish.image
-                    ? `https://horaservices.com/api/uploads/${dish.image}`
-                    : "";
-                  const specialApplianceImage =
-                    dish.special_appliance_id.length > 0 &&
-                    dish.special_appliance_id[0].image
-                      ? `https://horaservices.com/api/uploads/${dish.special_appliance_id[0].image}`
-                      : "";
-                  const selectedImage = selectedDishes.includes(dish._id)
-                    ? dishImage
-                    : dishImage;
+      <div>
+        {item.dish.length > 0 ? (
+            <div>
+              <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "top",
+                    margin: "9px 19px 0px 6px",
+                  }}
+              >
+                <h1
+                    style={{ color: "#000", fontSize: "16px", marginBottom: "0px" }}
+                >
+                  {item.mealObject.name}
+                  {"  "}
+                  {"(" + item.dish.length + ")"}
+                </h1>
+                <Button
+                    onClick={() => handleViewAll(item.mealObject._id)}
+                    style={{
+                      color: expandedCategories.includes(item.mealObject._id)
+                          ? "#000"
+                          : "#fff",
+                      fontWeight: "400",
+                      textDecorationLine: "none",
+                      fontSize: 12,
+                    }}
+                    className={`viewbtn ${
+                        expandedCategories.includes(item.mealObject._id)
+                            ? "clickedviewAll"
+                            : ""
+                    }`}
+                >
+                  View All
+                </Button>
+              </div>
+              <div className="dish-item">
+                {expandedCategories.includes(item.mealObject._id)
+                    ? item.dish.map((dish, index) => {
+                      const dishImage = dish.image
+                          ? `https://horaservices.com/api/uploads/${dish.image}`
+                          : "";
+                      const specialApplianceImage =
+                          dish.special_appliance_id.length > 0 &&
+                          dish.special_appliance_id[0].image
+                              ? `https://horaservices.com/api/uploads/${dish.special_appliance_id[0].image}`
+                              : "";
+                      const selectedImage = selectedDishes.includes(dish._id)
+                          ? dishImage
+                          : dishImage;
 
-                  return (
-                    <div
-                      key={index}
-                      className={`dish-item-inner ${
-                        dish.is_dish === 1 ? "veg-border" : "non-veg-border"
-                      }`}
-                      style={{
-                        backgroundImage: `url(${
-                          selectedDishes.includes(dish._id)
-                            ? RectanglePurple
-                            : RectangleWhite
-                        })`,
-                      }}
-                    >
-                      {selectedImage ? (
-                        <img
-                          src={selectedImage}
-                          alt={dish.name}
-                          className={`dish-image ${
-                            selectedDishes.includes(dish._id) ? "selected" : ""
-                          }`}
-                        />
-                      ) : (
-                        <div
-                          className={`dish-placeholder ${
-                            selectedDishes.includes(dish._id) ? "selected" : ""
-                          }`}
-                        >
-                          Image not available
-                        </div>
-                      )}
-                      <p
-                        className={`dish-name ${
-                          selectedDishes.includes(dish._id) ? "selected" : ""
-                        }`}
-                      >
-                        {isDishSelected &&
-                        dish.special_appliance_id.length > 0 &&
-                        selectedDishes.includes(dish._id)
-                          ? dish.special_appliance_id[0].name
-                          : dish.name}
-                      </p>
-                      <div className="d-flex justify-content-between w-100 px-3 dishPrice">
+                      return (
+                          <div
+                              key={index}
+                              className={`dish-item-inner ${
+                                  dish.is_dish === 1 ? "veg-border" : "non-veg-border"
+                              }`}
+                              style={{
+                                backgroundImage: `url(${
+                                    selectedDishes.includes(dish._id)
+                                        ? RectanglePurple
+                                        : RectangleWhite
+                                })`,
+                              }}
+                          >
+                            {selectedImage ? (
+                                <img
+                                    src={selectedImage}
+                                    alt={dish.name}
+                                    className={`dish-image ${
+                                        selectedDishes.includes(dish._id) ? "selected" : ""
+                                    }`}
+                                />
+                            ) : (
+                                <div
+                                    className={`dish-placeholder ${
+                                        selectedDishes.includes(dish._id) ? "selected" : ""
+                                    }`}
+                                >
+                                  Image not available
+                                </div>
+                            )}
+                            <p
+                                className={`dish-name ${
+                                    selectedDishes.includes(dish._id) ? "selected" : ""
+                                }`}
+                            >
+                              {isDishSelected &&
+                              dish.special_appliance_id.length > 0 &&
+                              selectedDishes.includes(dish._id)
+                                  ? dish.special_appliance_id[0].name
+                                  : dish.name}
+                            </p>
+                            <div className="d-flex justify-content-between w-100 px-3 dishPrice">
                         <span
-                          className={`dish-price ${
-                            selectedDishes.includes(dish._id) ? "selected" : ""
-                          }`}
+                            className={`dish-price ${
+                                selectedDishes.includes(dish._id) ? "selected" : ""
+                            }`}
                         >
                           ₹ {dish.dish_rate}
                         </span>
-                        <Button
-                          className="pluBtn"
-                          onClick={() =>
-                            handleIncreaseQuantity(
-                              dish,
-                              selectedDishes.includes(dish._id)
-                            )
-                          }
-                        >
-                          <img
-                            src={
-                              selectedDishes.includes(dish._id)
-                                ? MinusIcon
-                                : PlusIcon
-                            }
-                            style={{ width: 21, height: 21 }}
-                          />
-                        </Button>
-                      </div>
-                      <div
-                        className={`dish-indicator ${
-                          dish.is_dish === 1 ? "veg" : "non-veg"
-                        }`}
-                      ></div>
-                    </div>
-                  );
-                })
-              : item.dish.slice(0, 7).map((dish, index) => {
-                  const dishImage = dish.image
-                    ? `https://horaservices.com/api/uploads/${dish.image}`
-                    : "";
-                  const specialApplianceImage =
-                    dish.special_appliance_id.length > 0 &&
-                    dish.special_appliance_id[0].image
-                      ? `https://horaservices.com/api/uploads/${dish.special_appliance_id[0].image}`
-                      : "";
-                  const selectedImage = selectedDishes.includes(dish._id)
-                    ? dishImage
-                    : dishImage;
+                              <Button
+                                  className="pluBtn"
+                                  onClick={() =>
+                                      handleIncreaseQuantity(
+                                          dish,
+                                          selectedDishes.includes(dish._id)
+                                      )
+                                  }
+                              >
+                                <img
+                                    src={
+                                      selectedDishes.includes(dish._id)
+                                          ? MinusIcon
+                                          : PlusIcon
+                                    }
+                                    style={{ width: 21, height: 21 }}
+                                />
+                              </Button>
+                            </div>
+                            <div
+                                className={`dish-indicator ${
+                                    dish.is_dish === 1 ? "veg" : "non-veg"
+                                }`}
+                            ></div>
+                          </div>
+                      );
+                    })
+                    : item.dish.slice(0, 7).map((dish, index) => {
+                      const dishImage = dish.image
+                          ? `https://horaservices.com/api/uploads/${dish.image}`
+                          : "";
+                      const specialApplianceImage =
+                          dish.special_appliance_id.length > 0 &&
+                          dish.special_appliance_id[0].image
+                              ? `https://horaservices.com/api/uploads/${dish.special_appliance_id[0].image}`
+                              : "";
+                      const selectedImage = selectedDishes.includes(dish._id)
+                          ? dishImage
+                          : dishImage;
 
-                  return (
-                    <div
-                      key={index}
-                      className={`dish-item-inner ${
-                        dish.is_dish === 1 ? "veg-border" : "non-veg-border"
-                      }`}
-                      style={{
-                        backgroundImage: `url(${
-                          selectedDishes.includes(dish._id)
-                            ? RectanglePurple
-                            : RectangleWhite
-                        })`,
-                      }}
-                    >
-                      {selectedImage ? (
-                        <img
-                          src={selectedImage}
-                          alt={dish.name}
-                          className={`dish-image ${
-                            selectedDishes.includes(dish._id) ? "selected" : ""
-                          }`}
-                        />
-                      ) : (
-                        <div
-                          className={`dish-placeholder ${
-                            selectedDishes.includes(dish._id) ? "selected" : ""
-                          }`}
-                        >
-                          Image not available
-                        </div>
-                      )}
-                      <p
-                        className={`dish-name ${
-                          selectedDishes.includes(dish._id) ? "selected" : ""
-                        }`}
-                      >
-                        {isDishSelected &&
-                        dish.special_appliance_id.length > 0 &&
-                        selectedDishes.includes(dish._id)
-                          ? dish.special_appliance_id[0].name
-                          : dish.name}
-                      </p>
-                      <div className="d-flex justify-content-between w-100 px-3 dishPrice">
+                      return (
+                          <div
+                              key={index}
+                              className={`dish-item-inner ${
+                                  dish.is_dish === 1 ? "veg-border" : "non-veg-border"
+                              }`}
+                              style={{
+                                backgroundImage: `url(${
+                                    selectedDishes.includes(dish._id)
+                                        ? RectanglePurple
+                                        : RectangleWhite
+                                })`,
+                              }}
+                          >
+                            {selectedImage ? (
+                                <img
+                                    src={selectedImage}
+                                    alt={dish.name}
+                                    className={`dish-image ${
+                                        selectedDishes.includes(dish._id) ? "selected" : ""
+                                    }`}
+                                />
+                            ) : (
+                                <div
+                                    className={`dish-placeholder ${
+                                        selectedDishes.includes(dish._id) ? "selected" : ""
+                                    }`}
+                                >
+                                  Image not available
+                                </div>
+                            )}
+                            <p
+                                className={`dish-name ${
+                                    selectedDishes.includes(dish._id) ? "selected" : ""
+                                }`}
+                            >
+                              {isDishSelected &&
+                              dish.special_appliance_id.length > 0 &&
+                              selectedDishes.includes(dish._id)
+                                  ? dish.special_appliance_id[0].name
+                                  : dish.name}
+                            </p>
+                            <div className="d-flex justify-content-between w-100 px-3 dishPrice">
                         <span
-                          className={`dish-price ${
-                            selectedDishes.includes(dish._id) ? "selected" : ""
-                          }`}
+                            className={`dish-price ${
+                                selectedDishes.includes(dish._id) ? "selected" : ""
+                            }`}
                         >
                           ₹ {dish.dish_rate}
                         </span>
-                        <Button
-                          className="pluBtn"
-                          onClick={() =>
-                            handleIncreaseQuantity(
-                              dish,
-                              selectedDishes.includes(dish._id)
-                            )
-                          }
-                        >
-                          <img
-                            src={
-                              selectedDishes.includes(dish._id)
-                                ? MinusIcon
-                                : PlusIcon
-                            }
-                            style={{ width: 21, height: 21 }}
-                          />
-                        </Button>
-                      </div>
-                      <div
-                        className={`dish-indicator ${
-                          dish.is_dish === 1 ? "veg" : "non-veg"
-                        }`}
-                      ></div>
-                    </div>
-                  );
-                })}
-          </div>
-          <div className="chef-divider" style={{ marginTop: "20px" }}></div>
-        </div>
-      ) : null}
-    </div>
+                              <Button
+                                  className="pluBtn"
+                                  onClick={() =>
+                                      handleIncreaseQuantity(
+                                          dish,
+                                          selectedDishes.includes(dish._id)
+                                      )
+                                  }
+                              >
+                                <img
+                                    src={
+                                      selectedDishes.includes(dish._id)
+                                          ? MinusIcon
+                                          : PlusIcon
+                                    }
+                                    style={{ width: 21, height: 21 }}
+                                />
+                              </Button>
+                            </div>
+                            <div
+                                className={`dish-indicator ${
+                                    dish.is_dish === 1 ? "veg" : "non-veg"
+                                }`}
+                            ></div>
+                          </div>
+                      );
+                    })}
+              </div>
+              <div className="chef-divider" style={{ marginTop: "20px" }}></div>
+            </div>
+        ) : null}
+      </div>
   );
 
   const addDish = (selectedDishPrice) => {
@@ -584,35 +585,35 @@ const CreateOrder = ({ history, currentStep }) => {
   };
 
   const RenderBottomSheetContent = () => (
-    <div className="bottom-sheet-content">
-      <img
-        src={`https://horaservices.com/api/uploads/${dishDetail.image}`}
-        alt={dishDetail.name}
-        className="bottom-sheet-image"
-      />
-      <h5 className="bottom-sheet-title">{dishDetail.name}</h5>
-      <hr />
-      <p className="bottom-sheet-description">{dishDetail.description}</p>
-      <div className="bottom-sheet-info">
-        <div className="info-item">
-          <strong>Per Plate Qty:</strong>{" "}
-          {dishDetail.per_plate_qty.qty
-            ? `${dishDetail.per_plate_qty.qty} ${dishDetail.per_plate_qty.unit}`
-            : "NA"}
+      <div className="bottom-sheet-content">
+        <img
+            src={`https://horaservices.com/api/uploads/${dishDetail.image}`}
+            alt={dishDetail.name}
+            className="bottom-sheet-image"
+        />
+        <h5 className="bottom-sheet-title">{dishDetail.name}</h5>
+        <hr />
+        <p className="bottom-sheet-description">{dishDetail.description}</p>
+        <div className="bottom-sheet-info">
+          <div className="info-item">
+            <strong>Per Plate Qty:</strong>{" "}
+            {dishDetail.per_plate_qty.qty
+                ? `${dishDetail.per_plate_qty.qty} ${dishDetail.per_plate_qty.unit}`
+                : "NA"}
+          </div>
+          <div className="info-item">
+            <strong>Price Per Plate:</strong>{" "}
+            {dishDetail.dish_rate ? `₹ ${dishDetail.dish_rate}` : "NA"}
+          </div>
+          <div className="info-item">
+            <strong>Price:</strong>{" "}
+            {dishDetail.price ? `₹ ${dishDetail.price}` : "NA"}
+          </div>
         </div>
-        <div className="info-item">
-          <strong>Price Per Plate:</strong>{" "}
-          {dishDetail.dish_rate ? `₹ ${dishDetail.dish_rate}` : "NA"}
-        </div>
-        <div className="info-item">
-          <strong>Price:</strong>{" "}
-          {dishDetail.price ? `₹ ${dishDetail.price}` : "NA"}
-        </div>
+        <Button variant="primary" onClick={addDishAndCloseBottomSheet}>
+          Add Dish
+        </Button>
       </div>
-      <Button variant="primary" onClick={addDishAndCloseBottomSheet}>
-        Add Dish
-      </Button>
-    </div>
   );
 
   const openBottomSheet = (dish, ref) => {
@@ -644,242 +645,198 @@ const CreateOrder = ({ history, currentStep }) => {
     setIsViewAllExpanded(!isViewAllExpanded);
 
     setExpandedCategories((prevExpanded) =>
-      categoryId === prevExpanded[0]
-        ? prevExpanded.length === 1
-          ? []
-          : prevExpanded.slice(1) // If the first category is clicked, toggle its expansion state only if it's not the only expanded category
-        : prevExpanded.includes(categoryId)
-        ? prevExpanded.filter((id) => id !== categoryId)
-        : [...prevExpanded, categoryId]
+        categoryId === prevExpanded[0]
+            ? prevExpanded.length === 1
+                ? []
+                : prevExpanded.slice(1) // If the first category is clicked, toggle its expansion state only if it's not the only expanded category
+            : prevExpanded.includes(categoryId)
+                ? prevExpanded.filter((id) => id !== categoryId)
+                : [...prevExpanded, categoryId]
     );
   };
 
-  if(loading){
+/*  if(loading){
     return <CardSkeletonGrid loading={true} />;
-  }
+  }*/
 
 
   return (
-    <>
-      <div className="chef-create-order">
-      <div className="order-container chef">
+      <>
 
-            <div style={{ flexDirection: 'row', backgroundColor: '#EFF0F3' , boxShadow:"0px 0px 6px 0px rgba(0, 0, 0, 0.23)" , display:"flex" ,justifyContent:"center" , alignItems:"center" , padding:"10px 0"}}>
-              <img style={{width:"20px" , marginRight:"10px"}} src={require('../../assets/info.png')} />
-              <p style={{ color: '#676767', fontSize: "94%", fontWeight: '400', margin:"0" }} className='billheading'>Bill value depends upon Dish selected + Number of people</p>
-            </div>
+        <div className="order-container chef">
 
-        <Container>
-          <Step active>
-            <Image  src={SelectDishes} alt="Select Dishes" />
-            <Label active>Select Dishes</Label>
-          </Step>
-          <Line />
-          <Step>
-            <Image src={SelectDateTime} alt = "Select Date & Time"/>
-            <Label>Select Date & Time</Label>
-          </Step>
-          <Line />
-          <Step>
-            <Image src={SelectConfirmOrder} alt= "Confirm Order"/>
-            <Label>Select Confirm Order</Label>
-          </Step>
-        </Container>
+          <div style={{ flexDirection: 'row', backgroundColor: '#EFF0F3' , boxShadow:"0px 0px 6px 0px rgba(0, 0, 0, 0.23)" , display:"flex" ,justifyContent:"center" , alignItems:"center" , padding:"10px 0"}}>
+            <img style={{width:"20px" , marginRight:"10px"}} src={require('../../assets/info.png')} />
+            <p style={{ color: '#676767', fontSize: "94%", fontWeight: '400', margin:"0" }} className='billheading'>Bill value depends upon Dish selected + Number of people</p>
+          </div>
 
+          <Container>
+            <Step active>
+              <Image  src={SelectDishes} alt="Select Dishes" />
+              <Label active>Select Dishes</Label>
+            </Step>
+            <Line />
+            <Step>
+              <Image src={SelectDateTime} alt = "Select Date & Time"/>
+              <Label>Select Date & Time</Label>
+            </Step>
+            <Line />
+            <Step>
+              <Image src={SelectConfirmOrder} alt= "Confirm Order"/>
+              <Label>Select Confirm Order</Label>
+            </Step>
+          </Container>
 
-      </div>
-
-        <div className="order-container">
-            <div className="toggle-container">
-              <div className="toggle veg">
-                <div
-                    className={`toggle-switch ${isVegSelected ? 'active' : ''} ${isNonVegSelected ? '' : 'disabled'}`}
-                    onClick={isNonVegSelected ? handleVegSwitch : undefined} // Only allow click if Non-Veg is selected
-                >
-                  <div className={`toggle-slider ${isVegSelected ? 'active' : ''}`}></div>
-                </div>
-                <span className={`toggle-label ${isVegSelected ? 'active' : ''}`}>Only Veg</span>
-              </div>
-              <div className="toggle non-veg">
-                <div
-                    className={`toggle-switch ${isNonVegSelected ? 'active' : ''}`}
-                    onClick={handleNonVegSwitch}
-                >
-                  <div className={`toggle-slider ${isNonVegSelected ? 'active' : ''}`}></div>
-                </div>
-                <span className={`toggle-label ${isNonVegSelected ? 'active' : ''}`}>Non-Veg</span>
-              </div>
-            </div>
-
-
-            <Row className="d-flex justify-content-start">
-              <div >
-                <div className="chef-divider" style={{ marginTop: "20px" }}></div>
-                <div style={{ margin: "10px 0 0 0" }}>
-                  <h1
-                      style={{
-                        fontSize: "14px",
-                        color: "#000",
-                        marginTop: "0px",
-                        marginBottom: "0",
-                      }}
-                  >
-                    Select Cuisines
-                  </h1>
-                  <ListGroup className="cuisine-list d-flex flex-row flex-wrap justify-content-start">
-                    {filteredCuisines.length > 0 ? (
-                        filteredCuisines.map((cuisine, index) => (
-                            <ListGroupItem key={index} className="cuisine-item">
-                              {renderItem({ item: cuisine })}
-                            </ListGroupItem>
-                        ))
-                    ) : (
-                        <p>No cuisines available</p>
-                    )}
-                  </ListGroup>
-                </div>
-              </div>
-            </Row>
-            <div className="chef-divider"></div>
-            <Row className="mt-1">
-              <Col>
-                {filteredMealList.length > 0 ? (
-                    <ListGroup className="dish-list">
-                      {filteredMealList.map((meal) => (
-                          <div key={meal._id}>
-                            <ListGroupItem className="dish-item">
-                              {renderDishItem({ item: meal })}
-                            </ListGroupItem>
-                          </div>
-                      ))}
-                    </ListGroup>
-                ) : (
-                    <p>No meals available</p>
-                )}
-              </Col>
-            </Row>
-
-              {/*<Row className="d-flex justify-content-start">
-              <div style={{ display: "flex", margin: "10px 0 0" }}>
-                <div style={{ marginRight: "10px" }}>
-                  <Button
-                    variant={selected === "veg" ? "success" : "outline-success"}
-                    onClick={() => handleSwitchChange("veg")}
-                    className="cuisinebtn"
-                  >
-                    Only Veg
-                  </Button>
-                </div>
-                <div>
-                  <Button
-                    variant={
-                      selected === "non-veg" ? "danger" : "outline-danger"
-                    }
-                    onClick={() => handleSwitchChange("non-veg")}
-                    className="cuisinebtn"
-                  >
-                    Non-Veg
-                  </Button>
-                </div>
-              </div>
-              <div className="chef-divider" style={{ marginTop: "20px" }}></div>
-              <div style={{ margin: "10px 0 0 0" }}>
-                <h1
-                  style={{
-                    fontSize: "14px",
-                    color: "#000",
-                    marginTop: "0px",
-                    marginBottom: "0",
-                  }}
-                >
-                  Select Cusinies
-                </h1>
-                <ListGroup className="cuisine-list d-flex flex-row flex-wrap justify-content-start">
-                  {cuisines.map((cuisine, index) => (
-                    <ListGroupItem key={index} className="cuisine-item">
-                      {renderItem({ item: cuisine })}
-                    </ListGroupItem>
-                  ))}
-                </ListGroup>
-              </div>
-            </Row>
-            <div className="chef-divider"></div>
-            <Row className="mt-1">
-              <Col>
-                {selectedCuisines.length > 0 && (
-                  <ListGroup className="dish-list">
-                    {mealList.map((meal) => (
-                      <div>
-                        <ListGroupItem key={meal._id} className="dish-item">
-                          {renderDishItem({ item: meal })}
-                        </ListGroupItem>
-                      </div>
-                    ))}
-                  </ListGroup>
-                )}
-              </Col>
-            </Row>*/}
-
-            {isButtonVisible && (
+          <div className="toggle-container">
+            <div className="toggle veg">
               <div
-                style={{
-                  position: "fixed",
-                  bottom: 0,
-                  width: "100%",
-                  backgroundColor: "#EDEDED",
-                  borderTop: "1px solid #efefef",
-                  padding: "15px 0",
-                  left: "0",
-                }}
+                  className={`toggle-switch ${isVegSelected ? 'active normal' : 'normal'} ${isNonVegSelected ? '' : 'disabled'}`}
+                  onClick={isNonVegSelected ? handleVegSwitch : undefined} // Only allow click if Non-Veg is selected
               >
-                <Button
-                  onClick={() => addDish(selectedDishPrice)}
-                  style={{
-                    width: "50%",
-                    backgroundColor: isDishSelected ? "#9252AA" : "#F9E9FF",
-                    borderColor: isDishSelected ? "#9252AA" : "#F9E9FF",
-                  }}
-                  disabled={!isDishSelected}
-                  className="continuebtnchef"
-                >
-                  <div
-                    className="continueButtonLeftText"
-                    style={{
-                      color: isDishSelected ? "white" : "#fff",
-                    }}
-                  >
-                    Continue
-                  </div>
-                  <div
-                    className="continueButtonRightText"
-                    style={{
-                      color: isDishSelected ? "white" : "#fff",
-                    }}
-                  >
-                    {selectedCount} Items | ₹ {selectedDishPrice}
-                  </div>
-                </Button>
+                <div className={`toggle-slider ${isVegSelected ? 'active' : ''}`}></div>
               </div>
-            )}
+              <span className={`toggle-label ${isVegSelected ? 'active' : ''}`}>Only Veg</span>
+            </div>
+            <div className="toggle non-veg">
+              <div
+                  className={`toggle-switch ${isNonVegSelected ? 'active non-veg' : ''}`}
+                  onClick={handleNonVegSwitch}
+              >
+                <div className={`toggle-slider ${isNonVegSelected ? 'active' : ''}`}></div>
+              </div>
+              <span className={`toggle-label ${isNonVegSelected ? 'active' : ''}`}>Non-Veg</span>
+            </div>
+          </div>
 
-      </div>
-        <Modal show={isViewAllSheetOpen} onHide={closeViewAllSheet}>
-          <Modal.Header closeButton>
-            <Modal.Title>View All</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>{dishDetail && <RenderBottomSheetContent />}</Modal.Body>
-        </Modal>
 
-        {(isWarningVisibleForCuisineCount || isWarningVisibleForDishCount) && (
-            <Popup popupMessage={popupMessage} onClose={handleWarningClose} />
+        </div>
+
+        <div>
+        {loading ? (
+            <Suspense fallback={
+              <Spinner animation="border" />
+
+            }
+
+            >
+              <Spinner style={{marginLeft: "600px"}} animation="border"/>
+              {/*<CardSkeletonGrid loading={true} />*/}
+              <span>Please wait...</span>
+            </Suspense>
+        ) : (
+            <div className="chef-create-order">
+
+
+              <div className="order-container">
+
+
+                <Row className="d-flex justify-content-start">
+                  <div >
+                    <div className="chef-divider" style={{ marginTop: "20px" }}></div>
+                    <div style={{ margin: "10px 0 0 0" }}>
+                      <h1
+                          style={{
+                            fontSize: "14px",
+                            color: "#000",
+                            marginTop: "0px",
+                            marginBottom: "0",
+                          }}
+                      >
+                        Select Cuisines
+                      </h1>
+                      <ListGroup className="cuisine-list d-flex flex-row flex-wrap justify-content-start">
+                        {filteredCuisines.length > 0 ? (
+                            filteredCuisines.map((cuisine, index) => (
+                                <ListGroupItem key={index} className="cuisine-item">
+                                  {renderItem({ item: cuisine })}
+                                </ListGroupItem>
+                            ))
+                        ) : (
+                            <p>No cuisines available</p>
+                        )}
+                      </ListGroup>
+                    </div>
+                  </div>
+                </Row>
+                <div className="chef-divider"></div>
+                <Row className="mt-1">
+                  <Col>
+                    {filteredMealList.length > 0 ? (
+                        <ListGroup className="dish-list">
+                          {filteredMealList.map((meal) => (
+                              <div key={meal._id}>
+                                <ListGroupItem className="dish-item">
+                                  {renderDishItem({ item: meal })}
+                                </ListGroupItem>
+                              </div>
+                          ))}
+                        </ListGroup>
+                    ) : (
+                        <p>No meals available</p>
+                    )}
+                  </Col>
+                </Row>
+
+                {isButtonVisible && (
+                    <div
+                        style={{
+                          position: "fixed",
+                          bottom: 0,
+                          width: "100%",
+                          backgroundColor: "#EDEDED",
+                          borderTop: "1px solid #efefef",
+                          padding: "15px 0",
+                          left: "0",
+                        }}
+                    >
+                      <Button
+                          onClick={() => addDish(selectedDishPrice)}
+                          style={{
+                            width: "50%",
+                            backgroundColor: isDishSelected ? "#9252AA" : "#F9E9FF",
+                            borderColor: isDishSelected ? "#9252AA" : "#F9E9FF",
+                          }}
+                          disabled={!isDishSelected}
+                          className="continuebtnchef"
+                      >
+                        <div
+                            className="continueButtonLeftText"
+                            style={{
+                              color: isDishSelected ? "white" : "#fff",
+                            }}
+                        >
+                          Continue
+                        </div>
+                        <div
+                            className="continueButtonRightText"
+                            style={{
+                              color: isDishSelected ? "white" : "#fff",
+                            }}
+                        >
+                          {selectedCount} Items | ₹ {selectedDishPrice}
+                        </div>
+                      </Button>
+                    </div>
+                )}
+              </div>
+
+              <Modal show={isViewAllSheetOpen} onHide={closeViewAllSheet}>
+                <Modal.Header closeButton>
+                  <Modal.Title>View All</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>{dishDetail && <RenderBottomSheetContent />}</Modal.Body>
+              </Modal>
+
+              {(isWarningVisibleForCuisineCount || isWarningVisibleForDishCount) && (
+                  <Popup popupMessage={popupMessage} onClose={handleWarningClose} />
+              )}
+
+            </div>
+
         )}
+        </div>
+      </>
 
-      </div>
-
-
-
-
-    </>
   );
 };
 
@@ -891,8 +848,8 @@ const styles = {
     marginBottom: 40,
     boxShadow: "0 6px 16px 0 rgba(0,0,0,.14)",
     borderRadius: "5px",
-    overflow: "hidden", 
-    transition: "transform 0.3s ease-in-out", 
+    overflow: "hidden",
+    transition: "transform 0.3s ease-in-out",
     margin: "10px 12px 20px",
     padding: "6px 5px 10px",
   },
