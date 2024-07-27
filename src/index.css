@@ -572,6 +572,7 @@ button.dec-continueButton {
     text-align: end !important;
   }
 
+
   .header-icons {
     height: 10px !important;
     width: 10px !important;
@@ -1672,7 +1673,8 @@ h6.order-otp{
 }
 
 .order-id-h {
-  text-align: start;
+  text-align: center;
+  /*margin-left: 20px;*/
   color: #fff;
   font-family: Roboto;
   font-size: 10px ;
@@ -1687,7 +1689,6 @@ h6.order-otp{
   color: #ffffff;
   background-color: #9252aa;
   font-family: Poppins;
-
   border-radius: 19px;
   margin-bottom: 10px;
 }
@@ -1704,8 +1705,7 @@ h6.order-otp{
   width: 75%;
   padding-left: 20px;
   top: 70px;
-  gap: 0px;
-  opacity: 0;
+
 }
 
 

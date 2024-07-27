@@ -247,7 +247,7 @@ function Orderlist() {
                     <div>
                       <strong style={{ color: "#9252AA" }}>
                         Total Amount
-                        <p className="mb-0 price-para">
+                        <p style={{textAlign: "end"}}>
                           {" "}
                           ₹{order?.payable_amount}
                         </p>
@@ -256,7 +256,7 @@ function Orderlist() {
                     <div>
                       <strong style={{ color: "#9252AA" }}>
                         Balance Amount
-                        <p className="mb-0 price-para">
+                        <p style={{textAlign: "end"}}>
                           {" "}
                           ₹{Math.round(order?.payable_amount * 0.35)}
                         </p>

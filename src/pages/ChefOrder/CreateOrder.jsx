@@ -97,22 +97,23 @@ const CreateOrder = ({ history, currentStep }) => {
     width: 50px;       // Default width for mobile view
     background-color: #ccc;
     margin: 0 4px;     // Adjust margin for spacing
+    color: ${(props) => (props.active ? '#F46C5B' : 'black')};
 
     @media (max-width: 600px) {
-      width: 80px;     // Smaller width for mobile view
+      width: 30px;     // Smaller width for mobile view
     }
   `;
 
   const Image = styled.img`
-    width: 100%;       // Default size for mobile view
-    height: 100%;
-    flex-shrink: 0;
+    width: 48px;       // Default size for mobile view
+    height: 48px;
+
     ${(props) => props.active && `border: 2px solid #000;`};
 
     @media (max-width: 600px) {
-    width: 32px;     // Smaller width for mobile view
-    height: 32px;    // Maintain aspect ratio
-  }
+      width: 32px;     // Smaller width for mobile view
+      height: 32px;    // Maintain aspect ratio
+    }
   `;
 
   const Label = styled.div`
@@ -126,6 +127,7 @@ const CreateOrder = ({ history, currentStep }) => {
       font-size: 10px; // Smaller font size for mobile view
     }
   `;
+
 
 
 
@@ -665,29 +667,6 @@ const CreateOrder = ({ history, currentStep }) => {
 
         <div className="order-container chef">
 
-<<<<<<< HEAD
-          <div style={{ flexDirection: 'row', backgroundColor: '#EFF0F3' , boxShadow:"0px 0px 6px 0px rgba(0, 0, 0, 0.23)" , display:"flex" ,justifyContent:"center" , alignItems:"center" , padding:"10px 0"}}>
-            <img style={{width:"20px" , marginRight:"10px"}} src={require('../../assets/info.png')} />
-            <p style={{ color: '#676767', fontSize: "94%", fontWeight: '400', margin:"0" }} className='billheading'>Bill value depends upon Dish selected + Number of people</p>
-          </div>
-=======
-        <Container className="step-sec">
-          <Step active>
-            <Image  src={SelectDishes} alt="Select Dishes" />
-            <Label active>Select Dishes</Label>
-          </Step>
-          <Line />
-          <Step>
-            <Image src={SelectDateTime} alt = "Select Date & Time"/>
-            <Label>Select Date & Time</Label>
-          </Step>
-          <Line />
-          <Step>
-            <Image src={SelectConfirmOrder} alt= "Confirm Order"/>
-            <Label>Select Confirm Order</Label>
-          </Step>
-        </Container>
->>>>>>> 4b62c3580f6c4b9a41ae54f3b7bab5a9a400a7ca
 
           <Container>
             <Step active>

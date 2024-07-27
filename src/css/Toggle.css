@@ -76,15 +76,12 @@
 
 @media (max-width: 768px) {
     .toggle-container {
-<<<<<<< HEAD
         gap: 5px;
         padding: 5px;
         margin-right: 103px;
-=======
         gap: 5px; /* Adjust space between toggle elements */
         padding: 5px; /* Adjust padding around the container */
         justify-content: flex-start;
->>>>>>> 4b62c3580f6c4b9a41ae54f3b7bab5a9a400a7ca
     }
 
     .toggle-label {

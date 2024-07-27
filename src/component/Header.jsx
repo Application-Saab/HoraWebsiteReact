@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { useLocation } from "react-router-dom";
 import useScrollToTop from './useScrollToTop'; // Import the custom hook
 import ChefCitypage from "../pages/ChefCitypage";
+import Popup from "../utills/popup";
 
 function Header() {
   useScrollToTop(); // Use the custom hook
@@ -26,6 +27,10 @@ function Header() {
     navigate(-1); // Go back to the previous page
   };
   const drawerRef = useRef(null);
+
+  const [showPopup, setShowPopup] = useState(false); // State for controlling popup visibility
+  const [popupMessage, setPopupMessage] = useState({}); // State for popup message
+
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -94,9 +99,16 @@ useEffect(() => {
   const handleLogout = () => {
     localStorage.setItem("isLoggedIn", "false");
     localStorage.clear();
+    setPopupMessage({
+      image: require('../assets/logout.png').default,
+      title: "Logout Successful",
+      body: "You have been logged out successfully.",
+      button: "OK"
+    });
+    setShowPopup(true); // Show the popup
     navigate("/");
-    alert("Logout Successfully");
   };
+
 
   return (
     <header style={styles.headerContainer}>
@@ -230,6 +242,7 @@ useEffect(() => {
         </div>
       </div>
       {showDrawer && <Drawer closeDrawer={toggleDrawer} drawerRef={drawerRef} handleLogout={handleLogout} />}
+      {showPopup && <Popup onClose={() => setShowPopup(false)} popupMessage={popupMessage} />} {/* Render the Popup */}
     </header>
   );
 }

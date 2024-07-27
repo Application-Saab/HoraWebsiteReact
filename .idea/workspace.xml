@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8de7a240-162e-4f04-be95-214fb48cb8b4" name="Changes" comment="UI Fixing" />
+    <list default="true" id="8de7a240-162e-4f04-be95-214fb48cb8b4" name="Changes" comment="UI Fixing">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/component/Header.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/Header.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/component/OrderDetailHeader.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/OrderDetailHeader.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/css/Toggle.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/Toggle.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/ChefOrder/CreateOrder.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/ChefOrder/CreateOrder.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/ChefOrder/SelectDatee/SelectDate.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/ChefOrder/SelectDatee/SelectDate.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Orderlist.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Orderlist.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/login.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/login.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utills/popup.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utills/popup.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -10,8 +21,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="CSS File" />
         <option value="JavaScript File" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
@@ -94,6 +105,7 @@
       <workItem from="1721708121628" duration="24306000" />
       <workItem from="1721794958569" duration="25974000" />
       <workItem from="1721881493540" duration="19413000" />
+      <workItem from="1721971126096" duration="31471000" />
     </task>
     <task id="LOCAL-00001" summary="Customer Review Page">
       <created>1721474018614</created>

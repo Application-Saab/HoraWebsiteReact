@@ -316,40 +316,40 @@ const getTotalSpecialAppliances = () => {
     return Object.values(totalSpecialAppliances);
 };
 
-const getTotalIngredients = () => {
-    const totalIngredients = {};
-    for (const dishId in data) {
-        console.log('dishId2' + dishId)
-        const dish = data[dishId];
-        if (dish.ingredientUsed) {
-            dish.ingredientUsed.forEach((ingredient) => {
-                if (!totalIngredients[ingredient._id]) {
-                    totalIngredients[ingredient._id] = {
-                        _id: ingredient._id,
-                        name: ingredient.name,
-                        image: ingredient.image,
-                        unit: ingredient.unit,
-                        qty: 0,
-                        count: 0
-                    };
+    const defaultImage = 'https://play-lh.googleusercontent.com/a-/ALV-UjXtTD4G9gbxQz1RSCSnAEkBxESsZuZI2pSfXLzd6WjXDJ3muobz6w=s32-rw'; // Replace with the path to your default image
 
-                    
-                }
-                totalIngredients[ingredient._id].qty += parseInt(ingredient.qty);
-                totalIngredients[ingredient._id].count += 1
-                if (ingredient.unit === 'gram' || ingredient.unit === 'Gram')
-                    totalIngredients[ingredient._id].unit = 'g';
-                if (ingredient.unit === 'ml' || ingredient.unit === 'ML')
-                    totalIngredients[ingredient._id].unit = 'ml';
-            });
+    const getTotalIngredients = () => {
+        const totalIngredients = {};
+        for (const dishId in data) {
+            console.log('dishId2' + dishId);
+            const dish = data[dishId];
+            if (dish.ingredientUsed) {
+                dish.ingredientUsed.forEach((ingredient) => {
+                    if (!totalIngredients[ingredient._id]) {
+                        totalIngredients[ingredient._id] = {
+                            _id: ingredient._id,
+                            name: ingredient.name,
+                            image: ingredient.image && ingredient.image.trim() !== '' ? ingredient.image : defaultImage,
+                            unit: ingredient.unit,
+                            qty: 0,
+                            count: 0
+                        };
+                    }
+                    totalIngredients[ingredient._id].qty += parseInt(ingredient.qty);
+                    totalIngredients[ingredient._id].count += 1;
+                    if (ingredient.unit === 'gram' || ingredient.unit === 'Gram')
+                        totalIngredients[ingredient._id].unit = 'g';
+                    if (ingredient.unit === 'ml' || ingredient.unit === 'ML')
+                        totalIngredients[ingredient._id].unit = 'ml';
+                });
+            }
         }
-    }
 
-  
-    return Object.values(totalIngredients);
-};
+        return Object.values(totalIngredients);
+    };
 
-const RenderAppliances = ({ item }) => {
+
+    const RenderAppliances = ({ item }) => {
     return (
         <div style={{ height: '51px', paddingRight: '2px', alignItems: 'center', borderRadius: '5px', borderColor: '#DADADA', borderWidth: '0.5px', flexDirection: 'row', marginRight: '6px', marginBottom: '8px', display: 'flex', borderStyle: 'solid' }}>
             <div style={{ marginLeft: '5px', width: '40px', height: '40px', backgroundColor: '#F0F0F0', borderRadius: '3px', alignItems: 'center', justifyContent: 'center', marginRight: '5px', display: 'flex' }}>
@@ -412,12 +412,14 @@ const RenderIngredients = ({ item }) => {
         return (
             <div style={{ width:"23%", alignItems: 'center', borderRadius: 5, border: "1px solid #DADADA",
                 flexDirection: 'row', padding:"10px" , display:"flex" , marginBottom:"20px", marginRight: "10px"}} className='ingredientsec'>
-                <div style={{ marginLeft: 5, width: "45%", height: "auto", backgroundColor: '#F0F0F0', borderRadius: "10px", alignItems: 'center', padding:"5%" , justifyContent: 'center', marginRight: 15 }} className='ingredientleftsec'>
+                <div style={{ marginLeft: 5, width: "45%", height: "auto", backgroundColor: '#F0F0F0', borderRadius: "10px",
+                    alignItems: 'center', padding:"5%" , justifyContent: 'center', marginRight: 15 }} className='ingredientleftsec'>
                 <img src={`https://horaservices.com/api/uploads/${item.image}`} alt={item.name} style={{width:"100%" , height:"100%"}}/>
                 </div>
                 <div style={{ flexDirection: 'column', marginLeft: 1, width: 80 }} className='ingredientrightsec'>
                     <div style={{ fontSize: "70%", fontWeight: '500', color: '#414141' }} className='ingredientrightsecheading'>{item.name}</div>
-                    <div style={{ fontSize: "140%", fontWeight: '700', color: '#9252AA' , textTransform:"lowerCase"}} className='ingredientrightsecsibheading'>{quantity + ' ' + unit}</div>
+                    <div style={{ fontSize: "140%", fontWeight: '700', color: '#9252AA' , textTransform:"lowerCase"}}
+                         className='ingredientrightsecsibheading'>{quantity + ' ' + unit}</div>
                 </div>
             </div>
         );
