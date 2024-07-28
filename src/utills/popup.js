@@ -1,7 +1,9 @@
 import React from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import "../css/popup.css";
-import orderWarning from "../assets/OrderWarning.png";
+import orderWarning from "../assets/OrderWarning.png"
+
+  import imageivew from '../assets/logout.png';
 
 const Popup = ({ onClose, popupMessage }) => {
   const handleContinue = () => {
@@ -19,6 +21,11 @@ const Popup = ({ onClose, popupMessage }) => {
     onClose();
   };
 
+  const handleOk = () => {
+    onClose();
+  };
+
+
   return (
     <div className="popup-overlay">
       <div className="popup-content">
@@ -26,11 +33,26 @@ const Popup = ({ onClose, popupMessage }) => {
           <AiOutlineClose className="close-icon" onClick={onClose} size={20} />
         </div>
         <div className="popup-body">
-          <img
+          {/*<img
             src={popupMessage?.image}
             alt="Order Amount"
             className="popup-image"
-          />
+          />*/}
+
+          {popupMessage?.image ? (
+              <img
+                  src={popupMessage.image}
+                  alt="Popup"
+                  className="popup-image"
+              />
+          ) : (
+              <img
+                  src= {imageivew}
+                  alt="Default"
+                  className="popup-image"
+              />
+          )}
+
           <h1>{popupMessage?.title}</h1>
           <p>{popupMessage?.body}</p>
           {popupMessage?.button == "Continue" && (
@@ -48,7 +70,11 @@ const Popup = ({ onClose, popupMessage }) => {
             <button className="add-more-button" onClick={handleAddMore}>
               + {popupMessage?.button}
             </button>
-          )}
+          )}{popupMessage?.button === "OK" && (
+            <button className="add-more-button" onClick={handleOk}>
+              {popupMessage?.button}
+            </button>
+        )}
         </div>
       </div>
     </div>

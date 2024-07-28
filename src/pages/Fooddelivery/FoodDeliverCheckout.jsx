@@ -311,7 +311,7 @@ var discountedPrice = selectedDeliveryOption === 'party-live-buffet-catering' ? 
 
 
 const calculateFinalTotal = () => {
-    let finalTotal = totalPrice - parseFloat(discountedPrice);
+    let finalTotal = totalPrice - parseFloat(discountedPrice) + deliveryCharges;
     console.log(totalPrice, discountedPrice);
 
     console.log("finalTotal: " + finalTotal);
@@ -853,14 +853,7 @@ const onContinueClick = async () => {
 )}
 </div>
 </div>
-            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginTop: 3 }}>
-                <p style={{ color: "#9252AA", fontWeight: '600', fontSize: 14, lineHeight: '20px' }}>Final Amount</p>
-                <p style={{ color: "#9252AA", fontWeight: '600', fontSize: 14, lineHeight: '20px' }}>₹ {calculateFinalTotal()}</p>
-            </div>
-            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginTop: 3 }}>
-                <p style={{ color: "#9252AA", fontWeight: '600', fontSize: 14, lineHeight: '20px' }}>Advance Payment</p>
-                <p style={{ color: "#9252AA", fontWeight: '600', fontSize: 14, lineHeight: '20px' }}>₹ {calculateAdvancePayment()}</p>
-            </div>
+           
         </div>
 
                   </div>

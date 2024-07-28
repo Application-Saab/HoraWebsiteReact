@@ -247,7 +247,7 @@ function Orderlist() {
                     <div>
                       <strong style={{ color: "#9252AA" }}>
                         Total Amount
-                        <p className="mb-0 price-para">
+                        <p style={{textAlign: "end" , margin: 0}}>
                           {" "}
                           ₹{order?.payable_amount}
                         </p>
@@ -256,8 +256,6 @@ function Orderlist() {
                     <div>
                       <strong style={{ color: "#9252AA" }}>
                         Balance Amount
-
-
                         {order?.type === 2 || order?.type === 3 || order?.type === 4 || order?.type === 5 ? (
                           <p className="mb-0 price-para">
 

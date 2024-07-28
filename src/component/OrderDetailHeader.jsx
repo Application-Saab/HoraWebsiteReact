@@ -2,6 +2,8 @@ import React from "react";
 import { CiCalendar } from "react-icons/ci";
 import { GoClock } from "react-icons/go";
 import { MdPeopleAlt } from "react-icons/md";
+
+
 const OrderDetailHeader = ({ orderDetail }) => {
   const getOrderId = (e) => {
     const orderId1 = 10800 + e;
@@ -50,19 +52,20 @@ const OrderDetailHeader = ({ orderDetail }) => {
       </div>
       <div className="order-header-right">
         <div className="order-info-div">
-          <CiCalendar className="header-icons" size={20} />
+          <CiCalendar className="header-icons" size={20}  style={{marginLeft: "25px"}}/>
           <p>{formatDate(orderDetail?.order_date)}</p>
         </div>
         <div className="order-info-div">
-          <GoClock className="header-icons" size={20} />
+          <GoClock className="header-icons" size={20} style={{marginLeft: "15px"}} />
           <p>{orderDetail?.order_time}</p>
         </div>
         <div className="order-info-div">
-          <MdPeopleAlt className="header-icons" size={20} />
+          <MdPeopleAlt className="header-icons" size={20} style={{marginLeft: "15px"}} />
           <p>{orderDetail?.no_of_people} People</p>
         </div>
       </div>
     </div>
+
   );
 };
 

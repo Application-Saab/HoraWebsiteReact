@@ -35,9 +35,12 @@ import OrderDetail from './pages/OrderDetail.jsx';
 
 function App() {
   return (
+
     <Router>
+
       <div className="App">
         <Header />
+
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />

@@ -39,7 +39,7 @@ function DecorationCatPage() {
     { label: 'Cocomelon Theme', value: 'Cocomelon' },
     { label: 'Car Theme', value: 'car' },
     { label: 'Circus Theme', value: 'Circus' },
-    { label: 'Dinosuar Theme', value: 'Dinosuar' },
+    { label: 'Dinosaur Theme', value: 'Dinosaur' },
     { label: 'Elsa Theme', value: ' Elsa' },
     { label: 'Flamingo Theme', value: 'Flamingo' },
     { label: 'Jungle Theme', value: 'Jungle' },
