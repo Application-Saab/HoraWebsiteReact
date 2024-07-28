@@ -3,15 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="8de7a240-162e-4f04-be95-214fb48cb8b4" name="Changes" comment="UI Fixing">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/component/Header.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/Header.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/component/OrderDetailHeader.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/OrderDetailHeader.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/css/Toggle.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/Toggle.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/ChefOrder/CreateOrder.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/ChefOrder/CreateOrder.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/ChefOrder/SelectDatee/SelectDate.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/ChefOrder/SelectDatee/SelectDate.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Orderlist.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Orderlist.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/login.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/login.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utills/popup.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utills/popup.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,7 +20,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="sohan" />
+        <entry key="$PROJECT_DIR$" value="sohanverma" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -105,7 +96,8 @@
       <workItem from="1721708121628" duration="24306000" />
       <workItem from="1721794958569" duration="25974000" />
       <workItem from="1721881493540" duration="19413000" />
-      <workItem from="1721971126096" duration="31471000" />
+      <workItem from="1721971126096" duration="32427000" />
+      <workItem from="1722162780254" duration="595000" />
     </task>
     <task id="LOCAL-00001" summary="Customer Review Page">
       <created>1721474018614</created>
@@ -198,7 +190,14 @@
       <option name="project" value="LOCAL" />
       <updated>1721970803519</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="UI Fixing">
+      <created>1722056207327</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1722056207327</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
