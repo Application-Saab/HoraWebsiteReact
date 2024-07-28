@@ -1,0 +1,32 @@
+.skeleton-loader {
+    padding: 20px;
+    background-color: #dcdada; /* Light background for better visibility */
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.range-bar-skeleton {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+}
+
+.range-bar-skeleton .skeleton {
+    margin-right: 10px; /* Space between skeletons */
+}
+
+.skeleton-loader .dish-skeleton {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.skeleton-loader .dish-info {
+    margin-left: 10px;
+    width: calc(100% - 60px); /* Adjusting width to take the rest of the space excluding image */
+}
+
+.skeleton-loader .dish-info .name,
+.skeleton-loader .dish-info .price {
+    margin-bottom: 10px;
+}

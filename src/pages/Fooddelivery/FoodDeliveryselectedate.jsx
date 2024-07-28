@@ -1,14 +1,21 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
-import { ListGroup, ListGroupItem } from 'react-bootstrap';
+import styled from 'styled-components';
+import { Image ,ListGroup, ListGroupItem } from 'react-bootstrap';
 import { Modal, Button, Container, Row, Col, Spinner } from 'react-bootstrap';
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import checkImage from '../../assets/tick.jpeg.jpeg';
 import orderWarning from '../../assets/OrderWarning.png'
 import Popup from '../../utills/popup';
+import SelectDishes from "../../assets/selectDish.png";
+import SelectDateTime from "../../assets/event2.png";
+import SelectConfirmOrder from "../../assets/confirm_order.png";
 
-const FoodDeliveryselectDate = ({ history }) => {
+const orangeColor = '#FF6F61';
+const defaultColor = '#B0BEC5';
+
+const FoodDeliveryselectDate = ({ history , currentStep }) => {
     const navigate = useNavigate();
     const { selectedOption, selectedDishDictionary, selectedDishPrice, selectedDishes , isDishSelected , selectedCount , selectedDishQuantities } = useLocation().state || {}; // Accessing subCategory and itemName safely
     const [selectedDate, setSelectedDate] = useState(new Date());
@@ -33,6 +40,172 @@ const FoodDeliveryselectDate = ({ history }) => {
      const [isWarningVisibleForTotalAmount, setWarningVisibleForTotalAmount] =
        useState(false);
 
+         // Container for the whole component
+    const MainContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 0 10px;
+  
+    @media (max-width: 768px) {
+      padding: 0;
+    }
+  `;
+  
+  // Layout for heading and control section
+      const HeaderSection = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 10px;
+  
+    @media (max-width: 768px) {
+      flex-direction: column;
+      align-items: flex-start;
+      margin-bottom: 20px;
+    }
+  `;
+  
+  // Heading
+      const Heading = styled.p`
+    margin: 0;
+    font-size: 18px;
+    color: #3C3C3E;
+    font-weight: 500;
+  
+    @media (max-width: 768px) {
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+  `;
+  
+  // Buttons container
+      const ControlButtons = styled.div`
+    display: flex;
+    align-items: center;
+  
+    @media (max-width: 768px) {
+      width: 100%;
+      justify-content: space-between;
+      margin: 0;
+    }
+  `;
+  
+  // Container for Range Input and Count Display
+      const RangeContainer = styled.div`
+    display: flex;
+    align-items: center;
+    width: 94%;
+    max-width: 920px;
+    margin-top: 10px;
+  
+    @media (max-width: 768px) {
+      flex-direction: column;
+      width: 100%;
+    }
+  `;
+  
+  // Range Input container
+      const RangeWrapper = styled.div`
+    flex: 1;
+    padding: 5px;
+    box-sizing: border-box;
+  
+    @media (max-width: 768px) {
+      width: 100%;
+      margin: 0;
+    }
+  `;
+  
+  // Text
+      const CountText = styled.p`
+    margin: 0 10px;
+    line-height: 23px;
+    font-size: 18px;
+    text-align: center;
+    color: black;
+  
+    @media (max-width: 768px) {
+      font-size: 16px;
+    }
+  `;
+  
+  // Display Count
+      const CountDisplay = styled.p`
+    margin-left: 20px;
+    line-height: 23px;
+    font-size: 18px;
+    text-align: center;
+    color: black;
+  
+    @media (max-width: 768px) {
+      font-size: 16px;
+      margin-left: 0; // Adjust margin for mobile
+    }
+  `;
+      //different
+  
+  
+      const Container = styled.div`
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: row; // Align items horizontally
+        overflow-x: auto;    // Enable horizontal scrolling if needed
+        padding: 10px;      // Adjust padding for mobile view
+        width: 100%;        // Ensure it takes up the full width of the parent
+        white-space: nowrap; // Prevent labels from wrapping to the next line
+  
+        @media (max-width: 600px) {
+          padding: 5px;    // Reduce padding on smaller screens
+        }
+      `;
+  
+      const Step = styled.div`
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 0 10px;    // Adjust margin for spacing
+      `;
+  
+      const Line = styled.div`
+        height: 2px;
+        width: 50px;       // Default width for mobile view
+        background-color: #ccc;
+        margin: 0 4px;     // Adjust margin for spacing
+        color: ${(props) => (props.active ? '#F46C5B' : 'black')};
+  
+        @media (max-width: 600px) {
+          width: 30px;     // Smaller width for mobile view
+        }
+      `;
+  
+      const Image = styled.img`
+        width: 48px;       // Default size for mobile view
+        height: 48px;
+  
+        ${(props) => props.active && `border: 2px solid #000;`};
+  
+        @media (max-width: 600px) {
+        width: 32px;     // Smaller width for mobile view
+        height: 32px;    // Maintain aspect ratio
+      }
+      `;
+  
+      const Label = styled.div`
+        margin-top: 5px;
+        text-align: center;
+        font-size: 14px;   // Default font size
+        color: ${(props) => (props.active ? '#F46C5B' : 'black')}; // Color based on active prop
+        white-space: nowrap; // Prevent text from wrapping
+  
+        @media (max-width: 600px) {
+          font-size: 10px; // Smaller font size for mobile view
+        }
+      `;
+  
      const [popupMessage, setPopupMessage] = useState({
        image: "",
        title: "",
@@ -56,10 +229,13 @@ const FoodDeliveryselectDate = ({ history }) => {
         }
     };
 
-    // const handleRangeChange = (e) => {
-    //   const value = parseInt(e.target.value, 10);
-    //   setPeopleCount(value);
-    // };
+    const handleRangeChange = (e) => {
+      console.log(e.target.value)
+     const value = parseInt(e.target.value, 10);
+     setPeopleCount(value);
+     setDishPrice(value * 49); // Assuming 49 is the unit price
+   };
+
 
     const handleWarningClose = () => {
       setWarningVisibleForTotalAmount(false);
@@ -351,6 +527,23 @@ const renderTabContent = (selectedDishQuantities) => {
           </p>
         </div>
 
+
+        <Container>
+                <Step active>
+                    <Image  src={SelectDishes} alt="Select Dishes" />
+                    <Label active>Select Dishes</Label>
+                </Step>
+                <Line active/>
+                <Step>
+                    <Image src={SelectDateTime} alt = "Select Date & Time"/>
+                    <Label active>Select Date & Time</Label>
+                </Step>
+                <Line />
+                <Step>
+                    <Image src={SelectConfirmOrder} alt= "Confirm Order"/>
+                    <Label>Select Confirm Order</Label>
+                </Step>
+            </Container>
         <div
           style={{
             width: "90%",
@@ -377,12 +570,11 @@ const renderTabContent = (selectedDishQuantities) => {
               <div
                 style={{
                   display: "flex",
-                  flexDirection: "row",
-                  justifyContent: "space-between",
+                  flexDirection: "column",
                   marginTop: 13,
-                  alignItems: "center",
                 }}
               >
+                <div>
                 <div
                   style={{
                     display: "flex",
@@ -408,15 +600,6 @@ const renderTabContent = (selectedDishQuantities) => {
                   >
                     How many people you are hosting?
                   </p>
-                </div>
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    justifyContent: "flex-end",
-                    marginRight: 9,
-                  }}
-                >
                   <button
                     onClick={decreasePeopleCount}
                     style={{ backgroundColor: "transparent", border: "none" }}
@@ -452,31 +635,36 @@ const renderTabContent = (selectedDishQuantities) => {
                       alt="plus icon"
                     />
                   </button> 
-                  {/* <input
-                    type="range"
-                    className="form-range"
-                    min={minPeopleCount}
-                    max={maxPeopleCount}
-                    step={step}
-                    value={peopleCount}
-                    id="customRange3"
-                    onChange={handleRangeChange}
-                  />
-                  <p
-                    style={{
-                      marginLeft: 5,
-                      lineHeight: "23px",
-                      fontSize: 18,
-                      marginTop: 2,
-                      width: 22,
-                      textAlign: "center",
-                      color: "black",
-                      marginBottom: "10px",
-                    }}
-                    className="totalcount"
-                  >
-                    {peopleCount}
-                  </p> */}
+                </div>
+                </div>
+
+
+                 
+                  <div className="range-container">
+        <div className="range-wrapper">
+        <input
+        type="range"
+        min={minPeopleCount}
+        max={maxPeopleCount}
+        step={step}
+        value={peopleCount}
+        id="customRange3"
+        onChange={handleRangeChange}
+        className="range-input"
+        style={{
+        // CSS styles inline for the range input
+        '--range-color': 'rgb(146, 82, 170)',  // Custom color variable
+        '--range-track-height': '6px',         // Custom track height
+        '--range-thumb-size': '14px'  ,         // Custom thumb (handle) size
+        '--range-thumb-transform': 'translateY(-30%)'  // Vertically center the thumb
+        }}
+        />
+        <div>
+        <div className="count-display">{peopleCount}</div>
+        </div>
+        </div>
+
+      
                 </div>
               </div>
 

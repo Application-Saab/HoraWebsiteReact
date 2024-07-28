@@ -40,6 +40,8 @@ function DecorationCatPage() {
     { label: 'Car Theme', value: 'car' },
     { label: 'Circus Theme', value: 'Circus' },
     { label: 'Dinosuar Theme', value: 'Dinosuar' },
+    { label: 'Elsa Theme', value: ' Elsa' },
+    { label: 'Flamingo Theme', value: 'Flamingo' },
     { label: 'Jungle Theme', value: 'Jungle' },
     { label: 'Kitty Theme', value: 'Kitty' },
     { label: 'Lion King', value: 'Lion' },
@@ -52,7 +54,9 @@ function DecorationCatPage() {
     { label: 'Panda Theme', value: 'Panda' },
     { label: 'Traffic Theme', value: 'Traffic' },
     { label: 'Super dogs theme', value: 'dogs' },
-    { label: 'Unicorn Theme', value: 'Unicorn' },
+    { label: 'Super Hero theme', value: 'Hero' },
+    { label: 'Sport Football theme', value: 'Football' },
+    { label: 'Unicorn Theme', value: 'Unicorn' },  
   ];
   function getSubCategory(catValue) {
     if (catValue === 'birthday-decoration') {

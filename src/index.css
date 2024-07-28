@@ -316,7 +316,6 @@ button.cusinebtn {
 
 button.cuisinebtn {
   width: 150px;
-  border-radius: 27px !important;
 }
 
 .cuisine-item.list-group-item {
@@ -499,7 +498,11 @@ button.dec-continueButton {
 .left-details {
   text-align: left;
 }
-
+main.order-list .order-container {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
 /* select date chef flow */
 @media (max-width: 800px) {
   div#faqQ {
@@ -598,7 +601,7 @@ button.dec-continueButton {
     width: 33% !important;
     border-top-right-radius: 15px !important;
     border-top-left-radius: 15px !important;
-    color: #823d9d;
+    color: #969696;
     font-size: 13px;
   }
 
@@ -606,7 +609,7 @@ button.dec-continueButton {
     width: 33% !important;
     border-top-right-radius: 15px !important;
     border-top-left-radius: 15px !important;
-    color: #969696;
+    color: #823d9d;
     font-size: 11px;
   }
   .tabs {
@@ -1204,7 +1207,7 @@ button.dec-continueButton {
   }
 
   .cuisine-item.list-group-item {
-    margin: 4px 4px 0px 2px;
+    margin: 4px 4px 0px 0px;
   }
 
   .cuisine-item.list-group-item.mb-2 {
@@ -1213,7 +1216,6 @@ button.dec-continueButton {
 
   button.cuisinebtn {
     width: 99px;
-    border-radius: 27px !important;
     padding: 3px 0 !important;
   }
 
@@ -1297,7 +1299,7 @@ h5.order-id-h {
     font-size: 65% !important;
   }
   .tabButton {
-    padding: 1px 8% !important;
+    padding: 7px 8% !important;
   }
   button.viewbtn.btn.btn-primary {
     border-radius: 42px !important;
@@ -1306,10 +1308,9 @@ h5.order-id-h {
     height: 21px;
   }
   button.cuisinebtn {
-    width: 74px;
-    border-radius: 27px !important;
-    padding: 6px 0 !important;
-    font-size: 11px !important;
+    width: 78px;
+        padding: 3px 0 !important;
+        font-size: 12px !important;
   }
   button.cusinebtn {
     border-radius: 27px !important;
@@ -1400,6 +1401,10 @@ h5.order-id-h {
     margin-bottom: 0;
     font-size: 8px;
 }
+.checkoutInputType textarea {
+  font-size: 13px !important;
+  color: #222 !important;
+}
   .personsectionprice p {
     font-size: 58% !important;
   }
@@ -1437,7 +1442,7 @@ h6.order-otp{
   }
 
   p.selectdateContainerheadig {
-    font-size: 72% !important;
+    font-size: 68% !important;
     font-weight: 700 !important;
   }
 
@@ -1446,7 +1451,7 @@ h6.order-otp{
   }
 
   .tabButton {
-    padding: 1px 8% !important;
+    padding: 7px 8% !important;
   }
 }
 

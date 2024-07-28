@@ -114,7 +114,7 @@ function Orderlist() {
   };
 
   const handleRateUs = (order) => {
-    const {} = order;
+    const { } = order;
     window.open(
       "https://wa.me/917338584828?text=Hello%20I%20have%20some%20queries%20for%20decoration%20services",
       "_blank"
@@ -150,7 +150,7 @@ function Orderlist() {
     const orderType = type
     const orderId = order_id
     navigate(`/order-details`, {
-      state: {apiOrderId, orderType, orderId},
+      state: { apiOrderId, orderType, orderId },
     });
   };
 
@@ -256,10 +256,26 @@ function Orderlist() {
                     <div>
                       <strong style={{ color: "#9252AA" }}>
                         Balance Amount
-                        <p className="mb-0 price-para">
-                          {" "}
-                          ₹{Math.round(order?.payable_amount * 0.35)}
-                        </p>
+
+
+                        {order?.type === 2 || order?.type === 3 || order?.type === 4 || order?.type === 5 ? (
+                          <p className="mb-0 price-para">
+
+                            {'₹' +
+                              '' +
+                              Math.round(
+                                (order?.payable_amount * 4) / 5,
+                              )}
+                          </p>
+                        ) : (
+                          <p className="mb-0 price-para">
+
+                            {'₹' +
+                              '' +
+                              Math.round(order?.payable_amount * 0.7)}
+                          </p>
+                        )}
+
                       </strong>
                     </div>
                   </div>
@@ -276,8 +292,8 @@ function Orderlist() {
                   </div>
                   {order?.type == 2 &&
                     (orderStatus?.status == "Booked" ||
-                    orderStatus?.status == "Accepted" ||
-                    orderStatus?.status == "In-progress" ? (
+                      orderStatus?.status == "Accepted" ||
+                      orderStatus?.status == "In-progress" ? (
                       <div>
                         <WhatsappShareButton
                           url="https://play.google.com/store/apps/details?id=com.hora"

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
+import { Step, Label, Divider } from 'semantic-ui-react'; // Replace with actual library
 import {Image, ListGroup, ListGroupItem} from "react-bootstrap";
 import { Modal, Button, Container, Row, Col, Spinner } from "react-bootstrap";
 import {
@@ -15,26 +16,19 @@ import MinusIcon from "../../assets/minus.png";
 import PlusIcon from "../../assets/plus.png";
 import Popup from "../../utills/popup";
 import warningImage from "../../assets/Group.png";
-import { CardSkeleton } from "../../component/CardSkeleton";
-import {
-  CardSkeletonGrid,
-} from "../../component/ChefCardSkeleton";
+import SkeletonLoader from "../../utills/chefSkeleton";
 import '../../css/Toggle.css' ;
-
+import '../../css/chefOrder.css' ;
 import SelectDishes from "../../assets/selectDish.png";
 import SelectDateTime from "../../assets/event.png";
 import SelectConfirmOrder from "../../assets/confirm_order.png";
-
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUtensils, faCalendarAlt, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
-
+import separator from "../../assets/separator.png";
 import styled from 'styled-components';
-
 const orangeColor = '#FF6F61';
 const defaultColor = '#B0BEC5';
 
 const CreateOrder = ({ history, currentStep }) => {
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const viewBottomSheetRef = useRef(null);
   const bottomSheetRef = useRef(null);
   const [orderType, setOrderType] = useState(2);
@@ -63,73 +57,12 @@ const CreateOrder = ({ history, currentStep }) => {
   const [isWarningVisibleForCuisineCount, setWarningVisibleForCuisineCount] =
     useState(false);
   const [isViewAllExpanded, setIsViewAllExpanded] = useState(false);
-  const [isButtonVisible, setIsButtonVisible] = useState(false);
   const [popupMessage, setPopupMessage] = useState({
     image: "",
     title: "",
     body: "",
     button: "",
   });
-
-  const Container = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: row; // Align items horizontally
-    overflow-x: auto;    // Enable horizontal scrolling if needed
-    padding: 10px;      // Adjust padding for mobile view
-    width: 100%;        // Ensure it takes up the full width of the parent
-    white-space: nowrap; // Prevent labels from wrapping to the next line
-
-    @media (max-width: 600px) {
-      padding: 5px;    // Reduce padding on smaller screens
-    }
-  `;
-
-  const Step = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 0 10px;    // Adjust margin for spacing
-  `;
-
-  const Line = styled.div`
-    height: 2px;
-    width: 50px;       // Default width for mobile view
-    background-color: #ccc;
-    margin: 0 4px;     // Adjust margin for spacing
-
-    @media (max-width: 600px) {
-      width: 80px;     // Smaller width for mobile view
-    }
-  `;
-
-  const Image = styled.img`
-    width: 100%;       // Default size for mobile view
-    height: 100%;
-    flex-shrink: 0;
-    ${(props) => props.active && `border: 2px solid #000;`};
-
-    @media (max-width: 600px) {
-    width: 32px;     // Smaller width for mobile view
-    height: 32px;    // Maintain aspect ratio
-  }
-  `;
-
-  const Label = styled.div`
-    margin-top: 5px;
-    text-align: center;
-    font-size: 14px;   // Default font size
-    color: ${(props) => (props.active ? '#F46C5B' : 'black')}; // Color based on active prop
-    white-space: nowrap; // Prevent text from wrapping
-
-    @media (max-width: 600px) {
-      font-size: 10px; // Smaller font size for mobile view
-    }
-  `;
-
-
-
   // Handler for 'Only Veg' toggle switch
   const handleVegSwitch = () => {
     if (isNonVegSelected) return; // Prevent switching if 'Non-Veg' is selected
@@ -140,6 +73,19 @@ const CreateOrder = ({ history, currentStep }) => {
   const handleNonVegSwitch = () => {
     setIsNonVegSelected(prev => !prev); // Toggle 'Non-Veg' state
   };
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+  const maxItems = isMobile ? 3 : 7;
 
   // Filter the cuisines based on selected state
   const filteredCuisines = cuisines.filter(cuisine => {
@@ -235,7 +181,7 @@ const CreateOrder = ({ history, currentStep }) => {
 
   const handleIncreaseQuantity = (dish, isSelected) => {
     if (selectedDishes.length >= 0 && !isSelected) {
-      setIsButtonVisible(true);
+      //setIsButtonVisible(true);
     }
     if (selectedDishes.length > 11 && !isSelected) {
       setWarningVisibleForDishCount(true);
@@ -273,9 +219,7 @@ const CreateOrder = ({ history, currentStep }) => {
     }
   };
 
-  useEffect(() => {
-    setIsButtonVisible(false);
-  }, []);
+
 
   const handleCuisinePress = (cuisineId) => {
     if (selectedCuisines.length < 3 || selectedCuisines.includes(cuisineId)) {
@@ -464,7 +408,7 @@ const CreateOrder = ({ history, currentStep }) => {
                     </div>
                   );
                 })
-              : item.dish.slice(0, 7).map((dish, index) => {
+              : item.dish.slice(0, maxItems).map((dish, index) => {
                   const dishImage = dish.image
                     ? `https://horaservices.com/api/uploads/${dish.image}`
                     : "";
@@ -655,7 +599,7 @@ const CreateOrder = ({ history, currentStep }) => {
   };
 
   if(loading){
-    return <CardSkeletonGrid loading={true} />;
+    return <SkeletonLoader loading={true} />;
   }
 
 
@@ -663,104 +607,36 @@ const CreateOrder = ({ history, currentStep }) => {
     <>
       <div className="chef-create-order">
       <div className="order-container chef">
-
             <div style={{ flexDirection: 'row', backgroundColor: '#EFF0F3' , boxShadow:"0px 0px 6px 0px rgba(0, 0, 0, 0.23)" , display:"flex" ,justifyContent:"center" , alignItems:"center" , padding:"10px 0"}}>
               <img style={{width:"20px" , marginRight:"10px"}} src={require('../../assets/info.png')} />
               <p style={{ color: '#676767', fontSize: "94%", fontWeight: '400', margin:"0" }} className='billheading'>Bill value depends upon Dish selected + Number of people</p>
             </div>
-
-        <Container className="step-sec">
-          <Step active>
+      <div className="range-bar">
+          <Step active className="step1">
             <Image  src={SelectDishes} alt="Select Dishes" />
             <Label active>Select Dishes</Label>
           </Step>
-          <Line />
-          <Step>
+          <div  className="sep-image">
+          <Image src={separator}/>
+          </div>
+          <Step className="step2">
             <Image src={SelectDateTime} alt = "Select Date & Time"/>
             <Label>Select Date & Time</Label>
           </Step>
-          <Line />
-          <Step>
+          <div  className="sep-image">
+          <Image src={separator}/>
+          </div>
+          <Step className="step3">
             <Image src={SelectConfirmOrder} alt= "Confirm Order"/>
             <Label>Select Confirm Order</Label>
           </Step>
-        </Container>
-
+      </div>
+       
 
       </div>
-
-        <div className="order-container">
-            <div className="toggle-container">
-              <div className="toggle veg">
-                <div
-                    className={`toggle-switch ${isVegSelected ? 'active' : ''} ${isNonVegSelected ? '' : 'disabled'}`}
-                    onClick={isNonVegSelected ? handleVegSwitch : undefined} // Only allow click if Non-Veg is selected
-                >
-                  <div className={`toggle-slider ${isVegSelected ? 'active' : ''}`}></div>
-                </div>
-                <span className={`toggle-label ${isVegSelected ? 'active' : ''}`}>Only Veg</span>
-              </div>
-              <div className="toggle non-veg">
-                <div
-                    className={`toggle-switch ${isNonVegSelected ? 'active' : ''}`}
-                    onClick={handleNonVegSwitch}
-                >
-                  <div className={`toggle-slider ${isNonVegSelected ? 'active' : ''}`}></div>
-                </div>
-                <span className={`toggle-label ${isNonVegSelected ? 'active' : ''}`}>Non-Veg</span>
-              </div>
-            </div>
-
-
-            <Row className="d-flex justify-content-start">
-              <div >
-                <div className="chef-divider" style={{ marginTop: "20px" }}></div>
-                <div style={{ margin: "10px 0 0 0" }}>
-                  <h1
-                      style={{
-                        fontSize: "14px",
-                        color: "#000",
-                        marginTop: "0px",
-                        marginBottom: "0",
-                      }}
-                  >
-                    Select Cuisines
-                  </h1>
-                  <ListGroup className="cuisine-list d-flex flex-row flex-wrap justify-content-start">
-                    {filteredCuisines.length > 0 ? (
-                        filteredCuisines.map((cuisine, index) => (
-                            <ListGroupItem key={index} className="cuisine-item">
-                              {renderItem({ item: cuisine })}
-                            </ListGroupItem>
-                        ))
-                    ) : (
-                        <p>No cuisines available</p>
-                    )}
-                  </ListGroup>
-                </div>
-              </div>
-            </Row>
-            <div className="chef-divider"></div>
-            <Row className="mt-1">
-              <Col>
-                {filteredMealList.length > 0 ? (
-                    <ListGroup className="dish-list">
-                      {filteredMealList.map((meal) => (
-                          <div key={meal._id}>
-                            <ListGroupItem className="dish-item">
-                              {renderDishItem({ item: meal })}
-                            </ListGroupItem>
-                          </div>
-                      ))}
-                    </ListGroup>
-                ) : (
-                    <p>No meals available</p>
-                )}
-              </Col>
-            </Row>
-
-              {/*<Row className="d-flex justify-content-start">
-              <div style={{ display: "flex", margin: "10px 0 0" }}>
+        <div className="order-container chef-bottum">
+        <Row className="d-flex justify-content-start">
+              <div style={{ display: "flex", margin: "5px 0 0" }}>
                 <div style={{ marginRight: "10px" }}>
                   <Button
                     variant={selected === "veg" ? "success" : "outline-success"}
@@ -782,7 +658,7 @@ const CreateOrder = ({ history, currentStep }) => {
                   </Button>
                 </div>
               </div>
-              <div className="chef-divider" style={{ marginTop: "20px" }}></div>
+              <div className="chef-divider" style={{ marginTop: "10px" }}></div>
               <div style={{ margin: "10px 0 0 0" }}>
                 <h1
                   style={{
@@ -818,9 +694,8 @@ const CreateOrder = ({ history, currentStep }) => {
                   </ListGroup>
                 )}
               </Col>
-            </Row>*/}
+            </Row>
 
-            {isButtonVisible && (
               <div
                 style={{
                   position: "fixed",
@@ -860,7 +735,7 @@ const CreateOrder = ({ history, currentStep }) => {
                   </div>
                 </Button>
               </div>
-            )}
+          
 
       </div>
         <Modal show={isViewAllSheetOpen} onHide={closeViewAllSheet}>
