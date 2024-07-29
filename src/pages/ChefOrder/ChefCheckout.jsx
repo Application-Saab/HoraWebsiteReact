@@ -218,7 +218,7 @@ const pincodes =[
   "122002", "122003", "122006", "122008", "122009", "122010", "122011", "122015", "122016", "122017",
   "122018", "201009", "201001", "201002", "201003", "201004", "201005", "201006", "201007", "201008",
   "201010", "201011", "201012", "201013", "201014", "201015", "201016", "201017", "201018", "121002",
-  "121001", "121003", "121004", "121005", "121006", "121007", "121008", "121009", "121010", "122022"
+  "121001", "121003", "121004", "121005", "121006", "121007", "121008", "121009", "121010", "122022", "560035"
 ]
 
 
@@ -582,7 +582,7 @@ const pincodes =[
           <div style={{ padding: "1% 2%", backgroundColor: "#edededc9" , position: "relative"  }} className='checkoutmobileview'>
             <div className='checoutSec my-3 gap-3'>
               <div>
-              <Container>
+              <Container  className="range-bar">
                 <Step active>
                     <Image  src={SelectDishes} alt="Select Dishes" />
                     <Label active>Select Dishes</Label>

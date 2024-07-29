@@ -5,10 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import { Col, Form, Row } from "react-bootstrap";
 import { useTimer } from "../utills/useTimer";
-
 import Popup from "../utills/popup";
-
-import orderWarning from "../assets/OrderWarning.png";
 
 function Login() {
 
@@ -45,7 +42,8 @@ function Login() {
     const otpRefs = useRef([React.createRef(), React.createRef(), React.createRef(), React.createRef()]);
     const { time, isTimeUp, resetTimer } = useTimer(25);
 
-    const [showPopup, setShowPopup] = useState(false); // State for controlling popup visibility
+    const [showLoginPopup, setShowLoginPopup] = useState(false); // State for controlling popup visibility
+    const [showLogoutPopup, setShowLogoutPopup] = useState(false); // State for controlling popup visibility
     const [popupMessage, setPopupMessage] = useState({}); // State for popup message
 
 
@@ -58,7 +56,7 @@ function Login() {
             body: "You have been logged out successfully.",
             button: "OK"
         });
-        setShowPopup(true); // Show the popup
+        setShowLogoutPopup(true); // Show the popup
         navigate("/");
     };
 
@@ -68,7 +66,7 @@ function Login() {
     };
 
     const handlePopupClose = () => {
-        setShowPopup(false);
+        setShowLogoutPopup(false);
     };
 
     const handleOtpSuccess = () => {
@@ -78,19 +76,10 @@ function Login() {
             body: "You have been logged out successfully.",
             button: "OK"
         });
-        setShowPopup(true); // Show the popup
+        setShowLogoutPopup(true); // Show the popup
     }
 
-    const handleOrderWarning = () => {
-        setPopupMessage({
-            image: orderWarning,
-            title: "Total Order Amount is less than ₹700",
-            body: "Total Order amount can not be less than ₹700, Add more to continue",
-            button: "Add More",
-        });
-        setWarningVisibleForTotalAmount(true); // Ensure this is set to true to display the popup
-    }
-
+  
 
 
     const handleMobileNumberChange = (e) => {
@@ -129,8 +118,8 @@ function Login() {
 
     useEffect(() => {
         console.log('Popup message changed:', popupMessage);
-        console.log('Show popup state changed:', showPopup);
-    }, [popupMessage, showPopup]);
+        console.log('Show popup state changed:', showLogoutPopup);
+    }, [popupMessage, showLogoutPopup]);
 
 
     const validateOtp = async (enteredOtp) => {
@@ -149,10 +138,15 @@ function Login() {
                 });
 
                 if (response.data.status === API_SUCCESS_CODE) {
-
                     handleLogout();
-
                     setLoginMsg("Successfully logged in");
+                    setPopupMessage({
+                        image: require('../assets/login.png').default,
+                        title: "Logout Successful",
+                        body: "You have been logged out successfully.",
+                        button: "OK"
+                    });
+                    showLoginPopup(true); // Show the popup
                     localStorage.setItem('isLoggedIn', 'true');
                     localStorage.setItem("mobileNumber", mobileNumber);
                     localStorage.setItem('token', response.data.token);
@@ -361,8 +355,8 @@ function Login() {
 
 
 
-        {showPopup && (
-            <Popup onClose={() => setShowPopup(false)} popupMessage={popupMessage} />
+        {showLogoutPopup && (
+            <Popup onClose={() => setShowLogoutPopup(false)} popupMessage={popupMessage} />
         )}
 
       </div>

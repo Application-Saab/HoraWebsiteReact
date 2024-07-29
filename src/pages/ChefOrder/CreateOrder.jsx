@@ -697,16 +697,64 @@ const CreateOrder = ({ history, currentStep }) => {
               </Col>
             </Row>
 
-              <div
-                  className={`toggle-switch ${isVegSelected ? 'active normal' : 'normal'} ${isNonVegSelected ? '' : 'disabled'}`}
-                  onClick={isNonVegSelected ? handleVegSwitch : undefined} // Only allow click if Non-Veg is selected
-              >
-                <div className={`toggle-slider ${isVegSelected ? 'active' : ''}`}></div>
-              </div>
-          
-
-
+            <Row>
+                <Col>
+             
+                    <div
+                      style={{
+                        position: "fixed",
+                        bottom: 0,
+                        width: "100%",
+                        backgroundColor: "#EDEDED",
+                        borderTop: "1px solid #efefef",
+                        padding: "15px 0",
+                        left: "0",
+                      }}
+                    >
+                      <Button
+                        onClick={() => addDish(selectedDishPrice)}
+                        style={{
+                          width: "50%",
+                          backgroundColor: isDishSelected
+                            ? "#9252AA"
+                            : "#F9E9FF",
+                          borderColor: isDishSelected ? "#9252AA" : "#F9E9FF",
+                        }}
+                        disabled={!isDishSelected}
+                        className="continuebtnchef"
+                      >
+                        <div
+                          style={{
+                            className: "continueButtonLeftText",
+                            color: isDishSelected ? "white" : "#fff",
+                          }}
+                        >
+                          Continue
+                        </div>
+                        <div
+                          style={{
+                            className: "continueButtonRightText",
+                            color: isDishSelected ? "white" : "#fff",
+                          }}
+                        >
+                          {selectedCount} Items
+                        </div>
+                      </Button>
+                    </div>
+                
+                </Col>
+              </Row>
         </div>
+        <Modal show={isViewAllSheetOpen} onHide={closeViewAllSheet}>
+        <Modal.Header closeButton>
+          <Modal.Title>View All</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>{dishDetail && <RenderBottomSheetContent />}</Modal.Body>
+      </Modal>
+
+      {(isWarningVisibleForCuisineCount || isWarningVisibleForDishCount) && (
+        <Popup popupMessage={popupMessage} onClose={handleWarningClose} />
+      )}
         </div>
 
               )

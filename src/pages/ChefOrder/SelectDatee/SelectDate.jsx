@@ -538,7 +538,7 @@ const RightTabContent = ({ ingredientList, preparationTextList, toggleShowAll, s
                 <p style={{ color: '#676767', fontSize: "94%", fontWeight: '400', margin:"0" }} className='billheading'>Bill value depends upon Dish selected + Number of people</p>
             </div>
 
-            <Container>
+            <Container className="range-bar">
                 <Step active>
                     <Image  src={SelectDishes} alt="Select Dishes" />
                     <Label active>Select Dishes</Label>

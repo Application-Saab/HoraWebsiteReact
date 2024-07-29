@@ -25,9 +25,17 @@ const SkeletonLoader = () => {
                 ))}
             </div>
             <div style={{ display: 'flex', justifyContent: 'flex-start', gap: '10px', margin: '10px 0' }}>
-                {Array(6).fill().map((_, index) => (
-                    <Skeleton key={index} height={40} width={80} />
-                ))}
+                {
+                    window.innerWidth > 800 ? 
+                    Array(6).fill().map((_, index) => (
+                        <Skeleton key={index} height={40} width={80} />
+                    ))
+                    : 
+                    Array(4).fill().map((_, index) => (
+                        <Skeleton key={index} height={40} width={80} />
+                    ))
+                }
+            
             </div>
 
             <div style={{ marginTop: '20px', display: 'flex', flexDirection: 'column', gap: '10px' }}>

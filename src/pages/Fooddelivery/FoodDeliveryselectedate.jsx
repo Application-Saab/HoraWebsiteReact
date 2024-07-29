@@ -23,7 +23,7 @@ const FoodDeliveryselectDate = ({ history , currentStep }) => {
     const [showDatePicker, setShowDatePicker] = useState(false);
     const [showTimePicker, setShowTimePicker] = useState(false);
     const [peopleCount, setPeopleCount] = useState(10);
-    const [activeTab, setActiveTab] = useState('right');
+    const [activeTab, setActiveTab] = useState('left');
     const data = selectedDishDictionary;
     const [dishPrice, setDishPrice] = useState(selectedDishPrice);
     const [showAll, setShowAll] = useState(false);
@@ -418,7 +418,7 @@ const FoodDeliveryselectDate = ({ history , currentStep }) => {
 </div>
 <div style={{ flexDirection: 'column', marginLeft: 1, width: 80 }} className='ingredientrightsec'>
     <div style={{ fontSize: "80%", fontWeight: '500', color: '#414141' }} className='ingredientrightsecheading'>{item.name}</div>
-    {/* <div style={{ fontSize: "140%", fontWeight: '700', color: '#9252AA' , textTransform:"uppercase"}} className='ingredientrightsecsibheading'>{quantity + ' ' + unit}</div> */}
+    <div style={{ fontSize: "140%", fontWeight: '700', color: '#9252AA' , textTransform:"uppercase"}} className='ingredientrightsecsibheading'>{quantity + ' ' + unit}</div>
 </div>
 </div>
         );
@@ -528,7 +528,7 @@ const renderTabContent = (selectedDishQuantities) => {
         </div>
 
 
-        <Container>
+        <Container  className="range-bar">
                 <Step active>
                     <Image  src={SelectDishes} alt="Select Dishes" />
                     <Label active>Select Dishes</Label>
@@ -668,7 +668,7 @@ const renderTabContent = (selectedDishQuantities) => {
                 </div>
               </div>
 
-              <div
+              {/* <div
                 style={{
                   alignItems: "center",
                   flexDirection: "row",
@@ -697,7 +697,7 @@ const renderTabContent = (selectedDishQuantities) => {
                   ₹ 49/person would be added to bill value in addition to dish
                   price
                 </p>
-              </div>
+              </div> */}
 
               <div>
                 <div
