@@ -173,6 +173,7 @@ li.inclusionstyle {
 }
 .tabButton {
   border: none;
+  width: 50%;
 }
 
 button.continuebtnchef.btn.btn-primary {
@@ -965,7 +966,7 @@ main.order-list .order-container {
   }
 
   .cuisine-list.d-flex.flex-row.flex-wrap.justify-content-start.list-group {
-    margin: 10px 0;
+    margin: 2px 0;
   }
 
   button.viewbtn.btn.btn-primary {
@@ -1301,7 +1302,7 @@ h5.order-id-h {
     font-size: 65% !important;
   }
   .tabButton {
-    padding: 7px 8% !important;
+    padding: 7px 8% 6px !important;
   }
   button.viewbtn.btn.btn-primary {
     border-radius: 42px !important;
@@ -1375,7 +1376,7 @@ h5.order-id-h {
     font-size: 12px !important;
   }
   .ingredientrightsecheading {
-    font-size: 65% !important;
+    font-size: 63% !important;
     line-height: 13px;
   }
   .ingredientleftsec {

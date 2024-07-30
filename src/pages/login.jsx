@@ -140,18 +140,13 @@ function Login() {
                 if (response.data.status === API_SUCCESS_CODE) {
                     handleLogout();
                     setLoginMsg("Successfully logged in");
-                    setPopupMessage({
-                        image: require('../assets/login.png').default,
-                        title: "Logout Successful",
-                        body: "You have been logged out successfully.",
-                        button: "OK"
-                    });
-                    showLoginPopup(true); // Show the popup
                     localStorage.setItem('isLoggedIn', 'true');
                     localStorage.setItem("mobileNumber", mobileNumber);
                     localStorage.setItem('token', response.data.token);
                     localStorage.setItem('userID', response.data.data._id);
+                    alert("previousPage" , previousPage)
                     if (previousPage) {
+                      
                         if (previousPage.includes("/book-chef-cook-for-party")) {
                             // alert("Navigating to /book-chef-checkout");
                             navigate('/book-chef-checkout', {

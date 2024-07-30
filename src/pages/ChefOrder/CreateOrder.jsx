@@ -608,7 +608,7 @@ const CreateOrder = ({ history, currentStep }) => {
   return (
       <div className="chef-create-order">
       <div className="order-container chef">
-            <div style={{ flexDirection: 'row', backgroundColor: '#EFF0F3' , boxShadow:"0px 0px 6px 0px rgba(0, 0, 0, 0.23)" , display:"flex" ,justifyContent:"center" , alignItems:"center" , padding:"10px 0"}}>
+            <div style={{ flexDirection: 'row', backgroundColor: '#EFF0F3' , boxShadow:"0px 0px 6px 0px rgba(0, 0, 0, 0.23)" , display:"flex" ,justifyContent:"center" , alignItems:"center" , padding:"2px 0"}}>
               <img style={{width:"20px" , marginRight:"10px"}} src={require('../../assets/info.png')} />
               <p style={{ color: '#676767', fontSize: "94%", fontWeight: '400', margin:"0" }} className='billheading'>Bill value depends upon Dish selected + Number of people</p>
             </div>

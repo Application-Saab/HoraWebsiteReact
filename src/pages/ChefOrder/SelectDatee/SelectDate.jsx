@@ -216,12 +216,16 @@ const SelectDate = ({ history, currentStep }) => {
     });
 
     const minPeopleCount = 1
-    const maxPeopleCount = 100
-    const step = 10;
+    const maxPeopleCount = 35
+    const step = 1;
     
     const increasePeopleCount = () => {
-        setPeopleCount(peopleCount + 1)
-        setDishPrice(dishPrice + 49)
+        if (peopleCount < 35) {
+            setPeopleCount(peopleCount + 1);
+            setDishPrice(dishPrice + 49);
+        } else {
+            alert("Maxinum 35 people can be selcted.");
+        }
     }
 
     const decreasePeopleCount = () => {
@@ -410,7 +414,7 @@ const RenderIngredients = ({ item }) => {
                 <div style={{ flexDirection: 'column', marginLeft: 1, width: 80 }} className='ingredientrightsec'>
                     <div style={{ fontSize: "70%", fontWeight: '500', color: '#414141' }} className='ingredientrightsecheading'>{item.name}</div>
                     <div style={{ fontSize: "140%", fontWeight: '700', color: '#9252AA' , textTransform:"lowerCase"}}
-                         className='ingredientrightsecsibheading'>{quantity + ' ' + unit}</div>
+                         className='ingredientrightsecsibheading'>{quantity.toFixed(1) + ' ' + unit}</div>
                 </div>
             </div>
         );
@@ -477,8 +481,8 @@ const LeftTabContent = ({ burnerCount, ApplianceList }) => {
 
 const RightTabContent = ({ ingredientList, preparationTextList, toggleShowAll, showAll, renderPreparationText }) => {
     return (
-        <div style={{ overflowY: 'auto', height: '100%' , borderRadius:"4px 13px 13px 13px"  }}>
-            <div style={{ padding:"0px 20px 20px 20px" ,  flexDirection: 'column', boxShadow: '0px 1px 3px rgba(0, 0, 0, 0.1)', backgroundColor: 'white', borderBottomRightRadius: '15px', borderBottomLeftRadius: '15px',  display: 'flex' , border: "1px solid #efefef"}}>
+        <div style={{ overflowY: 'auto', height: '100%'  }}>
+            <div style={{ padding:"0px 20px 20px 20px" ,  flexDirection: 'column', boxShadow: '0px 1px 3px rgba(0, 0, 0, 0.1)', backgroundColor: 'white', borderBottomRightRadius: '15px', borderBottomLeftRadius: '15px',  display: 'flex' }}>
                 <div style={{ flexDirection: 'column', display: 'flex' }}>
                     <span style={{ color: '#000000', fontSize: '13px', fontWeight: '600', marginTop: '20px' }}>Required Ingredient</span>
                     <span style={{ color: '#969696', fontSize: '11px', fontWeight: '500', marginTop: '6px' }}>(Keep these ingredient ready at your location)</span>
@@ -561,9 +565,9 @@ const RightTabContent = ({ ingredientList, preparationTextList, toggleShowAll, s
                 <div style={{  width:"98%" , margin:"10px" , padding:"10px 30px"}} className='selectdateContainer'>
 
                     <div style={{ backgroundColor:"#fff", borderRadius:"10px", padding:"10px 10px 20px 15px" }} className='peoplecontsec'>
-                        <div style={{ display: "flex", padding: 7, flexDirection: 'row', borderRadius: 5, marginTop: 5, marginBottom: 10, backgroundColor: 'rgba(211, 75, 233, 0.10)', justifyContent: 'flex-start', alignItems: 'top' }}>
+                        {/* <div style={{ display: "flex", padding: 7, flexDirection: 'row', borderRadius: 5, marginTop: 5, marginBottom: 10, backgroundColor: 'rgba(211, 75, 233, 0.10)', justifyContent: 'flex-start', alignItems: 'top' }}>
                             <div style={{ color: "#9252AA", fontWeight: '500', fontSize: 11}}>Note: Additional charge of 700 applies for more than 7 dishes.</div>
-                        </div>
+                        </div> */}
                         <div className="header-section">
                             <div className="heading">How many people you are hosting?</div>
                             <div className="control-buttons">
