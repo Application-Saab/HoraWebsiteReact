@@ -1,0 +1,123 @@
+.wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 85vh;
+    background: #f7f7f7;
+}
+
+.profile-container {
+    background: white;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 450px;
+}
+
+.profile-picture {
+    margin-bottom: 20px;
+}
+
+.profile-img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+
+.input-container {
+    margin-bottom: 20px;
+}
+
+.input-field {
+    display: flex;
+    align-items: center;
+    background: #f1f1f1;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.input-icon {
+    width: 24px;
+    height: 24px;
+}
+
+input {
+    border: none;
+    background: none;
+    outline: none;
+    flex: 1;
+    margin-left: 10px; /* Added margin here to keep consistent spacing */
+}
+
+.edit-icon {
+    margin-left: 10px;
+    cursor: pointer;
+    color: gray;
+}
+
+.button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.update-button {
+    background: #7a53d2;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-bottom: 20px; /* Add margin bottom to separate buttons */
+    width: 100%; /* Full width for consistency */
+}
+
+.logout-button {
+    background: white;
+    color: #7a53d2;
+    border: 2px solid #7a53d2;
+    padding: 10px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%; /* Full width for consistency */
+}
+
+.logout-icon {
+    margin-right: 10px;
+}
+
+.logout-img {
+    width: 24px;
+    height: 24px;
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+    .profile-container {
+        width: 90%;
+        padding: 15px;
+    }
+
+    .profile-img {
+        width: 80px;
+        height: 80px;
+    }
+
+    .input-field {
+        padding: 8px;
+    }
+
+    .update-button,
+    .logout-button {
+        padding: 8px 15px;
+    }
+
+    .update-button {
+        margin-bottom: 15px; /* Adjust margin for mobile view */
+    }
+}
