@@ -6,17 +6,20 @@
     padding: 4px;
     overflow-y: scroll;
 }
-
-
-.step-sec{
-    padding: 14px 0 !important;
-    justify-content: space-between !important;
+.range-bar {
+    display: none !important;
+    justify-content: center;
+    align-items: center;
+    padding: 14px 0 0;
 }
-
+.sep-image {
+    margin-top: -55px;
+    height: 0px;
+    margin-left: 11px;
+}
 .ordersummeryprice{
 margin: 0;
 }
-
 .order-container.chef {
     padding: 0;
 }
@@ -139,7 +142,7 @@ margin: 0;
     margin-top: 10px;
     border-radius: 10px;
     background-color: #F9E9FF;
-    padding: 10px;
+    padding: 10px 7px;
 }
 
 .info-icon {
@@ -154,12 +157,59 @@ margin: 0;
     font-size: 90%;
     margin-bottom: 0;
 }
+.step2 img{
+    width: 72%;
+}
+.step3 img{
+    width: 70%;
+}
+
+@media (max-width:800px) {
+    .range-bar {
+        padding: 4px 0 0;
+        display: flex !important;
+    }
+    .order-container.chef-bottum {
+        padding: 2px 9px 0;
+      }
+      .dtezCg {
+        padding: 11px 0 4px !important;
+    }
+    .dishes-checkout-page {
+        margin: 0 0 9px 0 !important;
+    }
+    .dishes-checkout-page div:first-child {
+        margin-right: 10px !important;
+    }
+}
 
 /* Responsive styles */
 @media (max-width: 480px) {
+    select.rounded.border.border-1.p-1.select-city {
+        font-size: 13px;
+    }
     .heading {
-        font-weight: bold;
-        font-size: 14px;
+        font-weight: 700;
+        font-size: 12px;
+        /* width: 57%; */
+    }
+    .sep-image img{
+        width: 80px;
+        padding: 0 10px;
+    }
+    .range-bar .label {
+        font-size: 7px;
+        font-weight: 400;
+    }
+    .step1 img{
         width: 57%;
     }
+    .step2 img{
+        width: 52%;
+    }
+    .step3 img{
+        width: 50%;
+    }
 }
+
+

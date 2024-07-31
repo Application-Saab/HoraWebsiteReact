@@ -2,21 +2,12 @@ import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { ListGroup, ListGroupItem } from 'react-bootstrap';
 import { Modal, Button, Container, Row, Col, Spinner } from 'react-bootstrap';
-import { BASE_URL, GET_CUISINE_ENDPOINT, API_SUCCESS_CODE, GET_MEAL_DISH_ENDPOINT } from '../../../utills/apiconstants';
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import orderWarning from "../../../assets/OrderWarning.png";
 import Popup from '../../../utills/popup';
-import ReadinessListt from "./ReadinessListt";
-import CookingTimeIndicator from "./CookingTimeIndicator";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faCalendarAlt, faCheckCircle, faUtensils} from "@fortawesome/free-solid-svg-icons";
-
 import '../../../css/chefOrder.css';
-
 import styled from 'styled-components';
-
-
 import SelectDishes from "../../../assets/selectDish.png";
 import SelectDateTime from "../../../assets/event2.png";
 import SelectConfirmOrder from "../../../assets/confirm_order.png";
@@ -225,12 +216,16 @@ const SelectDate = ({ history, currentStep }) => {
     });
 
     const minPeopleCount = 1
-    const maxPeopleCount = 100
-    const step = 10;
+    const maxPeopleCount = 35
+    const step = 1;
     
     const increasePeopleCount = () => {
-        setPeopleCount(peopleCount + 1)
-        setDishPrice(dishPrice + 49)
+        if (peopleCount < 35) {
+            setPeopleCount(peopleCount + 1);
+            setDishPrice(dishPrice + 49);
+        } else {
+            alert("Maxinum 35 people can be selcted.");
+        }
     }
 
     const decreasePeopleCount = () => {
@@ -419,7 +414,7 @@ const RenderIngredients = ({ item }) => {
                 <div style={{ flexDirection: 'column', marginLeft: 1, width: 80 }} className='ingredientrightsec'>
                     <div style={{ fontSize: "70%", fontWeight: '500', color: '#414141' }} className='ingredientrightsecheading'>{item.name}</div>
                     <div style={{ fontSize: "140%", fontWeight: '700', color: '#9252AA' , textTransform:"lowerCase"}}
-                         className='ingredientrightsecsibheading'>{quantity + ' ' + unit}</div>
+                         className='ingredientrightsecsibheading'>{quantity.toFixed(1) + ' ' + unit}</div>
                 </div>
             </div>
         );
@@ -428,7 +423,7 @@ const RenderIngredients = ({ item }) => {
 const LeftTabContent = ({ burnerCount, ApplianceList }) => {
     return(
         <>
-       <div style={{padding:"10px 20px 20px 20px" ,  flexDirection: 'column', borderWidth: 1, elevation: 1, backgroundColor: 'white', borderBottomRightRadius: 15, borderBottomLeftRadius: 15, borderColor: 'white'  , border: "1px solid #efefef"}}>
+       <div style={{padding:"10px 20px 20px 20px" ,  flexDirection: 'column', backgroundColor: 'white', borderBottomRightRadius: 15, borderBottomLeftRadius: 15}}>
     <div style={{ flexDirection: 'column' }} class="req-applicance-details">
         <p style={{ color: '#000000', fontSize: "100%", fontWeight: '400' }} >Required Burners</p>
         <p style={{ color: '#969696', fontSize: "100%", fontWeight: '400'  }}>Number of burners depend upon the number of dishes chosen</p>
@@ -486,8 +481,8 @@ const LeftTabContent = ({ burnerCount, ApplianceList }) => {
 
 const RightTabContent = ({ ingredientList, preparationTextList, toggleShowAll, showAll, renderPreparationText }) => {
     return (
-        <div style={{ overflowY: 'auto', height: '100%' , borderRadius:"4px 13px 13px 13px" ,   border: "1px solid #efefef" }}>
-            <div style={{ padding:"0px 20px 20px 20px" ,  flexDirection: 'column', boxShadow: '0px 1px 3px rgba(0, 0, 0, 0.1)', backgroundColor: 'white', borderBottomRightRadius: '15px', borderBottomLeftRadius: '15px',  display: 'flex' , border: "1px solid #efefef"}}>
+        <div style={{ overflowY: 'auto', height: '100%'  }}>
+            <div style={{ padding:"0px 20px 20px 20px" ,  flexDirection: 'column', boxShadow: '0px 1px 3px rgba(0, 0, 0, 0.1)', backgroundColor: 'white', borderBottomRightRadius: '15px', borderBottomLeftRadius: '15px',  display: 'flex' }}>
                 <div style={{ flexDirection: 'column', display: 'flex' }}>
                     <span style={{ color: '#000000', fontSize: '13px', fontWeight: '600', marginTop: '20px' }}>Required Ingredient</span>
                     <span style={{ color: '#969696', fontSize: '11px', fontWeight: '500', marginTop: '6px' }}>(Keep these ingredient ready at your location)</span>
@@ -547,7 +542,7 @@ const RightTabContent = ({ ingredientList, preparationTextList, toggleShowAll, s
                 <p style={{ color: '#676767', fontSize: "94%", fontWeight: '400', margin:"0" }} className='billheading'>Bill value depends upon Dish selected + Number of people</p>
             </div>
 
-            <Container>
+            <Container className="range-bar">
                 <Step active>
                     <Image  src={SelectDishes} alt="Select Dishes" />
                     <Label active>Select Dishes</Label>
@@ -570,9 +565,9 @@ const RightTabContent = ({ ingredientList, preparationTextList, toggleShowAll, s
                 <div style={{  width:"98%" , margin:"10px" , padding:"10px 30px"}} className='selectdateContainer'>
 
                     <div style={{ backgroundColor:"#fff", borderRadius:"10px", padding:"10px 10px 20px 15px" }} className='peoplecontsec'>
-                        <div style={{ display: "flex", padding: 7, flexDirection: 'row', borderRadius: 5, marginTop: 5, marginBottom: 10, backgroundColor: 'rgba(211, 75, 233, 0.10)', justifyContent: 'flex-start', alignItems: 'top' }}>
-                            <div style={{ color: "#9252AA", fontWeight: '500', fontSize: 10}}>Note: Additional charge of 700 applies for more than 7 dishes.</div>
-                        </div>
+                        {/* <div style={{ display: "flex", padding: 7, flexDirection: 'row', borderRadius: 5, marginTop: 5, marginBottom: 10, backgroundColor: 'rgba(211, 75, 233, 0.10)', justifyContent: 'flex-start', alignItems: 'top' }}>
+                            <div style={{ color: "#9252AA", fontWeight: '500', fontSize: 11}}>Note: Additional charge of 700 applies for more than 7 dishes.</div>
+                        </div> */}
                         <div className="header-section">
                             <div className="heading">How many people you are hosting?</div>
                             <div className="control-buttons">
@@ -586,31 +581,31 @@ const RightTabContent = ({ ingredientList, preparationTextList, toggleShowAll, s
                             </div>
                         </div>
 
-                        <div className="range-container">
-                            <div className="range-wrapper">
-                            <input
-    type="range"
-    min={minPeopleCount}
-    max={maxPeopleCount}
-    step={step}
-    value={peopleCount}
-    id="customRange3"
-    onChange={handleRangeChange}
-    className="range-input"
-    style={{
+        <div className="range-container">
+        <div className="range-wrapper">
+        <input
+        type="range"
+        min={minPeopleCount}
+        max={maxPeopleCount}
+        step={step}
+        value={peopleCount}
+        id="customRange3"
+        onChange={handleRangeChange}
+        className="range-input"
+        style={{
         // CSS styles inline for the range input
         '--range-color': 'rgb(146, 82, 170)',  // Custom color variable
         '--range-track-height': '6px',         // Custom track height
         '--range-thumb-size': '14px'  ,         // Custom thumb (handle) size
         '--range-thumb-transform': 'translateY(-30%)'  // Vertically center the thumb
-    }}
-/>
-                            <div>
-                                <div className="count-display">{peopleCount}</div>
-                            </div>
-                            </div>
+        }}
+        />
+        <div>
+        <div className="count-display">{peopleCount}</div>
+        </div>
+        </div>
 
-                        </div>
+        </div>
 
                         <div className='personsectionprice'>
                             <img src={require('../../../assets/info.png')} className="info-icon" alt="info icon" />
@@ -642,11 +637,10 @@ const RightTabContent = ({ ingredientList, preparationTextList, toggleShowAll, s
                 <div style={{ flexDirection: 'row', marginTop: 20, marginHorizontal: 16 }}>
                 <button
                 style={{
-                backgroundColor: activeTab === 'left' ? "#D9D9D9" : 'white',
+                backgroundColor: activeTab === 'left' ? "white" : '#D9D9D9',
                 borderTopRightRadius: 10,
                 borderTopLeftRadius: 15,
                 padding: "5px 60px",
-                borderRight: "1px solid #ccc"
                 }}
                 onClick={() => setActiveTab('left')}
                 className='tabButton'
@@ -655,7 +649,7 @@ const RightTabContent = ({ ingredientList, preparationTextList, toggleShowAll, s
                 </button>
                 <button
                 style={{
-                backgroundColor: activeTab === 'right' ? "#D9D9D9" : 'white',
+                backgroundColor: activeTab === 'right' ? "white" : '#D9D9D9',
                 borderTopRightRadius: 10,
                 borderTopLeftRadius: 15,
                 padding: "5px 60px",
@@ -671,9 +665,9 @@ const RightTabContent = ({ ingredientList, preparationTextList, toggleShowAll, s
                 </div>
                 </div>
 
-                <Row>
-                <Col>
-                <div style={{
+            <Row>
+            <Col>
+            <div style={{
             position: "fixed",
             bottom: 0,
             width: "100%",
@@ -681,37 +675,40 @@ const RightTabContent = ({ ingredientList, preparationTextList, toggleShowAll, s
             borderTop: "1px solid #efefef",
             padding:"15px 0",
             left:"0",
-        }}>
-                    <Button
-                         onClick={onContinueClick}
+            }}>
+            <Button
+                    onClick={onContinueClick}
+                style={{
+                    width: "50%",
+                    backgroundColor: isDishSelected ? '#9252AA' : '#F9E9FF',
+                    borderColor: isDishSelected ? '#9252AA' : '#F9E9FF',
+                }}
+                disabled={!isDishSelected}
+                className='continuebtnchef'
+            >
+                    <div
                         style={{
-                            width: "50%",
-                            backgroundColor: isDishSelected ? '#9252AA' : '#F9E9FF',
-                            borderColor: isDishSelected ? '#9252AA' : '#F9E9FF',
+                            className: "continueButtonLeftText",
+                            color: isDishSelected ? 'white' : '#343333',
                         }}
-                        disabled={!isDishSelected}
-                        className='continuebtnchef'
                     >
-                            <div
-                                style={{
-                                    className: "continueButtonLeftText",
-                                    color: isDishSelected ? 'white' : '#343333',
-                                }}
-                            >
-                                Continue
-                            </div>
-                            <div
-                                style={{
-                                    className: "continueButtonRightText",
-                                    color: isDishSelected ? 'white' : '#343333',
-                                }}
-                            >
-                                {selectedCount} Items | ₹ {dishPrice}
-                        </div>
-                    </Button>
+                        Continue
                     </div>
-                </Col>
+                    <div
+                        style={{
+                            className: "continueButtonRightText",
+                            color: isDishSelected ? 'white' : '#343333',
+                        }}
+                    >
+                        {selectedCount} Items | ₹ {dishPrice}
+                </div>
+            </Button>
+            </div>
+            </Col>
             </Row>
+
+
+
             {isWarningVisibleForTotalAmount && (<Popup popupMessage={popupMessage} onClose={handleWarningClose}/>)}
 
 

@@ -218,7 +218,7 @@ const pincodes =[
   "122002", "122003", "122006", "122008", "122009", "122010", "122011", "122015", "122016", "122017",
   "122018", "201009", "201001", "201002", "201003", "201004", "201005", "201006", "201007", "201008",
   "201010", "201011", "201012", "201013", "201014", "201015", "201016", "201017", "201018", "121002",
-  "121001", "121003", "121004", "121005", "121006", "121007", "121008", "121009", "121010", "122022"
+  "121001", "121003", "121004", "121005", "121006", "121007", "121008", "121009", "121010", "122022", "560035"
 ]
 
 
@@ -424,22 +424,6 @@ const pincodes =[
       {
         window.innerWidth > 800 ?
           <div style={{ padding: "1% 2%", backgroundColor: "#edededc9" }}>
-            <Container>
-              <Step active>
-                <Image  src={SelectDishes} alt="Select Dishes" />
-                <Label active>Select Dishes</Label>
-              </Step>
-              <Line active/>
-              <Step>
-                <Image src={SelectDateTime} alt = "Select Date & Time"/>
-                <Label active>Select Date & Time</Label>
-              </Step>
-              <Line active />
-              <Step>
-                <Image src={SelectConfirmOrder} alt= "Confirm Order"/>
-                <Label active>Select Confirm Order</Label>
-              </Step>
-            </Container>
             <div style={{ display: "flex", alignItems: "start", margin: "0 !important", padding: "10px 0" }}
                  className='checoutSec my-3 gap-3'>
               <div style={{ width: "40%", boxShadow: "0 1px 8px rgba(0,0,0,.18)", padding: "20px", backgroundColor: "#fff",
@@ -492,7 +476,7 @@ const pincodes =[
                   </div>
                   <div style={{ display: "flex", justifyContent: "center", flexDirection: "column" }} className='checkoutInputType'>
                     <label style={{ color: "rgb(146, 82, 170)", fontSize: "14px", marigin: "16px 0 6px", fontWeight: 600 }}>City:</label>
-                    <select value={city} className=' rounded border border-1 p-1' onChange={handleCityChange}>
+                    <select value={city} className=' rounded border border-1 p-1 select-city' onChange={handleCityChange}>
                       <option value="">Select City</option>
                       <option value="Bangalore">Bangalore</option>
                       <option value="Delhi">Delhi</option>
@@ -598,14 +582,28 @@ const pincodes =[
           <div style={{ padding: "1% 2%", backgroundColor: "#edededc9" , position: "relative"  }} className='checkoutmobileview'>
             <div className='checoutSec my-3 gap-3'>
               <div>
-                {/* <h2 style={{ fontSize: "22px", fontWeight: "400", color: "#222", borderBottom: "1px solid #f0f0f0", margin: "0 0 8px 0", lineHeight: "35px" }}>Booking Details</h2> */}
-               
+              <Container  className="range-bar">
+                <Step active>
+                    <Image  src={SelectDishes} alt="Select Dishes" />
+                    <Label active>Select Dishes</Label>
+                </Step>
+                <Line active/>
+                <Step>
+                    <Image src={SelectDateTime} alt = "Select Date & Time"/>
+                    <Label active>Select Date & Time</Label>
+                </Step>
+                <Line />
+                <Step>
+                    <Image src={SelectConfirmOrder} alt= "Confirm Order"/>
+                    <Label>Select Confirm Order</Label>
+                </Step>
+            </Container>
                   <div className='border border-danger p-1 px-3 rounded bg-danger-subtle text-black text-center'
-                       style={{  fontSize: 12, fontWeight: '500', textAlign: 'left', color: "#9252AA" }}>
+                       style={{  fontSize: 12, fontWeight: '500', textAlign: 'left', color: "#9252AA" , margin: "9px 0 0"}}>
                     Chef details will be shared 5 hours before the order time.
                   </div>
                
-                  <div style={{ display: 'flex', margin: "8px 0px 10px", flexDirection: "row" }} className='row align-items-between justify-content-between  align-items-lg-center justify-content-lg-between'>
+                  <div style={{ display: 'flex', margin: "5px 0px -10px", flexDirection: "row" }} className='row align-items-between justify-content-between  align-items-lg-center justify-content-lg-between'>
                   <CustomDatePicker handleDateChange={handleDateChange} setSelectedDate={setSelectedDate} selectedDate={selectedDate} showDatePicker={showDatePicker} setShowDatePicker={setShowDatePicker} combinedDateTimeError={combinedDateTimeError} selectedDateError={selectedDateError} />
                   <CustomTimePicker handleTimeSlotChange={handleTimeSlotChange} generateTimeSlots={generateTimeSlots} selectedTimeSlot={selectedTimeSlot} combinedDateTimeError={combinedDateTimeError} selectedTimeSlotError={selectedTimeSlotError} />
                   {combinedDateTimeError && <p className="text-danger" style={{ fontSize: '12px' ,margin: "7px 0 0 0" }}>The selected date and time must be at least 24 hours from now.</p>}
@@ -657,7 +655,7 @@ const pincodes =[
                           className=' rounded border border-1 p-1'
                           value={address}
                           onChange={handleAddressChange}
-                          rows={4}
+                          rows={3}
                           placeholder="Enter your Address."
                         />
                         {addressError && <p className={`p-0 m-0 ${addressError ? "text-danger" : ""}`}>This field is required!</p>}
@@ -675,7 +673,7 @@ const pincodes =[
                       </div>
                       <div style={{ display: "flex", justifyContent: "center", flexDirection: "column" }} className='checkoutInputType'>
                         <label style={{ color: "rgb(146, 82, 170)", fontSize: "14px", marigin: "16px 0 6px", fontWeight: 600 }}>City:</label>
-                        <select value={city} className=' rounded border border-1 p-1' onChange={handleCityChange}>
+                        <select value={city} className=' rounded border border-1 p-1 select-city' onChange={handleCityChange}>
                           <option value="">Select City</option>
                           <option value="Bangalore">Bangalore</option>
                           <option value="Delhi">Delhi</option>
@@ -692,13 +690,13 @@ const pincodes =[
                         {
                         Object.values(selectedDishDictionary).map((item) => {
                           return (
-                            <div style={{ width:"48%" , border:"1px solid rgb(149 142 142 / 73%)" , flexDirection:"row" , display:"flex" , borderRadius:"10px" , padding:"6px 10px" , boxSizing:"border-box"}}>
+                            <div style={{ width:"48%" , border:"1px solid rgb(149 142 142 / 73%)" , flexDirection:"row" , display:"flex" , borderRadius:"10px" , padding:"6px 10px" , boxSizing:"border-box"}} className='dishes-checkout-page'>
                               <div style={{ marginRight:2 , width:"90%"}}>
                                 <img className='checkoutRightImg chef' src={`https://horaservices.com/api/uploads/${item.image}`} />
                               </div>
                               <div style={{ color: "rgb(146, 82, 170)", fontWeight: "500" ,  fontSize:"12px"}}>
                                 <p style={{ margin: "0 0 0 0", padding: "0" }}>{item.name}</p>
-                                <p style={{ margin: "0 0 0 0", padding: "0" }}>{item.price}</p>
+                                {/* <p style={{ margin: "0 0 0 0", padding: "0" }}>{item.price}</p> */}
                               </div>
                             </div>
                           )

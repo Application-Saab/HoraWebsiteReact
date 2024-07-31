@@ -30,7 +30,7 @@ function FoodDeliveryCheckout() {
   const navigate = useNavigate();
   const [showDatePicker, setShowDatePicker] = useState(false);
     const selectedDeliveryOption = selectedOption;
-    const [deliveryCharges, setDeliveryCharges] = useState(300);
+    const [deliveryCharges, setDeliveryCharges] = useState(250);
     const [packingCost, setpackingCost] = useState(200);
     const [includeDisposable, setIncludeDisposable] = useState(true); // State for checkbox
     const [includeTables, setIncludeTables] = useState(true);
@@ -45,6 +45,8 @@ const [combinedDateTimeError, setCombinedDateTimeError] = useState(false);
   /// order type 6 Single Plate Meal
   /// order type 7 Live Buffer
   /// order type 8 Bulk Catering.
+
+  
   const handleComment = (e) => {
     setComment(e.target.value);
   };
@@ -309,7 +311,7 @@ var discountedPrice = selectedDeliveryOption === 'party-live-buffet-catering' ? 
 
 
 const calculateFinalTotal = () => {
-    let finalTotal = totalPrice - parseFloat(discountedPrice);
+    let finalTotal = totalPrice - parseFloat(discountedPrice) + deliveryCharges;
     console.log(totalPrice, discountedPrice);
 
     console.log("finalTotal: " + finalTotal);
@@ -414,6 +416,7 @@ const calculateFinalTotal = () => {
 
                 <div style={{ color:"rgb(146, 82, 170)" , fontWeight:"600" }}>
                     <p className='ordersummeryname'>{item.name}</p>
+                    {/* <p className='ordersummeryname'>{quantity + ' ' + unit}</p> */}
                 </div>
             </div>
         );
@@ -514,7 +517,7 @@ const calculateFinalTotal = () => {
         "122002", "122003", "122006", "122008", "122009", "122010", "122011", "122015", "122016", "122017",
         "122018", "201009", "201001", "201002", "201003", "201004", "201005", "201006", "201007", "201008",
         "201010", "201011", "201012", "201013", "201014", "201015", "201016", "201017", "201018", "121002",
-        "121001", "121003", "121004", "121005", "121006", "121007", "121008", "121009", "121010", "122022"
+        "121001", "121003", "121004", "121005", "121006", "121007", "121008", "121009", "121010", "122022", "560035"
       ]
       
   const handleAddressChange = (e) => {
@@ -837,21 +840,20 @@ const onContinueClick = async () => {
                       </div>
 
                       <div>
-            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginTop: 3 }}>
-                <p style={{ color: "#9252AA", fontWeight: '600', fontSize: 14, lineHeight: '20px' }}>Delivery Charges</p>
-                <div style={{ color: "#9252AA", fontWeight: '600', fontSize: 14, lineHeight: '20px', display: 'flex', flexDirection: "row" }}>
-                    <p style={{ color: "#008631", fontWeight: '600', marginRight: 5 }}>FREE</p>
-                    <p style={{ textDecoration: "line-through", color: "#9252AA", fontWeight: '600' }}> ₹ {deliveryCharges}</p>
-                </div>
-            </div>
-            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginTop: 3 }}>
-                <p style={{ color: "#9252AA", fontWeight: '600', fontSize: 14, lineHeight: '20px' }}>Final Amount</p>
-                <p style={{ color: "#9252AA", fontWeight: '600', fontSize: 14, lineHeight: '20px' }}>₹ {calculateFinalTotal()}</p>
-            </div>
-            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginTop: 3 }}>
-                <p style={{ color: "#9252AA", fontWeight: '600', fontSize: 14, lineHeight: '20px' }}>Advance Payment</p>
-                <p style={{ color: "#9252AA", fontWeight: '600', fontSize: 14, lineHeight: '20px' }}>₹ {calculateAdvancePayment()}</p>
-            </div>
+<div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginTop: 3 }}>
+<p style={{ color: "#9252AA", fontWeight: '600', fontSize: 14, lineHeight: '20px' }}>Delivery Charges</p>
+<div style={{ color: "#9252AA", fontWeight: '600', fontSize: 14, lineHeight: '20px', display: 'flex', flexDirection: "row" }}>
+{totalPrice - discountedPrice > 4000 ? (
+<>
+<p style={{ color: "#008631", fontWeight: '600', marginRight: 5 }}>FREE</p>
+<p style={{ textDecoration: "line-through", color: "#9252AA", fontWeight: '600' }}>₹ {deliveryCharges}</p>
+</>
+) : (
+<p style={{ color: "#9252AA", fontWeight: '600' }}>₹ {deliveryCharges}</p>
+)}
+</div>
+</div>
+           
         </div>
 
                   </div>
@@ -999,13 +1001,19 @@ const onContinueClick = async () => {
                     </div>
 
                     <div>
-            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginTop: 3 }}>
-                <p style={{ color: "#9252AA", fontWeight: '600', fontSize: 14, lineHeight: '20px' }}>Delivery Charges</p>
-                <div style={{ color: "#9252AA", fontWeight: '600', fontSize: 14, lineHeight: '20px', display: 'flex', flexDirection: "row" }}>
-                    <p style={{ color: "#008631", fontWeight: '600', marginRight: 5 }}>FREE</p>
-                    <p style={{ textDecoration: "line-through", color: "#9252AA", fontWeight: '600' }}> ₹ {deliveryCharges}</p>
-                </div>
-            </div>
+                    <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginTop: 3 }}>
+<p style={{ color: "#9252AA", fontWeight: '600', fontSize: 14, lineHeight: '20px' }}>Delivery Charges</p>
+<div style={{ color: "#9252AA", fontWeight: '600', fontSize: 14, lineHeight: '20px', display: 'flex', flexDirection: "row" }}>
+{totalPrice - discountedPrice > 4000 ? (
+<>
+<p style={{ color: "#008631", fontWeight: '600', marginRight: 5 }}>FREE</p>
+<p style={{ textDecoration: "line-through", color: "#9252AA", fontWeight: '600' }}>₹ {deliveryCharges}</p>
+</>
+) : (
+<p style={{ color: "#9252AA", fontWeight: '600' }}>₹ {deliveryCharges}</p>
+)}
+</div>
+</div>
 
            
         </div>
@@ -1093,13 +1101,13 @@ const onContinueClick = async () => {
                     </h1>
                     <div style={{ display:"flex" , flexDirection:"row" , justifyContent:"space-between" , flexFlow: "wrap"}}>
                     {selectedDishQuantities.map((item, index) => (
-                    <div style={{ width:"48%" , border:"1px solid rgb(149 142 142 / 73%)" , flexDirection:"row" , display:"flex" , borderRadius:"10px" , padding:"6px 10px" , boxSizing:"border-box"}}>
+                    <div style={{ width:"48%" , border:"1px solid rgb(149 142 142 / 73%)" , flexDirection:"row" , display:"flex" , borderRadius:"10px" , padding:"6px 10px" , boxSizing:"border-box"}} className='dishes-checkout-page'>
                     <div style={{ marginRight:2 , width:"90%"}}>
                       <img className='checkoutRightImg chef' src={`https://horaservices.com/api/uploads/${item.image}`} />
                     </div>
                     <div style={{ color: "rgb(146, 82, 170)", fontWeight: "500" ,  fontSize:"12px"}}>
                       <p style={{ margin: "0 0 0 0", padding: "0" }}>{item.name}</p>
-                      <p style={{ margin: "0 0 0 0", padding: "0" }}>{item.price}</p>
+                      {/* <p style={{ margin: "0 0 0 0", padding: "0" }}>{item.price}</p> */}
                     </div>
                   </div>
                     ))}

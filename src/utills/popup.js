@@ -3,7 +3,7 @@ import { AiOutlineClose } from "react-icons/ai";
 import "../css/popup.css";
 import orderWarning from "../assets/OrderWarning.png"
 
-  import imageivew from '../assets/logout_image.png';
+  import imageivew from '../assets/logout.png';
 
 const Popup = ({ onClose, popupMessage }) => {
   const handleContinue = () => {

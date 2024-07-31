@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios' ;
-import { ListGroup, ListGroupItem } from 'react-bootstrap';
+import { Step, Label, Divider } from 'semantic-ui-react'; // Replace with actual library
+import {Image , ListGroup, ListGroupItem } from 'react-bootstrap';
 import { Modal, Button, Container, Row, Col, Spinner } from 'react-bootstrap';
 import { BASE_URL, GET_CUISINE_ENDPOINT, API_SUCCESS_CODE, GET_MEAL_DISH_ENDPOINT } from '../../utills/apiconstants';
 import { json, useNavigate } from 'react-router-dom';
@@ -11,10 +12,13 @@ import PlusIcon from '../../assets/plus.png';
 import { useParams } from "react-router-dom";
 import warningImage from "../../assets/Group.png";
 import Popup from '../../utills/popup';
-import { CardSkeleton } from '../../component/CardSkeleton';
-import { CardSkeletonGrid } from '../../component/ChefCardSkeleton';
+import SkeletonLoader from "../../utills/chefSkeleton";
+import SelectDishes from "../../assets/selectDish.png";
+import SelectDateTime from "../../assets/event.png";
+import SelectConfirmOrder from "../../assets/confirm_order.png";
+import separator from "../../assets/separator.png";
 
-const FoodDeliveryCreateOrder = () => {
+const FoodDeliveryCreateOrder = (currentStep) => {
     const viewBottomSheetRef = useRef(null);
     const bottomSheetRef = useRef(null);
     let { selectedfoodCategory } = useParams();
@@ -42,7 +46,6 @@ const FoodDeliveryCreateOrder = () => {
     const [isWarningVisibleForDishCount, setWarningVisibleForDishCount] = useState(false);
     const [isWarningVisibleForCuisineCount, setWarningVisibleForCuisineCount] = useState(false);
     const [isViewAllExpanded, setIsViewAllExpanded] = useState(false);
-    const [isButtonVisible, setIsButtonVisible] = useState(false);
      const [popupMessage, setPopupMessage] = useState({
        image: "",
        title: "",
@@ -124,9 +127,6 @@ const FoodDeliveryCreateOrder = () => {
     };
 
     const handleIncreaseQuantity = (dish, isSelected) => {
-        if(selectedDishes.length >= 0 && !isSelected){
-            setIsButtonVisible(true)
-        }
         if (selectedDishes.length >= 15 && !isSelected) {
           setWarningVisibleForDishCount(true);
            setPopupMessage({
@@ -221,9 +221,7 @@ const FoodDeliveryCreateOrder = () => {
       setLoading(false); // Set loading to false when the API request is completed
     }
   };
-    useEffect(() => {
-        setIsButtonVisible(false);
-    }, []);
+  
 
     useEffect(() => {
         if (selectedCuisines.length > 0 && selectedCuisines.length <= 3) {
@@ -453,31 +451,40 @@ const FoodDeliveryCreateOrder = () => {
       };
 
       if(loading){
-        return <CardSkeletonGrid loading={true} />;
+        return <SkeletonLoader loading={true} />;
       }
 
     return (
-      <>
-        <div className="order-container">
-          {/* {loading &&
-            [1, 2, 3, 4, 5, 6, 7, 8].map((item, index) => (
-              <div className="decimagecontainer" style={styles.imageContainer}>
-                <CardSkeleton key={index} />
-              </div>
-            ))}
-          {!loading && ( */}
-            <>
-              <h1
-                style={{
-                  fontSize: "16px",
-                  color: "#000",
-                  marginTop: "20px",
-                  marginBottom: "0",
-                }}
-              >
-                Select Your Menu Here
-              </h1>
-              <Row className="d-flex justify-content-start">
+      <div className="chef-create-order">
+        <div className="order-container chef">
+          
+            <div style={{ flexDirection: 'row', backgroundColor: '#EFF0F3' , boxShadow:"0px 0px 6px 0px rgba(0, 0, 0, 0.23)" , display:"flex" ,justifyContent:"center" , alignItems:"center" , padding:"2px 0"}}>
+              <img style={{width:"20px" , marginRight:"10px"}} src={require('../../assets/info.png')} />
+              <p style={{ color: '#676767', fontSize: "94%", fontWeight: '400', margin:"0" }} className='billheading'>Bill value depends upon Dish selected + Number of people</p>
+            </div>
+            <div className="range-bar">
+          <Step active className="step1">
+            <Image  src={SelectDishes} alt="Select Dishes" />
+            <Label active>Select Dishes</Label>
+          </Step>
+          <div  className="sep-image">
+          <Image src={separator}/>
+          </div>
+          <Step className="step2">
+            <Image src={SelectDateTime} alt = "Select Date & Time"/>
+            <Label>Select Date & Time</Label>
+          </Step>
+          <div  className="sep-image">
+          <Image src={separator}/>
+          </div>
+          <Step className="step3">
+            <Image src={SelectConfirmOrder} alt= "Confirm Order"/>
+            <Label>Select Confirm Order</Label>
+          </Step>
+      </div>
+         </div>
+        <div className="order-container chef-bottum">
+        <Row className="d-flex justify-content-start">
                 <div style={{ display: "flex", margin: "10px 0 0" }}>
                   <div style={{ marginRight: "10px" }}>
                     <Button
@@ -526,7 +533,7 @@ const FoodDeliveryCreateOrder = () => {
 
               <Row>
                 <Col>
-                  {isButtonVisible && (
+             
                     <div
                       style={{
                         position: "fixed",
@@ -568,36 +575,21 @@ const FoodDeliveryCreateOrder = () => {
                         </div>
                       </Button>
                     </div>
-                  )}
+                
                 </Col>
               </Row>
-            </>
-          {/* // )} */}
-        </div>
-
-        <Modal show={isViewAllSheetOpen} onHide={closeViewAllSheet}>
+       
+      </div>
+      <Modal show={isViewAllSheetOpen} onHide={closeViewAllSheet}>
           <Modal.Header closeButton>
             <Modal.Title>View All</Modal.Title>
           </Modal.Header>
           <Modal.Body>{dishDetail && <RenderBottomSheetContent />}</Modal.Body>
         </Modal>
-        {/* <Modal show={isWarningVisibleForDishCount || isWarningVisibleForCuisineCount || isWarningVisibleForTotalAmount} onHide={handleWarningClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Warning</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          {isWarningVisibleForDishCount && <p>You cannot select more than 15 dishes!</p>}
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleWarningClose}>
-            Close
-          </Button>
-        </Modal.Footer>
-      </Modal> */}
         {(isWarningVisibleForCuisineCount || isWarningVisibleForDishCount) && (
           <Popup popupMessage={popupMessage} onClose={handleWarningClose} />
         )}
-      </>
+      </div>
     );
 };
 
