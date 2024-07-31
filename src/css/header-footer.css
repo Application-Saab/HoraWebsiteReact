@@ -23,3 +23,46 @@ ul.list-unstyled-5
         }
     }
 }
+
+
+.myprofile{
+    margin-right: 325px;
+}
+.profile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile-icon {
+    font-size: 24px;
+    margin-right: 10px;
+}
+
+.profile-text {
+    font-size: 18px;
+}
+
+.nav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.nav-item {
+    padding: 10px 20px;
+    border-bottom: 1px solid white;
+    width: 100%; /* Ensures the items are as wide as the container */
+    text-align: center; /* Center the text inside the items */
+}
+
+.nav-item:last-child {
+    border-bottom: none;
+}
+.drawer-header {
+    text-align: center;
+    padding: 20px;
+    background-color: #4A148C; /* Purple background */
+    color: white;
+}

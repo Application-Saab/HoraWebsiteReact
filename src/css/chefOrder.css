@@ -79,6 +79,7 @@ margin: 0;
     width: 100%;
     height: var(--range-track-height, 6px); /* Adjust height as needed */
     background-color:rgb(146, 82, 170);
+    margin-left: 0;
 }
 
 .range-input:focus {

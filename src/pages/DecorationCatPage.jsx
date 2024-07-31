@@ -212,8 +212,8 @@ function DecorationCatPage() {
       <>
         <div style={{ textAlign: "center", justifyContent: "center", alignItems: "center" }}>
           <div style={{ marginTop: "0px" }}>
-            <h1 style={{ fontSize: "16px", color: "#000", padding: "14px 0 0" , color: '#9252AA'}}>{selCat} {'Balloon Decoration'} </h1>
-            <p style={{ padding: "0px 0px 16px", margin: "0px" }} className="subheading">{trimText('Balloon Decoration and Room Decoration Services for Anniversary, Birthdays, Kids Parties, Baby Showers and more!')}</p>
+            <h1 style={{ fontSize: "16px", color: "rgb(146, 82, 170)", padding: "14px 0 0" }}>{selCat} {'Balloon Decoration'} </h1>
+            <p style={{ padding: "0px 0px 16px", margin: "0px", color: "#000" }} className="subheading">{trimText('Balloon Decoration and Room Decoration Services for Anniversary, Birthdays, Kids Parties, Baby Showers and more!')}</p>
             <div style={{ marginBottom: "15px" }} className="filterdropdown d-flex flex-column flex-lg-row align-items-center justify-content-center gap-3" >
 
               <div className="d-flex gap-lg-4 gap-2">
@@ -275,7 +275,6 @@ function DecorationCatPage() {
                       <p
                         style={{
                           marginHorizontal: 3,
-                          textAlign: 'left',
                           fontWeight: '600',
                           fontSize: "16px",
                           marginTop: "4px",

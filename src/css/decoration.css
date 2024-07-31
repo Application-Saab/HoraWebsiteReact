@@ -97,3 +97,54 @@ img {
 }
 }
 }
+
+/*29/07/24*/
+.modal-footer {
+    margin-top: 20px;
+    text-align: center;
+    padding: 20px;
+    border-top: 1px solid #e7eff9;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+}
+
+.modal-footer h2 {
+    font-size: 24px;
+    color: #9252AA;
+    margin-bottom: 20px;
+}
+
+.modal-footer ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.modal-footer li {
+    font-size: 20px;
+    color: #9252AA;
+    font-weight: 600;
+    margin: 10px 0;
+    align-items: end;
+}
+
+.modal-footer .total-price {
+    font-size: 22px;
+    font-weight: 700;
+    color: #e74c3c;
+}
+
+.button_inclusion {
+    border: 2px solid rgb(157, 74, 147);
+    background-color: rgb(157, 74, 147);
+    color: rgb(255, 255, 255);
+    font-size: 16px;
+    padding: 10px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 23px auto 14px;
+    width: 60%;
+    font-weight: bold;
+}
