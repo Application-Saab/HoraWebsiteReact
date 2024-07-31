@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8de7a240-162e-4f04-be95-214fb48cb8b4" name="Changes" comment="UI Fixing">
+    <list default="true" id="8de7a240-162e-4f04-be95-214fb48cb8b4" name="Changes" comment="Side Drawer">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/component/Header.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/Header.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/DecorationCatPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/DecorationCatPage.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/testing/model.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/testing/model.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -205,7 +203,14 @@
       <option name="project" value="LOCAL" />
       <updated>1722056207327</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Side Drawer">
+      <created>1722424091308</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1722424091308</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -237,6 +242,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Customer Review Page" />
     <MESSAGE value="UI Fixing" />
-    <option name="LAST_COMMIT_MESSAGE" value="UI Fixing" />
+    <MESSAGE value="Side Drawer" />
+    <option name="LAST_COMMIT_MESSAGE" value="Side Drawer" />
   </component>
 </project>
