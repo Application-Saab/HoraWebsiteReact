@@ -109,143 +109,124 @@ useEffect(() => {
     navigate("/");
   };
 
-
   return (
-    <header style={styles.headerContainer}>
-      <div className="pageWidth">
-        <div style={styles.headerContainerinner} className="headerContainerinner">
-          <div>
-            <Link to="/">
-              <img src={require("../assets/logo_white.svg").default} alt="Logo" style={styles.logo} />
-            </Link>
+      <header style={styles.headerContainer}>
+        <div className="pageWidth">
+          <div style={styles.headerContainerinner} className="headerContainerinner">
+            <div>
+              <Link to="/">
+                <img src={require("../assets/logo_white.svg").default} alt="Logo" style={styles.logo} />
+              </Link>
+            </div>
+            <nav>
+              <ul style={styles.desktopMenu}>
+                <li style={styles.desktopMenuli}>
+                  <Link to="/" style={styles.link}>Home</Link>
+                </li>
+                <li
+                    style={styles.desktopMenuli}
+                    onMouseEnter={() => {
+                      setShowDecorationSubMenu(true);
+                      setIsHovered(true);
+                    }}
+                    onMouseLeave={() => {
+                      setShowDecorationSubMenu(false);
+                      setIsHovered(false);
+                    }}
+                >
+                  <span style={styles.link}>Services</span>
+                  <FontAwesomeIcon
+                      icon={isHovered ? faCaretUp : faCaretDown}
+                      className={`dropdpwnarrow ${isHovered ? "rotate-icon" : ""}`}
+                      style={{ paddingLeft: "8px" }}
+                  />
+                  {showDecorationSubMenu && (
+                      <ul style={styles.subMenu}>
+                        <li><Link to="/balloon-decoration" style={styles.subMenuLink}>Decoration</Link></li>
+                        <li><Link to="/book-chef-cook-for-party" style={styles.subMenuLink}>Chef for Party</Link></li>
+                        <li><Link to="/party-food-delivery-live-catering-buffet/party-food-delivery" style={styles.subMenuLink}>Food Delivery</Link></li>
+                        <li><Link to="/party-food-delivery-live-catering-buffet/party-live-buffet-catering" style={styles.subMenuLink}>Live Catering</Link></li>
+                        <li><Link to="/" style={{ ...styles.subMenuLink, ...styles.lastChild }} onClick={() => openCatItems("FirstNight")}>Entertainment</Link></li>
+                      </ul>
+                  )}
+                </li>
+                <li style={styles.desktopMenuli}>
+                  <Link to="/contactus" style={styles.link}>Contact Us</Link>
+                </li>
+                <li style={styles.desktopMenuli}>
+                  <Link to="https://horaservices.com/AboutUs.html" style={styles.link}>About Us</Link>
+                </li>
+                <li style={styles.desktopMenuli}>
+                  <Link to="/reviews" style={styles.link}>Customer Reviews</Link>
+                </li>
+                <li style={styles.desktopMenuli}>
+
+                  <div style={styles.rightSection}>
+                    {localStorage.getItem("isLoggedIn") === "true" ? (
+                        <>
+                          <Link to="/myaccount" style={styles.link}>My Profile</Link>
+                        </>
+                    ) : (
+                        <Link to="/login" style={styles.link}></Link>
+                    )}
+                  </div>
+                </li>
+              </ul>
+            </nav>
+            <div style={styles.rightSection}>
+              {localStorage.getItem("isLoggedIn") === "true" ? (
+                  <>
+                    {/*<Link to="/myaccount" style={styles.link}>My Profile</Link>*/}
+                    <a style={styles.linkicon} onClick={handleLogout}>
+                      <FontAwesomeIcon icon={faUser} style={styles.icon} />
+                      <span style={{ marginLeft: "3px" }}>Logout</span>
+                    </a>
+                  </>
+              ) : (
+                  <Link to="/login" style={styles.link}>Login</Link>
+              )}
+            </div>
           </div>
-          <nav>
-            <ul style={styles.desktopMenu}>
-              <li style={styles.desktopMenuli}>
-                <Link to="/" style={styles.link}>
-                  Home
-                </Link>
-              </li>
-              <li
-                style={styles.desktopMenuli}
-                onMouseEnter={() => {
-                  setShowDecorationSubMenu(true);
-                  setIsHovered(true);
-                }}
-                onMouseLeave={() => {
-                  setShowDecorationSubMenu(false);
-                  setIsHovered(false);
-                }}
-              >
-                <span style={styles.link}>Services</span>
-                <FontAwesomeIcon
-                  icon={isHovered ? faCaretUp : faCaretDown}
-                  className={`dropdpwnarrow ${isHovered ? "rotate-icon" : ""}`}
-                  style={{ paddingLeft: "8px" }}
-                />
-                {showDecorationSubMenu && (
-                  <ul style={styles.subMenu}>
-                    <li>
-                      <Link to="/balloon-decoration" style={styles.subMenuLink}>
-                        Decoration
+          <div style={styles.mobileViewHeader} className='mobileViewHeader py-2'>
+            <div className="d-flex align-items-center gap-3" style={{ width:"100%" }}>
+              {
+                isHomePage && ChefCitypage ? (
+                    <>
+                      <FontAwesomeIcon
+                          icon={faBars}
+                          className="mobileMenuIcon"
+                          style={styles.mobileMenuIcon}
+                          onClick={toggleDrawer}
+                      />
+                      <Link to="/" style={{ display:"flex" , width:"80%" , textAlign:"center"}}>
+                        <img src={require("../assets/logo_white.svg").default} alt="Logo" style={{ width: "85px", height: "auto", margin:"0 auto"}} />
                       </Link>
-                    </li>
-                    <li>
-                      <Link to="/book-chef-cook-for-party" style={styles.subMenuLink}>
-                        Chef for Party
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/party-food-delivery-live-catering-buffet/party-food-delivery" style={styles.subMenuLink}>
-                        Food Delivery
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/party-food-delivery-live-catering-buffet/party-live-buffet-catering" style={styles.subMenuLink}>
-                        Live Catering
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/" style={{ ...styles.subMenuLink, ...styles.lastChild }} onClick={() => openCatItems("FirstNight")}>
-                        Entertainment
-                      </Link>
-                    </li>
-                  </ul>
-                )}
-              </li>
-              <li style={styles.desktopMenuli}>
-                <Link to="/contactus" style={styles.link}>
-                  Contact Us
-                </Link>
-              </li>
-              <li style={styles.desktopMenuli}>
-                <Link to="https://horaservices.com/AboutUs.html" style={styles.link}>
-                  About Us
-                </Link>
-              </li>
-              <li style={styles.desktopMenuli}>
-                <Link to="/reviews" style={styles.link}>
-                  Customer Reviews
-                </Link>
-              </li>
-            </ul>
-          </nav>
-          <div>
-            <ul style={styles.desktopMenu}>
-              <li style={styles.desktopMenuli1}>
-                {localStorage.getItem("isLoggedIn") !== "true" ? (
-                  <Link to="/login" style={styles.linkicon}>
-                    <FontAwesomeIcon icon={faUser} style={styles.icon} />
-                    <span style={{ marginLeft: "3px" }}>Login</span>
-                  </Link>
+                    </>
                 ) : (
-                  <a style={styles.linkicon} onClick={handleLogout}>
-                    <FontAwesomeIcon icon={faUser} style={styles.icon} />
-                    <span style={{ marginLeft: "3px" }}>Logout</span>
-                  </a>
+                    <>
+                      <img
+                          src={backIcon}
+                          alt="Back"
+                          style={{
+                            width: "35px",
+                            height: "auto",
+                            cursor: "pointer",
+                          }}
+                          onClick={handleBack}
+                      />
+                      <h1 style={{ margin: 0 , fontSize:"16px" }}>{pageTitle}</h1>
+                    </>
                 )}
-              </li>
-            </ul>
+            </div>
           </div>
         </div>
-        <div style={styles.mobileViewHeader} className='mobileViewHeader py-2'>
-          <div className="d-flex align-items-center gap-3" style={{ width:"100%"}}>
-            {
-            isHomePage && ChefCitypage ? (
-              <>
-                <FontAwesomeIcon
-                  icon={faBars}
-                  className="mobileMenuIcon"
-                  style={styles.mobileMenuIcon}
-                  onClick={toggleDrawer}
-                />
-                <Link to="/" style={{ display:"flex" , width:"80%" , textAlign:"center"}}>
-                  <img src={require("../assets/logo_white.svg").default} alt="Logo" style={{ width: "85px", height: "auto", margin:"0 auto"}} />
-                </Link>
-              </>
-            ) : (
-              <>
-                <img
-                  src={backIcon}
-                  alt="Back"
-                  style={{
-                    width: "35px",
-                    height: "auto",
-                    cursor: "pointer",
-                  }}
-                  onClick={handleBack}
-                />
-                <h1 style={{ margin: 0 , fontSize:"16px" }}>{pageTitle}</h1>
-              </>
-            )}  
-          </div>
-        </div>
-      </div>
-      {showDrawer && <Drawer closeDrawer={toggleDrawer} drawerRef={drawerRef} handleLogout={handleLogout} />}
-      {showPopup && <Popup onClose={() => setShowPopup(false)} popupMessage={popupMessage} />} {/* Render the Popup */}
-    </header>
+        {showDrawer && <Drawer closeDrawer={toggleDrawer} drawerRef={drawerRef} handleLogout={handleLogout} />}
+        {showPopup && <Popup onClose={() => setShowPopup(false)} popupMessage={popupMessage} />} {/* Render the Popup */}
+      </header>
   );
 }
+
+
 
 const Drawer = ({ closeDrawer, drawerRef, handleLogout }) => {
   const style = {
@@ -379,6 +360,7 @@ const styles = {
     textDecoration: "none",
     fontSize: "16px",
     fontWeight: "500",
+    marginLeft: '10px'
   },
   linkicon1: {
     padding: "0 18px",

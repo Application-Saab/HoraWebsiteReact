@@ -12,7 +12,7 @@ import AboutUs from './pages/AboutUs';
 import ContactUs from './pages/ContactUs';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import Orderlist from './pages/Orderlist';
-import MyAccount from './pages/MyAccount';
+import MyAccount from './pages/MyAccount/MyAccount';
 import Login from './pages/login';
 import Success from './pages/Success.jsx';
 import Failure from './pages/Failure.jsx';
