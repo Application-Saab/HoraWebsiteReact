@@ -306,8 +306,8 @@ const Drawer = ({ closeDrawer, drawerRef, handleLogout }) => {
       <Link to="/" style={style.drawerLink} onClick={closeDrawer}>
         Entertainment
       </Link>
-      <Link to="/" style={style.drawerLink} onClick={closeDrawer}>
-        Hospitality Service
+      <Link to="/reviews" style={style.drawerLink} onClick={closeDrawer}>
+       Happy Customers
       </Link>
       <Link to="/aboutus" style={style.drawerLink} onClick={closeDrawer}>
         About Us
@@ -315,6 +315,7 @@ const Drawer = ({ closeDrawer, drawerRef, handleLogout }) => {
       <Link to="/contactus" style={style.drawerLink} onClick={closeDrawer}>
         Contact Us
       </Link>
+     
       {localStorage.getItem("isLoggedIn") !== "true" ? (
         <Link to="/login" style={style.drawerLink} onClick={closeDrawer} >
           Login
