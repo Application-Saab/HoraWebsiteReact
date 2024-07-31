@@ -10,6 +10,10 @@ import useScrollToTop from './useScrollToTop'; // Import the custom hook
 import ChefCitypage from "../pages/ChefCitypage";
 import Popup from "../utills/popup";
 
+import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
+
+import '../css/testingheader.css';
+
 function Header() {
   useScrollToTop(); // Use the custom hook
 
@@ -229,6 +233,13 @@ useEffect(() => {
 
 
 const Drawer = ({ closeDrawer, drawerRef, handleLogout }) => {
+
+  const [showDecorationSubcategories, setShowDecorationSubcategories] = useState(false);
+
+  const toggleDecorationSubcategories = () => {
+    setShowDecorationSubcategories(!showDecorationSubcategories);
+  };
+
   const style = {
     drawer: {
       width: "70%",
@@ -241,6 +252,8 @@ const Drawer = ({ closeDrawer, drawerRef, handleLogout }) => {
       zIndex: 999,
       height: "100vh",
       transition: "left 0.3s ease-in-out",
+      overflowY: "auto", // Allows vertical scrolling
+      overflowX: "hidden" // Prevents horizontal scrolling
     },
     drawerLink: {
       borderBottom: "1px solid #efefef",
@@ -250,31 +263,106 @@ const Drawer = ({ closeDrawer, drawerRef, handleLogout }) => {
       fontWeight: "500",
       margin: "10px 0",
       display: "block",
-      cursor:"pointer",
-      padding:"0 0 6px 0",
+      cursor: "pointer",
+      padding: "0 0 6px 0",
     },
-    drawerLinklogin: {
-      color: "#fff",
-      cursor:"pointer",
+    drawerLinkDisabled: {
+      color: "#888",
       textDecoration: "none",
       fontSize: "16px",
       fontWeight: "500",
       margin: "10px 0",
-      display: "block",
+      display: "flex",
+      alignItems: "center",
+      cursor: "not-allowed",
+      gap: "38px",
+    },
+    subMenu: {
+      paddingLeft: "20px",
+      borderLeft: "1px solid #efefef",
+    },
+    subMenuLink: {
+      color: "#444",
+      padding: "8px 16px",
+      textDecoration: "none",
+      fontSize: "16px",
+      fontWeight: "500",
+    },
+    divider: {
+      borderBottom: "0.5px solid #B4A9A9FF",
+      margin: "8px 0",
+    },
+    toggleIcon: {
+      marginLeft: "90px",
+      color: "#000",
+      cursor: "pointer",
+      fontSize: "12px", // Adjust this value to make the icon smaller
+    },
+    linkContainer: {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "space-between",
     }
   };
 
+
   return (
     <div style={style.drawer} ref={drawerRef}>
-      <div style={{ backgroundColor:"rgb(157, 74, 147)" , padding:"30px 10px 20px 20px"}}>
-      <Link to="/" style={{ textDecoration:"none"}}>
-        <span style={{ color:"#fff" , textDecoration:"none" , fontWeight:"bold"}}>Welcome to Hora</span>
-      </Link>
+      <div className="header">
+        <div className="profile">
+          <div className="profile-icon">&#128100;</div>
+          <div className="profile-text">Hi, Guest</div>
+        </div>
+        <div className="nav">
+          <div className="nav-item">MY ACCOUNT</div>
+          <div className="nav-item">TRACK ORDER</div>
+          <div className="nav-item">HELP CENTER</div>
+        </div>
       </div>
       <div style={{ padding:"0px 10px 20px 20px"}}>
-      <Link to="/balloon-decoration" style={style.drawerLink} onClick={closeDrawer}>
-        Decoration
-      </Link>
+        {/* Disable Decoration Link */}
+        <span style={style.drawerLinkDisabled} onClick={toggleDecorationSubcategories}>
+          Decoration
+          <FontAwesomeIcon
+              icon={showDecorationSubcategories ? faMinus : faPlus}
+              style={style.toggleIcon}
+          />
+        </span>
+        {showDecorationSubcategories && (
+            <div style={style.subMenu}>
+              <Link to="/balloon-decoration/birthday-decoration" style={style.subMenuLink} onClick={closeDrawer}>
+                <label style={{fontWeight: "bold"}}> Birthday Party </label>
+              </Link>
+              <div style={style.divider}></div>
+              <Link to="/balloon-decoration/first-night-decoration" style={style.subMenuLink} onClick={closeDrawer}>
+                <label style={{fontWeight: "bold"}}> First Night </label>
+              </Link>
+              <div style={style.divider}></div>
+              <Link to="/balloon-decoration/anniversary-decoration" style={style.subMenuLink} onClick={closeDrawer}>
+                <label style={{fontWeight: "bold"}}> Anniversary </label>
+              </Link>
+              <div style={style.divider}></div>
+              <Link to="/balloon-decoration/kids-birthday-decoration" style={style.subMenuLink} onClick={closeDrawer}>
+                <label style={{fontWeight: "bold"}}> Kids Party </label>
+              </Link>
+              <div style={style.divider}></div>
+              <Link to="/balloon-decoration/baby-shower-decoration" style={style.subMenuLink} onClick={closeDrawer}>
+                <label style={{fontWeight: "bold"}}> Baby Shower </label>
+              </Link>
+              <div style={style.divider}></div>
+              <Link to="/balloon-decoration/welcome-baby-decoration" style={style.subMenuLink} onClick={closeDrawer}>
+                <label style={{fontWeight: "bold"}}> Welcome Baby </label>
+              </Link>
+              <div style={style.divider}></div>
+              <Link to="/balloon-decoration/premium-decoration" style={style.subMenuLink} onClick={closeDrawer}>
+                <label style={{fontWeight: "bold"}}> Premium Decors </label>
+              </Link>
+              <div style={style.divider}></div>
+              <Link to="/balloon-decoration/balloon-bouquets-decoration" style={style.subMenuLink} onClick={closeDrawer}>
+                <label style={{fontWeight: "bold"}}> Balloon Bouquets </label>
+              </Link>
+            </div>
+        )}
       <Link to="/book-chef-cook-for-party" style={style.drawerLink} onClick={closeDrawer}>
         Chef for Party
       </Link>
