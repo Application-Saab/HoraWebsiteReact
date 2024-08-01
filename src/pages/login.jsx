@@ -84,27 +84,24 @@ function Login() {
         const requestData = {
           phone: mobileNumber,
           role: 'customer',
-          otp: enteredOtp
+          otp: enteredOtp,
         };
+        
         const response = await axios.post(url, requestData, {
           headers: {
             'Content-Type': 'application/json',
           },
         });
-
+  
         if (response.data.status === API_SUCCESS_CODE) {
           alert("Logged in successfully");
-          // navigate('/myaccount')
-          //setLoginMsg("Successfully logged in");
           localStorage.setItem('isLoggedIn', 'true');
-          localStorage.setItem("mobileNumber", mobileNumber);
+          localStorage.setItem('mobileNumber', mobileNumber);
           localStorage.setItem('token', response.data.token);
           localStorage.setItem('userID', response.data.data._id);
-          console.log("previousPage" , previousComingPage)
+  
           if (previousComingPage) {
-            console.log("previousPage1" , previousComingPage)
             if (previousComingPage.includes("/book-chef-cook-for-party")) {
-              // alert("Navigating to /book-chef-checkout");
               navigate('/book-chef-checkout', {
                 state: {
                   peopleCount,
@@ -113,41 +110,36 @@ function Login() {
                   selectedDishes,
                   orderType,
                   isDishSelected,
-                  selectedCount
-                }
+                  selectedCount,
+                },
               });
             } else if (previousComingPage.startsWith('/balloon-decoration/anniversary-decoration/product')) {
-              // alert("Navigating to /checkout for anniversary decoration");
               navigate('/checkout', {
-                state: { subCategory, product, orderType }
+                state: { subCategory, product, orderType },
               });
             } else if (previousComingPage.includes('/party-food-delivery-live-catering-buffet-select-date')) {
-              // alert("Navigating to /party-food-delivery-live-catering-buffet-checkout");
-              navigate("/party-food-delivery-live-catering-buffet-checkout", {
+              navigate('/party-food-delivery-live-catering-buffet-checkout', {
                 state: {
                   peopleCount,
                   selectedDeliveryOption: selectedOption,
-                  selectedDishesFoodDelivery: selectedDishesFoodDelivery,
-                  totalOrderAmount: totalOrderAmount,
-                  selectedDishQuantities: selectedDishQuantities,
-                  selectedOption: selectedOption
-                }
+                  selectedDishesFoodDelivery,
+                  totalOrderAmount,
+                  selectedDishQuantities,
+                  selectedOption,
+                },
               });
             } else if (previousComingPage.startsWith('/balloon-decoration/birthday-decoration/product/')) {
-              // alert("Navigating to /checkout for birthday decoration");
               navigate('/checkout', {
-                state: { subCategory, product, orderType }
+                state: { subCategory, product, orderType },
               });
             } else {
-             console.log("previous page not including")
+              navigate('/');
             }
           } else {
-            // Handle the case where previousPage is null or undefined
-            // For example, navigate to a default page or show an error message
             navigate('/');
           }
         } else {
-          setLoginMsg(" ");
+          setLoginMsg("");
           setOtpError('Failed to verify OTP. Please try again.');
         }
       } else {
@@ -156,12 +148,13 @@ function Login() {
         setOtpError('Invalid OTP. Please try again.');
       }
     } catch (error) {
-      setLoginMsg(" ");
+      setLoginMsg("");
       setLoginError(true);
       console.log('Error verifying OTP:', error.message);
       setOtpError('Failed to verify OTP. Please try again.');
     }
-  }
+  };
+  
 
   const handleOtpChange = (e, index) => {
     const { value } = e.target;
