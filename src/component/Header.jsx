@@ -310,14 +310,13 @@ const Drawer = ({ closeDrawer, drawerRef, handleLogout }) => {
     <div style={style.drawer} ref={drawerRef}>
       <div className="drawer-header">
         <div className="profile">
-          <div className="profile-icon">&#128100;</div>
+          {/* <div className="profile-icon">&#128100;</div> */}
           <div className="profile-text">Hi, Guest</div>
         </div>
-        {/* <div className="nav">
-          <div className="nav-item">MY ACCOUNT</div>
-          <div className="nav-item">TRACK ORDER</div>
-          <div className="nav-item">HELP CENTER</div>
-        </div> */}
+        <div className="drawer-top-sec">
+          <div className="drawer-sec-item">MY ACCOUNT</div>
+          <div className="drawer-sec-item">HELP CENTER</div>
+        </div> 
       </div>
       <div style={{ padding:"0px 10px 20px 20px"}}>
         {/* Disable Decoration Link */}

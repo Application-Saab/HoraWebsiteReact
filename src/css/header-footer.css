@@ -63,6 +63,29 @@ ul.list-unstyled-5
 .drawer-header {
     text-align: center;
     padding: 20px;
-    background-color: #4A148C; /* Purple background */
+    background-color: rgb(157, 74, 147); /* Purple background */
     color: white;
 }
+
+.drawer-top-sec {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .drawer-sec-item {
+    position: relative;
+    padding: 0 1px; 
+    margin-top: 10px;
+  }
+  
+  .drawer-sec-item:not(:last-child)::after {
+    content: '|';
+    position: absolute;
+    right: -15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #efe5e5; 
+  }
+  
