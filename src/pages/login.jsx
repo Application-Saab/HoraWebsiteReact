@@ -17,6 +17,7 @@ function Login() {
   const [otpError, setOtpError] = useState('');
   const [loginError, setLoginError] = useState(false);
   const [loginMsg, setLoginMsg] = useState('');
+  const [previousComingPage, setPreviousComingPage] = useState('');
   const location = useLocation();
   const previousPage = location.state && location.state.from;
   const subCategory = location.state && location.state.subCategory;
@@ -61,6 +62,10 @@ function Login() {
     }
   }, [isTimeUp, otpSent]);
 
+  useEffect(()=>{
+   setPreviousComingPage(previousPage)
+  },[previousPage])
+
   //when component mounts focus on the first input field
   useEffect(() => {
     if (otpSent) {
@@ -89,16 +94,16 @@ function Login() {
 
         if (response.data.status === API_SUCCESS_CODE) {
           alert("Logged in successfully");
-          navigate('/myaccount')
-          setLoginMsg("Successfully logged in");
+          // navigate('/myaccount')
+          //setLoginMsg("Successfully logged in");
           localStorage.setItem('isLoggedIn', 'true');
           localStorage.setItem("mobileNumber", mobileNumber);
           localStorage.setItem('token', response.data.token);
           localStorage.setItem('userID', response.data.data._id);
-          console.log("previousPage:", previousPage);
-        
-          if (previousPage) {
-            if (previousPage.includes("/book-chef-cook-for-party")) {
+          console.log("previousPage" , previousComingPage)
+          if (previousComingPage) {
+            console.log("previousPage1" , previousComingPage)
+            if (previousComingPage.includes("/book-chef-cook-for-party")) {
               // alert("Navigating to /book-chef-checkout");
               navigate('/book-chef-checkout', {
                 state: {
@@ -111,12 +116,12 @@ function Login() {
                   selectedCount
                 }
               });
-            } else if (previousPage.startsWith('/balloon-decoration/anniversary-decoration/product')) {
+            } else if (previousComingPage.startsWith('/balloon-decoration/anniversary-decoration/product')) {
               // alert("Navigating to /checkout for anniversary decoration");
               navigate('/checkout', {
                 state: { subCategory, product, orderType }
               });
-            } else if (previousPage.includes('/party-food-delivery-live-catering-buffet-select-date')) {
+            } else if (previousComingPage.includes('/party-food-delivery-live-catering-buffet-select-date')) {
               // alert("Navigating to /party-food-delivery-live-catering-buffet-checkout");
               navigate("/party-food-delivery-live-catering-buffet-checkout", {
                 state: {
@@ -128,7 +133,7 @@ function Login() {
                   selectedOption: selectedOption
                 }
               });
-            } else if (previousPage.startsWith('/balloon-decoration/birthday-decoration/product/')) {
+            } else if (previousComingPage.startsWith('/balloon-decoration/birthday-decoration/product/')) {
               // alert("Navigating to /checkout for birthday decoration");
               navigate('/checkout', {
                 state: { subCategory, product, orderType }
