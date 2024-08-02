@@ -5,8 +5,10 @@ import Success from './Success';
 import Failure from './Failure';
 import { useNavigate , Link, useLocation } from 'react-router-dom'; // Import useNavigate
 import bannerSvgImage from '../assets/banner-home-bg.svg';
-import bannerDecorationImage from '../assets/decoration-home-banner.png';
+// import bannerDecorationImage from '../assets/decoration-home-banner.png';
 import bannerChefImage from '../assets/chef-home-banner.png';
+import bannerDecorationImage from '../assets/decoration3.png';
+// import bannerChefImage from '../assets/live_catering3.png';
 import bannerEntertainmentImage from '../assets/entertainment-banner-home.png';
 import bannerFoodDeliveryImage from '../assets/food-delivery-home-banner.png';
 import Celebrate1Image from '../assets/Birthday&Celebration.png';
@@ -18,7 +20,8 @@ import Celebrate6Image from '../assets/kids-event.png';
 import service1Image from '../assets/service-decoration.png';
 import service2Image from '../assets/food-banner-image.png';
 import service3Image from '../assets/chef-banner-image.png';
-import service4Image from '../assets/live-buffet-service.png';
+// import service4Image from '../assets/live-buffet-service.png';
+import service4Image from '../assets/live_catering2.png';
 import service5Image from '../assets/hospitality-services.png';
 import service7Image from '../assets/entertainment-home-banner-sec.png';
 import service6Image from '../assets/return-home-banner-sec.png';
@@ -138,7 +141,8 @@ function Home() {
                     <div style={styles.bannerBottomSec} className="bannerBottomSec">
                         <div style={styles.bannerDecorationImage} className="bannerDecorationImage">
                         <Link to="/balloon-decoration">
-                        <img src={bannerDecorationImage} alt="Decoration Near me" />
+                        {/* <img src={bannerDecorationImage} alt="Decoration Near me" /> */}
+                        <img style = {{borderRadius: "12px"}} src={bannerDecorationImage} alt="Decoration Near me" />
                         <h2 style={{ fontSize: "16px", fontWeight: "600", color: "#fff", textAlign: "center" , margin:"10px 0 0 0" }}>Decoration</h2>
                      </Link>
                         </div>
@@ -156,7 +160,8 @@ function Home() {
                         </div>
                         <div style={styles.bannerDecorationImage} className="bannerDecorationImage">
                         <Link to="/party-food-delivery-live-catering-buffet/party-live-buffet-catering">
-                                <img src={service4Image} alt="Return Gift Near me" />
+                                {/* <img src={service4Image} alt="Return Gift Near me" /> */}
+                                <img style = {{borderRadius: "12px"}} src={service4Image} alt="Return Gift Near me" />
                                 <h2 style={{ fontSize: "16px", fontWeight: "600", color: "#fff", textAlign: "center" , margin:"10px 0 0 0"  }}>Live Catering</h2>
                             </Link>
                         </div>
