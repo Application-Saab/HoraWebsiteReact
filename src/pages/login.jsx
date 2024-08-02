@@ -5,6 +5,9 @@ import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import { Col, Form, Row } from "react-bootstrap";
 import { useTimer } from "../utills/useTimer";
+// import Popup from "../utills/popup";
+
+import CustomPopup from "../testing/CustomPopup";
 
 function Login() {
   const [mobileNumber, setMobileNumber] = useState('');
@@ -17,7 +20,6 @@ function Login() {
   const [otpError, setOtpError] = useState('');
   const [loginError, setLoginError] = useState(false);
   const [loginMsg, setLoginMsg] = useState('');
-  const [previousComingPage, setPreviousComingPage] = useState('');
   const location = useLocation();
   const previousPage = location.state && location.state.from;
   const subCategory = location.state && location.state.subCategory;
@@ -62,10 +64,6 @@ function Login() {
     }
   }, [isTimeUp, otpSent]);
 
-  useEffect(()=>{
-   setPreviousComingPage(previousPage)
-  },[previousPage])
-
   //when component mounts focus on the first input field
   useEffect(() => {
     if (otpSent) {
@@ -77,6 +75,10 @@ function Login() {
     fetchOtp();
   }
 
+  
+  const [showPopup, setShowPopup] = useState(false); // State for controlling popup visibility
+  const [popupMessage, setPopupMessage] = useState({}); // State for popup message
+
   const validateOtp = async (enteredOtp) => {
     try {
       if (enteredOtp === fetchedOtp.toString()) {
@@ -84,24 +86,35 @@ function Login() {
         const requestData = {
           phone: mobileNumber,
           role: 'customer',
-          otp: enteredOtp,
+          otp: enteredOtp
         };
-        
         const response = await axios.post(url, requestData, {
           headers: {
             'Content-Type': 'application/json',
           },
         });
-  
+
+        console.log("OTP verification response:", response.data); // Add this log
+
         if (response.data.status === API_SUCCESS_CODE) {
-          alert("Logged in successfully");
+          setPopupMessage({
+            image: require('../assets/logout.png').default,
+            title: "Login Successful",
+            body: "You have been login successfully.",
+            button: "OK"
+          });
+          setShowPopup(true); // Show the popup
+
+          setLoginMsg("Successfully logged in");
           localStorage.setItem('isLoggedIn', 'true');
-          localStorage.setItem('mobileNumber', mobileNumber);
+          localStorage.setItem("mobileNumber", mobileNumber);
           localStorage.setItem('token', response.data.token);
           localStorage.setItem('userID', response.data.data._id);
-  
-          if (previousComingPage) {
-            if (previousComingPage.includes("/book-chef-cook-for-party")) {
+          console.log("previousPage:", previousPage);
+        
+          if (previousPage) {
+            if (previousPage.includes("/book-chef-cook-for-party")) {
+              // alert("Navigating to /book-chef-checkout");
               navigate('/book-chef-checkout', {
                 state: {
                   peopleCount,
@@ -110,36 +123,42 @@ function Login() {
                   selectedDishes,
                   orderType,
                   isDishSelected,
-                  selectedCount,
-                },
+                  selectedCount
+                }
               });
-            } else if (previousComingPage.startsWith('/balloon-decoration/anniversary-decoration/product')) {
+            } else if (previousPage.startsWith('/balloon-decoration/anniversary-decoration/product')) {
+              // alert("Navigating to /checkout for anniversary decoration");
               navigate('/checkout', {
-                state: { subCategory, product, orderType },
+                state: { subCategory, product, orderType }
               });
-            } else if (previousComingPage.includes('/party-food-delivery-live-catering-buffet-select-date')) {
-              navigate('/party-food-delivery-live-catering-buffet-checkout', {
+            } else if (previousPage.includes('/party-food-delivery-live-catering-buffet-select-date')) {
+              // alert("Navigating to /party-food-delivery-live-catering-buffet-checkout");
+              navigate("/party-food-delivery-live-catering-buffet-checkout", {
                 state: {
                   peopleCount,
                   selectedDeliveryOption: selectedOption,
-                  selectedDishesFoodDelivery,
-                  totalOrderAmount,
-                  selectedDishQuantities,
-                  selectedOption,
-                },
+                  selectedDishesFoodDelivery: selectedDishesFoodDelivery,
+                  totalOrderAmount: totalOrderAmount,
+                  selectedDishQuantities: selectedDishQuantities,
+                  selectedOption: selectedOption
+                }
               });
-            } else if (previousComingPage.startsWith('/balloon-decoration/birthday-decoration/product/')) {
+            } else if (previousPage.startsWith('/balloon-decoration/birthday-decoration/product/')) {
+              // alert("Navigating to /checkout for birthday decoration");
               navigate('/checkout', {
-                state: { subCategory, product, orderType },
-              });
+                state: { subCategory, product, orderType }
+              }); 
             } else {
-              navigate('/');
+             console.log("previous page not including")
             }
           } else {
+            // Handle the case where previousPage is null or undefined
+            // For example, navigate to a default page or show an error message
             navigate('/');
+          
           }
         } else {
-          setLoginMsg("");
+          setLoginMsg(" ");
           setOtpError('Failed to verify OTP. Please try again.');
         }
       } else {
@@ -148,13 +167,12 @@ function Login() {
         setOtpError('Invalid OTP. Please try again.');
       }
     } catch (error) {
-      setLoginMsg("");
+      setLoginMsg(" ");
       setLoginError(true);
       console.log('Error verifying OTP:', error.message);
       setOtpError('Failed to verify OTP. Please try again.');
     }
-  };
-  
+  }
 
   const handleOtpChange = (e, index) => {
     const { value } = e.target;
@@ -218,6 +236,7 @@ function Login() {
   };
 
   return (
+    <>
     <div className="login-page" style={{ display: "flex", justifyContent: "center", flexDirection: "column", textAlign: "center", margin: "50px 0 0"}}>
       {!loggedIn ? (
         <form className="loginform" style={!otpSent ? { maxWidth: '36rem' } : { maxWidth: '30rem' }}>
@@ -292,8 +311,12 @@ function Login() {
         <div>
           <p>Welcome! You have successfully logged in.</p>
         </div>
+)}
+         {showPopup && (
+        <CustomPopup onClose={() => setShowPopup(false)} popupMessage={popupMessage} />
       )}
     </div>
+    </>
   );
 }
 
