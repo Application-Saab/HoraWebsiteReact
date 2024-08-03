@@ -15,8 +15,9 @@ import { Dropdown, DropdownButton } from 'react-bootstrap';
 import '../css/decoration.css';
 
 function Checkout() {
-  const { orderType, selectedDishDictionary, selectedDishPrice, selectedCount, peopleCount } = useLocation().state || {}; // Accessing subCategory and itemName safely
-  const { subCategory, product } = useLocation().state || {}; // Accessing subCategory and itemName safely
+  // const { orderType, selectedDishDictionary, selectedDishPrice, selectedCount, peopleCount } = useLocation().state || {}; // Accessing subCategory and itemName safely
+  // const { subCategory, product } = useLocation().state || {}; // Accessing subCategory and itemName safely
+  const { selectedDishDictionary, selectedDishPrice, selectedCount, peopleCount } = useLocation().state || {}; // Accessing subCategory and itemName safely
   const [comment, setComment] = useState('');
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [selectedDateError, setSelectedDateError] = useState(false);
@@ -33,6 +34,45 @@ function Checkout() {
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [combinedDateTime, setCombinedDateTime] = useState(null);
   const [combinedDateTimeError, setCombinedDateTimeError] = useState(false);
+
+  const location = useLocation();
+  const { state } = location; // Access state from location object
+
+   // Destructure the state data
+   const {
+    from,
+    subCategory,
+    product,
+    orderType,
+    catValue,
+    productPrice,
+    addOnPrice,
+    itemQuantities,
+    totalPrice,
+    addedItems,
+    modalData
+  } = state || {}; // Use default empty object if state is undefined
+
+ 
+   // Convert addedItems back to a Map
+   const addedItemsMap = new Map(addedItems);
+
+  console.log("Checkout Page Data:", {
+    from,
+    subCategory,
+    product,
+    orderType,
+    catValue,
+    productPrice,
+    addOnPrice,
+    itemQuantities,
+    totalPrice,
+    addedItems
+  });
+
+  // // Destructure data from state
+  // const { addedItems, itemQuantities, modalData } = state || {};
+
 
   /// order.type is 2 for chef
   /// order.type is 1 for decoration
@@ -412,21 +452,48 @@ const pincodes =[
                       <div>
                         <img className='checkoutRightImg' src={`https://horaservices.com/api/uploads/${product.featured_image}`} />
                       </div>
-                      <div className='prod-detailsp'>
+                    
 
-                        <div style={{ display: "flex", justifyContent: "center", flexDirection: "column", margin: "10px 0 20px 0" }}>
-                          <label style={{ color: "rgb(146, 82, 170)", fontSize: "14px", marigin: "16px 0 6px", fontWeight: 700 }}>Product Name:</label>
-                          <p style={{ margin: 0, windth: "100%" }}>{product.name}</p>
-                        </div>
-                        <div style={{ display: "flex", justifyContent: "center", flexDirection: "column", margin: "0 0 20px 0" }}>
-                          <label style={{ color: "rgb(146, 82, 170)", fontSize: "14px", marigin: "16px 0 6px", fontWeight: 700 }}>Total Amount:</label>
-                          <p style={{ margin: 0, windth: "100%" }}>{product.price}</p>
-                        </div>
-                        <div style={{ display: "flex", justifyContent: "center", flexDirection: "column", margin: "0 0 20px 0" }}>
-                          <label style={{ color: "rgb(146, 82, 170)", fontSize: "14px", marigin: "16px 0 6px", fontWeight: 700 }}>Advance Amount:</label>
-                          <p style={{ margin: 0, windth: "100%" }}>₹ {Math.round(product.price * 0.3)}</p>
-                        </div>
-                      </div>
+                      <div className='prod-detailsp'>
+        <div className='detail-item'>
+            <label>Product Name:</label>
+            <p>{product.name}</p>
+        </div>
+
+        <div className='detail-item'>
+            <label>Product Amount:</label>
+            <p>₹{productPrice}</p>
+        </div>
+       
+        <div className='add-on-prices'>
+            <label>Add-On Price:</label>
+            <div>
+                {Array.from(addedItemsMap.entries()).map(([title, quantity]) => {
+                    // Find item details from modalData
+                    const item = modalData.find(item => item.title === title);
+                    const price = item ? item.price : 0;
+                    return (
+                        <p key={title}>
+                            {title} * {quantity} = ₹{(price * quantity).toFixed(2)}
+                        </p>
+                    );
+                })}
+            </div>
+        </div>
+
+        <div className='detail-item'>
+            <label>Total Amount:</label>
+            <p>₹{totalPrice}</p>
+        </div>
+
+        <div className='detail-item'>
+            <label>Advance Amount:</label>
+            <p>₹ {Math.round(product.price * 0.3)}</p>
+        </div>
+    </div>
+
+      
+
                     </div>
                     <div >
 
