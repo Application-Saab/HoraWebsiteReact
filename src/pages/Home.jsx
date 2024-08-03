@@ -7,7 +7,7 @@ import { useNavigate , Link, useLocation } from 'react-router-dom'; // Import us
 import bannerSvgImage from '../assets/banner-home-bg.svg';
 // import bannerDecorationImage from '../assets/decoration-home-banner.png';
 import bannerChefImage from '../assets/chef-home-banner.png';
-import bannerDecorationImage from '../assets/decoration3.png';
+import bannerDecorationImage from '../assets/decoration4.png';
 // import bannerChefImage from '../assets/live_catering3.png';
 import bannerEntertainmentImage from '../assets/entertainment-banner-home.png';
 import bannerFoodDeliveryImage from '../assets/food-delivery-home-banner.png';

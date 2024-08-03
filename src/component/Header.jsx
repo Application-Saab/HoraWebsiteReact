@@ -187,7 +187,11 @@ useEffect(() => {
                     </a>
                   </>
               ) : (
-                  <Link to="/login" style={styles.link}>Login</Link>
+                <>
+                      <FontAwesomeIcon icon={faUser} style={styles.icon} />
+                      <Link to="/login" style={styles.link}>Login</Link>
+                    </>
+                 
               )}
             </div>
           </div>
@@ -443,13 +447,15 @@ const styles = {
     fontSize: "16px",
     fontWeight: "500",
     cursor: "pointer",
+    marginLeft:"6px",
   },
   linkicon: {
     color: "#fff",
     textDecoration: "none",
     fontSize: "16px",
     fontWeight: "500",
-    marginLeft: '10px'
+    marginLeft: '10px',
+    cursor: "pointer",
   },
   linkicon1: {
     padding: "0 18px",
@@ -483,6 +489,7 @@ const styles = {
   },
   icon: {
     marginRight: "5px",
+    color:"#fff",
   },
   mobileViewHeader: { display: "none" },
   mobileMenuIcon:{
