@@ -62,7 +62,7 @@ ul.list-unstyled-5
 }
 .drawer-header {
     text-align: center;
-    padding: 20px;
+    padding: 20px 20px 10px 20px;
     background-color: rgb(157, 74, 147); /* Purple background */
     color: white;
 }
@@ -74,10 +74,15 @@ ul.list-unstyled-5
     gap: 20px;
   }
   
-  .drawer-sec-item {
+  .drawer-sec-item{
     position: relative;
     padding: 0 1px; 
     margin-top: 10px;
+    a{
+        color:#fff;
+        text-decoration: none;
+        font-size: 12px;
+    }
   }
   
   .drawer-sec-item:not(:last-child)::after {
@@ -87,5 +92,12 @@ ul.list-unstyled-5
     top: 50%;
     transform: translateY(-50%);
     color: #efe5e5; 
+  }
+
+
+  @media (max-width:330px){
+    .plus-toggle{
+        margin-left:40% !important;
+    }
   }
   
