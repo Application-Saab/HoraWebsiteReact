@@ -229,7 +229,7 @@ function DecorationCatDetails() {
       {selectedAddOnProduct.map((item, index) => (
         <li key={index} className="addon-sec">
           <div>
-          {item.title} :   ₹    
+          {item.title} :     
           </div>
           <div>
           ₹ {item.price} x {itemQuantities[item.title]} = ₹ {item.price * itemQuantities[item.title]}
