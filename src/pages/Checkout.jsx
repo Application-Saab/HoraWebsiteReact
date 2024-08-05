@@ -15,8 +15,9 @@ import { Dropdown, DropdownButton } from 'react-bootstrap';
 import '../css/decoration.css';
 
 function Checkout() {
-  const { orderType, selectedDishDictionary, selectedDishPrice, selectedCount, peopleCount } = useLocation().state || {}; // Accessing subCategory and itemName safely
-  const { subCategory, product } = useLocation().state || {}; // Accessing subCategory and itemName safely
+  // const { orderType, selectedDishDictionary, selectedDishPrice, selectedCount, peopleCount } = useLocation().state || {}; // Accessing subCategory and itemName safely
+  // const { subCategory, product } = useLocation().state || {}; // Accessing subCategory and itemName safely
+  const { selectedDishDictionary, selectedDishPrice, selectedCount, peopleCount } = useLocation().state || {}; // Accessing subCategory and itemName safely
   const [comment, setComment] = useState('');
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [selectedDateError, setSelectedDateError] = useState(false);
@@ -34,6 +35,22 @@ function Checkout() {
   const [combinedDateTime, setCombinedDateTime] = useState(null);
   const [combinedDateTimeError, setCombinedDateTimeError] = useState(false);
 
+  const location = useLocation();
+  const { state } = location; // Access state from location object
+
+   // Destructure the state data
+   const {
+    from,
+    subCategory,
+    product,
+    orderType,
+    catValue,
+    totalAmount,
+    selectedAddOnProduct,
+  } = state || {}; // Use default empty object if state is undefined
+
+ 
+  
   /// order.type is 2 for chef
   /// order.type is 1 for decoration
   /// order.type is 3 for waiter
@@ -43,8 +60,22 @@ function Checkout() {
   /// order type 7 Live Buffer
   /// order type 8 Bulk Catering.
   const handleComment = (e) => {
-    setComment(e.target.value);
+    const commentText = e.target.value;
+    setComment(commentText);
   };
+  
+  // Function to get the final comment including add-on products
+  const getFinalComment = () => {
+    let addOnProductsText = "";
+  
+    if (selectedAddOnProduct.length > 0) {
+      addOnProductsText = " and I have added these add-on products: " + 
+        selectedAddOnProduct.map(item => `${item.title}: ₹${item.price}`).join(" ");
+    }
+  
+    return comment + addOnProductsText;
+  };
+  
 
   const handleDateChange = (date) => {
     console.log(`Date selected: ${date}`);
@@ -257,15 +288,16 @@ const pincodes =[
           "order_date": selectedDate.toDateString(),
           "no_of_burner": 0,
           "order_locality": city,
-          "total_amount": product.price,
+          "total_amount": totalAmount,
           "orderApplianceIds": [],
-          "payable_amount": product.price,
+          "payable_amount": totalAmount,
           "is_gst": "0",
           "order_type": true,
           "items": [product._id],
-          "decoration_comments": comment,
+          "decoration_comments": getFinalComment(),
           "status": 0
         }
+        console.log("req" , requestData)
 
         const token = await localStorage.getItem('token');
 
@@ -357,15 +389,15 @@ const pincodes =[
                 </div>
                 {combinedDateTimeError && <p className="text-danger" style={{ fontSize: '12px', marginBottom: "0px" }}>The selected date and time must be at least 24 hours from now.</p>}
 
-                <div className='checkoutInputType border-1 rounded-4  ' style={{ display: "flex", justifyContent: "center", flexDirection: "column" }}>
-                  <h4 style={{ color: "rgb(146, 82, 170)", fontSize: "14px", marginBottom: "4px" }}>Share your comments (if any)</h4>
-                  <textarea className=' rounded border border-1 p-1 '
-                    value={comment}
-                    onChange={handleComment}
-                    rows={3}
-                    placeholder="Enter your comment."
-                  />
-                </div>
+                <div className='checkoutInputType border-1 rounded-4' style={{ display: "flex", justifyContent: "center", flexDirection: "column" }}>
+  <h4 style={{ color: "rgb(146, 82, 170)", fontSize: "14px", marginBottom: "4px" }}>Share your comments (if any)</h4>
+  <textarea className='rounded border border-1 p-1'
+    value={comment}
+    onChange={handleComment}
+    rows={3}
+    placeholder="Enter your comment."
+  />
+</div>
                 <div>
                   <div style={{ display: "flex", justifyContent: "center", flexDirection: "column" }} className='checkoutInputType'>
                     <label style={{ color: "rgb(146, 82, 170)", fontSize: "14px", fontWeight: "600" }}>Address:</label>
@@ -412,21 +444,47 @@ const pincodes =[
                       <div>
                         <img className='checkoutRightImg' src={`https://horaservices.com/api/uploads/${product.featured_image}`} />
                       </div>
-                      <div className='prod-detailsp'>
+                    
 
-                        <div style={{ display: "flex", justifyContent: "center", flexDirection: "column", margin: "10px 0 20px 0" }}>
-                          <label style={{ color: "rgb(146, 82, 170)", fontSize: "14px", marigin: "16px 0 6px", fontWeight: 700 }}>Product Name:</label>
-                          <p style={{ margin: 0, windth: "100%" }}>{product.name}</p>
-                        </div>
-                        <div style={{ display: "flex", justifyContent: "center", flexDirection: "column", margin: "0 0 20px 0" }}>
-                          <label style={{ color: "rgb(146, 82, 170)", fontSize: "14px", marigin: "16px 0 6px", fontWeight: 700 }}>Total Amount:</label>
-                          <p style={{ margin: 0, windth: "100%" }}>{product.price}</p>
-                        </div>
-                        <div style={{ display: "flex", justifyContent: "center", flexDirection: "column", margin: "0 0 20px 0" }}>
-                          <label style={{ color: "rgb(146, 82, 170)", fontSize: "14px", marigin: "16px 0 6px", fontWeight: 700 }}>Advance Amount:</label>
-                          <p style={{ margin: 0, windth: "100%" }}>₹ {Math.round(product.price * 0.3)}</p>
-                        </div>
-                      </div>
+                      <div className='prod-detailsp'>
+        <div className='detail-item'>
+            <label>Product Name:</label>
+            <p>{product.name}</p>
+        </div>
+
+        <div className='detail-item'>
+            <label>Product Price:</label>
+            <p>₹{product.price}</p>
+        </div>
+       
+        <div className='add-on-prices'>
+            <label>Customisations</label>
+            <div>
+            {selectedAddOnProduct.length > 0 && (
+    <>
+      {selectedAddOnProduct.map((item, index) => (
+        <li key={index}>
+          {item.title}: {item.price}
+        </li>
+      ))}
+
+    </>
+  )}
+            </div>
+        </div>
+        <div className='detail-item'>
+            <label>Total Amount:</label>
+            <p>₹{totalAmount}</p>
+        </div>
+
+        <div className='detail-item'>
+            <label>Advance Amount:</label>
+            <p>₹ {Math.round(product.price * 0.3)}</p>
+        </div>
+    </div>
+
+      
+
                     </div>
                     <div >
 

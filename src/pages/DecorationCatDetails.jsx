@@ -5,12 +5,18 @@ import {Helmet} from "react-helmet";
 import checkImage from '../assets/tick.jpeg.jpeg';
 import {getDecorationProductOrganizationSchema} from "../utills/schema";
 import '../css/decoration.css';
+import addOnProductsData from '../utills/addOnProduct.json';
+
+
 
 function DecorationCatDetails() {
   const [selCat, setSelCat] = useState("");
   const [orderType, setOrderType] = useState(1);
-
-
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedAddOnProduct, setSelectedAddOnProduct] = useState([]);
+  const [itemQuantities, setItemQuantities] = useState({});
+  const [totalAmount, setTotalAmount] = useState();
+  const [buttonClickCount, setButtonClickCount] = useState(0);
   const navigate = useNavigate();
   const {subCategory: urlSubCategory, catValue: urlCatValue, productName} = useParams();
   const formattedProductName = productName.replace(/-/g, ' ');
@@ -28,10 +34,88 @@ function DecorationCatDetails() {
   const scriptTag = JSON.stringify(schemaOrg);
 
  
+  const showAddOnmodal = () => {
+    setIsModalOpen(true);
+  };
 
+  const updateTotalAmount = () => {
+    let newTotalAmount = Number(product.price);
+    selectedAddOnProduct.forEach(item => {
+      newTotalAmount += item.price * itemQuantities[item.title];
+    });
+    setTotalAmount(newTotalAmount);
+  };
+
+  useEffect(() => {
+    updateTotalAmount();
+  }, [selectedAddOnProduct, itemQuantities, product.price]);
+
+  const handleAddToCart = (item) => {
+    const updatedSelectedAddOnProduct = [...selectedAddOnProduct];
+    const existingItemIndex = updatedSelectedAddOnProduct.findIndex(addonproductItem => addonproductItem.title === item.title);
+  
+    if (existingItemIndex !== -1) {
+      updatedSelectedAddOnProduct[existingItemIndex].quantity += 1;
+    } else {
+      updatedSelectedAddOnProduct.push({ ...item, quantity: 1 });
+    }
+  
+    setSelectedAddOnProduct(updatedSelectedAddOnProduct);
+    setItemQuantities({
+      ...itemQuantities,
+      [item.title]: (itemQuantities[item.title] || 0) + 1,
+    });
+    updateTotalAmount();
+  };
+  
+  const handleRemoveFromCart = (item) => {
+    const updatedSelectedAddOnProduct = [...selectedAddOnProduct];
+    const existingItemIndex = updatedSelectedAddOnProduct.findIndex(addonproductItem => addonproductItem.title === item.title);
+  
+    if (existingItemIndex !== -1) {
+      if (updatedSelectedAddOnProduct[existingItemIndex].quantity > 1) {
+        updatedSelectedAddOnProduct[existingItemIndex].quantity -= 1;
+      } else {
+        updatedSelectedAddOnProduct.splice(existingItemIndex, 1);
+      }
+    }
+  
+    const updatedQuantities = { ...itemQuantities };
+  
+    if (updatedQuantities[item.title] > 1) {
+      updatedQuantities[item.title] -= 1;
+    } else {
+      delete updatedQuantities[item.title];
+    }
+  
+    setSelectedAddOnProduct(updatedSelectedAddOnProduct);
+    setItemQuantities(updatedQuantities);
+    updateTotalAmount();
+  };
+  
+  const calculateTotalPrice = (productPrice) => {
+    let totalPrice = Number(productPrice); // Ensure productPrice is a number
+    selectedAddOnProduct.forEach(item => {
+      totalPrice += item.price * itemQuantities[item.title];
+    });
+    return totalPrice;
+  };
+
+  const handleContinue = () => {
+    setIsModalOpen(false);
+  }
+
+  const handleButtonClick = (subCategory , product) => {
+    if (buttonClickCount === 0) {
+      showAddOnmodal(subCategory , product);
+    } else {
+      handleCheckout(subCategory , product);
+    }
+    setButtonClickCount(buttonClickCount + 1);
+  };
 
   const handleCheckout = (subCategory, product) => {
-    const stateData = {from: window.location.pathname, subCategory, product, orderType, catValue};
+    const stateData = {from: window.location.pathname, subCategory, product, totalAmount , orderType, catValue , selectedAddOnProduct };
 
     if (localStorage.getItem("isLoggedIn") !== "true") {
       navigate('/login', {state: stateData});
@@ -132,14 +216,45 @@ function DecorationCatDetails() {
                 <h2 style={{fontSize: "12px", color: "#9252AA"}}>{'Home'}{' > '}{subCategory}{' > '}{product.name}</h2>
                 <h1 style={{color: "#222", fontSize: "21px", fontWeight: "#222"}}>{product.name}</h1>
                 <p className='mb-2'
-                   style={{fontSize: "18px", color: "#9252AA", fontWeight: "600"}}> ₹ {product.price}</p>
+                   style={{fontSize: "18px", color: "#9252AA", fontWeight: "600"}}> ₹ {product.price}
+                   </p>
+                   {selectedAddOnProduct.length > 0 && (
+   <ul className="decoration-addons">
+    <>
+    <div className="addon-sec">
+      <h1  style={{color: "#222", fontSize: "16px", fontWeight: "#222"}}>{product.name} : </h1>
+      <div style={{fontSize: "16px", color: "#222", fontWeight: "600"}}> ₹ {product.price}</div>
+    </div>
+      <h6>Customisations : </h6>
+      {selectedAddOnProduct.map((item, index) => (
+        <li key={index} className="addon-sec">
+          <div>
+          {item.title} :   ₹    
+          </div>
+          <div>
+          ₹ {item.price} x {itemQuantities[item.title]} = ₹ {item.price * itemQuantities[item.title]}
+          </div>
+        </li>
+      ))}
+      <p style={{fontSize: "18px", color: "#9252AA", fontWeight: "600"}} className="addon-sec">
+        <div>
+        Total:
+        </div>
+        <div>
+        ₹ {totalAmount}
+        </div>
+        
+      </p>
+      <button style={styles.Buttonstyle} className="dec-continueButton" onClick={() => handleButtonClick(subCategory, product)}>Continue</button>
+    </>
+</ul>
+  )}      
               </div>
-
               <div style={{ boxShadow: "0 1px 8px rgba(0,0,0,.18)", padding: "10px", marginBottom: "12px" , backgroundColor:"#fff"}}>
                 {getItemInclusion(product.inclusion)}
-                 
-                   <button style={styles.Buttonstyle} className="dec-continueButton" onClick={() => handleCheckout(subCategory, product)}>Continue</button>
-
+                {selectedAddOnProduct.length == 0 && (
+                <button style={styles.Buttonstyle} className="dec-continueButton" onClick={() => handleButtonClick(subCategory, product)}>Continue</button>
+              )}  
               </div>
 
             
@@ -155,6 +270,45 @@ function DecorationCatDetails() {
             </div>
           </div>
         </div>
+        {isModalOpen && (
+  <div className="modal-overlay" onClick={() => setIsModalOpen(false)}>
+    <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+      <button className="modal-close" onClick={() => setIsModalOpen(false)}>×</button>
+      <div className="modal-top-box">
+        <h2>Select Customizations</h2>
+      </div>
+      <div className="modal-middle-box">
+        <div className="modal-card-container">
+          {addOnProductsData.addOnProducts.map((item, index) => (
+            <div key={index} className="modal-card">
+              <img style={{width: "150px", height: "150px"}} src={item.image} alt={item.title}className="model-image"/>
+              <h3>{item.title}</h3>
+              <p>{item.description}</p>
+              
+              <div className="price-container">
+                <span className="price">₹ {item.price}</span>
+                {itemQuantities[item.title] ? (
+  <div>
+    <button onClick={() => handleRemoveFromCart(item)} className="quantity-button">-</button>
+    <span>{itemQuantities[item.title]}</span>
+    <button onClick={() => handleAddToCart(item)} className="quantity-button">+</button>
+  </div>
+) : (
+  <button onClick={() => handleAddToCart(item)} className="add-button">Add</button>
+)}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className="modal-bottom-box">
+        
+      <p>Total: ₹ {calculateTotalPrice(Number(product.price))}</p>
+        <button className="book-now-button" onClick={handleContinue}>Continue</button>
+      </div>
+    </div>
+  </div>
+)}
 
       
       </div>
