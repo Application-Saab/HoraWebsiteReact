@@ -1,9 +1,7 @@
 import React from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import "../css/popup.css";
-import orderWarning from "../assets/OrderWarning.png"
-
-  import imageivew from '../assets/logout.png';
+import imageivew from '../assets/logout.png';
 
 const Popup = ({ onClose, popupMessage }) => {
   const handleContinue = () => {
@@ -12,7 +10,7 @@ const Popup = ({ onClose, popupMessage }) => {
 
   const handleContactUs = () => {
     window.open(
-      "whatsapp://send?phone=+917338584828&text=Hello%20I%20have%20some%20queries%20for%20food%20delivey%20and%20live%20Catering%20service"
+      "whatsapp://send?phone=+917338584828&text=Hello%20I%20have%20some%20queries%20for%20food%20delivery%20and%20live%20Catering%20service"
     );
     onClose();
   };
@@ -25,7 +23,6 @@ const Popup = ({ onClose, popupMessage }) => {
     onClose();
   };
 
-
   return (
     <div className="popup-overlay">
       <div className="popup-content">
@@ -33,48 +30,42 @@ const Popup = ({ onClose, popupMessage }) => {
           <AiOutlineClose className="close-icon" onClick={onClose} size={20} />
         </div>
         <div className="popup-body">
-          {/*<img
-            src={popupMessage?.image}
-            alt="Order Amount"
-            className="popup-image"
-          />*/}
-
           {popupMessage?.image ? (
-              <img
-                  src={popupMessage.image}
-                  alt="Popup"
-                  className="popup-image"
-              />
+            <img
+              src={popupMessage.image}
+              alt="Popup"
+              className="popup-image"
+            />
           ) : (
-              <img
-                  src= {imageivew}
-                  alt="Default"
-                  className="popup-image"
-              />
+            <img
+              src={imageivew}
+              alt="Default"
+              className="popup-image"
+            />
           )}
 
           <h1>{popupMessage?.title}</h1>
           <p>{popupMessage?.body}</p>
-          {popupMessage?.button == "Continue" && (
+          {popupMessage?.button === "Continue" && (
             <button className="add-more-button" onClick={handleContinue}>
               {popupMessage?.button}
             </button>
           )}
-          {popupMessage?.button == "Contact Us" && (
+          {popupMessage?.button === "Contact Us" && (
             <button className="add-more-button" onClick={handleContactUs}>
               {popupMessage?.button}
             </button>
           )}
-
-          {popupMessage?.button == "Add More" && (
+          {popupMessage?.button === "Add More" && (
             <button className="add-more-button" onClick={handleAddMore}>
               + {popupMessage?.button}
             </button>
-          )}{popupMessage?.button === "OK" && (
+          )}
+          {popupMessage?.button === "OK" && (
             <button className="add-more-button" onClick={handleOk}>
               {popupMessage?.button}
             </button>
-        )}
+          )}
         </div>
       </div>
     </div>

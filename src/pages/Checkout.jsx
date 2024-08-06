@@ -45,35 +45,12 @@ function Checkout() {
     product,
     orderType,
     catValue,
-    productPrice,
-    addOnPrice,
-    itemQuantities,
-    totalPrice,
-    addedItems,
-    modalData
+    totalAmount,
+    selectedAddOnProduct,
   } = state || {}; // Use default empty object if state is undefined
 
  
-   // Convert addedItems back to a Map
-   const addedItemsMap = new Map(addedItems);
-
-  console.log("Checkout Page Data:", {
-    from,
-    subCategory,
-    product,
-    orderType,
-    catValue,
-    productPrice,
-    addOnPrice,
-    itemQuantities,
-    totalPrice,
-    addedItems
-  });
-
-  // // Destructure data from state
-  // const { addedItems, itemQuantities, modalData } = state || {};
-
-
+  
   /// order.type is 2 for chef
   /// order.type is 1 for decoration
   /// order.type is 3 for waiter
@@ -83,8 +60,22 @@ function Checkout() {
   /// order type 7 Live Buffer
   /// order type 8 Bulk Catering.
   const handleComment = (e) => {
-    setComment(e.target.value);
+    const commentText = e.target.value;
+    setComment(commentText);
   };
+  
+  // Function to get the final comment including add-on products
+  const getFinalComment = () => {
+    let addOnProductsText = "";
+  
+    if (selectedAddOnProduct.length > 0) {
+      addOnProductsText = " and I have added these add-on products: " + 
+        selectedAddOnProduct.map(item => `${item.title}: ₹${item.price}`).join(" ");
+    }
+  
+    return comment + addOnProductsText;
+  };
+  
 
   const handleDateChange = (date) => {
     console.log(`Date selected: ${date}`);
@@ -297,15 +288,16 @@ const pincodes =[
           "order_date": selectedDate.toDateString(),
           "no_of_burner": 0,
           "order_locality": city,
-          "total_amount": product.price,
+          "total_amount": totalAmount,
           "orderApplianceIds": [],
-          "payable_amount": product.price,
+          "payable_amount": totalAmount,
           "is_gst": "0",
           "order_type": true,
           "items": [product._id],
-          "decoration_comments": comment,
+          "decoration_comments": getFinalComment(),
           "status": 0
         }
+        console.log("req" , requestData)
 
         const token = await localStorage.getItem('token');
 
@@ -397,15 +389,15 @@ const pincodes =[
                 </div>
                 {combinedDateTimeError && <p className="text-danger" style={{ fontSize: '12px', marginBottom: "0px" }}>The selected date and time must be at least 24 hours from now.</p>}
 
-                <div className='checkoutInputType border-1 rounded-4  ' style={{ display: "flex", justifyContent: "center", flexDirection: "column" }}>
-                  <h4 style={{ color: "rgb(146, 82, 170)", fontSize: "14px", marginBottom: "4px" }}>Share your comments (if any)</h4>
-                  <textarea className=' rounded border border-1 p-1 '
-                    value={comment}
-                    onChange={handleComment}
-                    rows={3}
-                    placeholder="Enter your comment."
-                  />
-                </div>
+                <div className='checkoutInputType border-1 rounded-4' style={{ display: "flex", justifyContent: "center", flexDirection: "column" }}>
+  <h4 style={{ color: "rgb(146, 82, 170)", fontSize: "14px", marginBottom: "4px" }}>Share your comments (if any)</h4>
+  <textarea className='rounded border border-1 p-1'
+    value={comment}
+    onChange={handleComment}
+    rows={3}
+    placeholder="Enter your comment."
+  />
+</div>
                 <div>
                   <div style={{ display: "flex", justifyContent: "center", flexDirection: "column" }} className='checkoutInputType'>
                     <label style={{ color: "rgb(146, 82, 170)", fontSize: "14px", fontWeight: "600" }}>Address:</label>
@@ -462,29 +454,28 @@ const pincodes =[
         </div>
 
         <div className='detail-item'>
-            <label>Product Amount:</label>
-            <p>₹{productPrice}</p>
+            <label>Product Price:</label>
+            <p>₹{product.price}</p>
         </div>
        
         <div className='add-on-prices'>
-            <label>Add-On Price:</label>
+            <label>Customisations</label>
             <div>
-                {Array.from(addedItemsMap.entries()).map(([title, quantity]) => {
-                    // Find item details from modalData
-                    const item = modalData.find(item => item.title === title);
-                    const price = item ? item.price : 0;
-                    return (
-                        <p key={title}>
-                            {title} * {quantity} = ₹{(price * quantity).toFixed(2)}
-                        </p>
-                    );
-                })}
+            {selectedAddOnProduct.length > 0 && (
+    <>
+      {selectedAddOnProduct.map((item, index) => (
+        <li key={index}>
+          {item.title}: {item.price}
+        </li>
+      ))}
+
+    </>
+  )}
             </div>
         </div>
-
         <div className='detail-item'>
             <label>Total Amount:</label>
-            <p>₹{totalPrice}</p>
+            <p>₹{totalAmount}</p>
         </div>
 
         <div className='detail-item'>

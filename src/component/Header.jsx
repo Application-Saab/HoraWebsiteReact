@@ -187,7 +187,11 @@ useEffect(() => {
                     </a>
                   </>
               ) : (
-                  <Link to="/login" style={styles.link}>Login</Link>
+                <>
+                      <FontAwesomeIcon icon={faUser} style={styles.icon} />
+                      <Link to="/login" style={styles.link}>Login</Link>
+                    </>
+                 
               )}
             </div>
           </div>
@@ -313,11 +317,18 @@ const Drawer = ({ closeDrawer, drawerRef, handleLogout }) => {
           <div className="profile-icon">&#128100;</div>
           <div className="profile-text">Hi, Guest</div>
         </div>
-        {/* <div className="nav">
-          <div className="nav-item">MY ACCOUNT</div>
-          <div className="nav-item">TRACK ORDER</div>
-          <div className="nav-item">HELP CENTER</div>
-        </div> */}
+        <div className="drawer-top-sec">
+          <div className="drawer-sec-item">
+          <Link to="/myaccount" onClick={closeDrawer}>
+          MY ACCOUNT
+        </Link>
+            </div>
+          <div className="drawer-sec-item">
+          <Link to="/contactus" onClick={closeDrawer} style={{ marginLeft:8}}>
+          HELP CENTER
+        </Link>
+          </div>
+        </div>
       </div>
       <div style={{ padding:"0px 10px 20px 20px"}}>
         {/* Disable Decoration Link */}
@@ -326,6 +337,7 @@ const Drawer = ({ closeDrawer, drawerRef, handleLogout }) => {
           <FontAwesomeIcon
               icon={showDecorationSubcategories ? faMinus : faPlus}
               style={style.toggleIcon}
+              className="plus-toggle"
           />
         </span>
         {showDecorationSubcategories && (
@@ -443,13 +455,15 @@ const styles = {
     fontSize: "16px",
     fontWeight: "500",
     cursor: "pointer",
+    marginLeft:"6px",
   },
   linkicon: {
     color: "#fff",
     textDecoration: "none",
     fontSize: "16px",
     fontWeight: "500",
-    marginLeft: '10px'
+    marginLeft: '10px',
+    cursor: "pointer",
   },
   linkicon1: {
     padding: "0 18px",
@@ -483,6 +497,7 @@ const styles = {
   },
   icon: {
     marginRight: "5px",
+    color:"#fff",
   },
   mobileViewHeader: { display: "none" },
   mobileMenuIcon:{

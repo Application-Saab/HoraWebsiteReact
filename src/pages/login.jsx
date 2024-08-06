@@ -158,8 +158,7 @@ function Login() {
           
           }
         } else {
-          setLoginMsg(" ");
-          setOtpError('Failed to verify OTP. Please try again.');
+           navigate('/');
         }
       } else {
         setLoginMsg("");

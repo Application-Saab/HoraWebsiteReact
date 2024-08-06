@@ -29,9 +29,42 @@ align-items: center;
       border-radius: 10px;
       box-shadow: rgba(0, 0, 0, 0.18) 0px 1px 2px;
   }
-
+  li.addon-sec , p.addon-sec , .addon-sec{
+    display: flex;
+    justify-content: space-between;
+    padding: 1px 0px 17px;
+}
+ul.decoration-addons {
+  border-top: 1px solid #bbb5b5;
+  margin: 14px 0 0 !important;
+  padding: 13px 0 0 !important;
+}
 
 @media (max-width:800px){
+  .modal-card h3 {
+    font-size: 11px !important;
+    padding: 11px 0 0px !important;
+}
+img.model-image {
+  height: 120px !important;
+}
+.modal-card p {
+  font-size: 12px !important;
+  line-height: 16px !important;
+}
+  button.dec-continueButton{
+    width: 100% !important;
+  }
+  li.addon-sec, p.addon-sec, .addon-sec {
+    padding: 1px 0px 4px !important;
+    font-size: 12px !important;
+}
+  .modal-top-box h2 {
+    font-size: 16px !important;
+}
+    .modal-card-container {
+      grid-template-columns: repeat(2, 1fr) !important;
+    }
 .decPage.decContainerSec {
 width: 100% !important;
 margin: 11px 0 0px !important;
@@ -193,6 +226,7 @@ img {
   }
   
   .modal-top-box {
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -242,13 +276,19 @@ img {
   }
   
   .modal-card h3 {
-    font-size: 18px;
+    font-size: 14px;
     color: #222;
+    min-height: 50px;
+    padding:10px 0 0;
+    margin:0;
   }
   
   .modal-card p {
     font-size: 14px;
     color: #555;
+    min-height: 90px;
+    padding:10px 0 0;
+    margin:0;
   }
   
   .price-container {
