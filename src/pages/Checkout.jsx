@@ -434,8 +434,9 @@ const pincodes =[
                     <select value={city} className=' rounded border border-1 p-1' onChange={handleCityChange}>
                       <option value="">Select City</option>
                       <option value="Bangalore">Bangalore</option>
-                      <option value="Delhi">Delhi</option>
+                      <option value="Delhi">Delhi NCR</option>
                       <option value="Mumbai">Mumbai</option>
+                      <option value="Hyderabad">Hyderabad</option>
                       {/* Add more cities as needed */}
                     </select>
                     {cityError && <p className={`p-0 m-0 ${cityError ? "text-danger" : ""}`}>This field is required!</p>}
@@ -581,8 +582,9 @@ const pincodes =[
                         <select value={city} className=' rounded border border-1 p-1' onChange={handleCityChange}>
                           <option value="">Select City</option>
                           <option value="Bangalore">Bangalore</option>
-                          <option value="Delhi">Delhi</option>
+                          <option value="Delhi">Delhi NCR</option>
                           <option value="Mumbai">Mumbai</option>
+                          <option value="Hyderabad">Hyderabad</option>
                           {/* Add more cities as needed */}
                         </select>
                         {cityError && <p className={`p-0 m-0 ${cityError ? "text-danger" : ""}`}>This field is required!</p>}

@@ -357,3 +357,168 @@ img {
 .add-on-prices p {
     margin: 0;
 }
+
+/*  */
+.container {
+  padding: 20px;
+}
+
+.slider-container {
+  width: 100%;
+}
+
+
+.price-rating {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.price {
+  font-size: 18px;
+}
+
+.old-price {
+  text-decoration: line-through;
+  color: #888;
+}
+
+.rating {
+  font-size: 18px;
+}
+
+.view-more-container {
+  margin-left: 20px;
+}
+
+.view-more-button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.view-more-button:hover {
+  background-color: #0056b3;
+}
+
+
+.container {
+  padding: 20px;
+}
+
+.decorations-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.decoration-card {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  width: calc(25% - 20px);
+  text-align: center;
+  position: relative;
+}
+
+.decoration-card img {
+  width: 110%;
+  height: auto;
+}
+
+.decoration-card h2 {
+  font-size: 16px;
+  margin: 10px 0;
+}
+
+.price-rating {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px 10px;
+}
+
+.price {
+  font-size: 18px;
+  color: #333;
+}
+
+.old-price {
+  text-decoration: line-through;
+  color: #888;
+  margin-right: 10px;
+}
+
+.rating {
+  font-size: 14px;
+  color: #888;
+  display: flex;
+  align-items: center;
+}
+
+.view-more-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px; /* Move the button to the top by using margin-bottom */
+}
+
+.view-more-button {
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.view-more-button:hover {
+
+  background-color: rgb(157, 74, 147);
+}
+
+/* Styles for the existing part of the Decoration component */
+.decContainerSec {
+  display: flex;
+  flex-wrap: wrap; /* Allows images to wrap into new rows */
+  margin: 10px auto;
+  width: 100%;
+}
+
+.imageContainer {
+  cursor: pointer;
+  flex: 1 1 calc(18% - 10px); /* 5 images per row with gap adjustment */
+  /* margin: 5px; */
+  text-align: center;
+}
+
+.decCatimage {
+  width: 90%; /* Full width of the container */
+  height: 220px; /* Adjust as needed */
+  border-radius: 10px;
+  object-fit: fill; /* Ensure images cover the container */
+  transition: transform 0.2s;
+}
+
+/* Optional: Add hover effect */
+.imageContainer:hover .decCatimage {
+  transform: scale(1.1);
+}
+
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-container h1 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: bold;
+  margin-left: 10px;
+}
