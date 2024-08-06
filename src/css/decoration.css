@@ -28,22 +28,47 @@ align-items: center;
     height: 270px;
       border-radius: 10px;
       box-shadow: rgba(0, 0, 0, 0.18) 0px 1px 2px;
+      max-width: 300px;
   }
   li.addon-sec , p.addon-sec , .addon-sec{
     display: flex;
     justify-content: space-between;
     padding: 1px 0px 17px;
 }
+.add-on-prices li{
+  list-style: none;
+  display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+}
 ul.decoration-addons {
   border-top: 1px solid #bbb5b5;
   margin: 14px 0 0 !important;
   padding: 13px 0 0 !important;
+}
+.add-on-prices.mobile {
+  margin: 0;
+  padding: 0;
+}
+.add-on-prices.mobile label {
+  padding: 0;
+  margin: 0 0 9px 0;
+  font-size: 16px;
+}
+.add-on-prices.mobile li {
+  padding: 0;
+  margin: 0 0 10px 0;
+  font-size: 12px;
+  list-style: none;
+  display: flex;
+    justify-content: space-between;
 }
 
 @media (max-width:800px){
   .modal-card h3 {
     font-size: 11px !important;
     padding: 11px 0 0px !important;
+    min-height: 30px !important;
 }
 img.model-image {
   height: 120px !important;
@@ -51,6 +76,7 @@ img.model-image {
 .modal-card p {
   font-size: 12px !important;
   line-height: 16px !important;
+  min-height: 70px !important;
 }
   button.dec-continueButton{
     width: 100% !important;
@@ -278,7 +304,7 @@ img {
   .modal-card h3 {
     font-size: 14px;
     color: #222;
-    min-height: 50px;
+    min-height: 67px;
     padding:10px 0 0;
     margin:0;
   }
@@ -286,7 +312,7 @@ img {
   .modal-card p {
     font-size: 14px;
     color: #555;
-    min-height: 90px;
+    min-height: 120px;
     padding:10px 0 0;
     margin:0;
   }
@@ -328,11 +354,13 @@ img {
   
   .add-button,
   .quantity-button {
-    background-color: #800080;
+    background-color: green;
     color: #fff;
     border: none;
-    padding: 5px 10px;
-    border-radius: 5px;
+    padding: 0px 4px 2px;
+    border-radius: 0;
+    cursor: pointer;
+    display: inline-block;
     cursor: pointer;
   }
   

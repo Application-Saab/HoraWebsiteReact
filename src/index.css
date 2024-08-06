@@ -1267,6 +1267,7 @@ main.order-list .order-container {
     .checkoutRightImg {
       height: auto;
       border-radius: 10px;
+      width: 100%;
     }
     .decor-commemnts {
       font-size: 12px !important;

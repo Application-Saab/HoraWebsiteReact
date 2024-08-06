@@ -44,7 +44,7 @@ function Checkout() {
     subCategory,
     product,
     orderType,
-    catValue,
+    itemQuantities,
     totalAmount,
     selectedAddOnProduct,
   } = state || {}; // Use default empty object if state is undefined
@@ -414,7 +414,7 @@ const pincodes =[
                   <div style={{ display: "flex", justifyContent: "center", flexDirection: "column" }} className='checkoutInputType'>
                     <label style={{ color: "rgb(146, 82, 170)", fontSize: "14px", marigin: "16px 0 6px", fontWeight: 600 }}>Pin Code:</label>
                     <input
-                      type="text" className=' rounded border border-1 p-1'
+                      type="text" className=' rounded border border-1 p-1 m-0'
                       value={pinCode}
                       onChange={handlePinCodeChange}
                     />
@@ -458,13 +458,20 @@ const pincodes =[
         </div>
        
         <div className='add-on-prices'>
-            <label>Customisations</label>
+          
             <div>
             {selectedAddOnProduct.length > 0 && (
     <>
+      <label>Customisations</label>
       {selectedAddOnProduct.map((item, index) => (
         <li key={index}>
-          {item.title}: {item.price}
+          <div>
+          {item.title}
+          </div>
+          <div>
+          ₹ {item.price} x {itemQuantities[item.title]} = ₹ {item.price * itemQuantities[item.title]}
+
+          </div>
         </li>
       ))}
 
@@ -479,7 +486,7 @@ const pincodes =[
 
         <div className='detail-item'>
             <label>Advance Amount:</label>
-            <p>₹ {Math.round(product.price * 0.3)}</p>
+            <p>₹ {Math.round(totalAmount * 0.3)}</p>
         </div>
     </div>
 
@@ -529,12 +536,36 @@ const pincodes =[
                   <div className="rightSeccheckout" style={{ boxShadow: "0 1px 8px rgba(0,0,0,.18) ", padding: "20px", backgroundColor: "#fff", borderRadius: "20px" }} >
                     <div className='rightcheckoutsec'>
                       <div style={{ display: "flex", justifyContent: "space-between", flexDirection: "row", margin: "0 0 5px 0" }}>
-                        <label style={{ color: "rgb(146, 82, 170)", fontSize: "16px", marigin: "16px 0 6px", fontWeight: 700 }}>Total Amount:</label>
+                        <label style={{ color: "rgb(146, 82, 170)", fontSize: "16px", marigin: "16px 0 6px", fontWeight: 700 }}>Product Amount:</label>
                         <p style={{ margin: 0, windth: "100%", color: "rgb(146, 82, 170)", fontSize: "16px", fontWeight: 700 }}>₹  {product.price}</p>
                       </div>
-                      <div style={{ display: "flex", justifyContent: "space-between", flexDirection: "row", margin: "0 0 5px 0" }}>
+                      <div className='add-on-prices mobile'>
+          
+          <div>
+          {selectedAddOnProduct.length > 0 && (
+  <>
+    <label>Customisations</label>
+    {selectedAddOnProduct.map((item, index) => (
+      <li key={index}>
+        <div>{item.title}</div>
+        <div>
+                 ₹ {item.price} x {itemQuantities[item.title]} = ₹ {item.price * itemQuantities[item.title]}
+                 </div>
+      </li>
+    ))}
+ <div style={{ display: "flex", justifyContent: "space-between", flexDirection: "row", margin: "0" }}>
+                        <label style={{ color: "rgb(146, 82, 170)", fontSize: "16px", marigin: "16px 0 6px", fontWeight: 700 }}>Total Amount:</label>
+                        <p style={{ margin: 0, windth: "100%", color: "rgb(146, 82, 170)", fontSize: "16px", fontWeight: 700 }}>₹  {totalAmount}</p>
+                      </div>
+  </>
+)}
+          </div>
+        
+  
+      </div>
+                      <div style={{ display: "flex", justifyContent: "space-between", flexDirection: "row", margin: "0 0 10px 0" }}>
                         <label style={{ color: "rgb(146, 82, 170)", fontSize: "16px", marigin: "16px 0 6px", fontWeight: 700 }}>Advance Amount:</label>
-                        <p style={{ margin: 0, windth: "100%", color: "rgb(146, 82, 170)", fontSize: "16px", fontWeight: 700 }}>₹ {Math.round(product.price * 0.3)}</p>
+                        <p style={{ margin: 0, windth: "100%", color: "rgb(146, 82, 170)", fontSize: "16px", fontWeight: 700 }}>₹ {Math.round(totalAmount * 0.3)}</p>
                       </div>
                       <div style={{ display: "flex", padding: 7, flexDirection: 'row', borderRadius: 5, marginTop: 5, marginBottom: 10, backgroundColor: 'rgba(211, 75, 233, 0.10)', justifyContent: 'flex-start', alignItems: 'top' }}>
                         <div>
@@ -560,7 +591,7 @@ const pincodes =[
                       <div style={{ display: "flex", justifyContent: "center", flexDirection: "column" }} className='checkoutInputType'>
                         <label style={{ color: "rgb(146, 82, 170)", fontSize: "14px", marigin: "16px 0 6px", fontWeight: 600 }}>Pin Code:</label>
                         <input
-                          type="text" className=' rounded border border-1 p-1'
+                          type="text" className=' rounded border border-1 p-1 m-0'
                           value={pinCode}
                           onChange={handlePinCodeChange}
                         />
