@@ -34,7 +34,7 @@ const footerColumns = [
   {
     title: 'Chef in your city',
     links: [
-      { text: 'Delhi', to: '/delhi/chef-near-me' },
+      { text: 'Delhi NCR', to: '/delhi/chef-near-me' },
       { text: 'Gurugram', to: '/gurugram/chef-near-me' },
       { text: 'Ghaziabad', to: 'ghaziabad/chef-near-me' },
       { text: 'Faridabad', to: 'faridabad/chef-near-me' },
@@ -55,7 +55,7 @@ const footerColumns = [
   {
     title: 'Decorations in your city',
     links: [
-      { text: 'Delhi', to: '/delhi' },
+      { text: 'Delhi NCR', to: '/delhi' },
       { text: 'Gurugram', to: '/gurugram' },
       { text: 'Ghaziabad', to: '/ghaziabad' },
       { text: 'Faridabad', to: '/faridabad' },

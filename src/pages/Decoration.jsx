@@ -120,8 +120,8 @@ import BabyShowerImage from '../assets/baby-shower-dec-cat.jpeg';
 import WelcomebabyImage from '../assets/welcome_baby_dec.jpeg';
 import PremiumImage from '../assets/preminumdecor.jpeg';
 import BallonBImage from '../assets/Balloon-B-new.jpeg';
-import HaldiImage from '../assets/haldi_event_image.jpg';
-import MehendiImage from '../assets/mehendi_event_image.jpg';
+import HaldiImage from '../assets/HaldiImage.png';
+import MehendiImage from '../assets/MehendiImage.png';
 import { getDecorationOrganizationSchema } from '../utills/schema';
 import { setState } from '../actions/action';
 
@@ -212,7 +212,36 @@ const firstNightData = [
     },
   ];
 
+
+  const haldiAndMehndiData = [
+    {
+      image: 'https://horaservices.com/api/uploads/attachment-1722688345222.png',
+      title: 'Mehendi Decoration Green Look',
+      price: '₹16200',
+      rating: 4.6,
+    },
+    {
+      image: 'https://horaservices.com/api/uploads/attachment-1722692831708.png',
+      title: 'Haldi With Green Backdrop',
+      price: '₹9680',
+      rating: 4.5,
+    },
+    {
+      image: 'https://horaservices.com/api/uploads/attachment-1722935098782.png',
+      title: 'Mehendi Decoration Look',
+      price: '₹17200',
+      rating: 4.6,
+    },
+    {
+      image: 'https://horaservices.com/api/uploads/attachment-1722969484208.png',
+      title: 'Mehendi With Orange Theme',
+      price: '₹7000',
+      rating: 4.6,
+    },
+  ];
+
 function Decoration() {
+    
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const schemaOrg = getDecorationOrganizationSchema();
@@ -231,10 +260,10 @@ function Decoration() {
         { id: '8', image: PremiumImage, name: 'Premium Decoration', subCategory: "PremiumDecoration", catValue:"premium-decoration", imgAlt:"Birthday party decoration ideas for adults" },
         { id: '9', image: BallonBImage, name: 'Balloon Bouquets', subCategory: "BalloonBouquets", catValue:"balloon-bouquets-decoration", imgAlt:"Balloon Bouquet" },
 
-        {id: '10', image: HaldiImage, name: "Haldi Event", subCategory: "HaldiEvent", catValue: "haldi-event-decoration", imgAlt: "Haldi Event"},
+        {id: '10', image: HaldiImage, name: "Haldi Event", subCategory: "Haldi-Mehandi", catValue: "haldi-mehendi-decoration", imgAlt: "Haldi Event"},
         
         
-        // {id: '11', image: MehendiImage, name: "Mehendi Event", subCategory: "MehendiEvent", catValue: "mehendi-event-decoration", imgAlt: "Mehendi Event"},
+        {id: '11', image: MehendiImage, name: "Mehendi Event", subCategory: "Haldi-Mehandi", catValue: "haldi-mehendi-decoration", imgAlt: "Mehendi Event"},
    
         // { id: '10', image: BallonBImage, name: 'Car Boot', subCategory: "CarBoot" , catValue:"carboot-decoration"},
         // { id: '11', image: BachelorPartyImage, name: 'Bachelor Party', subCategory: "BachelorParty" , catValue:"bachelorparty-decoration"},
@@ -245,7 +274,8 @@ function Decoration() {
     ]);
 
     const [visibleItems, setVisibleItems] = useState(birthdayData.slice(0, 4));
-    const [visibleItems2, setVisibleItems2] = useState(firstNightData.slice(0, 4)); // New state for second slider
+    const [visibleItems2, setVisibleItems2] = useState(firstNightData.slice(0, 4)); 
+    const [visibleItems3, setVisibleItems3] = useState(haldiAndMehndiData.slice(0,4));
 
 
     const getCatData = async (subCategory) => {
@@ -268,10 +298,10 @@ function Decoration() {
         }
     };
 
-    const handleViewMore = () => {
-        const birthdayCategory = decCat.find(cat => cat.name === 'Birthday');
-        if (birthdayCategory) {
-            openCatItems(birthdayCategory);
+    const handleViewMore = (category) => {
+        const categoryItem = decCat.find(cat => cat.name === category);
+        if (categoryItem) {
+            openCatItems(categoryItem);
         }
     };
 
@@ -336,7 +366,7 @@ function Decoration() {
             <div className="header-container">
         <h1>Birthday Party Decorations</h1>
         <div className="view-more-container">
-            <button style={{backgroundColor: "rgb(157, 74, 147)"}} className="view-more-button" onClick={handleViewMore}>View More</button>
+            <button style={{backgroundColor: "rgb(157, 74, 147)"}} className="view-more-button" onClick={() => handleViewMore('Birthday')}>View More</button>
         </div>
     
         </div>
@@ -363,10 +393,40 @@ function Decoration() {
                 {/* Second Slider */}
                 <div className="header-container">
                     <h1>First Night Balloon Decoration</h1>
+                    <div className="view-more-container">
+            <button style={{backgroundColor: "rgb(157, 74, 147)"}} className="view-more-button" onClick={() => handleViewMore('First Night')}>View More</button>
+        </div>
                 </div>
                 <div className="slider-container">
                     <Slider {...sliderSettings}>
                         {visibleItems2.map((item, index) => (
+                            <div className="decoration-card" key={index}>
+                                <img style={{ width: "350px", height: "310px" }} src={item.image} alt={item.title} />
+                                <h2>{item.title}</h2>
+                                <div className="price-rating">
+                                    <div className="price">
+                                        {item.oldPrice && <span className="old-price">{item.oldPrice}</span>}
+                                        <span>{item.price}</span>
+                                    </div>
+                                    <div className="rating">
+                                        <FontAwesomeIcon icon={faThumbsUp} /> <span>{item.rating}</span> 
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </Slider>
+                </div>
+
+                 {/* Third Slider */}
+                 <div className="header-container">
+                    <h1>Haldi & Mehndi Decoration</h1>
+                    <div className="view-more-container">
+            <button style={{backgroundColor: "rgb(157, 74, 147)"}} className="view-more-button" onClick={() => handleViewMore('Haldi Event')}>View More</button>
+        </div>
+                </div>
+                <div className="slider-container">
+                    <Slider {...sliderSettings}>
+                        {visibleItems3.map((item, index) => (
                             <div className="decoration-card" key={index}>
                                 <img style={{ width: "350px", height: "310px" }} src={item.image} alt={item.title} />
                                 <h2>{item.title}</h2>
