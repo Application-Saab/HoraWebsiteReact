@@ -171,7 +171,17 @@ const pincodes =[
   "122002", "122003", "122006", "122008", "122009", "122010", "122011", "122015", "122016", "122017",
   "122018", "201009", "201001", "201002", "201003", "201004", "201005", "201006", "201007", "201008",
   "201010", "201011", "201012", "201013", "201014", "201015", "201016", "201017", "201018", "121002",
-  "121001", "121003", "121004", "121005", "121006", "121007", "121008", "121009", "121010", "122022", "560035"
+  "121001", "121003", "121004", "121005", "121006", "121007", "121008", "121009", "121010", "122022", "560035",
+
+"500030", "500004", "500045", "500007", "500012", "500015", "500044", "500013", "501201", "501301",
+ "500040", "500020", "500048", "500058", "500064", "500005", "500034", "500027", "500016", "500003",
+ "500018", "500080", "500039", "500022", "500024", "500081", "500008", "500028", "500006", "500060",
+ "500062", "500053", "500065", "500029", "500043", "500001", "500068", "500052", "500066", "500025",
+ "500051", "500035", "500002", "500076", "500082", "500031", "500079", "500085", "500033", "500077",
+ "500067", "500074", "500063", "500017", "500089", "500036", "500026", "500095", "500069", "500071",
+ "500041", "500023", "500059", "500038", "500046", "500061", "500073", "502032", "500070", "500057",
+ "501101", "502300", "500049", "500060", "501218", "501505", "500070", "500019", "500101", "501504",
+ "501815"
 ]
 
   const handleAddressChange = (e) => {
@@ -427,8 +437,9 @@ const pincodes =[
                     <select value={city} className=' rounded border border-1 p-1' onChange={handleCityChange}>
                       <option value="">Select City</option>
                       <option value="Bangalore">Bangalore</option>
-                      <option value="Delhi">Delhi</option>
+                      <option value="Delhi">Delhi NCR</option>
                       <option value="Mumbai">Mumbai</option>
+                      <option value="Hyderabad">Hyderabad</option>
                       {/* Add more cities as needed */}
                     </select>
                     {cityError && <p className={`p-0 m-0 ${cityError ? "text-danger" : ""}`}>This field is required!</p>}
@@ -604,8 +615,9 @@ const pincodes =[
                         <select value={city} className=' rounded border border-1 p-1' onChange={handleCityChange}>
                           <option value="">Select City</option>
                           <option value="Bangalore">Bangalore</option>
-                          <option value="Delhi">Delhi</option>
+                          <option value="Delhi">Delhi NCR</option>
                           <option value="Mumbai">Mumbai</option>
+                          <option value="Hyderabad">Hyderabad</option>
                           {/* Add more cities as needed */}
                         </select>
                         {cityError && <p className={`p-0 m-0 ${cityError ? "text-danger" : ""}`}>This field is required!</p>}

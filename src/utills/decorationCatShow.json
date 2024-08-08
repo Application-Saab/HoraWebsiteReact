@@ -1,0 +1,83 @@
+{
+    "decorationPageshowData": {
+    "birthdayData": [
+      {
+        "image": "https://horaservices.com/api/uploads/attachment-1705585951138.png",
+        "title": "Birthday Special Balloon Decoration",
+        "price": "₹1499",
+        "rating": 4.8
+      },
+      {
+        "image": "https://horaservices.com/api/uploads/attachment-1706464222384.png",
+        "title": "Pastel And Rosegold Birthday Decor",
+        "price": "₹2499",
+        "rating": 4.8
+      },
+      {
+        "image": "https://horaservices.com/api/uploads/attachment-1706520680774.png",
+        "title": "Glitzy Silver and Black Birthday Decor",
+        "price": "₹1999",
+        "rating": 4.6
+      },
+      {
+        "image": "https://horaservices.com/api/uploads/attachment-1706810405540.png",
+        "title": "Underwater Wonderland: Mermaid",
+        "price": "₹3999",
+        "rating": 4.7
+      }
+    ],
+    "firstNightData": [
+      {
+        "image": "https://horaservices.com/api/uploads/attachment-1705582807178.png",
+        "title": "Romantic Heart Balloon",
+        "price": "₹1429",
+        "rating": 4.5
+      },
+      {
+        "image": "https://horaservices.com/api/uploads/attachment-1706470026330.png",
+        "title": "Wedding Night Room Decoration",
+        "price": "₹1900",
+        "rating": 4.5
+      },
+      {
+        "image": "https://horaservices.com/api/uploads/attachment-1706470815566.png",
+        "title": "Wedding Night Decoration",
+        "price": "₹2250",
+        "rating": 4.5
+      },
+      {
+        "image": "https://horaservices.com/api/uploads/attachment-1711614540709.png",
+        "title": "Lightning With Heart Room Decor",
+        "price": "₹1450",
+        "rating": 4.3
+      }
+    ],
+    "haldiAndMehndiData": [
+      {
+        "image": "https://horaservices.com/api/uploads/attachment-1722688345222.png",
+        "title": "Mehendi Decoration Green Look",
+        "price": "₹16200",
+        "rating": 4.6
+      },
+      {
+        "image": "https://horaservices.com/api/uploads/attachment-1722692831708.png",
+        "title": "Haldi With Green Backdrop",
+        "price": "₹9680",
+        "rating": 4.5
+      },
+      {
+        "image": "https://horaservices.com/api/uploads/attachment-1722935098782.png",
+        "title": "Mehendi Decoration Look",
+        "price": "₹17200",
+        "rating": 4.6
+      },
+      {
+        "image": "https://horaservices.com/api/uploads/attachment-1722969484208.png",
+        "title": "Mehendi With Orange Theme",
+        "price": "₹7000",
+        "rating": 4.6
+      }
+    ]
+}
+  }
+  

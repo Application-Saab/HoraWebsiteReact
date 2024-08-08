@@ -1,4 +1,3 @@
-// src/utills/CustomPopup.js
 
 import React from 'react';
 import './Modal.css'; // Optional: If you want to add custom styles

@@ -127,7 +127,7 @@ function Home() {
                 <div style={styles.bgImg} className="bgImg">
                     <div style={styles.pageWidth}>
                         <div style={styles.textContainer} className="textContainerhome">
-                            <h1 style={{ fontSize: "40px", fontWeight: "500", margin: "0" }}>{"Simplifying and Enhancing celebrations."}</h1>
+                            <h1 style={{ color: "white", fontSize: "40px", fontWeight: "500", margin: "0" }}>{"Simplifying and Enhancing celebrations."}</h1>
                             <h2 style={{ fontSize: "72px", fontWeight: "900", margin: "0 0 10px", lineHeight: "77px", margin: "0px 0 10px", padding: "3px 14% 5px 14%" }}>{"ALL PARTY SERVICE ONE PLATFORM"}</h2>
                             {/* {showButton && (
                                 <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
