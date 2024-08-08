@@ -40,16 +40,17 @@ function Checkout() {
 
    // Destructure the state data
    const {
-    from,
-    subCategory,
-    product,
-    orderType,
-    itemQuantities,
-    totalAmount,
-    selectedAddOnProduct,
+      from, 
+      subCategory, 
+      product, 
+      totalAmount ,
+      orderType,
+      catValue ,
+      selectedAddOnProduct,
+      itemQuantities,
   } = state || {}; // Use default empty object if state is undefined
 
- 
+
   
   /// order.type is 2 for chef
   /// order.type is 1 for decoration

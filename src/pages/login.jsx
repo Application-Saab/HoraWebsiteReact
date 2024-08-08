@@ -25,6 +25,10 @@ function Login() {
   const subCategory = location.state && location.state.subCategory;
   const orderType = location.state && location.state.orderType;
   const product = location.state && location.state.product;
+  const selectedAddOnProduct = location.state && location.state.selectedAddOnProduct;
+  const itemQuantities = location.state && location.state.itemQuantities;
+  const totalAmount = location.state && location.state.totalAmount;
+  const catValue = location.state && location.state.catValue;
   const selectedDishDictionary = location.state && location.state.selectedDishDictionary;
   const selectedDishPrice = location.state && location.state.selectedDishPrice;
   const selectedDishes = location.state && location.state.selectedDishes;
@@ -40,7 +44,6 @@ function Login() {
   const navigate = useNavigate();
   const otpRefs = useRef([React.createRef(), React.createRef(), React.createRef(), React.createRef()]);
   const { time, isTimeUp, resetTimer } = useTimer(25);
-
   const handleMobileNumberChange = (e) => {
     const value = e.target.value.trim();
     setMobileNumber(value);
@@ -56,6 +59,7 @@ function Login() {
       setValidMobileNumber(true); // Update validMobileNumber state
     }
   }
+
 
   //when time is up set otpFail to true
   useEffect(() => {
@@ -98,8 +102,8 @@ function Login() {
 
         if (response.data.status === API_SUCCESS_CODE) {
           setPopupMessage({
-            image: require('../assets/logout.png').default,
-            title: "Login Successful",
+            image: require('../assets/login.png').default,
+            title: "Login Successfully",
             body: "You have been login successfully.",
             button: "OK"
           });
@@ -110,9 +114,10 @@ function Login() {
           localStorage.setItem("mobileNumber", mobileNumber);
           localStorage.setItem('token', response.data.token);
           localStorage.setItem('userID', response.data.data._id);
-          console.log("previousPage:", previousPage);
+          console.log("previousPage:", previousPage , catValue);
         
           if (previousPage) {
+
             if (previousPage.includes("/book-chef-cook-for-party")) {
               // alert("Navigating to /book-chef-checkout");
               navigate('/book-chef-checkout', {
@@ -126,10 +131,10 @@ function Login() {
                   selectedCount
                 }
               });
-            } else if (previousPage.startsWith('/balloon-decoration/anniversary-decoration/product')) {
-              // alert("Navigating to /checkout for anniversary decoration");
+            } else if (previousPage.startsWith(`/balloon-decoration/${catValue}/product`)) {
+              // alert("Navigating to /checkout" , selectedAddOnProduct);
               navigate('/checkout', {
-                state: { subCategory, product, orderType }
+                state: { subCategory, product, totalAmount , orderType, catValue , selectedAddOnProduct, itemQuantities }
               });
             } else if (previousPage.includes('/party-food-delivery-live-catering-buffet-select-date')) {
               // alert("Navigating to /party-food-delivery-live-catering-buffet-checkout");
@@ -150,6 +155,7 @@ function Login() {
               }); 
             } else {
              console.log("previous page not including")
+             navigate('/');
             }
           } else {
             // Handle the case where previousPage is null or undefined

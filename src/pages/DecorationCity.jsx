@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import { useParams } from "react-router-dom";
+import { useParams , useNavigate } from "react-router-dom";
 import service4Image from '../assets/live-buffet-service.png';
 import bannerSvgImage from '../assets/banner-home-bg.svg';
 import bannerDecorationImage from '../assets/decoration-home-banner.png';
@@ -845,7 +845,13 @@ function DecorationCity() {
         }
     };
     const location = useLocation();
+    const navigate = useNavigate();
     const { city } = useParams();
+    useEffect(() => {
+        if (city === 'index.html') {
+            navigate('/'); // Redirect to the home page
+        }
+    }, [city, navigate]);
     return (
         <div>
             <div style={styles.homebanner} className="homebanner">
