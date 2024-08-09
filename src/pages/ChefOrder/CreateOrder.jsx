@@ -236,8 +236,8 @@ const CreateOrder = ({ history, currentStep }) => {
       setWarningVisibleForCuisineCount(true);
       setPopupMessage({
         image: warningImage,
-        title: "One chef is only expert in 3 cuisine only.",
-        body: "Our chef is expert in cuisines only please select appropriate number of cuisines to continue",
+        title: "One chef can expertise in only 3 cuisines.",
+        body: "It's best to select maximum 3 cuisines for an order. This helps us to assign the best suitable chef for your order.",
         button: "Continue",
       });
     }
@@ -608,9 +608,11 @@ const CreateOrder = ({ history, currentStep }) => {
   return (
       <div className="chef-create-order">
       <div className="order-container chef">
-            <div style={{ flexDirection: 'row', backgroundColor: '#EFF0F3' , boxShadow:"0px 0px 6px 0px rgba(0, 0, 0, 0.23)" , display:"flex" ,justifyContent:"center" , alignItems:"center" , padding:"2px 0"}}>
+            <div style={{ flexDirection: 'row', backgroundColor: '#EFF0F3' , boxShadow:"0px 0px 6px 0px rgba(0, 0, 0, 0.23)" ,
+               display:"flex" ,justifyContent:"center" , alignItems:"center" , padding:"2px 0"}}>
               <img style={{width:"20px" , marginRight:"10px"}} src={require('../../assets/info.png')} />
-              <p style={{ color: '#676767', fontSize: "94%", fontWeight: '400', margin:"0" }} className='billheading'>Bill value depends upon Dish selected + Number of people</p>
+              <p style={{ color: '#676767', fontSize: "94%", fontWeight: '400', margin:"0" }} className='billheading'>
+                Bill value depends upon Dish selected + Number of people</p>
             </div>
       <div className="range-bar">
           <Step active className="step1">

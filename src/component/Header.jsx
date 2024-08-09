@@ -114,7 +114,7 @@ useEffect(() => {
   };
 
   return (
-      <header style={styles.headerContainer}>
+      <header style={styles.headerContainer} >
         <div className="pageWidth">
           <div style={styles.headerContainerinner} className="headerContainerinner">
             <div>

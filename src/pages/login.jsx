@@ -97,6 +97,7 @@ function Login() {
         console.log("OTP verification response:", response.data); // Add this log
 
         if (response.data.status === API_SUCCESS_CODE) {
+          console.log("Login successful, setting popup message");
           setPopupMessage({
             image: require('../assets/logout.png').default,
             title: "Login Successful",
@@ -104,13 +105,14 @@ function Login() {
             button: "OK"
           });
           setShowPopup(true); // Show the popup
-
+        
           setLoginMsg("Successfully logged in");
           localStorage.setItem('isLoggedIn', 'true');
           localStorage.setItem("mobileNumber", mobileNumber);
           localStorage.setItem('token', response.data.token);
           localStorage.setItem('userID', response.data.data._id);
           console.log("previousPage:", previousPage);
+              
         
           if (previousPage) {
             if (previousPage.includes("/book-chef-cook-for-party")) {
@@ -311,9 +313,9 @@ function Login() {
           <p>Welcome! You have successfully logged in.</p>
         </div>
 )}
-         {showPopup && (
-        <CustomPopup onClose={() => setShowPopup(false)} popupMessage={popupMessage} />
-      )}
+
+{showPopup && <CustomPopup popupMessage={popupMessage} onClose={() => setShowPopup(false)} />}
+
     </div>
     </>
   );
