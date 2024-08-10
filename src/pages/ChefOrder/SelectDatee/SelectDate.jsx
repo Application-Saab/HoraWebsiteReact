@@ -207,14 +207,16 @@ const SelectDate = ({ history, currentStep }) => {
       }
     `;
 
+    
+  const [showPopup, setShowPopup] = useState(false); 
+//   const [popupMessage, setPopupMessage] = useState({});
 
-    const [popupMessage, setPopupMessage] = useState({
-        image: "",
-        title: "",
-        body: "",
-        button: "",
-    });
-
+const [popupMessage, setPopupMessage] = useState({
+    image: "",
+    title: "",
+    body: "",
+    button: "",
+});
     const minPeopleCount = 1
     const maxPeopleCount = 35
     const step = 1;
@@ -224,9 +226,17 @@ const SelectDate = ({ history, currentStep }) => {
             setPeopleCount(peopleCount + 1);
             setDishPrice(dishPrice + 49);
         } else {
-            alert("Maxinum 35 people can be selcted.");
-        }
+
+            setPopupMessage({
+            image: require('../../../assets/logout.png').default, 
+            title: "Limit Reached",
+            body: "Maximum 35 people can be selected.",
+            button: "OK",
+        });
+        setShowPopup(true);
     }
+};
+
 
     const decreasePeopleCount = () => {
         if (peopleCount != 1) {
@@ -346,6 +356,7 @@ const getTotalSpecialAppliances = () => {
 
     const RenderAppliances = ({ item }) => {
     return (
+        
         <div style={{ height: '51px', paddingRight: '2px', alignItems: 'center', borderRadius: '5px', borderColor: '#DADADA', borderWidth: '0.5px', flexDirection: 'row', marginRight: '6px', marginBottom: '8px', display: 'flex', borderStyle: 'solid' }}>
             <div style={{ marginLeft: '5px', width: '40px', height: '40px', backgroundColor: '#F0F0F0', borderRadius: '3px', alignItems: 'center', justifyContent: 'center', marginRight: '5px', display: 'flex' }}>
                 <img src={`https://horaservices.com/api/uploads/${item.image}`} alt={item.name} style={{ width: '33px', height: '34px' }} />
@@ -411,11 +422,14 @@ const RenderIngredients = ({ item }) => {
                     alignItems: 'center', padding:"5%" , justifyContent: 'center', marginRight: 15 }} className='ingredientleftsec'>
                 <img src={`https://horaservices.com/api/uploads/${item.image}`} alt={item.name} style={{width:"100%" , height:"100%"}}/>
                 </div>
-                <div style={{ flexDirection: 'column', marginLeft: 1, width: 80 }} className='ingredientrightsec'>
-                    <div style={{ fontSize: "70%", fontWeight: '500', color: '#414141' }} className='ingredientrightsecheading'>{item.name}</div>
-                    <div style={{ fontSize: "140%", fontWeight: '700', color: '#9252AA' , textTransform:"lowerCase"}}
-                         className='ingredientrightsecsibheading'>{quantity.toFixed(1) + ' ' + unit}</div>
-                </div>
+                <div className='ingredientrightsec'>
+      <div className='ingredientrightsecheading'>
+        {item.name}
+      </div>
+      <div className='ingredientrightsecsibheading'>
+        {quantity + ' ' + unit}
+      </div>
+    </div>
             </div>
         );
     };
@@ -535,11 +549,14 @@ const RightTabContent = ({ ingredientList, preparationTextList, toggleShowAll, s
     
 
     return (
-
+<>
         <div style={{width:"90%" , margin:"0 auto" , backgroundColor:"#EDEDED", marginBottom: "10px"}} className='selectdatesecouter'>
-            <div style={{ flexDirection: 'row', backgroundColor: '#EFF0F3' , boxShadow:"0px 0px 6px 0px rgba(0, 0, 0, 0.23)" , display:"flex" ,justifyContent:"center" , alignItems:"center" , padding:"10px 0"}}>
-                <img style={{width:"20px" , marginRight:"10px"}} src={require('../../../assets/info.png')} />
-                <p style={{ color: '#676767', fontSize: "94%", fontWeight: '400', margin:"0" }} className='billheading'>Bill value depends upon Dish selected + Number of people</p>
+    
+<div style={{ flexDirection: 'row', backgroundColor: '#EFF0F3' , boxShadow:"0px 0px 6px 0px rgba(0, 0, 0, 0.23)" ,
+               display:"flex" ,justifyContent:"center" , alignItems:"center" , padding:"2px 0"}}>
+              <img style={{width:"20px" , marginRight:"10px"}} src={require('../../../assets/info.png')} />
+              <p style={{ color: '#676767', fontSize: "94%", fontWeight: '400', margin:"0" }} className='billheading'>
+                Bill value depends upon Dish selected + Number of people</p>
             </div>
 
             <Container className="range-bar">
@@ -712,6 +729,8 @@ const RightTabContent = ({ ingredientList, preparationTextList, toggleShowAll, s
             {isWarningVisibleForTotalAmount && (<Popup popupMessage={popupMessage} onClose={handleWarningClose}/>)}
 
 
+
+
               {/* <div>
                 <ReadinessListt />
             </div>
@@ -719,6 +738,16 @@ const RightTabContent = ({ ingredientList, preparationTextList, toggleShowAll, s
                 <CookingTimeIndicator time={3.5} />
             </div> */}
         </div>
+
+        {showPopup && (
+          <Popup
+          onClose={() => setShowPopup(false)}
+          popupMessage={popupMessage}
+        />
+        
+            )}
+
+        </>
     )
 }
 

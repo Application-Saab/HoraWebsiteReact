@@ -604,6 +604,64 @@ const CreateOrder = ({ history, currentStep }) => {
     return <SkeletonLoader loading={true} />;
   }
 
+  const Container = styled.div`
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: row;
+      overflow-x: auto;   
+      padding: 10px;      
+      width: 100%;        
+      white-space: nowrap; 
+
+      @media (max-width: 600px) {
+        padding: 5px;   
+      }
+    `;
+
+    const Step = styled.div`
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 0 10px;    // Adjust margin for spacing
+    `;
+
+    const Line = styled.div`
+      height: 2px;
+      width: 50px;      
+      background-color: #ccc;
+      margin: 0 4px;     
+      color: ${(props) => (props.active ? '#F46C5B' : 'black')};
+
+      @media (max-width: 600px) {
+        width: 30px;     
+      }
+    `;
+
+    const Image = styled.img`
+      width: 48px;       // Default size for mobile view
+      height: 48px;
+
+      ${(props) => props.active && `border: 2px solid #000;`};
+
+      @media (max-width: 600px) {
+      width: 32px;     
+      height: 32px;    
+    }
+    `;
+
+    const Label = styled.div`
+      margin-top: 5px;
+      text-align: center;
+      font-size: 14px;   // Default font size
+      color: ${(props) => (props.active ? '#F46C5B' : 'black')}; 
+      white-space: nowrap; 
+
+      @media (max-width: 600px) {
+        font-size: 10px; 
+      }
+    `;
+
 
   return (
       <div className="chef-create-order">
@@ -614,27 +672,23 @@ const CreateOrder = ({ history, currentStep }) => {
               <p style={{ color: '#676767', fontSize: "94%", fontWeight: '400', margin:"0" }} className='billheading'>
                 Bill value depends upon Dish selected + Number of people</p>
             </div>
-      <div className="range-bar">
-          <Step active className="step1">
-            <Image  src={SelectDishes} alt="Select Dishes" />
-            <Label active>Select Dishes</Label>
-          </Step>
-          <div  className="sep-image">
-          <Image src={separator}/>
-          </div>
-          <Step className="step2">
-            <Image src={SelectDateTime} alt = "Select Date & Time"/>
-            <Label>Select Date & Time</Label>
-          </Step>
-          <div  className="sep-image">
-          <Image src={separator}/>
-          </div>
-          <Step className="step3">
-            <Image src={SelectConfirmOrder} alt= "Confirm Order"/>
-            <Label>Select Confirm Order</Label>
-          </Step>
-      </div>
-       
+
+<Container className="range-bar">
+                <Step active>
+                    <Image  src={SelectDishes} alt="Select Dishes" />
+                    <Label active>Select Dishes</Label>
+                </Step>
+                <Line active/>
+                <Step>
+                    <Image src={SelectDateTime} alt = "Select Date & Time"/>
+                    <Label >Select Date & Time</Label>
+                </Step>
+                <Line />
+                <Step>
+                    <Image src={SelectConfirmOrder} alt= "Confirm Order"/>
+                    <Label>Select Confirm Order</Label>
+                </Step>
+            </Container>       
 
       </div>
         <div className="order-container chef-bottum">
@@ -683,7 +737,7 @@ const CreateOrder = ({ history, currentStep }) => {
               </div>
             </Row>
             <div className="chef-divider"></div>
-            <Row className="mt-1">
+            {/* <Row className="mt-1">
               <Col>
                 {selectedCuisines.length > 0 && (
                   <ListGroup className="dish-list">
@@ -697,7 +751,22 @@ const CreateOrder = ({ history, currentStep }) => {
                   </ListGroup>
                 )}
               </Col>
-            </Row>
+            </Row> */}
+
+<Row className="grid-row">
+  <Col>
+    {selectedCuisines.length > 0 && (
+      <ListGroup className="grid-list-group">
+        {mealList.map((meal) => (
+          <ListGroupItem key={meal._id} className="dish-item">
+            {renderDishItem({ item: meal })}
+          </ListGroupItem>
+        ))}
+      </ListGroup>
+    )}
+  </Col>
+</Row>
+
 
             <Row>
                 <Col>

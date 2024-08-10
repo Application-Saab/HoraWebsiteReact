@@ -7,7 +7,7 @@
     overflow-y: scroll;
 }
 .range-bar {
-    display: none !important;
+    display: flex !important;
     justify-content: center;
     align-items: center;
     padding: 14px 0 0;
@@ -214,3 +214,66 @@ margin: 0;
 }
 
 
+
+.ingredientrightsec {
+    display: flex;
+    flex-direction: column;
+    margin-left: 1%;
+    width: 90%;
+  }
+  
+  .ingredientrightsecheading {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #414141;
+    margin-bottom: 0.5rem;
+  }
+  
+  .ingredientrightsecsibheading {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #9252AA;
+    text-transform: lowercase;
+  }
+  
+  @media (max-width: 600px) {
+    .ingredientrightsec {
+      width: 95%;
+      margin-left: 0;
+    }
+    .ingredientrightsecheading {
+      font-size: 0.6rem;
+    }
+    .ingredientrightsecsibheading {
+      font-size: 1.5rem; /* Larger than item.name */
+    }
+  }
+  
+
+  
+  /* Remove margin or padding between the rows */
+.dish-list {
+    margin-bottom: 0;
+}
+
+.dish-item {
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+/* Ensure the parent row doesn't have extra margin */
+.row, .mt-1 {
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+/* Add custom CSS for ListGroup or Row */
+.gird-row {
+    margin-bottom: 0; /* Ensure no space after the row */
+    padding-bottom: 0; /* Ensure no space inside the row */
+}
+
+.gird-list-group {
+    margin-bottom: 0;
+    padding-bottom: 0;
+}

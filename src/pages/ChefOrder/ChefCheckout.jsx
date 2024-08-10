@@ -50,14 +50,14 @@ function ChefCheckout() {
       display: flex;
       justify-content: center;
       align-items: center;
-      flex-direction: row; // Align items horizontally
-      overflow-x: auto;    // Enable horizontal scrolling if needed
-      padding: 10px;      // Adjust padding for mobile view
-      width: 100%;        // Ensure it takes up the full width of the parent
-      white-space: nowrap; // Prevent labels from wrapping to the next line
+      flex-direction: row; 
+      overflow-x: auto;    
+      padding: 10px;      
+      width: 100%;        
+      white-space: nowrap; 
 
       @media (max-width: 600px) {
-        padding: 5px;    // Reduce padding on smaller screens
+        padding: 5px;    
       }
     `;
 
@@ -433,11 +433,39 @@ const pincodes =[
 
   return (
     <div className="App">
+       <div style={{ flexDirection: 'row', backgroundColor: '#EFF0F3' , boxShadow:"0px 0px 6px 0px rgba(0, 0, 0, 0.23)" ,
+               display:"flex" ,justifyContent:"center" , alignItems:"center" , padding:"2px 0", marginBottom: "1px"}}>
+              <img style={{width:"20px" , marginRight:"10px"}} src={require('../../assets/info.png')} />
+              <p style={{ color: '#676767', fontSize: "94%", fontWeight: '400', margin:"0" }} className='billheading'>
+                Bill value depends upon Dish selected + Number of people</p>
+            </div>
+
       {
         window.innerWidth > 800 ?
           <div style={{ padding: "1% 2%", backgroundColor: "#edededc9" }}>
+
+            
+
+<Container className="range-bar">
+                <Step active>
+                    <Image  src={SelectDishes} alt="Select Dishes" />
+                    <Label active>Select Dishes</Label>
+                </Step>
+                <Line active/>
+                <Step>
+                    <Image src={SelectDateTime} alt = "Select Date & Time"/>
+                    <Label active>Select Date & Time</Label>
+                </Step>
+                <Line />
+                <Step>
+                    <Image src={SelectConfirmOrder} alt= "Confirm Order"/>
+                    <Label active>Select Confirm Order</Label>
+                </Step>
+            </Container>
+
             <div style={{ display: "flex", alignItems: "start", margin: "0 !important", padding: "10px 0" }}
                  className='checoutSec my-3 gap-3'>
+                
               <div style={{ width: "40%", boxShadow: "0 1px 8px rgba(0,0,0,.18)", padding: "20px", backgroundColor: "#fff",
                 borderRadius: "20px" }} className='leftSeccheckout'>
                 <h2 style={{ fontSize: "22px", fontWeight: "400", color: "#222", borderBottom: "1px solid #f0f0f0",

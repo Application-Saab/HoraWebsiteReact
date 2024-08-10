@@ -31,8 +31,8 @@ function Header() {
   };
   const drawerRef = useRef(null);
 
-  const [showPopup, setShowPopup] = useState(false); // State for controlling popup visibility
-  const [popupMessage, setPopupMessage] = useState({}); // State for popup message
+  const [showPopup, setShowPopup] = useState(false); 
+  const [popupMessage, setPopupMessage] = useState({});
 
 
   useEffect(() => {
@@ -229,7 +229,7 @@ useEffect(() => {
           </div>
         </div>
         {showDrawer && <Drawer closeDrawer={toggleDrawer} drawerRef={drawerRef} handleLogout={handleLogout} />}
-        {showPopup && <Popup onClose={() => setShowPopup(false)} popupMessage={popupMessage} />} {/* Render the Popup */}
+        {showPopup && <Popup onClose={() => setShowPopup(false)} popupMessage={popupMessage} />} 
       </header>
   );
 }

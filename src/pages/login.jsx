@@ -5,9 +5,8 @@ import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import { Col, Form, Row } from "react-bootstrap";
 import { useTimer } from "../utills/useTimer";
-// import Popup from "../utills/popup";
+import Popup from "../utills/popup";
 
-import CustomPopup from "../testing/CustomPopup";
 
 function Login() {
   const [mobileNumber, setMobileNumber] = useState('');
@@ -314,7 +313,7 @@ function Login() {
         </div>
 )}
 
-{showPopup && <CustomPopup popupMessage={popupMessage} onClose={() => setShowPopup(false)} />}
+{showPopup && <Popup popupMessage={popupMessage} onClose={() => setShowPopup(false)} />}
 
     </div>
     </>
