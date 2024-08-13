@@ -5,8 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import { Col, Form, Row } from "react-bootstrap";
 import { useTimer } from "../utills/useTimer";
-// import Popup from "../utills/popup";
-
+//import Popup from "../utills/popup";
 import CustomPopup from "../testing/CustomPopup";
 
 function Login() {
@@ -109,7 +108,7 @@ function Login() {
           });
           setShowPopup(true); // Show the popup
 
-          setLoginMsg("Successfully logged in");
+         //  setLoginMsg("Successfully logged in");
           localStorage.setItem('isLoggedIn', 'true');
           localStorage.setItem("mobileNumber", mobileNumber);
           localStorage.setItem('token', response.data.token);
