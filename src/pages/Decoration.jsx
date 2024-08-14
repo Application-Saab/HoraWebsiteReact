@@ -371,7 +371,7 @@ function Decoration() {
     
         </div>
                 <div className="slider-container">
-                    <Slider {...sliderSettings}>
+                    <Slider {...sliderSettings} style={{ margin: '0 -10px' }}>
                         {visibleItems.map((item, index) => (
                             <div className="decoration-card" key={index}>
                                 <img style={{ width: "350px", height: "310px" }} src={item.image} alt={item.title} />

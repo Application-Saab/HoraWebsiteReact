@@ -458,11 +458,13 @@ img {
   width: calc(25% - 20px);
   text-align: center;
   position: relative;
+  margin: 0 10px;
 }
 
 .decoration-card img {
   width: 100%;
   height: auto;
+  margin: 0 10px;
 }
 
 .decoration-card h2 {
@@ -544,6 +546,7 @@ img {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 4;
 }
 
 .header-container h1 {
@@ -597,10 +600,12 @@ img {
   .slider-container img {
     width: 100%;
     height: auto;
+    margin-left: 10px;
   }
 
   .decoration-card {
     width: calc(50% - 10px); /* Two cards per row */
+    margin: 0 10px;
   }
 
   .price-rating {
@@ -628,6 +633,7 @@ img {
 
   .decoration-card {
     width: 100%; /* Full width for mobile */
+    
   }
 
   .price-rating {

@@ -26,6 +26,9 @@ import ChefCheckout from './pages/ChefOrder/ChefCheckout.jsx';
 import SelectDate from './pages/ChefOrder/SelectDatee/SelectDate.jsx';
 import CustomersReviews from './pages/Reviews/CustomersReviews.js';
 
+import Testing from '../src/testing/testing.js';
+import Navbar from '../src/testing/Navbar.js';
+
 
 // const ChefCitypage = lazy(() => import('./pages/ChefCitypage.jsx'));
 // const CreateOrder = lazy(() => import('./pages/ChefOrder/CreateOrder'));
@@ -37,6 +40,11 @@ function App() {
   return (
 
     <Router>
+{/* 
+<div className="App">
+      <Navbar />
+      <PartyServices />
+    </div> */}
 
       <div className="App">
         <Header />
@@ -76,6 +84,7 @@ function App() {
           <Route path="/order-details" element={<OrderDetail/>}/>
           {/* reviews */}
           <Route path="/reviews" element={<CustomersReviews/>}/>
+          <Route path="/testing" element={<Testing/>}/>
         </Routes>
       </div>
       <div>

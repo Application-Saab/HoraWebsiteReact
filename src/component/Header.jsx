@@ -164,6 +164,9 @@ useEffect(() => {
                   <Link to="/reviews" style={styles.link}>Customer Reviews</Link>
                 </li>
                 <li style={styles.desktopMenuli}>
+                  <Link to="/testing" style={styles.link}>Testing </Link>
+                </li>
+                <li style={styles.desktopMenuli}>
 
                   <div style={styles.rightSection}>
                     {localStorage.getItem("isLoggedIn") === "true" ? (
@@ -389,6 +392,9 @@ const Drawer = ({ closeDrawer, drawerRef, handleLogout }) => {
       </Link>
       <Link to="/reviews" style={style.drawerLink} onClick={closeDrawer}>
        Happy Customers
+      </Link>
+      <Link to="/testing" style={style.drawerLink} onClick={closeDrawer}>
+       Testing
       </Link>
       <Link to="/aboutus" style={style.drawerLink} onClick={closeDrawer}>
         About Us
